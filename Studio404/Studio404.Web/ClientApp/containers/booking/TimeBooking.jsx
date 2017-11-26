@@ -12,7 +12,6 @@ class TimeBooking extends Component {
         super(props);
         this.updateHours = this.updateHours.bind(this);
         this.sendBooking = this.sendBooking.bind(this);
-        this.closeMessage = this.closeMessage.bind(this);
         this.getDayHours = this.getDayHours.bind(this);
         
         this.bookingInfo = {date: this.props.date, userId: 0};
@@ -34,10 +33,6 @@ class TimeBooking extends Component {
                     messageText: "Booking successfully made"
                 })
             });
-    }
-
-    closeMessage() {
-        this.setState({showMessage: false});
     }
 
     getDayHours() {
@@ -70,8 +65,7 @@ class TimeBooking extends Component {
                 </Row>
                 <Message
                     open={this.state.showMessage}
-                    text={this.state.messageText}
-                    close={this.closeMessage} />
+                    text={this.state.messageText} />
             </div>
         );
     }

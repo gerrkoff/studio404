@@ -57,3 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
+Studio404/.idea
+Studio404/Studio404.Web/obj

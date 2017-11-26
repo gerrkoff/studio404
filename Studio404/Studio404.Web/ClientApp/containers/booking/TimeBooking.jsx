@@ -60,7 +60,7 @@ class TimeBooking extends Component {
                 </Row>
                 <Row>
                     <Col md="12">
-                        <HourSelector dayHours={this.getDayHours()} updateHours={this.updateHours}/>
+                        <HourSelector dayHours={this.getDayHours()} updateHours={this.updateHours} date={this.props.date}/>
                     </Col>
                 </Row>
                 <Row>

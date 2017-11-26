@@ -9,9 +9,12 @@ export default class HourSelector extends Component {
         this.selectionRenderer = this.selectionRenderer.bind(this);
         this.menuItems = this.menuItems.bind(this);
 
-        this.state = {
-            values: [],
-        };
+        this.state = {values: []};
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.date !== this.props.date)
+            this.setState({values: []});
     }
 
     handleChange (event, index, values) {

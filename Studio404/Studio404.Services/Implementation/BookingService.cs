@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Studio404.Dal.Entity;
+using Studio404.Dal.Repository;
 using Studio404.Dto.Booking;
 using Studio404.Services.Interface;
 
@@ -7,68 +10,74 @@ namespace Studio404.Services.Implementation
 {
     public class BookingService : IBookingService
     {
+        private readonly IRepository<BookingEntity> _bookingRepository;
+        public BookingService()
+        {
+            _bookingRepository = new Repository<BookingEntity>(new List<BookingEntity>
+            {
+                new BookingEntity{Date = DateTime.Today, From = 12, To = 15},
+                new BookingEntity{Date = DateTime.Today, From = 10, To = 11},
+                new BookingEntity{Date = DateTime.Today, From = 18, To = 19},
+                new BookingEntity{Date = DateTime.Today.AddDays(1), From = 10, To = 13},
+                new BookingEntity{Date = DateTime.Today.AddDays(1), From = 16, To = 18},
+                new BookingEntity{Date = DateTime.Today.AddDays(2), From = 10, To = 20},
+                new BookingEntity{Date = DateTime.Today.AddDays(2), From = 20, To = 22},
+                new BookingEntity{Date = DateTime.Today.AddDays(-1), From = 15, To = 17},
+                new BookingEntity{Date = DateTime.Today.AddDays(-1), From = 20, To = 22}
+            });
+        }
+        
         public IEnumerable<DayWorkloadDto> GetWeekWorkload(DateTime weekStartDate)
         {
-            var list = new List<DayWorkloadDto>
+            // TODO: get start & end from studio record
+            const int scheduleStart = 10;
+            const int scheduleEnd = 23;
+            weekStartDate = weekStartDate.Date;
+            DateTime weekEndDate = weekStartDate.AddDays(6);
+            
+            var bookings = _bookingRepository.GetAll()
+                .Where(x => x.Date >= weekStartDate && x.Date <= weekEndDate)
+                .Select(x => new {x.Date, x.From, x.To})
+                .ToList();
+            
+            var list = new List<DayWorkloadDto>();
+            for (DateTime i = weekStartDate; i <= weekEndDate; i = i.AddDays(1))
             {
-                new DayWorkloadDto
+                var dayWorkload = new DayWorkloadDto
                 {
-                    Date = weekStartDate,
-                    FreeHours = new[] {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22}
-                },
-                new DayWorkloadDto
-                {
-                    Date = weekStartDate.AddDays(1),
-                    FreeHours = new[] {10, 11, 12, 13, 14, 15, 16, 17, 20, 21, 22}
-                },
-                new DayWorkloadDto
-                {
-                    Date = weekStartDate.AddDays(2),
-                    FreeHours = new[] {10, 13, 17, 20, 21, 22}
-                },
-                new DayWorkloadDto
-                {
-                    Date = weekStartDate.AddDays(3),
-                    FreeHours = new[] {11, 12, 15, 16, 17, 19, 21, 22}
-                },
-                new DayWorkloadDto
-                {
-                    Date = weekStartDate.AddDays(4),
-                    FreeHours = new[] {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22}
-                },
-                new DayWorkloadDto
-                {
-                    Date = weekStartDate.AddDays(5),
-                    FreeHours = new[] {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22}
-                },
-                new DayWorkloadDto
-                {
-                    Date = weekStartDate.AddDays(6),
-                    FreeHours = new[] {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22}
-                }
-            };
-
+                    Date = i,
+                    FreeHours = Enumerable
+                        .Range(scheduleStart, scheduleEnd - scheduleStart + 1)
+                        .Where(x => bookings
+                            .Where(y => y.Date == i)
+                            .All(y => x < y.From || x > y.To))
+                        .ToArray()
+                };
+                list.Add(dayWorkload);
+            }
             return list;
         }
 
         public IEnumerable<DayHourDto> GetDayWorkload(DateTime date)
         {
-            var list = new List<DayHourDto>
-            {
-                new DayHourDto {Hour = 10, Available = true},
-                new DayHourDto {Hour = 11, Available = true},
-                new DayHourDto {Hour = 12, Available = true},
-                new DayHourDto {Hour = 13, Available = true},
-                new DayHourDto {Hour = 14},
-                new DayHourDto {Hour = 15},
-                new DayHourDto {Hour = 16, Available = true},
-                new DayHourDto {Hour = 17, Available = true},
-                new DayHourDto {Hour = 18, Available = true},
-                new DayHourDto {Hour = 19},
-                new DayHourDto {Hour = 20},
-                new DayHourDto {Hour = 21, Available = true},
-                new DayHourDto {Hour = 22, Available = true}
-            };
+            // TODO: get start & end from studio record
+            const int scheduleStart = 10;
+            const int scheduleEnd = 23;
+            date = date.Date;
+            
+            var bookings = _bookingRepository.GetAll()
+                .Where(x => x.Date == date)
+                .Select(x => new {x.From, x.To})
+                .ToList();
+
+            List<DayHourDto> list = Enumerable
+                .Range(scheduleStart, scheduleEnd - scheduleStart + 1)
+                .Select(x => new DayHourDto
+                {
+                    Hour = x,
+                    Available = bookings.All(y => x < y.From || x > y.To)
+                })
+                .ToList();
             return list;
         }
 

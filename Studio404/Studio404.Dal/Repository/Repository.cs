@@ -1,15 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Studio404.Dal.Entity.Base;
 
 namespace Studio404.Dal.Repository
 {
-    class Repository<T> : IRepository<T> where T : IEntity
+    public class Repository<T> : IRepository<T> where T : IEntity
     {
+        private readonly IList<T> _list; 
+        public Repository(IList<T> list)
+        {
+            _list = list;
+        }
+        
         public IQueryable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _list.AsQueryable();
         }
 
         public void Save(T entity)

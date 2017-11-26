@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Studio404.Dto\Studio404.Dto.csproj">
+      <Project>{0E718F2F-05FC-4ADC-B601-122C7043D10F}</Project>
+      <Name>Studio404.Dto</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

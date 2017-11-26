@@ -59,3 +59,8 @@ typings/
 
 Studio404/.idea
 Studio404/Studio404.Web/obj
+Studio404/Studio404.Dto/bin
+Studio404/Studio404.Dto/obj
+Studio404/Studio404.Services/bin
+Studio404/Studio404.Services/obj
+Studio404/Studio404.Web/bin

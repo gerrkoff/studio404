@@ -61,12 +61,7 @@ class Booking extends Component {
     }
 
     chooseDay(date) {
-        BookingService.GetDayWorkload(date)
-            .done(data => 
-                this.setState({
-                    chosenDate: date,
-                    dayWorkload: data
-                }));
+        this.setState({chosenDate: date});
     }
 
     render() {
@@ -81,7 +76,7 @@ class Booking extends Component {
                                 chooseDay={this.chooseDay}/>
                 </Row>
                 <Row>
-                    {this.state.chosenDate && <TimeBooking date={this.state.chosenDate} dayWorkload={this.state.dayWorkload}/>}
+                    {this.state.chosenDate && <TimeBooking date={this.state.chosenDate} />}
                 </Row>
             </div>
         );

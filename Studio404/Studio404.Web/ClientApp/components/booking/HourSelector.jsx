@@ -33,6 +33,7 @@ export default class HourSelector extends Component {
     }
 
     menuItems(dayHours) {
+        dayHours = dayHours ? dayHours : [];
         return dayHours.map((dayHour) => (
             <MenuItem
                 key={dayHour.value}
@@ -51,7 +52,8 @@ export default class HourSelector extends Component {
                 hintText="Select a hours"
                 value={this.state.values}
                 onChange={this.handleChange}
-                selectionRenderer={this.selectionRenderer}>
+                selectionRenderer={this.selectionRenderer}
+                disabled={!this.props.dayHours}>
             
                 {this.menuItems(this.props.dayHours)}
             </SelectField>

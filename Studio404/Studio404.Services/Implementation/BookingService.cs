@@ -63,6 +63,8 @@ namespace Studio404.Services.Implementation
 
         public IEnumerable<DayHourDto> GetDayWorkload(DateTime date)
         {
+            Thread.Sleep(3000);
+            
             // TODO: get start & end from studio record
             const int scheduleStart = 10;
             const int scheduleEnd = 23;

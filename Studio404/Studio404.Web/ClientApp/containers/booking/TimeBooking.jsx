@@ -6,6 +6,7 @@ import BookingService from "../../modules/BookingService";
 import DateService from "../../modules/DateService";
 import HourSelector from "../../components/booking/HourSelector";
 import Message from "../../components/root/Message";
+import Loader from "../../components/root/Loader";
 
 class TimeBooking extends Component {
     constructor(props) {
@@ -15,6 +16,15 @@ class TimeBooking extends Component {
         this.getDayHours = this.getDayHours.bind(this);
         
         this.bookingInfo = {date: this.props.date, userId: 0};
+        this.state = {dayHours: null};
+        this.getDayHours(this.props.date);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.date !== this.props.date) {
+            this.setState({dayHours: null});
+            this.getDayHours(nextProps.date);
+        }
     }
 
     updateHours(hours) {
@@ -28,14 +38,18 @@ class TimeBooking extends Component {
             });
     }
 
-    getDayHours() {
-        return this.props.dayWorkload.map(x => {
-            return {
-                value: x.hour,
-                title: DateService.convertHourToLabel(x.hour),
-                disabled: !x.available
-            };
-        });
+    getDayHours(date) {
+        BookingService.GetDayWorkload(date)
+            .done(data => {
+                let dayHours = data.map(x => {
+                    return {
+                        value: x.hour,
+                        title: DateService.convertHourToLabel(x.hour),
+                        disabled: !x.available
+                    };
+                });
+                this.setState({dayHours: dayHours});
+            });
     }
 
     render() {
@@ -48,7 +62,8 @@ class TimeBooking extends Component {
                 </Row>
                 <Row>
                     <Col md="12">
-                        <HourSelector dayHours={this.getDayHours()} updateHours={this.updateHours} date={this.props.date}/>
+                        <HourSelector dayHours={this.state.dayHours} updateHours={this.updateHours} date={this.props.date}/>
+                        {!this.state.dayHours && <Loader/>}
                     </Col>
                 </Row>
                 <Row>

@@ -10,8 +10,8 @@ using System;
 namespace Studio404.Dal.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20171127211411_N000_Initial")]
-    partial class N000_Initial
+    [Migration("20171127213549_N000_Init")]
+    partial class N000_Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

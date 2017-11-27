@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using Studio404.Dto.Booking;
@@ -29,6 +30,8 @@ namespace Studio404.Services.Implementation
         
         public IEnumerable<DayWorkloadDto> GetWeekWorkload(DateTime weekStartDate)
         {
+            Thread.Sleep(3000);
+            
             // TODO: get start & end from studio record
             const int scheduleStart = 10;
             const int scheduleEnd = 23;

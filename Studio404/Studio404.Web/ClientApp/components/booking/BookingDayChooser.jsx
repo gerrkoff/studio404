@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import FlatButton from 'material-ui/FlatButton';
 import WeekWorkload from "./WeekWorkload";
+import Loader from "../root/Loader";
 
 class BookingDayChooser extends Component {
     render() {
@@ -16,7 +17,10 @@ class BookingDayChooser extends Component {
                 </Row>
                 <Row>
                     <Col md="12">
-                        <WeekWorkload workload={this.props.weekWorkload} chooseDay={this.props.chooseDay} />
+                        {this.props.weekWorkload
+                            ? <WeekWorkload workload={this.props.weekWorkload} chooseDay={this.props.chooseDay} />
+                            : <Loader />
+                        }
                     </Col>
                 </Row>
             </div>

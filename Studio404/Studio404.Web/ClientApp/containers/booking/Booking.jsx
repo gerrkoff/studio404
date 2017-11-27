@@ -16,13 +16,14 @@ class Booking extends Component {
         this.changeWeekStartDate = this.changeWeekStartDate.bind(this);
         
         let monday = DateService.getMonday(new Date());
-        this.getWeekWorkload(monday);
         this.state = {
             weekStartDate: monday,
             chosenDate: null,
-            weekWorkload: [],
+            weekWorkload: null,
             dayWorkload: []
         };
+
+        this.getWeekWorkload(monday);
     }
 
     getWeekWorkload(weekStartDate) {
@@ -49,7 +50,7 @@ class Booking extends Component {
 
     changeWeekStartDate(days) {
         let newWeekStartDate = DateService.addDaysToDate(this.state.weekStartDate, days);
-        this.setState({weekStartDate: newWeekStartDate});
+        this.setState({weekStartDate: newWeekStartDate, weekWorkload: null});
         this.getWeekWorkload(newWeekStartDate);
     }
 

@@ -49,11 +49,11 @@ export default class HourSelector extends Component {
         return (
             <SelectField
                 multiple={true}
-                hintText="Select a hours"
                 value={this.state.values}
                 onChange={this.handleChange}
                 selectionRenderer={this.selectionRenderer}
-                disabled={!this.props.dayHours}>
+                disabled={!this.props.dayHours}
+                floatingLabelText="Select hours">
             
                 {this.menuItems(this.props.dayHours)}
             </SelectField>

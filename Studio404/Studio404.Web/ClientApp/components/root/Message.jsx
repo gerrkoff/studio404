@@ -5,25 +5,34 @@ class Message extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {open: this.props.open};
+        this.close = this.close.bind(this);
+        this.state = {
+            open: false,
+            text: ""
+        };
     }
     
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.open)
-            this.setState({open: true});
+    show(text) {
+        this.setState({
+            open: true,
+            text: text
+        });
     }
 
     close() {
-        this.setState({open: false});
+        this.setState({
+            open: false,
+            text: ""
+        });
     }
 
     render() {
         return (
             <Snackbar
                 open={this.state.open}
-                message={this.props.text}
+                message={this.state.text}
                 autoHideDuration={4000}
-                onRequestClose={this.state.close} />
+                onRequestClose={this.close} />
         );
     }
 }

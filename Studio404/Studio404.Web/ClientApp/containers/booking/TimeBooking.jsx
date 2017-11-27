@@ -15,10 +15,6 @@ class TimeBooking extends Component {
         this.getDayHours = this.getDayHours.bind(this);
         
         this.bookingInfo = {date: this.props.date, userId: 0};
-        this.state = {
-            showMessage: false,
-            messageText: ""
-        };
     }
 
     updateHours(hours) {
@@ -28,10 +24,7 @@ class TimeBooking extends Component {
     sendBooking() {
         BookingService.MakeBooking(this.bookingInfo.date, this.bookingInfo.hours, this.bookingInfo.userId)
             .done(() => {
-                this.setState({
-                    showMessage: true,
-                    messageText: "Booking successfully made"
-                })
+                this.message.show("Booking successfully added");
             });
     }
 
@@ -63,9 +56,7 @@ class TimeBooking extends Component {
                         <RaisedButton label="Book" primary={true} onClick={this.sendBooking} />
                     </Col>
                 </Row>
-                <Message
-                    open={this.state.showMessage}
-                    text={this.state.messageText} />
+                <Message ref={x => {this.message = x;}} />
             </div>
         );
     }

@@ -4,6 +4,7 @@ import BookingService from "../../modules/BookingService";
 import DateService from "../../modules/DateService";
 import TimeBooking from "./TimeBooking";
 import BookingDayChooser from "../../components/booking/BookingDayChooser";
+import Message from "../../components/root/Message";
 
 class Booking extends Component {
 
@@ -14,6 +15,7 @@ class Booking extends Component {
         this.getWeekWorkload = this.getWeekWorkload.bind(this);
         this.chooseDay = this.chooseDay.bind(this);
         this.changeWeekStartDate = this.changeWeekStartDate.bind(this);
+        this.bookingAdded = this.bookingAdded.bind(this);
         
         let monday = DateService.getMonday(new Date());
         this.state = {
@@ -64,6 +66,12 @@ class Booking extends Component {
         this.setState({chosenDate: date});
     }
 
+    bookingAdded() {
+        this.message.show("Booking successfully added");
+        this.setState({ chosenDate: null, weekWorkload: null });
+        this.getWeekWorkload(this.state.weekStartDate);
+    }
+
     render() {
         return (
             <div>
@@ -76,8 +84,9 @@ class Booking extends Component {
                                 chooseDay={this.chooseDay}/>
                 </Row>
                 <Row>
-                    {this.state.chosenDate && <TimeBooking date={this.state.chosenDate} />}
+                    {this.state.chosenDate && <TimeBooking date={this.state.chosenDate} bookingAdded={this.bookingAdded} />}
                 </Row>
+                <Message ref={x => { this.message = x; }} />
             </div>
         );
     }

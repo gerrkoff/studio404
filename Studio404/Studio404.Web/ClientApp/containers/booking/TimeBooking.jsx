@@ -5,7 +5,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import BookingService from "../../modules/BookingService";
 import DateService from "../../modules/DateService";
 import HourSelector from "../../components/booking/HourSelector";
-import Message from "../../components/root/Message";
 import Loader from "../../components/root/Loader";
 
 class TimeBooking extends Component {
@@ -34,7 +33,7 @@ class TimeBooking extends Component {
     sendBooking() {
         BookingService.MakeBooking(this.bookingInfo.date, this.bookingInfo.hours, this.bookingInfo.userId)
             .done(() => {
-                this.message.show("Booking successfully added");
+                this.props.bookingAdded();                
             });
     }
 
@@ -71,7 +70,7 @@ class TimeBooking extends Component {
                         <RaisedButton label="Book" primary={true} onClick={this.sendBooking} />
                     </Col>
                 </Row>
-                <Message ref={x => {this.message = x;}} />
+                
             </div>
         );
     }

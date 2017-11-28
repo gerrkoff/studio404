@@ -3,40 +3,65 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Studio404.Dal.Entity.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace Studio404.Dal.Repository
 {
-    public class Repository<T> : IRepository<T> where T : IEntity
+    public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly IList<T> _list; 
-        public Repository(IList<T> list)
+        private readonly DbContext _context;
+
+        public Repository(DbContext context)
         {
-            _list = list;
+            _context = context;
+            
         }
-        
+
+        private DbSet<T> Entities => _context.Set<T>();
+
         public IQueryable<T> GetAll()
         {
-            return _list.AsQueryable();
+            return Entities.AsQueryable();
         }
 
         public void Save(T entity)
         {
-            throw new NotImplementedException();
+            if(entity.Id == 0)
+            {
+                Entities.Add(entity);
+            }
+            _context.SaveChanges();
         }
 
-        public void SaveProperties(T entity, params Expression<Func<T, object>>[] roperties)
+        public void SaveProperties(T entity, params Expression<Func<T, object>>[] properties)
         {
-            throw new NotImplementedException();
+            if (entity.Id == 0)
+            {
+                return;
+            }
+
+            Entities.Attach(entity);
+
+            foreach (var property in properties)
+            {
+                _context.Entry(entity).Property(property).IsModified = true;
+            }
+            
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = Activator.CreateInstance<T>();
+            entity.Id = id;
+            Entities.Attach(entity);
+            Entities.Remove(entity);
+            _context.SaveChanges();
         }
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            return Entities.Find(id);
         }
     }
 }

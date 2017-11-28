@@ -5,19 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Dto.Booking;
 using Studio404.Services.Interface;
-using Studio404.Services.Implementation;
 
 namespace Studio404.Web.Controllers
 {
     [Route("api/[controller]/[action]")]
     public class BookingController : Controller
     {
-
         private readonly IBookingService _bookingService;
 
-        public BookingController()
+        public BookingController(IBookingService bookingService)
         {
-            _bookingService = new BookingService();
+            _bookingService = bookingService;
         }
         
         [HttpGet]

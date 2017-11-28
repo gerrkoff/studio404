@@ -12,26 +12,14 @@ namespace Studio404.Services.Implementation
     public class BookingService : IBookingService
     {
         private readonly IRepository<BookingEntity> _bookingRepository;
-        public BookingService()
+
+        public BookingService(IRepository<BookingEntity> bookingRepository)
         {
-            _bookingRepository = new Repository<BookingEntity>(new List<BookingEntity>
-            {
-                new BookingEntity{Date = DateTime.Today, From = 12, To = 15},
-                new BookingEntity{Date = DateTime.Today, From = 10, To = 11},
-                new BookingEntity{Date = DateTime.Today, From = 18, To = 19},
-                new BookingEntity{Date = DateTime.Today.AddDays(1), From = 10, To = 13},
-                new BookingEntity{Date = DateTime.Today.AddDays(1), From = 16, To = 18},
-                new BookingEntity{Date = DateTime.Today.AddDays(2), From = 10, To = 20},
-                new BookingEntity{Date = DateTime.Today.AddDays(2), From = 20, To = 22},
-                new BookingEntity{Date = DateTime.Today.AddDays(-1), From = 15, To = 17},
-                new BookingEntity{Date = DateTime.Today.AddDays(-1), From = 20, To = 22}
-            });
+            _bookingRepository = bookingRepository;
         }
         
         public IEnumerable<DayWorkloadDto> GetWeekWorkload(DateTime weekStartDate)
-        {
-            Thread.Sleep(3000);
-            
+        {            
             // TODO: get start & end from studio record
             const int scheduleStart = 10;
             const int scheduleEnd = 23;
@@ -62,9 +50,7 @@ namespace Studio404.Services.Implementation
         }
 
         public IEnumerable<DayHourDto> GetDayWorkload(DateTime date)
-        {
-            Thread.Sleep(3000);
-            
+        {            
             // TODO: get start & end from studio record
             const int scheduleStart = 10;
             const int scheduleEnd = 23;
@@ -88,7 +74,7 @@ namespace Studio404.Services.Implementation
 
         public void MakeBooking(MakeBookingInfoDto makeBookingInfo)
         {
-            
+            _bookingRepository.Save(new BookingEntity { Date = makeBookingInfo.Date, StudioId = 0, UserId = 0, From = makeBookingInfo.Hours.Min(), To = makeBookingInfo.Hours.Max() });
         }
     }
 }

@@ -9,6 +9,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Studio404.Dal.Context;
+using Studio404.Services.Interface;
+using Studio404.Services.Implementation;
+using Studio404.Dal.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Studio404.Web
 {
@@ -27,6 +31,7 @@ namespace Studio404.Web
             services.AddMvc();
 
             ConfigDiDb(services);
+            ConfigDiServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,16 +55,26 @@ namespace Studio404.Web
             switch (database)
             {
                 case "mssql":
-                    services.AddScoped<ApplicationContext, SqlServerAppContext>();
-                    services.AddDbContext<SqlServerAppContext>();
+                    SetupDbContext<SqlServerAppContext>(services);
                     break;
                 case "postgre":
-                    services.AddScoped<ApplicationContext, PostgreAppContext>();
-                    services.AddDbContext<PostgreAppContext>();
+                    SetupDbContext<PostgreAppContext>(services);
                     break;
                 default:
                     throw new ArgumentException("Argument value must be 'mssql' or 'postgre'", nameof(database));
             }
+        }
+
+        private void SetupDbContext<T>(IServiceCollection services) where T: DbContext
+        {
+            services.AddScoped<DbContext, T>();
+            services.AddDbContext<T>();
+        }
+
+        private void ConfigDiServices(IServiceCollection services)
+        {
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IBookingService, BookingService>();
         }
 
         #endregion

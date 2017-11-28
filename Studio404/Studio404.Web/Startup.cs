@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Studio404.Dal.Context;
 
 namespace Studio404.Web
 {
@@ -24,6 +25,8 @@ namespace Studio404.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            ConfigDiDb(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,5 +41,27 @@ namespace Studio404.Web
             app.UseStaticFiles();
             app.UseMvc();
         }
+
+        #region Config Services
+
+        private void ConfigDiDb(IServiceCollection services)
+        {
+            string database = Configuration.GetValue<string>("database");
+            switch (database)
+            {
+                case "mssql":
+                    services.AddScoped<ApplicationContext, SqlServerAppContext>();
+                    services.AddDbContext<SqlServerAppContext>();
+                    break;
+                case "postgre":
+                    services.AddScoped<ApplicationContext, PostgreAppContext>();
+                    services.AddDbContext<PostgreAppContext>();
+                    break;
+                default:
+                    throw new ArgumentException("Argument value must be 'mssql' or 'postgre'", nameof(database));
+            }
+        }
+
+        #endregion
     }
 }

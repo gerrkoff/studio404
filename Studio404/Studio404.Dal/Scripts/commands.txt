@@ -1,0 +1,7 @@
+Update-Database -Context SqlServerAppContext
+
+Add-Migration N001_Init -Context SqlServerAppContext -OutputDir Migrations\SqlServerMigrations
+Add-Migration N001_Init -Context PostgreAppContext -OutputDir Migrations\PostgreMigrations
+
+dotnet ef migrations add N001_Init --context SqlServerAppContext --output-dir Migrations/SqlServerMigrations
+dotnet ef migrations add N001_Init --context PostgreAppContext --output-dir Migrations/PostgreMigrations

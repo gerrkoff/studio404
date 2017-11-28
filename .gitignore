@@ -67,3 +67,7 @@ Studio404/Studio404.Web/bin
 app.js
 Studio404/Studio404.Dal/obj
 Studio404/Studio404.Dal/bin
+Studio404/.vs/
+Studio404/Studio404.Web/Studio404.Web.csproj.user
+Studio404/Studio404.Web/Properties/launchSettings.json
+*.user

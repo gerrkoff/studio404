@@ -14,8 +14,8 @@ namespace Studio404.Dal.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    Code = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     From = table.Column<int>(nullable: false),
                     StudioId = table.Column<int>(nullable: false),

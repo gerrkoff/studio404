@@ -21,7 +21,7 @@ namespace Studio404.Services.Implementation
         public IEnumerable<DayWorkloadDto> GetWeekWorkload(DateTime weekStartDate)
         {            
             // TODO: get start & end from studio record
-            const int scheduleStart = 10;
+            const int scheduleStart = 3;
             const int scheduleEnd = 23;
             weekStartDate = weekStartDate.Date;
             DateTime weekEndDate = weekStartDate.AddDays(6);
@@ -52,7 +52,7 @@ namespace Studio404.Services.Implementation
         public IEnumerable<DayHourDto> GetDayWorkload(DateTime date)
         {            
             // TODO: get start & end from studio record
-            const int scheduleStart = 10;
+            const int scheduleStart = 3;
             const int scheduleEnd = 23;
             date = date.Date;
             
@@ -80,7 +80,8 @@ namespace Studio404.Services.Implementation
                 StudioId = 0,
                 UserId = 0,
                 From = makeBookingInfo.From,
-                To = makeBookingInfo.To
+                To = makeBookingInfo.To,
+                Code = 1111 // TODO: remove
             });
         }
     }

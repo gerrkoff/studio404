@@ -73,6 +73,7 @@ namespace Studio404.Web
         {
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IBookingService, BookingService>();
+            services.AddScoped<ICheckService, CheckService>();
         }
 
         #endregion

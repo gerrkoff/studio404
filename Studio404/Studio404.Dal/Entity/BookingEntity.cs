@@ -10,5 +10,6 @@ namespace Studio404.Dal.Entity
         public int To { get; set; }
         public int UserId { get; set; }
         public int StudioId { get; set; }
+        public int Code { get; set; }
     }
 }

@@ -35,5 +35,12 @@ namespace Studio404.Web.Controllers
         {
             _bookingService.MakeBooking(makeBookingInfo);
         }
+        
+        [Route("api/check")]
+        [HttpGet]
+        public bool Check(int code)
+        {
+            return true;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace Studio404.Dal.Context
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
             //optionsBuilder.UseSqlServer("Server=(local);Database=studio404;Trusted_Connection=True;");
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=studio404;Username=antonprokofev;");
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=studio404;Username=postgres;");
             
             return new ApplicationContext(optionsBuilder.Options);
         }

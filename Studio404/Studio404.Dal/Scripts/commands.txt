@@ -8,3 +8,6 @@ dotnet ef migrations add N001_Init --context PostgreAppContext --output-dir Migr
 
 dotnet ef database drop
 dotnet ef database update
+
+
+//.Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)

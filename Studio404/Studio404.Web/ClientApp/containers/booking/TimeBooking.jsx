@@ -14,7 +14,8 @@ class TimeBooking extends Component {
         this.sendBooking = this.sendBooking.bind(this);
         this.getDayHours = this.getDayHours.bind(this);
         
-        this.bookingInfo = {date: this.props.date, userId: 0};
+        this.hours = [];
+        this.userId = 0;
         this.state = {dayHours: null};
         this.getDayHours(this.props.date);
     }
@@ -27,11 +28,11 @@ class TimeBooking extends Component {
     }
 
     updateHours(hours) {
-        this.bookingInfo.hours = hours;
+        this.hours = hours;
     }
 
     sendBooking() {
-        BookingService.MakeBooking(this.bookingInfo.date, this.bookingInfo.hours, this.bookingInfo.userId)
+        BookingService.MakeBooking(this.props.date, this.hours, this.userId)
             .done(() => {
                 this.props.bookingAdded();                
             });

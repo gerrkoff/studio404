@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+cd ..
 dotnet ef database drop
 
 echo "_________migrations removing..."
@@ -8,4 +9,4 @@ echo "_________init migration creating..."
 dotnet ef migrations add N000_Init
 
 echo "_________db updating..."
-dotnet ef database update N000_Init
+dotnet ef database update

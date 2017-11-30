@@ -14,7 +14,6 @@ namespace Studio404.Dal.Repository
         public Repository(DbContext context)
         {
             _context = context;
-            
         }
 
         private DbSet<T> Entities => _context.Set<T>();

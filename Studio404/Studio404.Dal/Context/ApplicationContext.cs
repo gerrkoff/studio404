@@ -6,13 +6,11 @@ namespace Studio404.Dal.Context
 {
     public class ApplicationContext : DbContext
     {
-        protected readonly IConfiguration _configuration;
-
-        public ApplicationContext(IConfiguration configuration)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            _configuration = configuration;
+            
         }
-
+        
         public DbSet<BookingEntity> Bookings { get; set; }
     }
 }

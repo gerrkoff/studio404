@@ -51,24 +51,22 @@ namespace Studio404.Web
 
         private void ConfigDiDb(IServiceCollection services)
         {
-            string database = Configuration.GetValue<string>("database");
-            switch (database)
+            string databaseProvider = Configuration.GetValue<string>("databaseProvider");
+            string connectionString = Configuration.GetConnectionString("appDb");
+            switch (databaseProvider)
             {
-                case "mssql":
-                    SetupDbContext<SqlServerAppContext>(services);
+                case "SqlServer":
+                    services.AddDbContext<ApplicationContext>(options =>
+                        options.UseSqlServer(connectionString));
                     break;
-                case "postgre":
-                    SetupDbContext<PostgreAppContext>(services);
+                case "Postgre":
+                    services.AddDbContext<ApplicationContext>(options =>
+                        options.UseNpgsql(connectionString));
                     break;
                 default:
-                    throw new ArgumentException("Argument value must be 'mssql' or 'postgre'", nameof(database));
+                    throw new ArgumentException("Argument value must be 'SqlServer' or 'Postgre'", nameof(databaseProvider));
             }
-        }
-
-        private void SetupDbContext<T>(IServiceCollection services) where T: DbContext
-        {
-            services.AddScoped<DbContext, T>();
-            services.AddDbContext<T>();
+            services.AddScoped<DbContext, ApplicationContext>();
         }
 
         private void ConfigDiServices(IServiceCollection services)

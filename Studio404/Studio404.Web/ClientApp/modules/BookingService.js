@@ -11,11 +11,11 @@ const BookingService = {
         return Http.Get("api/booking/hours", {date: date.toISOString()});
     },
 
-    MakeBooking: (date, hours, userId) => {
+    MakeBooking: (date, from, to) => {
         return Http.Post("/api/booking/make", {
             date: date.toISOString(),
-            hours: hours,
-            userId: userId
+            from: from,
+            to: to
         });
     }
 }

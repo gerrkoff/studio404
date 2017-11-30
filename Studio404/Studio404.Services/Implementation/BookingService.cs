@@ -74,7 +74,14 @@ namespace Studio404.Services.Implementation
 
         public void MakeBooking(MakeBookingInfoDto makeBookingInfo)
         {
-            _bookingRepository.Save(new BookingEntity { Date = makeBookingInfo.Date, StudioId = 0, UserId = 0, From = makeBookingInfo.Hours.Min(), To = makeBookingInfo.Hours.Max() });
+            _bookingRepository.Save(new BookingEntity
+            {
+                Date = makeBookingInfo.Date,
+                StudioId = 0,
+                UserId = 0,
+                From = makeBookingInfo.From,
+                To = makeBookingInfo.To
+            });
         }
     }
 }

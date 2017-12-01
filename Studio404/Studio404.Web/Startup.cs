@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -14,6 +15,7 @@ using Studio404.Services.Implementation;
 using Studio404.Dal.Repository;
 using Microsoft.EntityFrameworkCore;
 using Studio404.Common.Settings;
+using Studio404.Dal.Entity;
 
 namespace Studio404.Web
 {
@@ -48,6 +50,7 @@ namespace Studio404.Web
             
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseMvc();
         }
 
@@ -55,8 +58,11 @@ namespace Studio404.Web
 
         private void ConfigDiDb(IServiceCollection services)
         {
+            #region Connection String
+            
             string databaseProvider = Configuration.GetValue<string>("databaseProvider");
             string connectionString = Configuration.GetConnectionString("appDb");
+            
             switch (databaseProvider)
             {
                 case "SqlServer":
@@ -70,7 +76,12 @@ namespace Studio404.Web
                 default:
                     throw new ArgumentException("Argument value must be 'SqlServer' or 'Postgre'", nameof(databaseProvider));
             }
+            
+            #endregion
+            
             services.AddScoped<DbContext, ApplicationContext>();
+            services.AddIdentity<UserEntity, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationContext>();
         }
 
         private void ConfigDiServices(IServiceCollection services)

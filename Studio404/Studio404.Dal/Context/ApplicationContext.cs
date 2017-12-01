@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Studio404.Dal.Entity;
 
 namespace Studio404.Dal.Context
 {
-    public class ApplicationContext : DbContext
+    public class ApplicationContext : IdentityDbContext<UserEntity>
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {

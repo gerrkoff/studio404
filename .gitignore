@@ -71,3 +71,5 @@ Studio404/.vs/
 Studio404/Studio404.Web/Studio404.Web.csproj.user
 Studio404/Studio404.Web/Properties/launchSettings.json
 *.user
+Studio404/Studio404.Common/obj
+Studio404/Studio404.Common/bin

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Studio404.Common.Settings;
 using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using Studio404.Dto.Booking;
@@ -12,17 +15,18 @@ namespace Studio404.Services.Implementation
     public class BookingService : IBookingService
     {
         private readonly IRepository<BookingEntity> _bookingRepository;
+        private readonly StudioSettings _studioSettings;
 
-        public BookingService(IRepository<BookingEntity> bookingRepository)
+        public BookingService(IRepository<BookingEntity> bookingRepository, IOptions<StudioSettings> studioSettings)
         {
             _bookingRepository = bookingRepository;
+            _studioSettings = studioSettings.Value;
         }
         
         public IEnumerable<DayWorkloadDto> GetWeekWorkload(DateTime weekStartDate)
-        {            
-            // TODO: get start & end from studio record
-            const int scheduleStart = 3;
-            const int scheduleEnd = 23;
+        {
+            int scheduleStart = _studioSettings.ScheduleStart;
+            int scheduleEnd = _studioSettings.ScheduleEnd;
             weekStartDate = weekStartDate.Date;
             DateTime weekEndDate = weekStartDate.AddDays(6);
             
@@ -51,9 +55,8 @@ namespace Studio404.Services.Implementation
 
         public IEnumerable<DayHourDto> GetDayWorkload(DateTime date)
         {            
-            // TODO: get start & end from studio record
-            const int scheduleStart = 3;
-            const int scheduleEnd = 23;
+            int scheduleStart = _studioSettings.ScheduleStart;
+            int scheduleEnd = _studioSettings.ScheduleEnd;
             date = date.Date;
             
             var bookings = _bookingRepository.GetAll()

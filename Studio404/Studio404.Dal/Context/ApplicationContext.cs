@@ -8,7 +8,6 @@ namespace Studio404.Dal.Context
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            
         }
         
         public DbSet<BookingEntity> Bookings { get; set; }

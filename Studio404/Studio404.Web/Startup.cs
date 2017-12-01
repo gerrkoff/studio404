@@ -13,6 +13,7 @@ using Studio404.Services.Interface;
 using Studio404.Services.Implementation;
 using Studio404.Dal.Repository;
 using Microsoft.EntityFrameworkCore;
+using Studio404.Common.Settings;
 
 namespace Studio404.Web
 {
@@ -29,6 +30,9 @@ namespace Studio404.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.Configure<StudioSettings>(options =>
+                Configuration.GetSection("StudioSettings").Bind(options));
 
             ConfigDiDb(services);
             ConfigDiServices(services);

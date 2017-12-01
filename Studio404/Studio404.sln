@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studio404.Services", "Studi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studio404.Dal", "Studio404.Dal\Studio404.Dal.csproj", "{819D85E5-E9FD-4AAA-8DDC-38F3439FA0EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studio404.Common", "Studio404.Common\Studio404.Common.csproj", "{44BEA391-977C-49C6-AFD2-F1A2E8E88366}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{819D85E5-E9FD-4AAA-8DDC-38F3439FA0EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{819D85E5-E9FD-4AAA-8DDC-38F3439FA0EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{819D85E5-E9FD-4AAA-8DDC-38F3439FA0EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44BEA391-977C-49C6-AFD2-F1A2E8E88366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44BEA391-977C-49C6-AFD2-F1A2E8E88366}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44BEA391-977C-49C6-AFD2-F1A2E8E88366}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44BEA391-977C-49C6-AFD2-F1A2E8E88366}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

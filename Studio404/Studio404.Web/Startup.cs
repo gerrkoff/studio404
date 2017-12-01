@@ -103,6 +103,7 @@ namespace Studio404.Web
             services.AddScoped<IBookingService, BookingService>();
             services.AddScoped<ICheckService, CheckService>();
             services.AddScoped<IPayService, PayService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         #endregion

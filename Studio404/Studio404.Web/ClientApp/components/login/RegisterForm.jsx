@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 import TextField from "../common/TextField";
 
-class LoginForm extends Component {
+class RegisterForm extends Component {
 
     constructor(props) {
         super(props);
         this.updateUsername = this.updateUsername.bind(this);
         this.updatePassword = this.updatePassword.bind(this);
-        this.loginInfo = {};
+        this.updatePasswordConfirmation = this.updatePasswordConfirmation.bind(this);
+        this.registerInfo = {};
     }
 
     updateUsername(value) {
-        this.loginInfo.username = value;
-        this.props.updateLoginInfo(this.loginInfo);
+        this.registerInfo.username = value;
+        this.props.updateRegisterInfo(this.registerInfo);
     }
     
     updatePassword(value) {
-        this.loginInfo.password = value;
-        this.props.updateLoginInfo(this.loginInfo);
+        this.registerInfo.password = value;
+        this.props.updateRegisterInfo(this.registerInfo);
+    }
+
+    updatePasswordConfirmation(value) {
     }
 
     render() {
@@ -33,9 +37,15 @@ class LoginForm extends Component {
                     floatingLabelText="Password"
                     type="password"
                     updateValue={this.updatePassword}/>
+                <br />
+                <TextField
+                    hintText="Confirm password"
+                    floatingLabelText="Password Confirmation"
+                    type="password"
+                    updateValue={this.updatePasswordConfirmation}/>
             </div>
         );
     }
 }
 
-export default LoginForm;
+export default RegisterForm;

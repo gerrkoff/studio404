@@ -9,9 +9,5 @@ namespace Studio404.Dto.Account
 
         [Required]
         public string Password { get; set; }
-
-        [Required]
-        [Compare(nameof(Password), ErrorMessage = "Passwords are not equal")]
-        public string PasswordConfirm { get; set; }
     }
 }

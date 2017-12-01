@@ -6,6 +6,10 @@ const AccountService = {
         return Http.Get("api/account/current");
     },
 
+    Register: (registerInfo) => {
+        return Http.Post("api/account/register", registerInfo);
+    },
+
     Login: (loginInfo) => {
         return Http.Post("api/account/login", loginInfo);
     },

@@ -3,6 +3,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import AccountService from "../../modules/AccountService";
 import LoginForm from "../../components/login/LoginForm";
+import RegisterForm from "../../components/login/RegisterForm";
 
 class LoginPopup extends Component {
 
@@ -11,13 +12,16 @@ class LoginPopup extends Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
         this.login = this.login.bind(this);
-        this.updateUsernameValue = this.updateUsernameValue.bind(this);
-        this.updatePasswordValue = this.updatePasswordValue.bind(this);
+        this.register = this.register.bind(this);
+        this.submit = this.submit.bind(this);
+        this.updateLoginInfo = this.updateLoginInfo.bind(this);
+        this.updateRegisterInfo = this.updateRegisterInfo.bind(this);
 
         this.state = {
             open: false
         };
         this.loginInfo = {};
+        this.registerInfo = {};
     }
     
     handleOpen() {
@@ -28,12 +32,12 @@ class LoginPopup extends Component {
         this.setState({open: false});
     }
 
-    updateUsernameValue(value) {
-        this.loginInfo.username = value;
+    updateLoginInfo(loginInfo) {
+        this.loginInfo = loginInfo;
     }
 
-    updatePasswordValue(value) {
-        this.loginInfo.password = value;
+    updateRegisterInfo(registerInfo) {
+        this.registerInfo = registerInfo;
     }
 
     login() {
@@ -42,6 +46,18 @@ class LoginPopup extends Component {
                 this.handleClose();
                 this.props.updateUser();
             });
+    }
+
+    register() {
+        AccountService.Register(this.registerInfo)
+            .done(() => {
+                this.handleClose();
+                this.props.updateUser();
+            });
+    }
+
+    submit() {
+        this.register();
     }
     
     render() {
@@ -53,7 +69,7 @@ class LoginPopup extends Component {
             <FlatButton
                 label="Submit"
                 primary={true}
-                onClick={this.login}/>
+                onClick={this.submit}/>
         ];
     
         return (
@@ -66,7 +82,8 @@ class LoginPopup extends Component {
                     open={this.state.open}
                     onRequestClose={this.handleClose}>
 
-                    <LoginForm updateUsernameValue={this.updateUsernameValue} updatePasswordValue={this.updatePasswordValue}/>
+                    <LoginForm updateLoginInfo={this.updateLoginInfo} />
+                    <RegisterForm updateRegisterInfo={this.updateRegisterInfo} />
                 </Dialog>
             </div>
         );

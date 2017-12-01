@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import FlatButton from 'material-ui/FlatButton';
-import ActionHome from 'material-ui/svg-icons/action/home';
 import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import Divider from 'material-ui/Divider';
 import AccountService from "../../modules/AccountService";
 import LoginPopup from "../login/LoginPopup";
 
@@ -36,10 +39,17 @@ class LoginInfo extends Component {
     render() {
         const userLoggedIn = (
             <div>
-                <span>Hello, {this.state.user}!</span>
-                <IconButton tooltip="Logoff" onClick={this.logoff}>
-                    <ActionHome />
-                </IconButton>
+                <span>{this.state.user}</span>
+                <IconMenu
+                    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                    targetOrigin={{horizontal: 'right', vertical: 'top'}} >
+                    
+                        <MenuItem primaryText="My bookings" />
+                        <MenuItem primaryText="Settings" />
+                        <Divider />
+                        <MenuItem primaryText="Sign out" onClick={this.logoff}/>
+                </IconMenu>
             </div>
         );
 

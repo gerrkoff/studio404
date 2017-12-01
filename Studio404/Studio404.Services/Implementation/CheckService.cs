@@ -15,7 +15,7 @@ namespace Studio404.Services.Implementation
             _bookingRepository = bookingRepository;
         }
         
-        public bool Check(int code)
+        public bool Check(string code)
         {
             var now = DateTime.Now;
             return _bookingRepository.GetAll()

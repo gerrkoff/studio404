@@ -14,7 +14,7 @@ namespace Studio404.Web.Controllers
         }
         
         [HttpGet("{code}")]
-        public bool Get(int code)
+        public bool Get(string code)
         {
             return _checkService.Check(code);
         }

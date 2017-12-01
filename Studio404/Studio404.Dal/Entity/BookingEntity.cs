@@ -11,12 +11,12 @@ namespace Studio404.Dal.Entity
         public int To { get; set; }
 
         public Guid Guid { get; set; }
-        public int? Code { get; set; }
+        public string Code { get; set; }
         
         [Required]
         public string UserId { get; set; }
         public int StudioId { get; set; }
         
-        public virtual UserEntity User { get; set; }
+        public UserEntity User { get; set; }
     }
 }

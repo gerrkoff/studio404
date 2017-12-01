@@ -2,6 +2,6 @@
 {
     public interface ICheckService
     {
-        bool Check(int code);
+        bool Check(string code);
     }
 }

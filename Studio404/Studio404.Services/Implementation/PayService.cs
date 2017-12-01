@@ -22,14 +22,17 @@ namespace Studio404.Services.Implementation
                 .Select(x => x.Id)
                 .Single();
 
-            int code = GenerateBookingCode();
+            string code = GenerateBookingCode();
             var booking = new BookingEntity {Id = bookingId, Code = code};
             _bookingRepository.SaveProperties(booking, x => x.Code);
         }
 
-        private int GenerateBookingCode()
+        private string GenerateBookingCode()
         {
-            return 1000;
+            var random = new Random();
+            int numericCode = random.Next(10000);
+            
+            return numericCode.ToString().PadLeft(4, '0');
         }
     }
 }

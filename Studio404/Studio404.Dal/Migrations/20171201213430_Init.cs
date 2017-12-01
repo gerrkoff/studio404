@@ -160,7 +160,7 @@ namespace Studio404.Dal.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Code = table.Column<int>(nullable: true),
+                    Code = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     From = table.Column<int>(nullable: false),
                     Guid = table.Column<Guid>(nullable: false),

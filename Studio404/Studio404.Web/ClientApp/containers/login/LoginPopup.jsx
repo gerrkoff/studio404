@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import AccountService from "../../modules/AccountService";
 import LoginForm from "../../components/login/LoginForm";
 import RegisterForm from "../../components/login/RegisterForm";
+import Toggle from 'material-ui/Toggle';
 
 class LoginPopup extends Component {
 
@@ -16,9 +17,11 @@ class LoginPopup extends Component {
         this.submit = this.submit.bind(this);
         this.updateLoginInfo = this.updateLoginInfo.bind(this);
         this.updateRegisterInfo = this.updateRegisterInfo.bind(this);
+        this.registrationToggle = this.registrationToggle.bind(this);
 
         this.state = {
-            open: false
+            open: false,
+            registration: false
         };
         this.loginInfo = {};
         this.registerInfo = {};
@@ -57,7 +60,14 @@ class LoginPopup extends Component {
     }
 
     submit() {
-        this.register();
+        if (this.state.registration === true)
+            this.register();
+        else 
+            this.login();
+    }
+
+    registrationToggle(event, isChecked) {
+        this.setState({registration: isChecked});
     }
     
     render() {
@@ -67,7 +77,7 @@ class LoginPopup extends Component {
                 primary={true}
                 onClick={this.handleClose}/>,
             <FlatButton
-                label="Submit"
+                label={this.state.registration === true ? "Register" : "Login"}
                 primary={true}
                 onClick={this.submit}/>
         ];
@@ -76,14 +86,21 @@ class LoginPopup extends Component {
             <div>
                 <FlatButton label="Login" onClick={this.handleOpen} />
                 <Dialog
-                    title="Login"
+                    title={this.state.registration === true ? "Register" : "Login"}
                     actions={actions}
                     modal={false}
                     open={this.state.open}
                     onRequestClose={this.handleClose}>
 
-                    <LoginForm updateLoginInfo={this.updateLoginInfo} />
-                    <RegisterForm updateRegisterInfo={this.updateRegisterInfo} />
+                    {this.state.registration === true
+                        ? <RegisterForm updateRegisterInfo={this.updateRegisterInfo} />
+                        : <LoginForm updateLoginInfo={this.updateLoginInfo} /> 
+                    }
+                    <br />
+                    <Toggle
+                        label="Registration"
+                        labelPosition="right"
+                        onToggle={this.registrationToggle} />
                 </Dialog>
             </div>
         );

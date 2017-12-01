@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -33,9 +34,10 @@ namespace Studio404.Web
         {
             services.AddMvc();
 
+            services.AddAutoMapper();
             services.Configure<StudioSettings>(options =>
                 Configuration.GetSection("StudioSettings").Bind(options));
-
+            
             ConfigDb(services);
             ConfigIdentity(services);
             ConfigDiServices(services);

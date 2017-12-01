@@ -73,3 +73,4 @@ Studio404/Studio404.Web/Properties/launchSettings.json
 *.user
 Studio404/Studio404.Common/obj
 Studio404/Studio404.Common/bin
+Studio404/Studio404.Automapper/obj

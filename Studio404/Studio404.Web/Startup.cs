@@ -36,7 +36,8 @@ namespace Studio404.Web
             services.Configure<StudioSettings>(options =>
                 Configuration.GetSection("StudioSettings").Bind(options));
 
-            ConfigDiDb(services);
+            ConfigDb(services);
+            ConfigIdentity(services);
             ConfigDiServices(services);
         }
 
@@ -56,7 +57,7 @@ namespace Studio404.Web
 
         #region Config Services
 
-        private void ConfigDiDb(IServiceCollection services)
+        private void ConfigDb(IServiceCollection services)
         {
             #region Connection String
             
@@ -80,7 +81,19 @@ namespace Studio404.Web
             #endregion
             
             services.AddScoped<DbContext, ApplicationContext>();
-            services.AddIdentity<UserEntity, IdentityRole>()
+            
+        }
+
+        private void ConfigIdentity(IServiceCollection services)
+        {
+            services.AddIdentity<UserEntity, IdentityRole>(options =>
+                {
+                    options.Password.RequiredLength = 5;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireDigit = false;
+                })
                 .AddEntityFrameworkStores<ApplicationContext>();
         }
 

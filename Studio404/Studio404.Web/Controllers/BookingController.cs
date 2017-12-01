@@ -9,7 +9,7 @@ using Studio404.Services.Interface;
 namespace Studio404.Web.Controllers
 {
     [Route("api/[controller]/[action]")]
-    public class BookingController : UserController
+    public class BookingController : BaseUserController
     {
         private readonly IBookingService _bookingService;
 

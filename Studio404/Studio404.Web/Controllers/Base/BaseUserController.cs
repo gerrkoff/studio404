@@ -4,11 +4,11 @@ using Studio404.Dal.Entity;
 
 namespace Studio404.Web.Controllers
 {
-    public class UserController : Controller
+    public class BaseUserController : Controller
     {
         private readonly UserManager<UserEntity> _userManager;
         
-        public UserController(UserManager<UserEntity> userManager)
+        public BaseUserController(UserManager<UserEntity> userManager)
         {
             _userManager = userManager;
         }

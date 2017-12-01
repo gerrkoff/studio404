@@ -9,7 +9,9 @@ namespace Studio404.Dal.Entity
         public DateTime Date { get; set; }
         public int From { get; set; }
         public int To { get; set; }
-        public int Code { get; set; }
+
+        public Guid Guid { get; set; }
+        public int? Code { get; set; }
         
         [Required]
         public string UserId { get; set; }

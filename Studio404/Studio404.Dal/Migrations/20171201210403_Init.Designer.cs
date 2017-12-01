@@ -11,7 +11,7 @@ using System;
 namespace Studio404.Dal.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20171201182748_Init")]
+    [Migration("20171201210403_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,11 +133,13 @@ namespace Studio404.Dal.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Code");
+                    b.Property<int?>("Code");
 
                     b.Property<DateTime>("Date");
 
                     b.Property<int>("From");
+
+                    b.Property<Guid>("Guid");
 
                     b.Property<int>("StudioId");
 

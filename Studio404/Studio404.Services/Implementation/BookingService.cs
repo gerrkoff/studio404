@@ -78,10 +78,11 @@ namespace Studio404.Services.Implementation
             _bookingRepository.Save(new BookingEntity
             {
                 Date = makeBookingInfo.Date,
-                StudioId = 0,
                 From = makeBookingInfo.From,
                 To = makeBookingInfo.To,
-                Code = 1111, // TODO: remove,
+                
+                Guid = Guid.NewGuid(),
+                
                 UserId = user.Id
             });
         }

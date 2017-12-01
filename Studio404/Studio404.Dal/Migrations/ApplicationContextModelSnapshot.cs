@@ -132,11 +132,13 @@ namespace Studio404.Dal.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Code");
+                    b.Property<int?>("Code");
 
                     b.Property<DateTime>("Date");
 
                     b.Property<int>("From");
+
+                    b.Property<Guid>("Guid");
 
                     b.Property<int>("StudioId");
 

@@ -33,7 +33,6 @@ const DateService = {
 
         if(hours.length === 0) return labels;
         
-        hours.sort();
         let start = hours[0]
         hours.forEach((value, index, array) => {
             if(index === 0)

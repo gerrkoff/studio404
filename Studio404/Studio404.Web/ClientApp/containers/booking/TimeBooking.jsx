@@ -31,7 +31,7 @@ class TimeBooking extends Component {
     }
 
     sendBooking() {
-        let hours = this.hours.sort();
+        let hours = this.hours;//.sort();
         BookingService.MakeBooking(this.props.date, hours[0], hours[hours.length-1])
             .done(() => {
                 this.props.bookingAdded();                

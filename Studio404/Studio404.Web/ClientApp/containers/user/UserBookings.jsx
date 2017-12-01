@@ -6,11 +6,12 @@ import {
     TableHeaderColumn,
     TableRow,
     TableRowColumn,
-  } from 'material-ui/Table';
-  import UserBookingItem from "../../components/user/UserBookingItem";
-  import DateService from "../../modules/DateService";
-  import UserService from "../../modules/UserService";
-  import Loader from "../../components/root/Loader";
+} from 'material-ui/Table';
+import UserBookingItem from "../../components/user/UserBookingItem";
+import DateService from "../../modules/DateService";
+import UserService from "../../modules/UserService";
+import EnumService from "../../modules/EnumService";
+import Loader from "../../components/root/Loader";
 
 class UserBookings extends Component {
 
@@ -56,9 +57,10 @@ class UserBookings extends Component {
                     showRowHover={true}>
                         {this.state.bookings.map(item =>
                             <UserBookingItem
+                                key={item.id}
                                 date={DateService.toDateString(item.date)}
                                 time={DateService.convertHourIntervalToLabel(item.from, item.to)}
-                                status={item.status}/>
+                                status={EnumService.bookingStatus(item.status)}/>
                         )}
                 </TableBody>
             </Table>

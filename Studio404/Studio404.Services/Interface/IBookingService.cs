@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Studio404.Dal.Entity;
 using Studio404.Dto.Booking;
 
 namespace Studio404.Services.Interface
@@ -8,6 +9,6 @@ namespace Studio404.Services.Interface
     {
         IEnumerable<DayWorkloadDto> GetWeekWorkload(DateTime weekStartDate);
         IEnumerable<DayHourDto> GetDayWorkload(DateTime date);
-        void MakeBooking(MakeBookingInfoDto makeBookingInfo);
+        void MakeBooking(MakeBookingInfoDto makeBookingInfo, UserEntity user);
     }
 }

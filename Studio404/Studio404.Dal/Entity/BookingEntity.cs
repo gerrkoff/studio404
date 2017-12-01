@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Studio404.Dal.Entity.Base;
 
 namespace Studio404.Dal.Entity
@@ -8,8 +9,12 @@ namespace Studio404.Dal.Entity
         public DateTime Date { get; set; }
         public int From { get; set; }
         public int To { get; set; }
-        public int UserId { get; set; }
-        public int StudioId { get; set; }
         public int Code { get; set; }
+        
+        [Required]
+        public string UserId { get; set; }
+        public int StudioId { get; set; }
+        
+        public virtual UserEntity User { get; set; }
     }
 }

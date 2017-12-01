@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Studio404.Common.Settings;
 using Studio404.Dal.Entity;
@@ -22,7 +20,7 @@ namespace Studio404.Services.Implementation
             _bookingRepository = bookingRepository;
             _studioSettings = studioSettings.Value;
         }
-        
+
         public IEnumerable<DayWorkloadDto> GetWeekWorkload(DateTime weekStartDate)
         {
             int scheduleStart = _studioSettings.ScheduleStart;
@@ -75,16 +73,16 @@ namespace Studio404.Services.Implementation
             return list;
         }
 
-        public void MakeBooking(MakeBookingInfoDto makeBookingInfo)
+        public void MakeBooking(MakeBookingInfoDto makeBookingInfo, UserEntity user)
         {
             _bookingRepository.Save(new BookingEntity
             {
                 Date = makeBookingInfo.Date,
                 StudioId = 0,
-                UserId = 0,
                 From = makeBookingInfo.From,
                 To = makeBookingInfo.To,
-                Code = 1111 // TODO: remove
+                Code = 1111, // TODO: remove,
+                UserId = user.Id
             });
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Studio404.Dal.Entity.Base;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Studio404.Dal.Repository
 {
@@ -18,9 +19,18 @@ namespace Studio404.Dal.Repository
 
         private DbSet<T> Entities => _context.Set<T>();
 
-        public IQueryable<T> GetAll()
+        public IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes)
         {
-            return Entities.AsQueryable();
+            if (includes == null || includes.Length == 0)
+                return Entities.AsQueryable();
+
+            IIncludableQueryable<T, object> query = null;
+            foreach (Expression<Func<T,object>> include in includes)
+            {
+                query = Entities.Include(include);
+            }
+            
+            return query.AsQueryable();
         }
 
         public void Save(T entity)

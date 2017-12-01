@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import FlatButton from 'material-ui/FlatButton';
-import AccountService from "../../modules/AccountService";
 import ActionHome from 'material-ui/svg-icons/action/home';
 import IconButton from 'material-ui/IconButton';
+import AccountService from "../../modules/AccountService";
+import LoginPopup from "../login/LoginPopup";
 
 class LoginInfo extends Component {
 
     constructor(props) {
         super(props);
-        this.login = this.login.bind(this);
         this.logoff = this.logoff.bind(this);
-        this.userLoggedIn = this.userLoggedIn.bind(this);
         this.getCurrentUser = this.getCurrentUser.bind(this);
 
         this.state = {
@@ -27,13 +26,6 @@ class LoginInfo extends Component {
             });
     }
 
-    login() {
-        AccountService.Login({email: "qqq", password: "Qwerty!1"})
-            .done(() => {
-                this.getCurrentUser();
-            });
-    }
-
     logoff() {
         AccountService.Logoff()
             .done(() => {
@@ -42,28 +34,26 @@ class LoginInfo extends Component {
     }
 
     render() {
-        return (
-            <Row>
-                <Col md="12">
-                    <div className="float-right" style={{height: "35px"}}>
-                        {this.state.user
-                            ? this.userLoggedIn()
-                            : <FlatButton label="Login" onClick={this.login} />
-                        }
-                    </div>
-                </Col>
-            </Row>
-        );
-    }
-
-    userLoggedIn() {
-        return (
+        const userLoggedIn = (
             <div>
                 <span>Hello, {this.state.user}!</span>
                 <IconButton tooltip="Logoff" onClick={this.logoff}>
                     <ActionHome />
                 </IconButton>
             </div>
+        );
+
+        return (
+            <Row>
+                <Col md="12">
+                    <div className="float-right" style={{height: "35px"}}>
+                        {this.state.user
+                            ? userLoggedIn
+                            : <LoginPopup updateUser={this.getCurrentUser}/>
+                        }
+                    </div>
+                </Col>
+            </Row>
         );
     }
 }

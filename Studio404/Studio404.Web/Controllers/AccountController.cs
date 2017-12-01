@@ -33,8 +33,7 @@ namespace Studio404.Web.Controllers
             {
                 var user = new UserEntity
                 {
-                    Email = registerInfo.Email,
-                    UserName = registerInfo.Email
+                    UserName = registerInfo.Username
                 };
                 
                 IdentityResult result = await _userManager.CreateAsync(user, registerInfo.Password);
@@ -64,7 +63,7 @@ namespace Studio404.Web.Controllers
             if (ModelState.IsValid)
             {
                 var result =
-                    await _signInManager.PasswordSignInAsync(loginInfo.Email, loginInfo.Password, false, false);
+                    await _signInManager.PasswordSignInAsync(loginInfo.Username, loginInfo.Password, false, false);
                 if(!result.Succeeded)
                     throw new Exception("Login failed");
             }

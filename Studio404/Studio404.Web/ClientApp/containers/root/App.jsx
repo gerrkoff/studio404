@@ -8,7 +8,7 @@ class App extends Component {
         return (
             <Container>
                 <Toolbar />
-                <Row>
+                <Row style={{marginTop: "10px"}}>
                     <Col md="12">
                         {this.props.children}
                     </Col>

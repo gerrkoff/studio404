@@ -9,6 +9,10 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Studio404.Automapper\Studio404.Automapper.csproj">
+      <Project>{8DD6D65D-B83C-4572-BDAF-F586A2F51894}</Project>
+      <Name>Studio404.Automapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Studio404.Dto\Studio404.Dto.csproj" />
     <ProjectReference Include="..\Studio404.Services\Studio404.Services.csproj" />
   </ItemGroup>

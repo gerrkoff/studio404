@@ -15,6 +15,8 @@ using Studio404.Services.Interface;
 using Studio404.Services.Implementation;
 using Studio404.Dal.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyModel;
+using Studio404.Automapper;
 using Studio404.Common.Settings;
 using Studio404.Dal.Entity;
 
@@ -33,14 +35,11 @@ namespace Studio404.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
-            services.AddAutoMapper();
-            services.Configure<StudioSettings>(options =>
-                Configuration.GetSection("StudioSettings").Bind(options));
-            
             ConfigDb(services);
             ConfigIdentity(services);
             ConfigDiServices(services);
+            ConfigAutoMapper(services);
+            ConfigConfiguration(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,6 +96,20 @@ namespace Studio404.Web
                     options.Password.RequireDigit = false;
                 })
                 .AddEntityFrameworkStores<ApplicationContext>();
+        }
+        
+        private void ConfigConfiguration(IServiceCollection services)
+        {
+            services.Configure<StudioSettings>(options =>
+                Configuration.GetSection("StudioSettings").Bind(options));
+        }
+
+        private void ConfigAutoMapper(IServiceCollection services)
+        {
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<MappingProfile>();
+            });
         }
 
         private void ConfigDiServices(IServiceCollection services)

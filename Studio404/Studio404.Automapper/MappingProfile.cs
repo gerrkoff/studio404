@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Studio404.Common.Enums;
 using Studio404.Dal.Entity;
 using Studio404.Dto.Booking;
 
@@ -8,7 +9,9 @@ namespace Studio404.Automapper
     {
         public MappingProfile()
         {
-            CreateMap<BookingEntity, BookingSimpleDto>();
+            CreateMap<BookingEntity, BookingSimpleDto>()
+                .ForMember(x => x.Status,
+                    e => e.MapFrom(x => x.Code == null ? BookingStatusEnum.Unpaid : BookingStatusEnum.Paid));
         }
     }
 }

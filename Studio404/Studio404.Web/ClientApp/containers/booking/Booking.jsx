@@ -80,11 +80,11 @@ class Booking extends Component {
                 <Row>
                     <Col md="12">
                         <BookingDayChooser
-                                    previousWeek={this.previousWeek}
-                                    nextWeek={this.nextWeek}
-                                    weekLabel={this.getWeekLabel()}
-                                    weekWorkload={this.state.weekWorkload}
-                                    chooseDay={this.chooseDay}/>
+                            previousWeek={this.previousWeek}
+                            nextWeek={this.nextWeek}
+                            weekLabel={this.getWeekLabel()}
+                            weekWorkload={this.state.weekWorkload}
+                            chooseDay={this.chooseDay}/>
                     </Col>
                 </Row>
                 <Row>

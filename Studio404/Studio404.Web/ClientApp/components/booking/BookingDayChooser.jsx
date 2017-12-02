@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import FaIconButton from "../common/FaIconButton";
 import WeekWorkload from "./WeekWorkload";
-import Loader from "../common/Loader";
+import LoaderContent from "../common/LoaderContent";
 
 class BookingDayChooser extends Component {
     render() {
@@ -22,7 +22,7 @@ class BookingDayChooser extends Component {
                         <div style={{textAlign: "center"}}>
                             {this.props.weekWorkload
                                 ? <WeekWorkload workload={this.props.weekWorkload} chooseDay={this.props.chooseDay} />
-                                : <Loader />
+                                : <LoaderContent />
                             }
                         </div>
                     </Col>

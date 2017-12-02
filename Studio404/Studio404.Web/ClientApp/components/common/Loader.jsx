@@ -4,7 +4,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 class Loader extends Component {
     render() {
         return (
-            <CircularProgress />
+            <CircularProgress size={20} thickness={2} />
         );
     }
 }

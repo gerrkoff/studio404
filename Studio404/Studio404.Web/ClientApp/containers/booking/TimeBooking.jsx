@@ -54,15 +54,19 @@ class TimeBooking extends Component {
 
     render() {
         return (
-            <div style={{width: "700px", textAlign: "left"}}>
+            <div style={{width: "800px", textAlign: "left"}}>
                 <Row>
                     <Col md="6">
                         <div style={styles.formElement}>
                             <h5>{DateService.toDateString(this.props.date)}</h5>    
                         </div>
-                        <div style={{padding: 20, paddingTop: 0}}>
-                            <HourSelector dayHours={this.state.dayHours} updateHours={this.updateHours} date={this.props.date}/>
-                            {!this.state.dayHours && <Loader/>}
+                        <div style={{padding: 20, paddingTop: 0, verticalAlign: "center", position: "relative"}}>
+                            <div style={{display: "inline-block"}}>
+                                <HourSelector dayHours={this.state.dayHours} updateHours={this.updateHours} date={this.props.date}/>
+                            </div>
+                            <div style={{display: "inline-block", position: "relative", padding: 10, top: "-10px"}}>
+                                {!this.state.dayHours && <Loader />}
+                            </div>
                         </div>
                     </Col>
                     <Col md="6">
@@ -70,7 +74,7 @@ class TimeBooking extends Component {
                             <p>Lorem</p>
                         </div>
                         <div style={{padding: 20, textAlign: "right"}}>
-                            <RaisedButton label="Book" primary={true} onClick={this.sendBooking} />
+                            <RaisedButton label="Book" primary={true} onClick={this.sendBooking} disabled={!this.state.dayHours} />
                         </div>
                     </Col>
                 </Row>

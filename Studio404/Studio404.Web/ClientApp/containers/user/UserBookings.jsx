@@ -11,7 +11,7 @@ import UserBookingItem from "../../components/user/UserBookingItem";
 import DateService from "../../modules/DateService";
 import UserService from "../../modules/UserService";
 import EnumService from "../../modules/EnumService";
-import Loader from "../../components/common/Loader";
+import LoaderContent from "../../components/common/LoaderContent";
 import UserTitle from "../../components/user/UserTitle";
 
 class UserBookings extends Component {
@@ -49,7 +49,7 @@ class UserBookings extends Component {
                 textAlign: "center",
                 padding: "15px"
             }}>
-                <Loader />
+                <LoaderContent />
             </div>
         );
     }

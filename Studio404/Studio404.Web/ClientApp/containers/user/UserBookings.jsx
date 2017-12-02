@@ -11,7 +11,7 @@ import UserBookingItem from "../../components/user/UserBookingItem";
 import DateService from "../../modules/DateService";
 import UserService from "../../modules/UserService";
 import EnumService from "../../modules/EnumService";
-import Loader from "../../components/root/Loader";
+import Loader from "../../components/common/Loader";
 
 class UserBookings extends Component {
 

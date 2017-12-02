@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import BookingService from "../../modules/BookingService";
 import DateService from "../../modules/DateService";
 import HourSelector from "../../components/booking/HourSelector";
-import Loader from "../../components/root/Loader";
+import Loader from "../../components/common/Loader";
 
 class TimeBooking extends Component {
     constructor(props) {

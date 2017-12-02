@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import FlatButton from 'material-ui/FlatButton';
 import WeekWorkload from "./WeekWorkload";
-import Loader from "../root/Loader";
+import Loader from "../common/Loader";
 
 class BookingDayChooser extends Component {
     render() {

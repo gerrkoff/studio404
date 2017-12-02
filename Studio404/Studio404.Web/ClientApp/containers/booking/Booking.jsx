@@ -4,7 +4,7 @@ import BookingService from "../../modules/BookingService";
 import DateService from "../../modules/DateService";
 import TimeBooking from "./TimeBooking";
 import BookingDayChooser from "../../components/booking/BookingDayChooser";
-import Message from "../../components/root/Message";
+import Message from "../../components/common/Message";
 
 class Booking extends Component {
 

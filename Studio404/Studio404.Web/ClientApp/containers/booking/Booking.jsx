@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
+import Paper from 'material-ui/Paper';
 import BookingService from "../../modules/BookingService";
 import DateService from "../../modules/DateService";
 import TimeBooking from "./TimeBooking";
@@ -16,6 +17,7 @@ class Booking extends Component {
         this.chooseDay = this.chooseDay.bind(this);
         this.changeWeekStartDate = this.changeWeekStartDate.bind(this);
         this.bookingAdded = this.bookingAdded.bind(this);
+        this.renderTimeBooking = this.renderTimeBooking.bind(this);
         
         let monday = DateService.getMonday(new Date());
         this.state = {
@@ -87,10 +89,22 @@ class Booking extends Component {
                 </Row>
                 <Row>
                     <Col md="12">
-                        {this.state.chosenDate && <TimeBooking date={this.state.chosenDate} bookingAdded={this.bookingAdded} />}
+                        {this.state.chosenDate && this.renderTimeBooking()}
                     </Col>
                 </Row>
                 <Message ref={x => { this.message = x; }} />
+            </div>
+        );
+    }
+
+    renderTimeBooking() {
+        return (
+            <div style={{textAlign: "center"}}>
+                <div style={{display: "inline-block"}}>
+                    <Paper style={{marginTop: 10}} zDepth={2}>
+                        <TimeBooking date={this.state.chosenDate} bookingAdded={this.bookingAdded} />
+                    </Paper>
+                </div>
             </div>
         );
     }

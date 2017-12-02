@@ -53,7 +53,8 @@ export default class HourSelector extends Component {
                 onChange={this.handleChange}
                 selectionRenderer={this.selectionRenderer}
                 disabled={!this.props.dayHours}
-                floatingLabelText="Select hours">
+                floatingLabelText="Select hours"
+                maxHeight={300} >
             
                 {this.menuItems(this.props.dayHours)}
             </SelectField>

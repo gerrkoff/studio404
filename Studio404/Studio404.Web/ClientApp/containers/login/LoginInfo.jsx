@@ -8,6 +8,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Divider from 'material-ui/Divider';
 import AccountService from "../../modules/AccountService";
 import LoginPopup from "../login/LoginPopup";
+import {withRouter} from "react-router-dom";
 
 class LoginInfo extends Component {
 
@@ -15,6 +16,8 @@ class LoginInfo extends Component {
         super(props);
         this.logoff = this.logoff.bind(this);
         this.getCurrentUser = this.getCurrentUser.bind(this);
+        this.moveToUserBookings = this.moveToUserBookings.bind(this);
+        this.moveToSettings = this.moveToSettings.bind(this);
 
         this.state = {
             userName: null
@@ -27,6 +30,14 @@ class LoginInfo extends Component {
             .done(data => {
                 this.setState({user: data});
             });
+    }
+
+    moveToUserBookings() {
+        this.props.history.push("/my/bookings");
+    }
+
+    moveToSettings() {
+        this.props.history.push("/my/settings");
     }
 
     logoff() {
@@ -45,8 +56,8 @@ class LoginInfo extends Component {
                     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                     targetOrigin={{horizontal: 'right', vertical: 'top'}} >
                     
-                        <MenuItem primaryText="My bookings" />
-                        <MenuItem primaryText="Settings" />
+                        <MenuItem primaryText="My bookings" onClick={this.moveToUserBookings} />
+                        <MenuItem primaryText="Settings" onClick={this.moveToSettings} />
                         <Divider />
                         <MenuItem primaryText="Sign out" onClick={this.logoff}/>
                 </IconMenu>
@@ -68,4 +79,4 @@ class LoginInfo extends Component {
     }
 }
 
-export default LoginInfo;
+export default withRouter(LoginInfo);

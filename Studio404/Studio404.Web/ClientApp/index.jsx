@@ -14,7 +14,7 @@ ReactDOM.render(
             <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/booking" component={Booking} />
-                <Route path="/my" component={User} />
+                <Route path="/my/:tab?" component={User} />
                 <Route path="*" component={NotFound} />
             </Switch>
         </AppMaterial>

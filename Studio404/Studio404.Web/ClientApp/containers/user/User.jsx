@@ -8,10 +8,6 @@ import {List, ListItem} from 'material-ui/List';
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 
-const style = {
-    marginTop: 8
-};
-
 class User extends Component {
 
     constructor(props) {
@@ -44,7 +40,7 @@ class User extends Component {
                     </List>
                 </Col>
                 <Col md="9">
-                    <Paper style={style} zDepth={2}>
+                    <Paper style={{marginTop: 8}} zDepth={2}>
                         {this.renderMenuItem()}
                     </Paper>
                 </Col>

@@ -17,7 +17,13 @@ const DateService = {
     },
 
     toDateString(date) {
-        return date.toDateString();
+        var options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
+
+        return date.toLocaleString("ru", options);
     },
 
     convertHourToLabel(hour) {
@@ -25,7 +31,7 @@ const DateService = {
     },
 
     convertHourIntervalToLabel(hourStart, hourEnd){
-        return `${this.convertHourToLabel(hourStart)} - ${this.convertHourToLabel(hourEnd + 1)}`
+        return `${this.convertHourToLabel(hourStart)} – ${this.convertHourToLabel(hourEnd + 1)}`
     },
 
     convertHoursToLabels(hours) {

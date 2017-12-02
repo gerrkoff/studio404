@@ -58,7 +58,7 @@ class Booking extends Component {
 
     getWeekLabel() {
         let weekEndDate = DateService.addDaysToDate(this.state.weekStartDate, 6);
-        let weekLabel = `${DateService.toDateString(this.state.weekStartDate)} - ${DateService.toDateString(weekEndDate)}`;
+        let weekLabel = `${DateService.toDateString(this.state.weekStartDate)} – ${DateService.toDateString(weekEndDate)}`;
         return weekLabel;
     }
 

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import FontIcon from 'material-ui/FontIcon';
-import AccountService from "../../modules/AccountService";
-import LoginPopup from "../../containers/login/LoginPopup";
 import {withRouter} from "react-router-dom";
 import {Toolbar as MuiToolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import AccountService from "../../modules/AccountService";
+import LoginPopup from "../../containers/login/LoginPopup";
+import FaIconButton from "../common/FaIconButton";
 
 class ToolbarLoginInfo extends Component {
 
@@ -45,10 +45,7 @@ class ToolbarLoginInfo extends Component {
                     text={this.state.username}
                     onClick={this.moveToUser}
                     style={{cursor: "pointer"}} />
-                <FontIcon 
-                    className="fa fa-sign-out"
-                    style={{fontSize: "20px", paddingLeft: "10px", cursor: "pointer"}}
-                    onClick={this.logoff} />
+                <FaIconButton onClick={this.logoff} icon="sign-out" size="sm" style={{paddingLeft: "10px"}} alt={true} />
             </div>
         );
 

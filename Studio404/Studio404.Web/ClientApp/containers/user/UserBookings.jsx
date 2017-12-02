@@ -31,7 +31,7 @@ class UserBookings extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{width: "100%"}}>
                 {this.state.bookings
                     ? this.renderTable()
                     : <Loader />
@@ -44,7 +44,7 @@ class UserBookings extends Component {
         return (
             <Table>
                 <TableHeader
-                    height="300px"
+                    height="50px"
                     displaySelectAll={false}>
                         <TableRow>
                             <TableHeaderColumn>Date</TableHeaderColumn>

@@ -7,8 +7,7 @@ import {
     TableRow,
     TableRowColumn,
   } from 'material-ui/Table';
-  import IconButton from 'material-ui/IconButton';
-  import ActionHome from 'material-ui/svg-icons/action/home';  
+  import FaIconButton from "../common/FaIconButton";
 
 class UserBookingItem extends Component {
     render() {
@@ -17,7 +16,7 @@ class UserBookingItem extends Component {
                 <TableRowColumn>{this.props.date}</TableRowColumn>
                 <TableRowColumn>{this.props.time}</TableRowColumn>
                 <TableRowColumn>{this.props.status}</TableRowColumn>
-                <TableRowColumn><IconButton><ActionHome/></IconButton></TableRowColumn>
+                <TableRowColumn><FaIconButton icon="credit-card" size="sm"/></TableRowColumn>
             </TableRow>
         );
     }

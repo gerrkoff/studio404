@@ -84,7 +84,7 @@ class LoginPopup extends Component {
     
         return (
             <div>
-                <FlatButton label="Login" onClick={this.handleOpen} />
+                <FlatButton label="Login" primary={true} onClick={this.handleOpen} />
                 <Dialog
                     title={this.state.registration === true ? "Register" : "Login"}
                     actions={actions}

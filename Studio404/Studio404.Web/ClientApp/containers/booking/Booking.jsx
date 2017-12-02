@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import BookingService from "../../modules/BookingService";
 import DateService from "../../modules/DateService";
 import TimeBooking from "./TimeBooking";
@@ -76,15 +76,19 @@ class Booking extends Component {
         return (
             <div>
                 <Row>
-                    <BookingDayChooser
-                                previousWeek={this.previousWeek}
-                                nextWeek={this.nextWeek}
-                                weekLabel={this.getWeekLabel()}
-                                weekWorkload={this.state.weekWorkload}
-                                chooseDay={this.chooseDay}/>
+                    <Col md="12">
+                        <BookingDayChooser
+                                    previousWeek={this.previousWeek}
+                                    nextWeek={this.nextWeek}
+                                    weekLabel={this.getWeekLabel()}
+                                    weekWorkload={this.state.weekWorkload}
+                                    chooseDay={this.chooseDay}/>
+                    </Col>
                 </Row>
                 <Row>
-                    {this.state.chosenDate && <TimeBooking date={this.state.chosenDate} bookingAdded={this.bookingAdded} />}
+                    <Col md="12">
+                        {this.state.chosenDate && <TimeBooking date={this.state.chosenDate} bookingAdded={this.bookingAdded} />}
+                    </Col>
                 </Row>
                 <Message ref={x => { this.message = x; }} />
             </div>

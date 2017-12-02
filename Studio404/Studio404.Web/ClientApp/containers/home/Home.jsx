@@ -4,9 +4,7 @@ import { Row } from 'reactstrap';
 class Home extends Component {
     render() {
         return (
-            <Row>
-                <h3>Home</h3>
-            </Row>
+            <h3>Home</h3>
         );
     }
 }

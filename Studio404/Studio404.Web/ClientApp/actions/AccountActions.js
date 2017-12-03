@@ -1,17 +1,17 @@
 import AccountService from "../modules/AccountService";
 
-const userLoaded = (username) => {
+const userLoaded = (currentUser) => {
   return {
     type: "CURRENT_USER_LOADED",
-    username
+    currentUser
   }
 }
 
 export function loadCurrentUser() {
   return (dispatch) => {
     AccountService.GetCurrentUser()
-          .done((username) => {
-              dispatch(userLoaded(username));
+          .done((currentUser) => {
+              dispatch(userLoaded(currentUser));
           });
   };
 }

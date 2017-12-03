@@ -87,9 +87,13 @@ namespace Studio404.Web.Controllers
         }
 
         [HttpGet]
-        public string Current()
+        public CurrentUserDto Current()
         {
-            return User.Identity.Name;
+            return new CurrentUserDto
+            {
+                UserLoggedIn = User.Identity.IsAuthenticated,
+                Username = User.Identity.Name
+            };
         }
     }
 }

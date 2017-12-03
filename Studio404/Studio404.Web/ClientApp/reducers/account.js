@@ -3,12 +3,12 @@ const initialState = {
   username: ""
 }
 
-const login = (state = initialState, action) => {
+const account = (state = initialState, action) => {
   switch (action.type) {
     case "CURRENT_USER_LOADED":
       return Object.assign({}, state, {
-        userLoggedIn: true,
-        username: action.username
+        userLoggedIn: action.currentUser.userLoggedIn,
+        username: action.currentUser.username
       });
 
     default:
@@ -16,4 +16,4 @@ const login = (state = initialState, action) => {
   }
 }
   
-export default login
+export default account

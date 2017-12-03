@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import "./modules/Polyfill";
 import ReactDOM from "react-dom";
 import React from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";

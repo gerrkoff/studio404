@@ -13,9 +13,13 @@ class TimeBooking extends Component {
         this.updateHours = this.updateHours.bind(this);
         this.sendBooking = this.sendBooking.bind(this);
         this.getDayHours = this.getDayHours.bind(this);
+        this.renderInfo = this.renderInfo.bind(this);
         
-        this.hours = [];
-        this.state = {dayHours: null};
+        this.state = {
+            dayHours: null,
+            valid: true,
+            hours: []
+        };
         this.getDayHours(this.props.date);
     }
 
@@ -26,12 +30,12 @@ class TimeBooking extends Component {
         }
     }
 
-    updateHours(hours) {
-        this.hours = hours;
+    updateHours(hours, valid) {
+        this.setState({valid: valid, hours: hours});
     }
 
     sendBooking() {
-        let hours = this.hours;//.sort();
+        let hours = this.state.hours.sortNumbers();
         BookingService.MakeBooking(this.props.date, hours[0], hours[hours.length-1])
             .done(() => {
                 this.props.bookingAdded();                
@@ -71,15 +75,28 @@ class TimeBooking extends Component {
                     </Col>
                     <Col md="6">
                         <div style={styles.formElement}>
-                            <p>Lorem</p>
+                            {this.renderInfo()}
                         </div>
                         <div style={{padding: 20, textAlign: "right"}}>
-                            <RaisedButton label="Book" primary={true} onClick={this.sendBooking} disabled={!this.state.dayHours} />
+                            <RaisedButton
+                                label="Book"
+                                primary={true}
+                                onClick={this.sendBooking}
+                                disabled={!this.state.dayHours || this.state.hours.length === 0 || !this.state.valid} />
                         </div>
                     </Col>
                 </Row>
             </div>
         );
+    }
+
+    renderInfo() {
+        if(this.state.hours.length === 0)
+            return <p>Some default info!</p>;
+        if(this.state.valid === true)
+            return <p>Some info about booking!</p>;
+        else
+            return <p>Hours are incorrect!</p>;
     }
 }
 

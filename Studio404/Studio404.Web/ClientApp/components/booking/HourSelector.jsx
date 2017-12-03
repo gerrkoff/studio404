@@ -8,8 +8,9 @@ export default class HourSelector extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.selectionRenderer = this.selectionRenderer.bind(this);
         this.menuItems = this.menuItems.bind(this);
+        this.validateHours = this.validateHours.bind(this);
 
-        this.state = {values: []};
+        this.state = {values: [], valid: true};
     }
 
     componentWillReceiveProps(nextProps) {
@@ -18,8 +19,15 @@ export default class HourSelector extends Component {
     }
 
     handleChange (event, index, values) {
-        this.props.updateHours(values);
-        this.setState({values});
+        let valid = this.validateHours(values);
+        this.props.updateHours(values, valid);
+        this.setState({values: values, valid: valid});
+    }
+
+    validateHours(hours) {
+        if(hours.length < 2) return true;
+        hours.sortNumbers();
+        return hours[hours.length-1] - hours[0] === hours.length - 1;
     }
 
     selectionRenderer (values) {
@@ -54,7 +62,9 @@ export default class HourSelector extends Component {
                 selectionRenderer={this.selectionRenderer}
                 disabled={!this.props.dayHours}
                 floatingLabelText="Select hours"
-                maxHeight={300} >
+                maxHeight={300} 
+                errorText={!this.state.valid && 'Incorrect hours'}
+                >
             
                 {this.menuItems(this.props.dayHours)}
             </SelectField>

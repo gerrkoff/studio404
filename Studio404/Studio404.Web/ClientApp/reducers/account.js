@@ -1,6 +1,10 @@
 const initialState = {
   userLoggedIn: false,
-  username: ""
+  username: "",
+  loginPopup: {
+    open: false,
+    registration: false
+  }
 }
 
 const account = (state = initialState, action) => {
@@ -9,6 +13,20 @@ const account = (state = initialState, action) => {
       return Object.assign({}, state, {
         userLoggedIn: action.currentUser.userLoggedIn,
         username: action.currentUser.username
+      });
+
+    case "OPEN_LOGIN_POPUP":
+      return Object.assign({}, state, {
+        loginPopup: {
+          open: true
+        }
+      });
+
+    case "CLOSE_LOGIN_POPUP":
+      return Object.assign({}, state, {
+        loginPopup: {
+          open: false
+        }
       });
 
     default:

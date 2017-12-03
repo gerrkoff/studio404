@@ -10,29 +10,14 @@ class LoginPopup extends Component {
 
     constructor(props) {
         super(props);
-        this.handleClose = this.handleClose.bind(this);
-        this.handleOpen = this.handleOpen.bind(this);
-        this.login = this.login.bind(this);
-        this.register = this.register.bind(this);
         this.submit = this.submit.bind(this);
         this.updateLoginInfo = this.updateLoginInfo.bind(this);
         this.updateRegisterInfo = this.updateRegisterInfo.bind(this);
         this.registrationToggle = this.registrationToggle.bind(this);
 
-        this.state = {
-            open: false,
-            registration: false
-        };
+        this.state = {registration: false};
         this.loginInfo = {};
         this.registerInfo = {};
-    }
-    
-    handleOpen() {
-        this.setState({open: true});
-    }
-    
-    handleClose() {
-        this.setState({open: false});
     }
 
     updateLoginInfo(loginInfo) {
@@ -43,27 +28,11 @@ class LoginPopup extends Component {
         this.registerInfo = registerInfo;
     }
 
-    login() {
-        AccountService.Login(this.loginInfo)
-            .done(() => {
-                this.handleClose();
-                this.props.updateUser();
-            });
-    }
-
-    register() {
-        AccountService.Register(this.registerInfo)
-            .done(() => {
-                this.handleClose();
-                this.props.updateUser();
-            });
-    }
-
     submit() {
         if (this.state.registration === true)
-            this.register();
+            this.props.register(this.registerInfo);
         else 
-            this.login();
+            this.props.login(this.loginInfo);
     }
 
     registrationToggle(event, isChecked) {
@@ -75,7 +44,7 @@ class LoginPopup extends Component {
             <FlatButton
                 label="Cancel"
                 primary={true}
-                onClick={this.handleClose}/>,
+                onClick={this.props.closePopup}/>,
             <FlatButton
                 label={this.state.registration === true ? "Register" : "Login"}
                 primary={true}
@@ -84,13 +53,13 @@ class LoginPopup extends Component {
     
         return (
             <div>
-                <FlatButton label="Login" primary={true} onClick={this.handleOpen} />
+                <FlatButton label="Login" primary={true} onClick={this.props.openPopup} />
                 <Dialog
                     title={this.state.registration === true ? "Register" : "Login"}
                     actions={actions}
                     modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}>
+                    open={this.props.open}
+                    onRequestClose={this.props.closePopup}>
 
                     {this.state.registration === true
                         ? <RegisterForm updateRegisterInfo={this.updateRegisterInfo} />

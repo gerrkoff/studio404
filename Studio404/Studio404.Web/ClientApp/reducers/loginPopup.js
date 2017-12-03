@@ -16,6 +16,11 @@ const loginPopup = (state = initialState, action) => {
         open: false
       });
 
+    case "REGISTRATION_TOGGLE":
+      return Object.assign({}, state, {
+        registration: action.registration
+      });
+
     default:
       return state;
   }

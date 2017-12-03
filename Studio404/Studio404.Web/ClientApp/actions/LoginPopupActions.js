@@ -32,3 +32,10 @@ export const closeLoginPopup = () => {
       type: "CLOSE_LOGIN_POPUP"
     }
   }
+
+export const toggleRegistration = (registration) => {
+    return {
+      type: "REGISTRATION_TOGGLE",
+      registration
+    }
+  }

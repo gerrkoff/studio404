@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { login, openLoginPopup, closeLoginPopup, register } from "../actions/LoginPopupActions";
+import { login, openLoginPopup, closeLoginPopup, register, toggleRegistration } from "../actions/LoginPopupActions";
 import LoginPopup from "../components/login/LoginPopup";
 
 const mapStateToProps = (state) => {
   return {
+    registration: state.loginPopup.registration,
     open: state.loginPopup.open
   }
 }
@@ -14,7 +15,8 @@ const mapDispatchToProps = (dispatch) => {
     register: (registerInfo) => dispatch(register(registerInfo)),
     login: (loginInfo) => dispatch(login(loginInfo)),
     openPopup: () => dispatch(openLoginPopup()),
-    closePopup: () => dispatch(closeLoginPopup())
+    closePopup: () => dispatch(closeLoginPopup()),
+    toggleRegistration: (registration) => dispatch(toggleRegistration(registration))
   }
 }
 

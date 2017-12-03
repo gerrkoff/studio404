@@ -9,11 +9,10 @@ import { createStore } from 'redux'
 
 import AppMaterial from "./components/root/AppMaterial";
 import NotFound from "./components/root/NotFound";
-import Home from "./containers/home/Home";
-import Booking from "./containers/booking/Booking";
-import User from "./containers/user/User";
+import Home from "./components/home/Home";
+import Booking from "./components/booking/Booking";
+import User from "./components/user/User";
 import storeApp from './reducers'
-
 
 let store = createStore(storeApp)
 

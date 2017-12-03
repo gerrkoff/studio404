@@ -3,7 +3,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {withRouter} from "react-router-dom";
 import {Toolbar as MuiToolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import AccountService from "../../modules/AccountService";
-import LoginPopup from "../../containers/login/LoginPopup";
+import LoginPopup from "../login/LoginPopup";
 import FaIconButton from "../common/FaIconButton";
 
 class ToolbarLoginInfo extends Component {

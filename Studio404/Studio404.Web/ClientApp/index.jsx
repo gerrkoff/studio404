@@ -12,9 +12,9 @@ import NotFound from "./components/root/NotFound";
 import Home from "./components/home/Home";
 import Booking from "./components/booking/Booking";
 import User from "./components/user/User";
-import storeApp from './reducers'
+import rootReducer from './reducers'
 
-let store = createStore(storeApp)
+let store = createStore(rootReducer)
 
 ReactDOM.render(
     <Provider store={store}>

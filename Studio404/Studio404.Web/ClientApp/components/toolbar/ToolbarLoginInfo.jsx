@@ -21,10 +21,13 @@ class ToolbarLoginInfo extends Component {
     }
 
     getCurrentUser() {
+        this.props.loadCurrentUser();
+        /*
         AccountService.GetCurrentUser()
             .done(data => {
                 this.setState({username: data});
             });
+        */
     }
 
     moveToUser() {
@@ -42,7 +45,7 @@ class ToolbarLoginInfo extends Component {
         const userLoggedIn = (
             <div>
                 <ToolbarTitle
-                    text={this.state.username}
+                    text={this.props.username}
                     onClick={this.props.test}
                     style={{cursor: "pointer"}} />
                 <FaIconButton onClick={this.logoff} icon="sign-out" size="sm" style={{paddingLeft: "10px"}} alt={true} />
@@ -51,8 +54,7 @@ class ToolbarLoginInfo extends Component {
 
         return (
             <div>
-                {this.props.msg}
-                {this.state.username
+                {this.props.userLoggedIn
                     ? userLoggedIn
                     : <LoginPopup updateUser={this.getCurrentUser}/>
                 }

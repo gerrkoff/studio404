@@ -1,6 +1,10 @@
-export const test = msg => {
-    return {
-      type: 'TEST',
-      msg
-    }
+const userLoaded = (username) => {
+  return {
+    type: "CURRENT_USER_LOADED",
+    username: username
   }
+}
+
+export const loadCurrentUser = () => {
+  return userLoaded("Lera");
+}

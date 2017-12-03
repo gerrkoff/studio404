@@ -13,9 +13,7 @@ class LoginPopup extends Component {
         this.submit = this.submit.bind(this);
         this.updateLoginInfo = this.updateLoginInfo.bind(this);
         this.updateRegisterInfo = this.updateRegisterInfo.bind(this);
-        this.registrationToggle = this.registrationToggle.bind(this);
-
-        this.state = {registration: false};
+        
         this.loginInfo = {};
         this.registerInfo = {};
     }
@@ -33,10 +31,6 @@ class LoginPopup extends Component {
             this.props.register(this.registerInfo);
         else 
             this.props.login(this.loginInfo);
-    }
-
-    registrationToggle(event, isChecked) {
-        this.props.toggleRegistration(isChecked);
     }
     
     render() {
@@ -69,7 +63,7 @@ class LoginPopup extends Component {
                     <Toggle
                         label="Registration"
                         labelPosition="right"
-                        onToggle={this.registrationToggle} />
+                        onToggle={(event, isChecked) => this.props.toggleRegistration(isChecked)} />
                 </Dialog>
             </div>
         );

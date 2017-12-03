@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { login, openLoginPopup, closeLoginPopup, register } from "../actions/AccountActions";
+import { login, openLoginPopup, closeLoginPopup, register } from "../actions/LoginPopupActions";
 import LoginPopup from "../components/login/LoginPopup";
 
 const mapStateToProps = (state) => {
   return {
-    //username: state.account.username,
-    open: state.account.loginPopup.open
+    open: state.loginPopup.open
   }
 }
 

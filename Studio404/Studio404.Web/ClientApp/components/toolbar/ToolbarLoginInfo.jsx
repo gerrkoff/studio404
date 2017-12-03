@@ -43,7 +43,7 @@ class ToolbarLoginInfo extends Component {
             <div>
                 <ToolbarTitle
                     text={this.state.username}
-                    onClick={this.moveToUser}
+                    onClick={this.props.test}
                     style={{cursor: "pointer"}} />
                 <FaIconButton onClick={this.logoff} icon="sign-out" size="sm" style={{paddingLeft: "10px"}} alt={true} />
             </div>
@@ -51,6 +51,7 @@ class ToolbarLoginInfo extends Component {
 
         return (
             <div>
+                {this.props.msg}
                 {this.state.username
                     ? userLoggedIn
                     : <LoginPopup updateUser={this.getCurrentUser}/>

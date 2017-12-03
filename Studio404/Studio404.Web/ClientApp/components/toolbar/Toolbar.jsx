@@ -2,22 +2,18 @@ import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar as MuiToolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import {withRouter} from "react-router-dom";
-import ToolbarLoginInfo from "./ToolbarLoginInfo";
+//import ToolbarLoginInfo from "./ToolbarLoginInfo";
+import ToolbarLoginInfoContainer from "../../containers/ToolbarLoginInfoContainer";
 
 class Toolbar extends Component {
 
     constructor(props) {
         super(props);
-        this.moveToHome = this.moveToHome.bind(this);
-        this.moveToBooking = this.moveToBooking.bind(this);
+        this.goTo = this.goTo.bind(this);
     }
     
-    moveToHome() {
-        this.props.history.push("/");
-    }
-
-    moveToBooking() {
-        this.props.history.push("/booking");
+    goTo(path) {
+        this.props.history.push(path);
     }
 
     render() {
@@ -28,13 +24,13 @@ class Toolbar extends Component {
                         <ToolbarTitle
                             text="404 studio"
                             style={{cursor: "pointer"}}
-                            onClick={this.moveToHome} />
+                            onClick={() => this.moveToHome("/")} />
                     </ToolbarGroup>
                     <ToolbarGroup>
-                        <RaisedButton label="Booking" primary={true} onClick={this.moveToBooking} />
+                        <RaisedButton label="Booking" primary={true} onClick={() => this.moveToHome("/booking")} />
                         <ToolbarSeparator />
                         <div style={{width: "30px"}}/>
-                        <ToolbarLoginInfo />
+                        <ToolbarLoginInfoContainer />
                     </ToolbarGroup>
                 </MuiToolbar>
             </div>

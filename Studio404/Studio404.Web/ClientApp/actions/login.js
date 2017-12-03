@@ -1,6 +1,6 @@
-export const setVisibilityFilter = filter => {
+export const test = msg => {
     return {
-      type: 'SET_VISIBILITY_FILTER',
-      filter
+      type: 'TEST',
+      msg
     }
   }

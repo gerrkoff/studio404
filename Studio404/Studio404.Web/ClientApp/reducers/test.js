@@ -1,9 +1,9 @@
-const test = (state = 'SHOW_ALL', action) => {
+const test = (state = '000', action) => {
     switch (action.type) {
-      case 'SET_VISIBILITY_FILTER':
-        return action.filter
+      case 'TEST':
+        return action.msg + "!!!";
       default:
-        return state
+        return state;
     }
   }
   

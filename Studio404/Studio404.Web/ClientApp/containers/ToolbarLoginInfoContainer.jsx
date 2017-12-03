@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { loadCurrentUser } from "../actions/login";
+import { loadCurrentUser } from "../actions/AccountActions";
 import ToolbarLoginInfo from "../components/toolbar/ToolbarLoginInfo";
 
 const mapStateToProps = (state) => {

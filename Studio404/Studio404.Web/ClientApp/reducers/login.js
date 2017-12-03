@@ -3,17 +3,17 @@ const initialState = {
   username: ""
 }
 
-const test = (state = initialState, action) => {
+const login = (state = initialState, action) => {
   switch (action.type) {
     case "CURRENT_USER_LOADED":
-      return {
+      return Object.assign({}, state, {
         userLoggedIn: true,
         username: action.username
-      };
+      });
 
     default:
       return state;
   }
 }
   
-export default test
+export default login

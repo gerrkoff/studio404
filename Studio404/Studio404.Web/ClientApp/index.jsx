@@ -5,7 +5,8 @@ import ReactDOM from "react-dom";
 import React from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 import AppMaterial from "./components/root/AppMaterial";
 import NotFound from "./components/root/NotFound";
@@ -14,7 +15,7 @@ import Booking from "./components/booking/Booking";
 import User from "./components/user/User";
 import rootReducer from './reducers'
 
-let store = createStore(rootReducer)
+let store = createStore(rootReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
     <Provider store={store}>

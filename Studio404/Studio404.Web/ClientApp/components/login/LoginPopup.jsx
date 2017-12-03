@@ -10,10 +10,8 @@ class LoginPopup extends Component {
 
     constructor(props) {
         super(props);
-        this.submit = this.submit.bind(this);
         this.updateLoginInfo = this.updateLoginInfo.bind(this);
         this.updateRegisterInfo = this.updateRegisterInfo.bind(this);
-        
         this.loginInfo = {};
         this.registerInfo = {};
     }
@@ -25,13 +23,6 @@ class LoginPopup extends Component {
     updateRegisterInfo(registerInfo) {
         this.registerInfo = registerInfo;
     }
-
-    submit() {
-        if (this.props.registration === true)
-            this.props.register(this.registerInfo);
-        else 
-            this.props.login(this.loginInfo);
-    }
     
     render() {
         const actions = [
@@ -42,7 +33,11 @@ class LoginPopup extends Component {
             <FlatButton
                 label={this.props.registration === true ? "Register" : "Login"}
                 primary={true}
-                onClick={this.submit}/>
+                onClick={
+                    this.props.registration === true
+                        ? () => this.props.register(this.registerInfo)
+                        : () => this.props.login(this.loginInfo)
+                }/>
         ];
     
         return (

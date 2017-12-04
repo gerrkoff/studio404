@@ -10,14 +10,8 @@ class LoginPopup extends Component {
 
     constructor(props) {
         super(props);
-        this.updateLoginInfo = this.updateLoginInfo.bind(this);
         this.updateRegisterInfo = this.updateRegisterInfo.bind(this);
-        this.loginInfo = {};
         this.registerInfo = {};
-    }
-
-    updateLoginInfo(loginInfo) {
-        this.loginInfo = loginInfo;
     }
 
     updateRegisterInfo(registerInfo) {
@@ -36,7 +30,7 @@ class LoginPopup extends Component {
                 onClick={
                     this.props.registration === true
                         ? () => this.props.register(this.registerInfo)
-                        : () => this.props.login(this.loginInfo)
+                        : () => this.props.login(this.props.loginInfo)
                 }/>
         ];
     
@@ -52,7 +46,7 @@ class LoginPopup extends Component {
 
                     {this.props.registration === true
                         ? <RegisterForm updateRegisterInfo={this.updateRegisterInfo} />
-                        : <LoginForm updateLoginInfo={this.updateLoginInfo} /> 
+                        : <LoginForm updateLoginInfo={this.props.updateLoginInfo} /> 
                     }
                     <br />
                     <Toggle

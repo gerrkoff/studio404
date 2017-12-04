@@ -1,6 +1,11 @@
 const initialState = {
   open: false,
-  registration: false
+  registration: false,
+  loginInfo: {
+    username: null,
+    password: null,
+    isValid: false
+  }
 }
 
 const loginPopup = (state = initialState, action) => {
@@ -19,6 +24,13 @@ const loginPopup = (state = initialState, action) => {
     case "REGISTRATION_TOGGLE":
       return Object.assign({}, state, {
         registration: action.registration
+      });
+
+    case "UPDATE_LOGIN_INFO":
+      return Object.assign({}, state, {
+        loginInfo: Object.assign({}, state.loginInfo, {
+          [action.fieldName]: action.fieldValue
+        })
       });
 
     default:

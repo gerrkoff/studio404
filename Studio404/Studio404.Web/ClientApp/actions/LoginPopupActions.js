@@ -39,3 +39,11 @@ export const toggleRegistration = (registration) => {
       registration
     }
   }
+
+export const updateLoginInfo = (fieldName, fieldValue) => {
+    return {
+      type: "UPDATE_LOGIN_INFO",
+      fieldName,
+      fieldValue
+    }
+  }

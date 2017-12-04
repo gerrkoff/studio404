@@ -7,17 +7,17 @@ class LoginForm extends Component {
         super(props);
         this.updateUsername = this.updateUsername.bind(this);
         this.updatePassword = this.updatePassword.bind(this);
-        this.loginInfo = {};
+        //this.loginInfo = {};
     }
 
     updateUsername(value) {
-        this.loginInfo.username = value;
-        this.props.updateLoginInfo(this.loginInfo);
+        //this.loginInfo.username = value;
+        this.props.updateLoginInfo("username", value);
     }
     
     updatePassword(value) {
-        this.loginInfo.password = value;
-        this.props.updateLoginInfo(this.loginInfo);
+        //this.loginInfo.password = value;
+        this.props.updateLoginInfo("password", value);
     }
 
     render() {

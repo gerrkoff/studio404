@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import UserBookings from "./UserBookings";
-import UserSettings from "./UserSettings";
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
+import UserBookings from "../../containers/UserBookingContainer";
+import UserSettings from "./UserSettings";
 
 class User extends Component {
 

@@ -4,6 +4,7 @@ import { loadCurrentUser } from "./AccountActions";
 
 export const login = (loginInfo) => {
     return (dispatch) => {
+
         AccountService.Login(loginInfo)
             .done(() => {
                 dispatch(toggleRegistration(false));
@@ -15,6 +16,7 @@ export const login = (loginInfo) => {
 
 export const register = (registerInfo) => {
     return (dispatch) => {
+
         AccountService.Register(registerInfo)
             .done(() => {
                 dispatch(closeLoginPopup());

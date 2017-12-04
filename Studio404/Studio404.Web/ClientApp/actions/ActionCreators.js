@@ -7,6 +7,27 @@ export const Account = {
     }
 }
 
+export const UserBookings = {
+    loading: () => {
+        return {
+            type: "LOADING"
+        }
+    },
+
+    loadedSuccess: (bookings) => {
+        return {
+            type: "LOADED_SUCCESS",
+            bookings
+        }
+    },
+
+    loadedError: () => {
+        return {
+            type: "LOADED_ERROR"
+        }
+    }
+}
+
 export const LoginPopup = {
     open: () => {
         return {

@@ -2,14 +2,14 @@ const initialState = {
     open: false,
     registration: false,
     loginInfo: {
-        username: null,
-        password: null,
+        username: "",
+        password: "",
         isValid: false
     },
     registerInfo: {
-        username: null,
-        password: null,
-        passwordConfirm: null,
+        username: "",
+        password: "",
+        passwordConfirm: "",
         isValid: false
     },
 }

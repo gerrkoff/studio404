@@ -9,7 +9,6 @@ import {
 } from 'material-ui/Table';
 import UserBookingItem from "../../components/user/UserBookingItem";
 import DateService from "../../modules/DateService";
-import UserService from "../../modules/UserService";
 import EnumService from "../../modules/EnumService";
 import LoaderContent from "../../components/common/LoaderContent";
 import UserTitle from "../../components/user/UserTitle";
@@ -20,24 +19,16 @@ class UserBookings extends Component {
         super(props);
         this.renderTable = this.renderTable.bind(this);
         this.renderLoader = this.renderLoader.bind(this);
-        this.loadBookings = this.loadBookings.bind(this);
-
-        this.state = {bookings: null};
-        this.loadBookings();
-    }
-
-    loadBookings() {
-        UserService.GetUserBookings()
-            .done(data => this.setState({bookings: data}));
+        this.props.loadBookings();
     }
 
     render() {
         return (
             <div>
                 <UserTitle title="My bookings"/>
-                {this.state.bookings
-                    ? this.renderTable()
-                    : this.renderLoader()
+                {this.props.isLoading === true
+                    ? this.renderLoader()
+                    : this.renderTable()
                 }
             </div>
         );
@@ -70,7 +61,7 @@ class UserBookings extends Component {
                     </TableHeader>
                     <TableBody
                         showRowHover={true}>
-                            {this.state.bookings.map(item =>
+                            {this.props.bookings.map(item =>
                                 <UserBookingItem
                                     key={item.id}
                                     date={DateService.toDateString(item.date)}

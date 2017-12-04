@@ -4,7 +4,8 @@ import { loadCurrentUser } from "./AccountActions";
 export const login = (loginInfo) => {
     return (dispatch) => {
       AccountService.Login(loginInfo)
-            .done(() => {
+          .done(() => {
+              dispatch(toggleRegistration(false));
               dispatch(closeLoginPopup());
               dispatch(loadCurrentUser());
             });
@@ -46,4 +47,12 @@ export const updateLoginInfo = (fieldName, fieldValue) => {
       fieldName,
       fieldValue
     }
-  }
+}
+
+export const updateRegisterInfo = (fieldName, fieldValue) => {
+    return {
+        type: "UPDATE_REGISTER_INFO",
+        fieldName,
+        fieldValue
+    }
+}

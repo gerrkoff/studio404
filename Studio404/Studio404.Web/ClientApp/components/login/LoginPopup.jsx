@@ -7,16 +7,6 @@ import RegisterForm from "../../components/login/RegisterForm";
 import Toggle from 'material-ui/Toggle';
 
 class LoginPopup extends Component {
-
-    constructor(props) {
-        super(props);
-        this.updateRegisterInfo = this.updateRegisterInfo.bind(this);
-        this.registerInfo = {};
-    }
-
-    updateRegisterInfo(registerInfo) {
-        this.registerInfo = registerInfo;
-    }
     
     render() {
         const actions = [
@@ -29,7 +19,7 @@ class LoginPopup extends Component {
                 primary={true}
                 onClick={
                     this.props.registration === true
-                        ? () => this.props.register(this.registerInfo)
+                        ? () => this.props.register(this.props.registerInfo)
                         : () => this.props.login(this.props.loginInfo)
                 }/>
         ];
@@ -45,13 +35,14 @@ class LoginPopup extends Component {
                     onRequestClose={this.props.closePopup}>
 
                     {this.props.registration === true
-                        ? <RegisterForm updateRegisterInfo={this.updateRegisterInfo} />
-                        : <LoginForm updateLoginInfo={this.props.updateLoginInfo} /> 
+                        ? <RegisterForm updateRegisterInfo={this.props.updateRegisterInfo} registerInfo={this.props.registerInfo} />
+                        : <LoginForm updateLoginInfo={this.props.updateLoginInfo} loginInfo={this.props.loginInfo} /> 
                     }
                     <br />
                     <Toggle
                         label="Registration"
                         labelPosition="right"
+                        defaultToggled={this.props.registration}
                         onToggle={(event, isChecked) => this.props.toggleRegistration(isChecked)} />
                 </Dialog>
             </div>

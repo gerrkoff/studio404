@@ -1,38 +1,23 @@
 import React, { Component } from 'react';
-import TextField from "../common/TextField";
+import TextField from 'material-ui/TextField';
 
 class LoginForm extends Component {
-
-    constructor(props) {
-        super(props);
-        this.updateUsername = this.updateUsername.bind(this);
-        this.updatePassword = this.updatePassword.bind(this);
-        //this.loginInfo = {};
-    }
-
-    updateUsername(value) {
-        //this.loginInfo.username = value;
-        this.props.updateLoginInfo("username", value);
-    }
-    
-    updatePassword(value) {
-        //this.loginInfo.password = value;
-        this.props.updateLoginInfo("password", value);
-    }
 
     render() {
         return (
             <div>
                 <TextField
                     hintText="Enter username"
-                    floatingLabelText="Username"
-                    updateValue={this.updateUsername}/>
+                    floatingLabelText="Username"                    
+                    value={this.props.loginInfo.username}
+                    onChange={(e) => this.props.updateLoginInfo("username", e.target.value)} />
                 <br />
                 <TextField
                     hintText="Enter password"
                     floatingLabelText="Password"
                     type="password"
-                    updateValue={this.updatePassword}/>
+                    value={this.props.loginInfo.password}
+                    onChange={(e) => this.props.updateLoginInfo("password", e.target.value)} />
             </div>
         );
     }

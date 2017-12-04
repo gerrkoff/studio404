@@ -12,6 +12,7 @@ class Booking extends Component {
         this.previousWeek = this.previousWeek.bind(this);
         this.nextWeek = this.nextWeek.bind(this);
         this.getWeekLabel = this.getWeekLabel.bind(this);
+        this.saveBooking = this.saveBooking.bind(this);
 
         this.props.loadWeekWorkload(this.props.weekStartDate);
     }
@@ -32,6 +33,10 @@ class Booking extends Component {
         let weekEndDate = DateService.addDaysToDate(this.props.weekStartDate, 6);
         let weekLabel = `${DateService.toDateString(this.props.weekStartDate)} – ${DateService.toDateString(weekEndDate)}`;
         return weekLabel;
+    }
+
+    saveBooking(date, hours) {
+        this.props.saveBooking(date, hours, this.props.weekStartDate);
     }
 
     render() {
@@ -74,6 +79,7 @@ class Booking extends Component {
                             bookingIsValid={this.props.bookingIsValid}
                             loadDayHours={this.props.loadDayHours}
                             updateHours={this.props.updateHours}
+                            saveBooking={this.saveBooking}
                         />
                     </Paper>
                 </div>

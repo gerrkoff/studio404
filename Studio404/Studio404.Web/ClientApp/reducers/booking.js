@@ -11,7 +11,7 @@ const initialState = {
     dayHoursError: false,
     bookingHours: [],
     bookingHoursError: "",
-    bookingIsValid: true
+    bookingIsValid: false
 }
 
 const booking = (state = initialState, action) => {
@@ -71,6 +71,14 @@ const booking = (state = initialState, action) => {
                 bookingHours: action.hours,
                 bookingHoursError: error,
                 bookingIsValid: isValid
+            });
+        
+        case "BOOKING_SAVED":
+            return Object.assign({}, state, {
+                chosenDate: null,
+                bookingHours: [],
+                bookingHoursError: "",
+                bookingIsValid: false
             });
 
         default:

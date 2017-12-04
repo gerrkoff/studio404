@@ -38,6 +38,18 @@ export const loadDayHours = (date) => {
     };
 }
 
+export const saveBooking = (date, hours, weekStartDate) => {
+    return (dispatch) => {
+        
+        hours.sortNumbers();
+        BookingService.MakeBooking(date, hours[0], hours[hours.length-1])
+            .done(() => {
+                dispatch(Booking.bookingSaved());
+                dispatch(loadWeekWorkload(weekStartDate));
+            });
+    };
+}
+
 export const changeWeekStartDate = (date) => Booking.changeWeekStartDate(date);
 
 export const chooseDay = (date) => Booking.chooseDay(date);

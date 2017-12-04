@@ -123,5 +123,11 @@ export const Booking = {
             type: "UPDATE_HOURS",
             hours
         }
+    },
+
+    bookingSaved: () => {
+        return {
+            type: "BOOKING_SAVED"
+        }
     }
 }

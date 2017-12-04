@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Booking from "../components/booking/Booking";
-import { changeWeekStartDate, loadWeekWorkload, chooseDay, loadDayHours, updateHours } from "../actions/BookingActions";
+import { changeWeekStartDate, loadWeekWorkload, chooseDay, loadDayHours, updateHours, saveBooking } from "../actions/BookingActions";
 
 const mapStateToProps = (state) => {
     return {
@@ -25,7 +25,8 @@ const mapDispatchToProps = (dispatch) => {
         loadWeekWorkload: (date) => dispatch(loadWeekWorkload(date)),
         chooseDay: (date) => dispatch(chooseDay(date)),
         loadDayHours: (date) => dispatch(loadDayHours(date)),
-        updateHours: (hours) => dispatch(updateHours(hours))
+        updateHours: (hours) => dispatch(updateHours(hours)),
+        saveBooking: (date, hours, weekStartDate) => dispatch(saveBooking(date, hours, weekStartDate))
     }
 }
 

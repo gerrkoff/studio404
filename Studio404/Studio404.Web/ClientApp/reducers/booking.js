@@ -64,22 +64,24 @@ const booking = (state = initialState, action) => {
             });
 
         case "UPDATE_HOURS":
+            let isValid = validateHours(action.hours);
+            let error = !isValid ? "Incorrect input" : "";
+            
             return Object.assign({}, state, {
-                bookingHours: action.hours
+                bookingHours: action.hours,
+                bookingHoursError: error,
+                bookingIsValid: isValid
             });
 
         default:
             return state;
     }
 }
-  
+
+const validateHours = (hours) => {
+    if(hours.length < 2) return true;
+    hours.sortNumbers();
+    return hours[hours.length-1] - hours[0] === hours.length - 1;
+}
+
 export default booking
-
-
-/*
-    validateHours(hours) {
-        if(hours.length < 2) return true;
-        hours.sortNumbers();
-        return hours[hours.length-1] - hours[0] === hours.length - 1;
-    }
-*/

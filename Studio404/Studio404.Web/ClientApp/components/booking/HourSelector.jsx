@@ -8,26 +8,10 @@ export default class HourSelector extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.selectionRenderer = this.selectionRenderer.bind(this);
         this.menuItems = this.menuItems.bind(this);
-        this.validateHours = this.validateHours.bind(this);
-
-        this.state = {valid: true};
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.date !== this.props.date)
-            this.setState({values: []});
     }
 
     handleChange (event, index, values) {
-        let valid = this.validateHours(values);
-        this.props.updateHours(values, valid);
-        this.setState({values: values, valid: valid});
-    }
-
-    validateHours(hours) {
-        if(hours.length < 2) return true;
-        hours.sortNumbers();
-        return hours[hours.length-1] - hours[0] === hours.length - 1;
+        this.props.updateHours(values);
     }
 
     selectionRenderer (values) {
@@ -46,7 +30,7 @@ export default class HourSelector extends Component {
             <MenuItem
                 key={dayHour.value}
                 insetChildren={true}
-                checked={this.state.values.indexOf(dayHour.hour) > -1}
+                checked={this.props.hours.indexOf(dayHour.hour) > -1}
                 value={dayHour.value}
                 primaryText={dayHour.title}
                 disabled={dayHour.disabled} />
@@ -57,14 +41,13 @@ export default class HourSelector extends Component {
         return (
             <SelectField
                 multiple={true}
-                value={this.state.values}
+                value={this.props.hours}
                 onChange={this.handleChange}
                 selectionRenderer={this.selectionRenderer}
-                disabled={!this.props.dayHours}
+                disabled={this.props.disabled}
                 floatingLabelText="Select hours"
                 maxHeight={300} 
-                errorText={!this.state.valid && 'Incorrect hours'}
-                >
+                errorText={this.props.error}>
             
                 {this.menuItems(this.props.dayHours)}
             </SelectField>

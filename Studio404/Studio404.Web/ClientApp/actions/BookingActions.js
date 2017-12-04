@@ -2,12 +2,6 @@ import BookingService from "../modules/BookingService";
 import DateService from "../modules/DateService";
 import { Booking } from "./ActionCreators";
 
-export const changeWeekStartDate = (date) => Booking.changeWeekStartDate(date);
-
-export const chooseDay = (date) => Booking.chooseDay(date);
-
-export const updateHours = (hours) => Booking.updateHours(hours);
-
 export const loadWeekWorkload = (date) => {
     return (dispatch) => {
 
@@ -39,7 +33,13 @@ export const loadDayHours = (date) => {
                         disabled: !x.available
                     };
                 });
-                dispatch(Booking.dayHoursLoadedSuccess(data));
-            });        
+                dispatch(Booking.dayHoursLoadedSuccess(dayHours));
+            });
     };
 }
+
+export const changeWeekStartDate = (date) => Booking.changeWeekStartDate(date);
+
+export const chooseDay = (date) => Booking.chooseDay(date);
+
+export const updateHours = (hours) => Booking.updateHours(hours);

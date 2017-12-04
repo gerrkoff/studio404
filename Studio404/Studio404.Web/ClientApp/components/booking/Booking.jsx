@@ -65,10 +65,15 @@ class Booking extends Component {
                 <div style={{ display: "inline-block" }}>
                     <Paper style={{ marginTop: 10 }} zDepth={2}>
                         <TimeBooking
-                            date={this.props.chosenDate}
-                            bookingInfo={this.props.bookingInfo}
-                            bookingAdded={this.bookingAdded}
+                            chosenDate={this.props.chosenDate}
+                            dayHoursIsLoading={this.props.dayHoursIsLoading}
+                            dayHours={this.props.dayHours}
+                            dayHoursError={this.props.dayHoursError}
+                            bookingHours={this.props.bookingHours}
+                            bookingHoursError={this.props.bookingHoursError}
+                            bookingIsValid={this.props.bookingIsValid}
                             loadDayHours={this.props.loadDayHours}
+                            updateHours={this.props.updateHours}
                         />
                     </Paper>
                 </div>

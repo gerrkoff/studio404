@@ -1,17 +1,17 @@
+import DateService from "../modules/DateService";
+
 const initialState = {
-    weekStartDate: new Date(),
+    weekStartDate: DateService.getMonday(new Date()),
     weekWorkloadIsLoading: false,
     weekWorkload: [],
     weekWorkloadError: false,
     chosenDate: null,
-    bookingInfo: {
-        dayHours: [],
-        dayHoursIsLoading: false,
-        dayHoursError: false,
-        isValid: true,
-        hours: [],
-        hoursError: ""
-    }
+    dayHoursIsLoading: false,
+    dayHours: [],
+    dayHoursError: false,
+    bookingHours: [],
+    bookingHoursError: "",
+    bookingIsValid: true
 }
 
 const booking = (state = initialState, action) => {
@@ -47,33 +47,25 @@ const booking = (state = initialState, action) => {
 
         case "DAY_HOURS_LOADING":
             return Object.assign({}, state, {
-                bookingInfo: Object.assign({}, state.bookingInfo, {
-                    dayHoursIsLoading: true,
-                    dayHoursError: false
-                })
+                dayHoursIsLoading: true,
+                dayHoursError: false
             });
 
         case "DAY_HOURS_LOADED_SUCCESS":
             return Object.assign({}, state, {
-                bookingInfo: Object.assign({}, state.bookingInfo, {
-                    dayHoursIsLoading: false,
-                    dayHours: action.dayHours
-                })
+                dayHoursIsLoading: false,
+                dayHours: action.dayHours
             });
 
         case "DAY_HOURS_LOADED_ERROR":
             return Object.assign({}, state, {
-                bookingInfo: Object.assign({}, state.bookingInfo, {
-                    dayHoursIsLoading: false,
-                    dayHoursError: true
-                })
+                dayHoursIsLoading: false,
+                dayHoursError: true
             });
 
         case "UPDATE_HOURS":
             return Object.assign({}, state, {
-                bookingInfo: Object.assign({}, state.bookingInfo, {
-                    hours: action.hours
-                })
+                bookingHours: action.hours
             });
 
         default:
@@ -82,3 +74,12 @@ const booking = (state = initialState, action) => {
 }
   
 export default booking
+
+
+/*
+    validateHours(hours) {
+        if(hours.length < 2) return true;
+        hours.sortNumbers();
+        return hours[hours.length-1] - hours[0] === hours.length - 1;
+    }
+*/

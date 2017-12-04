@@ -120,7 +120,7 @@ export const Booking = {
 
     updateHours: (hours) => {
         return {
-            type: "DAY_HOURS_LOADED_ERROR",
+            type: "UPDATE_HOURS",
             hours
         }
     }

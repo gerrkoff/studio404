@@ -25,22 +25,12 @@ export const register = (registerInfo) => {
     };
 }
 
-export const openLoginPopup = () => {
-    return LoginPopup.open();
-}
+export const openLoginPopup = () => LoginPopup.open();
 
-export const closeLoginPopup = () => {
-    return LoginPopup.close();
-}
+export const closeLoginPopup = () => LoginPopup.close();
 
-export const toggleRegistration = (registration) => {
-    return LoginPopup.toggleRegistration(registration);
-}
+export const toggleRegistration = (registration) => LoginPopup.toggleRegistration(registration);
 
-export const updateLoginInfo = (fieldName, fieldValue) => {
-    return LoginPopup.updateLoginInfo(fieldName, fieldValue);
-}
+export const updateLoginInfo = (fieldName, fieldValue) => LoginPopup.updateLoginInfo(fieldName, fieldValue);
 
-export const updateRegisterInfo = (fieldName, fieldValue) => {
-    return LoginPopup.updateRegisterInfo(fieldName, fieldValue);
-}
+export const updateRegisterInfo = (fieldName, fieldValue) => LoginPopup.updateRegisterInfo(fieldName, fieldValue);

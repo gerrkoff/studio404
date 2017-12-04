@@ -24,7 +24,16 @@ const loginPopup = (state = initialState, action) => {
 
         case "CLOSE_LOGIN_POPUP":
             return Object.assign({}, state, {
-                open: false
+                open: false,
+                loginInfo: Object.assign({}, state.loginInfo, {
+                    password: "",
+                    isValid: false
+                }),
+                registerInfo: Object.assign({}, state.registerInfo, {
+                    password: "",
+                    passwordConfirm: "",
+                    isValid: false
+                })
             });
 
         case "REGISTRATION_TOGGLE":

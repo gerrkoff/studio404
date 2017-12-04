@@ -6,16 +6,16 @@ const initialState = {
 const account = (state = initialState, action) => {
     switch (action.type) {
         case "CURRENT_USER_LOADED":
-            return Object.assign({}, state, {
+            return {...state,
                 userLoggedIn: action.currentUser.userLoggedIn,
                 username: action.currentUser.username
-            });
+            };
 
         case "LOGOFF":
-            return Object.assign({}, state, {
+            return {...state,
                 userLoggedIn: false,
                 username: ""
-            });
+            }
 
         default:
             return state;

@@ -18,68 +18,68 @@ const booking = (state = initialState, action) => {
     switch (action.type) {
 
         case "CHANGE_WEEK_START_DATE":
-            return Object.assign({}, state, {
+            return {...state,
                 weekStartDate: action.date
-            });
+            };
 
         case "WEEK_WORKLOAD_LOADING":
-            return Object.assign({}, state, {
+            return {...state,
                 weekWorkloadIsLoading: true,
                 weekWorkloadError: false
-            });
+            };
 
         case "WEEK_WORKLOAD_LOADED_SUCCESS":
-            return Object.assign({}, state, {
+            return {...state,
                 weekWorkloadIsLoading: false,
                 weekWorkload: action.weekWorkload
-            });
+            };
 
         case "WEEK_WORKLOAD_LOADED_ERROR":
-            return Object.assign({}, state, {
+            return {...state,
                 weekWorkloadIsLoading: false,
                 weekWorkloadError: true
-            });
+            };
 
         case "CHOOSE_DATE":
-            return Object.assign({}, state, {
+            return {...state,
                 chosenDate: action.date
-            });
+            };
 
         case "DAY_HOURS_LOADING":
-            return Object.assign({}, state, {
+            return {...state,
                 dayHoursIsLoading: true,
                 dayHoursError: false
-            });
+            };
 
         case "DAY_HOURS_LOADED_SUCCESS":
-            return Object.assign({}, state, {
+            return {...state,
                 dayHoursIsLoading: false,
                 dayHours: action.dayHours
-            });
+            };
 
         case "DAY_HOURS_LOADED_ERROR":
-            return Object.assign({}, state, {
+            return {...state,
                 dayHoursIsLoading: false,
                 dayHoursError: true
-            });
+            };
 
         case "UPDATE_HOURS":
             let isValid = validateHours(action.hours);
             let error = !isValid ? "Incorrect input" : "";
             
-            return Object.assign({}, state, {
+            return {...state,
                 bookingHours: action.hours,
                 bookingHoursError: error,
                 bookingIsValid: isValid
-            });
+            };
         
         case "BOOKING_SAVED":
-            return Object.assign({}, state, {
+            return {...state,
                 chosenDate: null,
                 bookingHours: [],
                 bookingHoursError: "",
                 bookingIsValid: false
-            });
+            };
 
         default:
             return state;

@@ -24,30 +24,30 @@ const loginPopup = (state = initialState, action) => {
     switch (action.type) {
 
         case "OPEN_LOGIN_POPUP":
-            return Object.assign({}, state, {
+            return {...state,
                 open: true
-            });
+            };
 
         case "CLOSE_LOGIN_POPUP":
-            newState = Object.assign({}, state, {
+            newState = {...state,
                 open: false,
-                loginInfo: Object.assign({}, state.loginInfo, {
+                loginInfo: {...state.loginInfo,
                     password: ""
-                }),
-                registerInfo: Object.assign({}, state.registerInfo, {
+                },
+                registerInfo: {...state.registerInfo,
                     password: "",
                     passwordConfirm: ""
-                })
-            });
+                }
+            };
 
             newState.loginInfo.isValid = validateLoginInfo(newState.loginInfo);
 
             return newState;
 
         case "REGISTRATION_TOGGLE":
-            return Object.assign({}, state, {
+            return {...state,
                 registration: action.registration
-            });
+            };
 
         case "UPDATE_LOGIN_INFO":
             newState = updateField(state, "loginInfo", action.fieldName, action.fieldValue);
@@ -107,11 +107,11 @@ const validateRegisterInfo = (registerInfo) => {
 }
 
 const updateField = (state, formName, fieldName, fieldValue) => {
-    return Object.assign({}, state, {
-        [formName]: Object.assign({}, state[formName], {
+    return {...state,
+        [formName]: {...state[formName],
             [fieldName]: fieldValue
-        })
-    });
+        }
+    };
 }
 
 export default loginPopup

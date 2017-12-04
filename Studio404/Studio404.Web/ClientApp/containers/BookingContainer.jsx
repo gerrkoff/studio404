@@ -15,7 +15,8 @@ const mapStateToProps = (state) => {
         dayHoursError: state.booking.dayHoursError,
         bookingHours: state.booking.bookingHours,
         bookingHoursError: state.booking.bookingHoursError,
-        bookingIsValid: state.booking.bookingIsValid
+        bookingIsValid: state.booking.bookingIsValid,
+        userLoggedIn: state.account.userLoggedIn
     }
 }
 

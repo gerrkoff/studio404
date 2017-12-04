@@ -45,7 +45,7 @@ class TimeBooking extends Component {
                                 label="Book"
                                 primary={true}
                                 onClick={() => this.props.saveBooking(this.props.chosenDate, this.props.bookingHours)}
-                                disabled={!this.props.bookingIsValid} />
+                                disabled={!this.props.bookingIsValid || !this.props.userLoggedIn} />
                         </div>
                     </Col>
                 </Row>

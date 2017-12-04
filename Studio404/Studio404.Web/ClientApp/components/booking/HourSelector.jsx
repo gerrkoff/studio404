@@ -30,7 +30,7 @@ export default class HourSelector extends Component {
             <MenuItem
                 key={dayHour.value}
                 insetChildren={true}
-                checked={this.props.hours.indexOf(dayHour.hour) > -1}
+                checked={this.props.hours && this.props.hours.indexOf(dayHour.value) > -1}
                 value={dayHour.value}
                 primaryText={dayHour.title}
                 disabled={dayHour.disabled} />

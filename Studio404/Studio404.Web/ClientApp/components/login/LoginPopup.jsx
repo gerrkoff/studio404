@@ -39,7 +39,9 @@ class LoginPopup extends Component {
                     actions={actions}
                     modal={false}
                     open={this.props.open}
-                    onRequestClose={this.props.closePopup}>
+                    onRequestClose={this.props.closePopup}
+                    contentStyle={{width: '100%', maxWidth: '600px'}}
+                    autoScrollBodyContent={true}>
 
                     {this.props.registration === true
                         ? <RegisterForm updateRegisterInfo={this.props.updateRegisterInfo} registerInfo={this.props.registerInfo} />

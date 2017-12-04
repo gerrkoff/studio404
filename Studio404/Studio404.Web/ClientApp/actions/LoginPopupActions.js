@@ -1,58 +1,44 @@
 import AccountService from "../modules/AccountService";
+import { LoginPopup } from "./ActionCreators";
 import { loadCurrentUser } from "./AccountActions";
 
 export const login = (loginInfo) => {
     return (dispatch) => {
-      AccountService.Login(loginInfo)
-          .done(() => {
-              dispatch(toggleRegistration(false));
-              dispatch(closeLoginPopup());
-              dispatch(loadCurrentUser());
+        AccountService.Login(loginInfo)
+            .done(() => {
+                dispatch(toggleRegistration(false));
+                dispatch(closeLoginPopup());
+                dispatch(loadCurrentUser());
             });
     };
-  }
+}
 
 export const register = (registerInfo) => {
-  return (dispatch) => {
-    AccountService.Register(registerInfo)
-          .done(() => {
-            dispatch(closeLoginPopup());
-            dispatch(loadCurrentUser());
-          });
-  };
+    return (dispatch) => {
+        AccountService.Register(registerInfo)
+            .done(() => {
+                dispatch(closeLoginPopup());
+                dispatch(loadCurrentUser());
+            });
+    };
 }
 
 export const openLoginPopup = () => {
-    return {
-      type: "OPEN_LOGIN_POPUP"
-    }
-  }
+    return LoginPopup.open();
+}
 
 export const closeLoginPopup = () => {
-    return {
-      type: "CLOSE_LOGIN_POPUP"
-    }
-  }
+    return LoginPopup.close();
+}
 
 export const toggleRegistration = (registration) => {
-    return {
-      type: "REGISTRATION_TOGGLE",
-      registration
-    }
-  }
+    return LoginPopup.toggleRegistration(registration);
+}
 
 export const updateLoginInfo = (fieldName, fieldValue) => {
-    return {
-      type: "UPDATE_LOGIN_INFO",
-      fieldName,
-      fieldValue
-    }
+    return LoginPopup.updateLoginInfo(fieldName, fieldValue);
 }
 
 export const updateRegisterInfo = (fieldName, fieldValue) => {
-    return {
-        type: "UPDATE_REGISTER_INFO",
-        fieldName,
-        fieldValue
-    }
+    return LoginPopup.updateRegisterInfo(fieldName, fieldValue);
 }

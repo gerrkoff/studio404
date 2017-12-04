@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import Toolbar from "../../components/toolbar/Toolbar";
+import Message from "../../containers/MessageContainer";
 
 class App extends Component {
     render() {
@@ -12,6 +13,7 @@ class App extends Component {
                         {this.props.children}
                     </Col>
                 </Row>
+                <Message />
             </Container>
         );
     }

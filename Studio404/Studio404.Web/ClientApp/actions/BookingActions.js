@@ -1,6 +1,6 @@
 import BookingService from "../modules/BookingService";
 import DateService from "../modules/DateService";
-import { Booking } from "./ActionCreators";
+import { Booking, Message } from "./ActionCreators";
 
 export const loadWeekWorkload = (date) => {
     return (dispatch) => {
@@ -45,6 +45,7 @@ export const saveBooking = (date, hours, weekStartDate) => {
         BookingService.MakeBooking(date, hours[0], hours[hours.length-1])
             .done(() => {
                 dispatch(Booking.bookingSaved());
+                dispatch(Message.show("Booking saved successfully!"));
                 dispatch(loadWeekWorkload(weekStartDate));
             });
     };

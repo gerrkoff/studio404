@@ -7,6 +7,21 @@ export const Account = {
     }
 }
 
+export const Message = {
+    show: (text) => {
+        return {
+            type: "SHOW",
+            text
+        }
+    },
+
+    hide: () => {
+        return {
+            type: "HIDE"
+        }
+    },
+}
+
 export const UserBookings = {
     loading: () => {
         return {

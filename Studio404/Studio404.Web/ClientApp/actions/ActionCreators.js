@@ -64,3 +64,64 @@ export const LoginPopup = {
         }
     }
 }
+
+export const Booking = {
+    changeWeekStartDate: (date) => {
+        return {
+            type: "CHANGE_WEEK_START_DATE",
+            date
+        }
+    },
+
+    weekWorkloadLoading: () => {
+        return {
+            type: "WEEK_WORKLOAD_LOADING"
+        }
+    },
+
+    weekWorkloadLoadedSuccess: (weekWorkload) => {
+        return {
+            type: "WEEK_WORKLOAD_LOADED_SUCCESS",
+            weekWorkload
+        }
+    },
+
+    weekWorkloadLoadedError: () => {
+        return {
+            type: "WEEK_WORKLOAD_LOADED_ERROR"
+        }
+    },
+
+    chooseDay: (date) => {
+        return {
+            type: "CHOOSE_DATE",
+            date
+        }
+    },
+
+    dayHoursLoading: () => {
+        return {
+            type: "DAY_HOURS_LOADING"
+        }
+    },
+
+    dayHoursLoadedSuccess: (dayHours) => {
+        return {
+            type: "DAY_HOURS_LOADED_SUCCESS",
+            dayHours
+        }
+    },
+
+    dayHoursLoadedError: () => {
+        return {
+            type: "DAY_HOURS_LOADED_ERROR"
+        }
+    },
+
+    updateHours: (hours) => {
+        return {
+            type: "DAY_HOURS_LOADED_ERROR",
+            hours
+        }
+    }
+}

@@ -10,7 +10,7 @@ export default class HourSelector extends Component {
         this.menuItems = this.menuItems.bind(this);
         this.validateHours = this.validateHours.bind(this);
 
-        this.state = {values: [], valid: true};
+        this.state = {valid: true};
     }
 
     componentWillReceiveProps(nextProps) {

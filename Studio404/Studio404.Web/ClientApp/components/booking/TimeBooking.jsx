@@ -10,30 +10,35 @@ import Loader from "../../components/common/Loader";
 class TimeBooking extends Component {
     constructor(props) {
         super(props);
+        /*
         this.updateHours = this.updateHours.bind(this);
         this.sendBooking = this.sendBooking.bind(this);
         this.getDayHours = this.getDayHours.bind(this);
         this.renderInfo = this.renderInfo.bind(this);
-        
+        */
+        /*
         this.state = {
             dayHours: null,
             valid: true,
             hours: []
         };
-        this.getDayHours(this.props.date);
-    }
+        */
 
+        this.props.loadDayHours(this.props.date);        
+    }
+    /*
     componentWillReceiveProps(nextProps) {
         if(nextProps.date !== this.props.date) {
             this.setState({dayHours: null});
             this.getDayHours(nextProps.date);
         }
     }
+    */
 
     updateHours(hours, valid) {
-        this.setState({valid: valid, hours: hours});
+        this.props.updateHours(hours);
     }
-
+    /*
     sendBooking() {
         let hours = this.state.hours.sortNumbers();
         BookingService.MakeBooking(this.props.date, hours[0], hours[hours.length-1])
@@ -55,6 +60,7 @@ class TimeBooking extends Component {
                 this.setState({dayHours: dayHours});
             });
     }
+    */
 
     render() {
         return (
@@ -62,14 +68,19 @@ class TimeBooking extends Component {
                 <Row>
                     <Col md="6">
                         <div style={styles.formElement}>
-                            <h5>{DateService.toDateString(this.props.date)}</h5>    
+                            <h5>{DateService.toDateString(this.props.date)}</h5>
                         </div>
                         <div style={{padding: 20, paddingTop: 0, verticalAlign: "center", position: "relative"}}>
                             <div style={{display: "inline-block"}}>
-                                <HourSelector dayHours={this.state.dayHours} updateHours={this.updateHours} date={this.props.date}/>
+                                <HourSelector
+                                    dayHours={this.props.bookingInfo.dayHours}
+                                    updateHours={this.updateHours}
+                                    date={this.props.date}
+                                    hours={this.props.bookingInfo.hours}
+                                />
                             </div>
                             <div style={{display: "inline-block", position: "relative", padding: 10, top: "-10px"}}>
-                                {!this.state.dayHours && <Loader />}
+                                {this.props.bookingInfo.dayHoursIsLoading === true && <Loader />}
                             </div>
                         </div>
                     </Col>
@@ -82,7 +93,7 @@ class TimeBooking extends Component {
                                 label="Book"
                                 primary={true}
                                 onClick={this.sendBooking}
-                                disabled={!this.state.dayHours || this.state.hours.length === 0 || !this.state.valid} />
+                                disabled={!this.props.bookingInfo.isValid} />
                         </div>
                     </Col>
                 </Row>
@@ -91,9 +102,9 @@ class TimeBooking extends Component {
     }
 
     renderInfo() {
-        if(this.state.hours.length === 0)
+        if (this.props.bookingInfo.hours.length === 0)
             return <p>Some default info!</p>;
-        if(this.state.valid === true)
+        if (this.props.bookingInfo.isValid === true)
             return <p>Some info about booking!</p>;
         else
             return <p>Hours are incorrect!</p>;

@@ -20,9 +20,9 @@ class BookingDayChooser extends Component {
                 <Row>
                     <Col md="12">
                         <div style={{textAlign: "center"}}>
-                            {this.props.weekWorkload
-                                ? <WeekWorkload workload={this.props.weekWorkload} chooseDay={this.props.chooseDay} />
-                                : <LoaderContent />
+                            {this.props.weekWorkloadIsLoading === true
+                                ? <LoaderContent />                                
+                                : <WeekWorkload workload={this.props.weekWorkload} chooseDay={this.props.chooseDay} />
                             }
                         </div>
                     </Col>

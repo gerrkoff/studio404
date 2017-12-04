@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import Paper from 'material-ui/Paper';
-import BookingService from "../../modules/BookingService";
 import DateService from "../../modules/DateService";
 import TimeBooking from "./TimeBooking";
 import BookingDayChooser from "../../components/booking/BookingDayChooser";
-import Message from "../../components/common/Message";
 
 class Booking extends Component {
 
@@ -13,65 +11,27 @@ class Booking extends Component {
         super(props);
         this.previousWeek = this.previousWeek.bind(this);
         this.nextWeek = this.nextWeek.bind(this);
-        this.getWeekWorkload = this.getWeekWorkload.bind(this);
-        this.chooseDay = this.chooseDay.bind(this);
-        this.changeWeekStartDate = this.changeWeekStartDate.bind(this);
-        this.bookingAdded = this.bookingAdded.bind(this);
-        this.renderTimeBooking = this.renderTimeBooking.bind(this);
-        
-        let monday = DateService.getMonday(new Date());
-        this.state = {
-            weekStartDate: monday,
-            chosenDate: null,
-            weekWorkload: null,
-            dayWorkload: []
-        };
+        this.getWeekLabel = this.getWeekLabel.bind(this);
 
-        this.getWeekWorkload(monday);
+        this.props.loadWeekWorkload(this.props.weekStartDate);
     }
 
-    getWeekWorkload(weekStartDate) {
-        BookingService.GetWeekWorkload(weekStartDate)
-            .done(data => {
-                data = data.map(x => {
-                    return {
-                        date: x.date,
-                        title: DateService.getDayOfWeekLabel(x.date),
-                        labels: DateService.convertHoursToLabels(x.freeHours)
-                    }
-                });
-                this.setState({weekWorkload: data})
-            });
-    }
-    
     previousWeek() {
-        this.changeWeekStartDate(-7);
+        let newWeekStartDate = DateService.addDaysToDate(this.props.weekStartDate, -7);
+        this.props.changeWeekStartDate(newWeekStartDate);
+        this.props.loadWeekWorkload(newWeekStartDate);
     }
 
     nextWeek() {
-        this.changeWeekStartDate(7);
-    }
-
-    changeWeekStartDate(days) {
-        let newWeekStartDate = DateService.addDaysToDate(this.state.weekStartDate, days);
-        this.setState({weekStartDate: newWeekStartDate, weekWorkload: null});
-        this.getWeekWorkload(newWeekStartDate);
+        let newWeekStartDate = DateService.addDaysToDate(this.props.weekStartDate, 7);
+        this.props.changeWeekStartDate(newWeekStartDate);
+        this.props.loadWeekWorkload(newWeekStartDate);
     }
 
     getWeekLabel() {
-        let weekEndDate = DateService.addDaysToDate(this.state.weekStartDate, 6);
-        let weekLabel = `${DateService.toDateString(this.state.weekStartDate)} – ${DateService.toDateString(weekEndDate)}`;
+        let weekEndDate = DateService.addDaysToDate(this.props.weekStartDate, 6);
+        let weekLabel = `${DateService.toDateString(this.props.weekStartDate)} – ${DateService.toDateString(weekEndDate)}`;
         return weekLabel;
-    }
-
-    chooseDay(date) {
-        this.setState({chosenDate: date});
-    }
-
-    bookingAdded() {
-        this.message.show("Booking successfully added");
-        this.setState({ chosenDate: null, weekWorkload: null });
-        this.getWeekWorkload(this.state.weekStartDate);
     }
 
     render() {
@@ -83,26 +43,33 @@ class Booking extends Component {
                             previousWeek={this.previousWeek}
                             nextWeek={this.nextWeek}
                             weekLabel={this.getWeekLabel()}
-                            weekWorkload={this.state.weekWorkload}
-                            chooseDay={this.chooseDay}/>
+                            weekWorkload={this.props.weekWorkload}
+                            weekWorkloadIsLoading={this.props.weekWorkloadIsLoading}
+                            weekWorkloadError={this.props.weekWorkloadError}
+                            chooseDay={this.props.chooseDay}
+                        />
                     </Col>
                 </Row>
                 <Row>
                     <Col md="12">
-                        {this.state.chosenDate && this.renderTimeBooking()}
+                        {this.props.chosenDate && this.renderTimeBooking()}
                     </Col>
                 </Row>
-                <Message ref={x => { this.message = x; }} />
             </div>
         );
     }
 
     renderTimeBooking() {
         return (
-            <div style={{textAlign: "center"}}>
-                <div style={{display: "inline-block"}}>
-                    <Paper style={{marginTop: 10}} zDepth={2}>
-                        <TimeBooking date={this.state.chosenDate} bookingAdded={this.bookingAdded} />
+            <div style={{ textAlign: "center" }}>
+                <div style={{ display: "inline-block" }}>
+                    <Paper style={{ marginTop: 10 }} zDepth={2}>
+                        <TimeBooking
+                            date={this.props.chosenDate}
+                            bookingInfo={this.props.bookingInfo}
+                            bookingAdded={this.bookingAdded}
+                            loadDayHours={this.props.loadDayHours}
+                        />
                     </Paper>
                 </div>
             </div>
@@ -111,3 +78,5 @@ class Booking extends Component {
 }
 
 export default Booking;
+
+

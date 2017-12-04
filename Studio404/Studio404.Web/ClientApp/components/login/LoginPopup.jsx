@@ -13,7 +13,8 @@ class LoginPopup extends Component {
             <FlatButton
                 label="Cancel"
                 primary={true}
-                onClick={this.props.closePopup}/>,
+                onClick={this.props.closePopup}                
+            />,
             <FlatButton
                 label={this.props.registration === true ? "Register" : "Login"}
                 primary={true}
@@ -21,7 +22,13 @@ class LoginPopup extends Component {
                     this.props.registration === true
                         ? () => this.props.register(this.props.registerInfo)
                         : () => this.props.login(this.props.loginInfo)
-                }/>
+                }
+                disabled={
+                    this.props.registration === true
+                        ? !this.props.registerInfo.isValid
+                        : !this.props.loginInfo.isValid
+                }
+            />
         ];
     
         return (
@@ -42,7 +49,7 @@ class LoginPopup extends Component {
                     <Toggle
                         label="Registration"
                         labelPosition="right"
-                        defaultToggled={this.props.registration}
+                        toggled={this.props.registration}
                         onToggle={(event, isChecked) => this.props.toggleRegistration(isChecked)} />
                 </Dialog>
             </div>

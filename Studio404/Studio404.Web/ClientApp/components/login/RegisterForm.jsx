@@ -9,6 +9,7 @@ class RegisterForm extends Component {
                 <TextField
                     hintText="Enter username"
                     floatingLabelText="Username"
+                    errorText={this.props.registerInfo.usernameError}
                     value={this.props.registerInfo.username}
                     onChange={(e) => this.props.updateRegisterInfo("username", e.target.value)} />
                 <br />
@@ -16,6 +17,7 @@ class RegisterForm extends Component {
                     hintText="Enter password"
                     floatingLabelText="Password"
                     type="password"
+                    errorText={this.props.registerInfo.passwordError}
                     value={this.props.registerInfo.password}
                     onChange={(e) => this.props.updateRegisterInfo("password", e.target.value)} />
                 <br />
@@ -23,8 +25,9 @@ class RegisterForm extends Component {
                     hintText="Confirm password"
                     floatingLabelText="Password Confirmation"
                     type="password"
-                    value={this.props.registerInfo.passwordConfirmation}
-                    onChange={(e) => this.props.updateRegisterInfo("passwordConfirmation", e.target.value)} />
+                    errorText={this.props.registerInfo.passwordConfirmError}
+                    value={this.props.registerInfo.passwordConfirm}
+                    onChange={(e) => this.props.updateRegisterInfo("passwordConfirm", e.target.value)} />
             </div>
         );
     }

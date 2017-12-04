@@ -20,13 +20,11 @@ class Booking extends Component {
     previousWeek() {
         let newWeekStartDate = DateService.addDaysToDate(this.props.weekStartDate, -7);
         this.props.changeWeekStartDate(newWeekStartDate);
-        this.props.loadWeekWorkload(newWeekStartDate);
     }
 
     nextWeek() {
         let newWeekStartDate = DateService.addDaysToDate(this.props.weekStartDate, 7);
         this.props.changeWeekStartDate(newWeekStartDate);
-        this.props.loadWeekWorkload(newWeekStartDate);
     }
 
     getWeekLabel() {

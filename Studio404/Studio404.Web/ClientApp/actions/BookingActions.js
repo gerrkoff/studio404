@@ -59,6 +59,13 @@ export const changeWeekStartDate = (date) => {
     }
 }
 
-export const chooseDay = (date) => Booking.chooseDay(date);
+export const chooseDay = (date) => {
+    return (dispatch) => {
+        
+        dispatch(Booking.chooseDay(date));
+        dispatch(loadDayHours(date));
+        dispatch(updateHours([]));
+    }
+}
 
 export const updateHours = (hours) => Booking.updateHours(hours);

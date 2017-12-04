@@ -7,9 +7,8 @@ export const login = (loginInfo) => {
 
         AccountService.Login(loginInfo)
             .done(() => {
-                dispatch(toggleRegistration(false));
                 dispatch(closeLoginPopup());
-                dispatch(loadCurrentUser());
+                dispatch(loadCurrentUser("Logged in"));
             });
     };
 }
@@ -19,8 +18,9 @@ export const register = (registerInfo) => {
 
         AccountService.Register(registerInfo)
             .done(() => {
+                dispatch(toggleRegistration(false));
                 dispatch(closeLoginPopup());
-                dispatch(loadCurrentUser());
+                dispatch(loadCurrentUser("Registered"));
             });
     };
 }

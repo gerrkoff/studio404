@@ -12,7 +12,7 @@ import AppMaterial from "./components/root/AppMaterial";
 import NotFound from "./components/root/NotFound";
 import Home from "./components/home/Home";
 import Booking from "./components/booking/Booking";
-import User from "./components/user/User";
+import User from "./containers/UserContainer";
 import rootReducer from './reducers'
 
 let store = createStore(rootReducer, applyMiddleware(thunk))

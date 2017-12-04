@@ -13,10 +13,9 @@ class User extends Component {
     constructor(props) {
         super(props);
         this.renderMenuItem = this.renderMenuItem.bind(this);
+        this.renderUser = this.renderUser.bind(this);
         this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
-        this.state = {
-            menuChoosed: 0
-        }
+        this.state = { menuChoosed: 0 };
     }
 
     handleMenuItemClick(item) {
@@ -25,6 +24,19 @@ class User extends Component {
 
     render() {
         return (
+            <div>
+                {this.props.userLoggedIn === true
+                    ? this.renderUser()
+                    : <Row>
+                        <Col md="12"><h6 style={{textAlign: "center"}}>Login to see this page</h6></Col>
+                    </Row>
+                }
+            </div>
+        );
+    }
+
+    renderUser() {
+        return (
             <Row>
                 <Col md="3">
                     <List>
@@ -32,7 +44,7 @@ class User extends Component {
                             primaryText="Bookings"
                             leftIcon={<ContentInbox />}
                             onClick={() => this.handleMenuItemClick(0)}
-                            styles={{backgroundColor: "red"}} />
+                            styles={{ backgroundColor: "red" }} />
                         <ListItem
                             primaryText="Settings"
                             leftIcon={<ActionGrade />}
@@ -40,7 +52,7 @@ class User extends Component {
                     </List>
                 </Col>
                 <Col md="9">
-                    <Paper style={{marginTop: 8}} zDepth={2}>
+                    <Paper style={{ marginTop: 8 }} zDepth={2}>
                         {this.renderMenuItem()}
                     </Paper>
                 </Col>

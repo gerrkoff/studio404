@@ -30,7 +30,7 @@ class ToolbarLoginInfo extends Component {
 
         return (
             <div>
-                {this.props.userLoggedIn
+                {this.props.userLoggedIn === true
                     ? userLoggedIn
                     : <LoginPopupContainer updateUser={this.props.loadCurrentUser}/>
                 }

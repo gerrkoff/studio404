@@ -11,6 +11,12 @@ const account = (state = initialState, action) => {
                 username: action.currentUser.username
             });
 
+        case "LOGOFF":
+            return Object.assign({}, state, {
+                userLoggedIn: false,
+                username: ""
+            });
+
         default:
             return state;
     }

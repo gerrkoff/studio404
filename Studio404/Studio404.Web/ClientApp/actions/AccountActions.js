@@ -16,7 +16,7 @@ export const logoff = () => {
 
         AccountService.Logoff()
             .done(() => {
-                dispatch(loadCurrentUser());
+                dispatch(Account.logoff());
             });
     };
 }

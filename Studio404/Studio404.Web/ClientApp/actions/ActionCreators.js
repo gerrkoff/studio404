@@ -4,6 +4,12 @@ export const Account = {
             type: "CURRENT_USER_LOADED",
             currentUser
         }
+    },
+
+    logoff: () => {
+        return {
+            type: "LOGOFF"
+        }
     }
 }
 

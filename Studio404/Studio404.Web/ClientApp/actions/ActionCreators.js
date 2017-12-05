@@ -89,6 +89,18 @@ export const LoginPopup = {
         return {
             type: "RESET_REGISTER"
         }
+    },
+
+    loginErrorWrongUserPassword: () => {
+        return {
+            type: "LOGIN_ERROR_WRONG_USER_PASSWORD"
+        }
+    },
+
+    registerErrorUserExists: () => {
+        return {
+            type: "REGISTER_ERROR_WRONG_USER_PASSWORD"
+        }
     }
 }
 

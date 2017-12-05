@@ -1,6 +1,7 @@
 import AccountService from "../modules/AccountService";
 import { LoginPopup } from "./ActionCreators";
 import { loadCurrentUser } from "./AccountActions";
+import { showDefaultError, show } from "./MessageActions";
 import { errorHandler } from "../modules/Http";
 
 export const login = (loginInfo) => {
@@ -8,9 +9,22 @@ export const login = (loginInfo) => {
 
         AccountService.Login(loginInfo)
             .fail((data) => dispatch(errorHandler(data)))
-            .done(() => {
-                dispatch(closeLoginPopup());
-                dispatch(loadCurrentUser("Logged in"));
+            .done((result) => {
+                switch (result) {
+                    case 1:
+                        dispatch(closeLoginPopup());
+                        dispatch(loadCurrentUser("Logged in"));
+                        break;
+                
+                    case 2:
+                        dispatch(loginErrorWrongUserPassword());
+                        dispatch(show("Login error"));
+                        break;
+
+                    default:
+                        dispatch(showDefaultError());
+                        break;
+                }
             });
     };
 }
@@ -20,11 +34,24 @@ export const register = (registerInfo) => {
 
         AccountService.Register(registerInfo)
             .fail((data) => dispatch(errorHandler(data)))
-            .done(() => {
-                dispatch(toggleRegistration(false));
-                dispatch(LoginPopup.resetRegister());
-                dispatch(closeLoginPopup());
-                dispatch(loadCurrentUser("Registered"));
+            .done((result) => {
+                switch (result) {
+                    case 1:
+                        dispatch(toggleRegistration(false));
+                        dispatch(LoginPopup.resetRegister());
+                        dispatch(closeLoginPopup());
+                        dispatch(loadCurrentUser("Registered"));
+                        break;
+                
+                    case 2:
+                        dispatch(registerErrorUserExists());
+                        dispatch(show("Register login"));
+                        break;
+
+                    default:
+                        dispatch(showDefaultError());
+                        break;
+                }
             });
     };
 }
@@ -38,3 +65,7 @@ export const toggleRegistration = (registration) => LoginPopup.toggleRegistratio
 export const updateLoginInfo = (fieldName, fieldValue) => LoginPopup.updateLoginInfo(fieldName, fieldValue);
 
 export const updateRegisterInfo = (fieldName, fieldValue) => LoginPopup.updateRegisterInfo(fieldName, fieldValue);
+
+export const loginErrorWrongUserPassword = () => LoginPopup.loginErrorWrongUserPassword();
+
+export const registerErrorUserExists = () => LoginPopup.registerErrorUserExists();

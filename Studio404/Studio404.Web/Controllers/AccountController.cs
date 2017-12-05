@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Rest;
+using Studio404.Common.Enums;
 using Studio404.Dal.Entity;
 using Studio404.Dto.Account;
 using Studio404.Services.Interface;
@@ -25,13 +26,13 @@ namespace Studio404.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Register(RegisterInfoDto registerInfo)
+        public async Task<RegisterResultEnum> Register(RegisterInfoDto registerInfo)
         {
             // TODO: fix exceptions
             
             if (ModelState.IsValid)
             {
-                await _accountService.Register(registerInfo);
+                return await _accountService.Register(registerInfo);
             }
             else
             {
@@ -46,13 +47,13 @@ namespace Studio404.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Login(LoginInfoDto loginInfo)
+        public async Task<LoginResultEnum> Login(LoginInfoDto loginInfo)
         {
             // TODO: refactor
             
             if (ModelState.IsValid)
             {
-                await _accountService.Login(loginInfo);
+                return await _accountService.Login(loginInfo);
             }
             else
             {

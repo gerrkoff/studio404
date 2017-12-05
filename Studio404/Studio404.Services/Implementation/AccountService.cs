@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Studio404.Common.Enums;
 using Studio404.Dal.Entity;
 using Studio404.Dto.Account;
 using Studio404.Services.Interface;
@@ -19,7 +20,7 @@ namespace Studio404.Services.Implementation
             _signInManager = signInManager;
         }
 
-        public async Task Register(RegisterInfoDto registerInfo)
+        public async Task<RegisterResultEnum> Register(RegisterInfoDto registerInfo)
         {
             var user = new UserEntity
             {
@@ -29,17 +30,29 @@ namespace Studio404.Services.Implementation
             IdentityResult result = await _userManager.CreateAsync(user, registerInfo.Password);
 
             if (result.Succeeded)
+            {
                 await _signInManager.SignInAsync(user, false);
+                return RegisterResultEnum.Success;
+            }
+            else if (result.Errors.Any(x => string.Equals(x.Code, "DuplicateUserName")))
+            {
+                return RegisterResultEnum.UsernameAlreadyExists;
+            }
             else
-                throw new Exception("Login failed: " + result.Errors.First().Description);
+            {
+                return RegisterResultEnum.Unknown;
+            }
         }
 
-        public async Task Login(LoginInfoDto loginInfo)
+        public async Task<LoginResultEnum> Login(LoginInfoDto loginInfo)
         {
-            var result =
+            SignInResult result =
                 await _signInManager.PasswordSignInAsync(loginInfo.Username, loginInfo.Password, false, false);
-            if(!result.Succeeded)
-                throw new Exception("Login failed");
+
+            if (result.Succeeded)
+                return LoginResultEnum.Success;
+            else
+                return LoginResultEnum.WrongUsernamePassword;
         }
     }
 }

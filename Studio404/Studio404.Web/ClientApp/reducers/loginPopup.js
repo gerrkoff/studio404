@@ -5,7 +5,9 @@ const initialState = {
     registration: false,
     loginInfo: {
         username: "",
+        usernameError: "",
         password: "",
+        passwordError: "",
         isValid: false
     },
     registerInfo: {
@@ -63,6 +65,21 @@ const loginPopup = (state = initialState, action) => {
             return {...state,
                 registerInfo: initialState.registerInfo
             };
+        
+        case "LOGIN_ERROR_WRONG_USER_PASSWORD":
+            return {...state,
+                loginInfo: {...state.loginInfo,
+                    usernameError: "Wrong username...",
+                    passwordError: "...or password"
+                }
+            };
+        
+        case "REGISTER_ERROR_WRONG_USER_PASSWORD":
+            return {...state,
+                registerInfo: {...state.registerInfo,
+                    usernameError: "This username already registered"
+                }
+            };
 
         default:
             return state;
@@ -70,6 +87,8 @@ const loginPopup = (state = initialState, action) => {
 }
 
 const validateLoginInfo = (loginInfo) => {
+    loginInfo.usernameError = "";
+    loginInfo.passwordError = "";
     loginInfo.isValid = loginInfo.password !== "" && loginInfo.username !== "";
 }
 

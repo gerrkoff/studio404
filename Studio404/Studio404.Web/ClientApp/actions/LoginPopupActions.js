@@ -19,6 +19,7 @@ export const register = (registerInfo) => {
         AccountService.Register(registerInfo)
             .done(() => {
                 dispatch(toggleRegistration(false));
+                dispatch(LoginPopup.resetRegister());
                 dispatch(closeLoginPopup());
                 dispatch(loadCurrentUser("Registered"));
             });

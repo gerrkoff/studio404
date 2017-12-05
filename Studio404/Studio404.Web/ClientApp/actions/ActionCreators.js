@@ -83,6 +83,12 @@ export const LoginPopup = {
             fieldName,
             fieldValue
         }
+    },
+
+    resetRegister: () => {
+        return {
+            type: "RESET_REGISTER"
+        }
     }
 }
 

@@ -59,6 +59,11 @@ const loginPopup = (state = initialState, action) => {
             validateRegisterInfo(newState.registerInfo);
             return newState;
 
+        case "RESET_REGISTER":
+            return {...state,
+                registerInfo: initialState.registerInfo
+            };
+
         default:
             return state;
     }

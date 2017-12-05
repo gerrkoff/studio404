@@ -1,5 +1,6 @@
 import $ from "jQuery";
 import NProgress from "react-nprogress";
+import { Message } from "../actions/ActionCreators";
 
 NProgress.configure({ showSpinner: false });
 
@@ -22,4 +23,10 @@ const Http = {
     }
 }
 
-export default Http;
+const errorHandler = (data) => {
+    let error = data.responseJSON;
+    console.log(error.exception);
+    return Message.show(error.message);
+}
+
+export { Http, errorHandler };

@@ -1,12 +1,14 @@
 import BookingService from "../modules/BookingService";
 import DateService from "../modules/DateService";
 import { Booking, Message } from "./ActionCreators";
+import { errorHandler } from "../modules/Http";
 
 export const loadWeekWorkload = (date) => {
     return (dispatch) => {
 
         dispatch(Booking.weekWorkloadLoading());
         BookingService.GetWeekWorkload(date)
+            .fail((data) => dispatch(errorHandler(data)))
             .done(data => {
                 data = data.map(x => {
                     return {
@@ -25,6 +27,7 @@ export const loadDayHours = (date) => {
 
         dispatch(Booking.dayHoursLoading());
         BookingService.GetDayWorkload(date)
+            .fail((data) => dispatch(errorHandler(data)))
             .done(data => {
                 let dayHours = data.map(x => {
                     return {
@@ -43,6 +46,7 @@ export const saveBooking = (date, hours, weekStartDate) => {
         
         hours.sortNumbers();
         BookingService.MakeBooking(date, hours[0], hours[hours.length-1])
+            .fail((data) => dispatch(errorHandler(data)))
             .done(() => {
                 dispatch(Booking.bookingSaved());
                 dispatch(Message.show("Booking saved successfully!"));

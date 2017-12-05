@@ -1,11 +1,13 @@
 import AccountService from "../modules/AccountService";
 import { LoginPopup } from "./ActionCreators";
 import { loadCurrentUser } from "./AccountActions";
+import { errorHandler } from "../modules/Http";
 
 export const login = (loginInfo) => {
     return (dispatch) => {
 
         AccountService.Login(loginInfo)
+            .fail((data) => dispatch(errorHandler(data)))
             .done(() => {
                 dispatch(closeLoginPopup());
                 dispatch(loadCurrentUser("Logged in"));
@@ -17,6 +19,7 @@ export const register = (registerInfo) => {
     return (dispatch) => {
 
         AccountService.Register(registerInfo)
+            .fail((data) => dispatch(errorHandler(data)))
             .done(() => {
                 dispatch(toggleRegistration(false));
                 dispatch(LoginPopup.resetRegister());

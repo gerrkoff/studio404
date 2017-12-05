@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyModel;
 using Studio404.Automapper;
 using Studio404.Common.Settings;
 using Studio404.Dal.Entity;
+using Studio404.Web.Filters;
 
 namespace Studio404.Web
 {
@@ -34,12 +35,16 @@ namespace Studio404.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
             ConfigDb(services);
             ConfigIdentity(services);
             ConfigDiServices(services);
             ConfigAutoMapper(services);
             ConfigConfiguration(services);
+            
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(JsonExceptionFilter));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

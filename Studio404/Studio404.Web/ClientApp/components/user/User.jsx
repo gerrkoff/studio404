@@ -7,6 +7,7 @@ import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 import UserBookings from "../../containers/UserBookingContainer";
 import UserSettings from "./UserSettings";
+import ErrorLabel from "../common/ErrorLabel";
 
 class User extends Component {
 
@@ -28,7 +29,7 @@ class User extends Component {
                 {this.props.userLoggedIn === true
                     ? this.renderUser()
                     : <Row>
-                        <Col md="12"><h6 style={{textAlign: "center"}}>Login to see this page</h6></Col>
+                        <Col md="12"><ErrorLabel text="Login to see this page"/></Col>
                     </Row>
                 }
             </div>

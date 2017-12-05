@@ -24,9 +24,9 @@ const Http = {
 }
 
 const errorHandler = (data) => {
-    let error = data.responseJSON;
-    console.log(error.exception);
-    return Message.show(error.message);
+    let exception = data.responseJSON;
+    console.log(exception);
+    return Message.show(exception.Message);
 }
 
 export { Http, errorHandler };

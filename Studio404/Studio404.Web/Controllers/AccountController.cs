@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Rest;
 using Studio404.Common.Enums;
+using Studio404.Common.Exceptions;
 using Studio404.Dal.Entity;
 using Studio404.Dto.Account;
 using Studio404.Services.Interface;
@@ -27,44 +28,20 @@ namespace Studio404.Web.Controllers
 
         [HttpPost]
         public async Task<RegisterResultEnum> Register(RegisterInfoDto registerInfo)
-        {
-            // TODO: fix exceptions
-            
+        {   
             if (ModelState.IsValid)
-            {
                 return await _accountService.Register(registerInfo);
-            }
             else
-            {
-                var errors = new List<ModelError>();
-                foreach (ModelStateEntry modelState in ModelState.Values)
-                {
-                    errors.AddRange(modelState.Errors);
-                }
-                
-                throw new ValidationException("Somehing wrong", "q", errors);
-            }
+                throw new ModelValidationException(ModelState);
         }
 
         [HttpPost]
         public async Task<LoginResultEnum> Login(LoginInfoDto loginInfo)
         {
-            // TODO: refactor
-            
             if (ModelState.IsValid)
-            {
                 return await _accountService.Login(loginInfo);
-            }
             else
-            {
-                var errors = new List<ModelError>();
-                foreach (ModelStateEntry modelState in ModelState.Values)
-                {
-                    errors.AddRange(modelState.Errors);
-                }
-                
-                throw new ValidationException("Somehing wrong", "q", errors);
-            }
+                throw new ModelValidationException(ModelState);
         }
 
         [HttpPost]

@@ -7,13 +7,7 @@ namespace Studio404.Web.Filters
     {
         public void OnException(ExceptionContext context)
         {
-            var result = new ObjectResult(new
-            {
-                message = context.Exception.Message,
-                exception = context.Exception
-            }) {StatusCode = 500};
-
-            context.Result = result;
+            context.Result = new ObjectResult(context.Exception) {StatusCode = 500};
         }
     }
 }

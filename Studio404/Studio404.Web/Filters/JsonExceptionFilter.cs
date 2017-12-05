@@ -7,7 +7,18 @@ namespace Studio404.Web.Filters
     {
         public void OnException(ExceptionContext context)
         {
+            context.Result = new ObjectResult(new
+            {
+                Message = "Something went wrong..."
+            }) {StatusCode = 500};
+            
+            
+            #if DEBUG
+            
             context.Result = new ObjectResult(context.Exception) {StatusCode = 500};
+            
+            #endif
+            
         }
     }
 }

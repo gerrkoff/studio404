@@ -13,7 +13,7 @@ export const login = (loginInfo) => {
                 switch (result) {
                     case 1:
                         dispatch(closeLoginPopup());
-                        dispatch(loadCurrentUser("Logged in"));
+                        dispatch(loadCurrentUser(true));
                         break;
                 
                     case 2:
@@ -40,12 +40,12 @@ export const register = (registerInfo) => {
                         dispatch(toggleRegistration(false));
                         dispatch(LoginPopup.resetRegister());
                         dispatch(closeLoginPopup());
-                        dispatch(loadCurrentUser("Registered"));
+                        dispatch(loadCurrentUser(true));
                         break;
                 
                     case 2:
                         dispatch(registerErrorUserExists());
-                        dispatch(show("Register login"));
+                        dispatch(show("Register error"));
                         break;
 
                     default:

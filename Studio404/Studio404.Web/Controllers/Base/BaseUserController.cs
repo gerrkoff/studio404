@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Dal.Entity;
 
-namespace Studio404.Web.Controllers
+namespace Studio404.Web.Controllers.Base
 {
     public class BaseUserController : Controller
     {

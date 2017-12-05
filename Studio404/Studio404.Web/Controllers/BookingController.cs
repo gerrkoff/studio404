@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Studio404.Dal.Entity;
 using Studio404.Dto.Booking;
 using Studio404.Services.Interface;
+using Studio404.Web.Controllers.Base;
 
 namespace Studio404.Web.Controllers
 {

@@ -124,6 +124,7 @@ namespace Studio404.Web
             services.AddScoped<ICheckService, CheckService>();
             services.AddScoped<IPayService, PayService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAccountService, AccountService>();
         }
 
         #endregion

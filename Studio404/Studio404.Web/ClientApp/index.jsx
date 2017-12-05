@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-nprogress/nprogress.css';
 import "./modules/Polyfill";
 
 import ReactDOM from "react-dom";

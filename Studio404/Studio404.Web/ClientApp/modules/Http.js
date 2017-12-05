@@ -1,4 +1,15 @@
 import $ from "jQuery";
+import NProgress from "react-nprogress";
+
+NProgress.configure({ showSpinner: false });
+
+$(document).ajaxStart(function() {
+    NProgress.start();
+});
+
+$(document).ajaxStop(function() {
+    NProgress.done();
+});
 
 const Http = {
 

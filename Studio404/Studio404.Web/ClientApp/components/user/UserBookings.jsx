@@ -67,9 +67,11 @@ class UserBookings extends Component {
                             {this.props.bookings.map(item =>
                                 <UserBookingItem
                                     key={item.id}
+                                    id={item.id}
                                     date={DateService.toDateString(item.date)}
                                     time={DateService.convertHourIntervalToLabel(item.from, item.to)}
-                                    status={EnumService.bookingStatus(item.status)}/>
+                                    status={EnumService.bookingStatus(item.status)}
+                                    reject={this.props.rejectBooking}/>
                             )}
                     </TableBody>
                 </Table>

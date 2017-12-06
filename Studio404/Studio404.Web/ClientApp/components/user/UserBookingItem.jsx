@@ -16,7 +16,18 @@ class UserBookingItem extends Component {
                 <TableRowColumn>{this.props.date}</TableRowColumn>
                 <TableRowColumn>{this.props.time}</TableRowColumn>
                 <TableRowColumn>{this.props.status}</TableRowColumn>
-                <TableRowColumn><FaIconButton icon="credit-card" size="sm"/></TableRowColumn>
+                <TableRowColumn>
+                    <FaIconButton
+                        size="sm"
+                        icon="credit-card" />
+                    <FaIconButton
+                        icon="times"
+                        onClick={() => this.props.reject(this.props.id)}
+                        style={{
+                            paddingLeft: "15px",
+                            fontSize: "19px"
+                        }} />
+                </TableRowColumn>
             </TableRow>
         );
     }

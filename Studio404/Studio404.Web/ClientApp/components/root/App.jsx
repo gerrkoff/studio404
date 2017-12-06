@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import Toolbar from "../../components/toolbar/Toolbar";
 import Message from "../../containers/MessageContainer";
+import ConfirmDialog from "../../containers/ConfirmDialogContainer";
 
 class App extends Component {
     render() {
@@ -14,6 +15,7 @@ class App extends Component {
                     </Col>
                 </Row>
                 <Message />
+                <ConfirmDialog />
             </Container>
         );
     }

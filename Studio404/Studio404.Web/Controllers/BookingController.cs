@@ -41,5 +41,11 @@ namespace Studio404.Web.Controllers
             else
                 throw new ModelValidationException(ModelState);
         }
+
+        [HttpPost]
+        public void Reject(int id)
+        {
+            
+        }
     }
 }

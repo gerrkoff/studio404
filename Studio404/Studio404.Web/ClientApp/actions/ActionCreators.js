@@ -16,14 +16,31 @@ export const Account = {
 export const Message = {
     show: (text) => {
         return {
-            type: "SHOW",
+            type: "MESSAGE_SHOW",
             text
         }
     },
 
     hide: () => {
         return {
-            type: "HIDE"
+            type: "MESSAGE_HIDE"
+        }
+    },
+}
+
+export const ConfirmDialog = {
+    show: (text, actionText, action) => {
+        return {
+            type: "CONFIRM_SHOW",
+            text,
+            actionText,
+            action
+        }
+    },
+
+    hide: () => {
+        return {
+            type: "CONFIRM_HIDE"
         }
     },
 }

@@ -5,13 +5,13 @@ const initialState = {
 
 const message = (state = initialState, action) => {
     switch (action.type) {
-        case "SHOW":
+        case "MESSAGE_SHOW":
             return {...state,
                 open: true,
                 text: action.text
             };
 
-        case "HIDE":
+        case "MESSAGE_HIDE":
             return {...state,
                 open: false,
                 text: ""

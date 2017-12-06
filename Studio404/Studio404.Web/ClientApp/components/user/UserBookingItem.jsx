@@ -8,6 +8,7 @@ import {
     TableRowColumn,
   } from 'material-ui/Table';
   import FaIconButton from "../common/FaIconButton";
+  import EnumService from "../../modules/EnumService";
 
 class UserBookingItem extends Component {
     render() {
@@ -15,13 +16,16 @@ class UserBookingItem extends Component {
             <TableRow>
                 <TableRowColumn style={{textAlign: 'center'}}>{this.props.date}</TableRowColumn>
                 <TableRowColumn style={{textAlign: 'center'}}>{this.props.time}</TableRowColumn>
-                <TableRowColumn style={{textAlign: 'center'}}>{this.props.status}</TableRowColumn>
+                <TableRowColumn style={{textAlign: 'center'}}>{EnumService.bookingStatus(this.props.status)}</TableRowColumn>
                 <TableRowColumn style={{textAlign: 'center'}}>
                     <FaIconButton
                         size="sm"
-                        icon="credit-card" />
+                        icon="credit-card"
+                        disable={this.props.status !== 1}
+                        onClick={() => alert("Pay " + this.props.id)} />
                     <FaIconButton
                         icon="times"
+                        disable={this.props.status === 3}
                         onClick={() => this.props.cancel(this.props.id)}
                         style={{
                             paddingLeft: "15px",

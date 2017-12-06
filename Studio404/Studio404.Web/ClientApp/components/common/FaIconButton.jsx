@@ -32,7 +32,7 @@ class FaIconButton extends Component {
                 <FontIcon 
                     className={"fa fa-" + this.props.icon}
                     style={this.styles}
-                    onClick={this.props.onClick}
+                    onClick={this.props.disable ? null : this.props.onClick}
                     color={this.colors.main}
                     hoverColor={this.colors.hover} />
         );

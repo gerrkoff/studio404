@@ -9,7 +9,6 @@ import {
 } from 'material-ui/Table';
 import UserBookingItem from "../../components/user/UserBookingItem";
 import DateService from "../../modules/DateService";
-import EnumService from "../../modules/EnumService";
 import LoaderContent from "../../components/common/LoaderContent";
 import UserTitle from "../../components/user/UserTitle";
 import ErrorLabel from "../common/ErrorLabel";
@@ -71,7 +70,7 @@ class UserBookings extends Component {
                                     id={item.id}
                                     date={DateService.toDateString(item.date)}
                                     time={DateService.convertHourIntervalToLabel(item.from, item.to)}
-                                    status={EnumService.bookingStatus(item.status)}
+                                    status={item.status}
                                     cancel={this.props.cancelBooking}/>
                             )}
                     </TableBody>

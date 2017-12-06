@@ -100,6 +100,7 @@ namespace Studio404.Web
                     options.Password.RequireUppercase = false;
                     options.Password.RequireDigit = false;
                 })
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationContext>();
         }
         
@@ -125,6 +126,7 @@ namespace Studio404.Web
             services.AddScoped<IPayService, PayService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ISmsService, SmsService>();
         }
 
         #endregion

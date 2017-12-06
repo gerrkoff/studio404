@@ -11,16 +11,18 @@ using Studio404.Common.Exceptions;
 using Studio404.Dal.Entity;
 using Studio404.Dto.Account;
 using Studio404.Services.Interface;
+using Studio404.Web.Controllers.Base;
 
 namespace Studio404.Web.Controllers
 {
     [Route("api/[controller]/[action]")]
-    public class AccountController : Controller
+    public class AccountController : BaseUserController
     {
         private readonly IAccountService _accountService;
         private readonly SignInManager<UserEntity> _signInManager;
 
-        public AccountController(IAccountService accountService, SignInManager<UserEntity> signInManager)
+        public AccountController(IAccountService accountService, SignInManager<UserEntity> signInManager,
+            UserManager<UserEntity> userManager) : base(userManager)
         {
             _accountService = accountService;
             _signInManager = signInManager;
@@ -59,6 +61,20 @@ namespace Studio404.Web.Controllers
                 UserLoggedIn = User.Identity.IsAuthenticated,
                 Username = User.Identity.Name
             };
+        }
+
+        [HttpPost]
+        public async Task<SendPhoneConfirmationResultEnum> SendPhoneConfirmation(string phone)
+        {
+            // TODO: validate phone here
+
+            return await _accountService.SendPhoneConfirmation(GetUser(), phone);
+        }
+
+        [HttpPost]
+        public async Task<ConfirmPhoneResultEnum> ConfirmPhone(string phone, string code)
+        {
+            return await _accountService.ConfirmPhone(GetUser(), phone, code);
         }
     }
 }

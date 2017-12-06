@@ -23,8 +23,7 @@ namespace Studio404.Services.Implementation
         public IEnumerable<BookingSimpleDto> GetUserBookings(UserEntity user)
         {
             return _bookingRepository.GetAll()
-                .Where(x => x.UserId == user.Id &&
-                            x.Date >= DateTime.Today)
+                .Where(x => x.UserId == user.Id)
                 .OrderBy(x => x.Date)
                 .ThenBy(x => x.From)
                 .ProjectTo<BookingSimpleDto>()

@@ -88,7 +88,7 @@ namespace Studio404.Services.Implementation
             });
         }
 
-        public void RejectBooking(int id, UserEntity user)
+        public void CancelBooking(int id, UserEntity user)
         {
             if (!_bookingRepository.GetAll().Any(x => x.Id == id && x.UserId == user.Id))
                 throw new ServiceException("User does not have such permissions");

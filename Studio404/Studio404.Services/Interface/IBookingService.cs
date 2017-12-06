@@ -10,6 +10,6 @@ namespace Studio404.Services.Interface
         IEnumerable<DayWorkloadDto> GetWeekWorkload(DateTime weekStartDate);
         IEnumerable<DayHourDto> GetDayWorkload(DateTime date);
         void MakeBooking(MakeBookingInfoDto makeBookingInfo, UserEntity user);
-        void RejectBooking(int id, UserEntity user);
+        void CancelBooking(int id, UserEntity user);
     }
 }

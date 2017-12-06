@@ -19,8 +19,8 @@ const BookingService = {
         });
     },
 
-    RejectBooking: (id) => {
-        return Http.Post("/api/booking/reject", { id: id });
+    CancelBooking: (id) => {
+        return Http.Post("/api/booking/cancel", { id: id });
     }
 }
 

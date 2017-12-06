@@ -19,13 +19,13 @@ export const loadBookings = () => {
     };
 }
 
-export const rejectBooking = (id) => {
+export const cancelBooking = (id) => {
     return (dispatch) => {
 
-        BookingService.RejectBooking(id)
+        BookingService.CancelBooking(id)
             .fail((data) => dispatch(errorHandler(data)))
             .done(() => {
-                dispatch(show(`Booking rejected!`));
+                dispatch(show(`Booking canceled!`));
                 dispatch(loadBookings());
             });
     };

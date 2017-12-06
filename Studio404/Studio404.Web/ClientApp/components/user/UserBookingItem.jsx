@@ -22,7 +22,7 @@ class UserBookingItem extends Component {
                         icon="credit-card" />
                     <FaIconButton
                         icon="times"
-                        onClick={() => this.props.reject(this.props.id)}
+                        onClick={() => this.props.cancel(this.props.id)}
                         style={{
                             paddingLeft: "15px",
                             fontSize: "19px"

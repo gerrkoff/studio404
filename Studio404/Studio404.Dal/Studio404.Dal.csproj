@@ -16,4 +16,10 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Studio404.Common\Studio404.Common.csproj">
+      <Project>{44BEA391-977C-49C6-AFD2-F1A2E8E88366}</Project>
+      <Name>Studio404.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Studio404.Common.Enums;
 using Studio404.Dal.Context;
 using System;
 
@@ -139,6 +140,8 @@ namespace Studio404.Dal.Migrations
                     b.Property<int>("From");
 
                     b.Property<Guid>("Guid");
+
+                    b.Property<int>("Status");
 
                     b.Property<int>("StudioId");
 

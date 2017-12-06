@@ -27,7 +27,8 @@ namespace Studio404.Services.Implementation
                             x.Date >= DateTime.Today)
                 .OrderBy(x => x.Date)
                 .ThenBy(x => x.From)
-                .ProjectTo<BookingSimpleDto>();
+                .ProjectTo<BookingSimpleDto>()
+                .ToList();
         }
     }
 }

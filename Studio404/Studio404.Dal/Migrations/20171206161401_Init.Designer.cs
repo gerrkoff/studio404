@@ -5,13 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Studio404.Common.Enums;
 using Studio404.Dal.Context;
 using System;
 
 namespace Studio404.Dal.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20171201213430_Init")]
+    [Migration("20171206161401_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +20,6 @@ namespace Studio404.Dal.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -141,6 +141,8 @@ namespace Studio404.Dal.Migrations
                     b.Property<int>("From");
 
                     b.Property<Guid>("Guid");
+
+                    b.Property<int>("Status");
 
                     b.Property<int>("StudioId");
 

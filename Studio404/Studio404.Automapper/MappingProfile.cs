@@ -9,9 +9,7 @@ namespace Studio404.Automapper
     {
         public MappingProfile()
         {
-            CreateMap<BookingEntity, BookingSimpleDto>()
-                .ForMember(x => x.Status,
-                    e => e.MapFrom(x => x.Code == null ? BookingStatusEnum.Unpaid : BookingStatusEnum.Paid));
+            CreateMap<BookingEntity, BookingSimpleDto>();
         }
     }
 }

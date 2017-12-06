@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Studio404.Common.Enums;
 using Studio404.Dal.Entity.Base;
 
 namespace Studio404.Dal.Entity
@@ -9,6 +10,8 @@ namespace Studio404.Dal.Entity
         public DateTime Date { get; set; }
         public int From { get; set; }
         public int To { get; set; }
+        
+        public BookingStatusEnum Status { get; set; }
 
         public Guid Guid { get; set; }
         public string Code { get; set; }

@@ -3,8 +3,7 @@ import { Row, Col } from 'reactstrap';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
+import FontIcon from 'material-ui/FontIcon';
 import UserBookings from "../../containers/UserBookingContainer";
 import UserSettings from "./UserSettings";
 import ErrorLabel from "../common/ErrorLabel";
@@ -43,12 +42,12 @@ class User extends Component {
                     <List>
                         <ListItem
                             primaryText="Bookings"
-                            leftIcon={<ContentInbox />}
+                            leftIcon={<FontIcon className="fa fa-list-alt" />}
                             onClick={() => this.handleMenuItemClick(0)}
                             styles={{ backgroundColor: "red" }} />
                         <ListItem
                             primaryText="Settings"
-                            leftIcon={<ActionGrade />}
+                            leftIcon={<FontIcon className="fa fa-cog" />}
                             onClick={() => this.handleMenuItemClick(1)} />
                     </List>
                 </Col>

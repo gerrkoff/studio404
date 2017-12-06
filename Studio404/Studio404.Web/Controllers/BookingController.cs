@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Studio404.Common.Exceptions;
 using Studio404.Dal.Entity;
 using Studio404.Dto.Booking;
 using Studio404.Services.Interface;
@@ -35,7 +36,10 @@ namespace Studio404.Web.Controllers
         [HttpPost]
         public void Make(MakeBookingInfoDto makeBookingInfo)
         {
-            _bookingService.MakeBooking(makeBookingInfo, GetUser());
+            if (ModelState.IsValid)
+                _bookingService.MakeBooking(makeBookingInfo, GetUser());
+            else
+                throw new ModelValidationException(ModelState);
         }
     }
 }

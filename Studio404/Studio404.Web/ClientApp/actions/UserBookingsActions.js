@@ -7,7 +7,10 @@ export const loadBookings = () => {
 
         dispatch(UserBookings.loading());
         UserService.GetUserBookings()
-            .fail((data) => dispatch(errorHandler(data)))
+            .fail((data) => {
+                dispatch(UserBookings.loadedError());
+                dispatch(errorHandler(data));
+            })
             .done((bookings) => {
                 dispatch(UserBookings.loadedSuccess(bookings));
             });

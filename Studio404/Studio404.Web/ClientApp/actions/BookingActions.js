@@ -8,7 +8,10 @@ export const loadWeekWorkload = (date) => {
 
         dispatch(Booking.weekWorkloadLoading());
         BookingService.GetWeekWorkload(date)
-            .fail((data) => dispatch(errorHandler(data)))
+            .fail((data) => {
+                dispatch(Booking.weekWorkloadLoadedError());
+                dispatch(errorHandler(data));
+            })
             .done(data => {
                 data = data.map(x => {
                     return {
@@ -27,7 +30,10 @@ export const loadDayHours = (date) => {
 
         dispatch(Booking.dayHoursLoading());
         BookingService.GetDayWorkload(date)
-            .fail((data) => dispatch(errorHandler(data)))
+            .fail((data) => {
+                dispatch(Booking.dayHoursLoadedError());
+                dispatch(errorHandler(data))
+            })
             .done(data => {
                 let dayHours = data.map(x => {
                     return {

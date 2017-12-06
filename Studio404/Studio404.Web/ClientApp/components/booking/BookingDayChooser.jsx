@@ -3,6 +3,7 @@ import { Row, Col } from 'reactstrap';
 import FaIconButton from "../common/FaIconButton";
 import WeekWorkload from "./WeekWorkload";
 import LoaderContent from "../common/LoaderContent";
+import ErrorLabel from "../common/ErrorLabel";
 
 class BookingDayChooser extends Component {
     render() {
@@ -22,7 +23,9 @@ class BookingDayChooser extends Component {
                         <div style={{textAlign: "center"}}>
                             {this.props.weekWorkloadIsLoading === true
                                 ? <LoaderContent />                                
-                                : <WeekWorkload workload={this.props.weekWorkload} chooseDay={this.props.chooseDay} />
+                                : this.props.weekWorkloadError === true
+                                    ? <ErrorLabel text="Error occured while loading data. Try to reload." />
+                                    : <WeekWorkload workload={this.props.weekWorkload} chooseDay={this.props.chooseDay} />
                             }
                         </div>
                     </Col>

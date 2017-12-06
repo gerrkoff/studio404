@@ -12,6 +12,7 @@ import DateService from "../../modules/DateService";
 import EnumService from "../../modules/EnumService";
 import LoaderContent from "../../components/common/LoaderContent";
 import UserTitle from "../../components/user/UserTitle";
+import ErrorLabel from "../common/ErrorLabel";
 
 class UserBookings extends Component {
 
@@ -28,7 +29,9 @@ class UserBookings extends Component {
                 <UserTitle title="My bookings"/>
                 {this.props.isLoading === true
                     ? this.renderLoader()
-                    : this.renderTable()
+                    : this.props.error === true
+                        ? <ErrorLabel text="Error occured while loading data. Try to reload."/>
+                        : this.renderTable()
                 }
             </div>
         );

@@ -74,15 +74,15 @@ namespace Studio404.Services.Implementation
         }
 
         public void MakeBooking(MakeBookingInfoDto makeBookingInfo, UserEntity user)
-        {
+        {   
             _bookingRepository.Save(new BookingEntity
             {
-                Date = makeBookingInfo.Date,
-                From = makeBookingInfo.From,
-                To = makeBookingInfo.To,
-                
+                // ReSharper disable PossibleInvalidOperationException
+                Date = makeBookingInfo.Date.Value,
+                From = makeBookingInfo.From.Value,
+                To = makeBookingInfo.To.Value,
+                // ReSharper restore PossibleInvalidOperationException
                 Guid = Guid.NewGuid(),
-                
                 UserId = user.Id
             });
         }

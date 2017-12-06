@@ -6,10 +6,12 @@ class ErrorLabel extends Component {
         return (
             <h6 
                 style={{
-                    textAlign: "center",
+                    textAlign: this.props.align ? this.props.align : "center",
                     color: this.props.muiTheme.palette.disabledColor,
                     fontSize: "12px",
-                    fontWeight: "bold"
+                    fontWeight: "bold",
+                    paddingTop: 10,
+                    paddingBottom: 10
                 }}
             >
                 {this.props.text}

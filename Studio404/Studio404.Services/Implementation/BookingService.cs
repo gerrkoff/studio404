@@ -31,7 +31,9 @@ namespace Studio404.Services.Implementation
             DateTime weekEndDate = weekStartDate.AddDays(6);
             
             var bookings = _bookingRepository.GetAll()
-                .Where(x => x.Date >= weekStartDate && x.Date <= weekEndDate)
+                .Where(x => x.Date >= weekStartDate &&
+                            x.Date <= weekEndDate &&
+                            x.Status != BookingStatusEnum.Canceled)
                 .Select(x => new {x.Date, x.From, x.To})
                 .ToList();
             
@@ -60,7 +62,8 @@ namespace Studio404.Services.Implementation
             date = date.Date;
             
             var bookings = _bookingRepository.GetAll()
-                .Where(x => x.Date == date)
+                .Where(x => x.Date == date &&
+                            x.Status != BookingStatusEnum.Canceled)
                 .Select(x => new {x.From, x.To})
                 .ToList();
 

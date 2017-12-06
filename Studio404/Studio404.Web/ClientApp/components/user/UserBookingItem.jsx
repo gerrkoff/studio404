@@ -21,11 +21,11 @@ class UserBookingItem extends Component {
                     <FaIconButton
                         size="sm"
                         icon="credit-card"
-                        disable={this.props.status !== 1}
+                        disabled={this.props.status !== 1}
                         onClick={() => alert("Pay " + this.props.id)} />
                     <FaIconButton
                         icon="times"
-                        disable={this.props.status === 3}
+                        disabled={this.props.status === 3}
                         onClick={() => this.props.cancel(this.props.id)}
                         style={{
                             paddingLeft: "15px",

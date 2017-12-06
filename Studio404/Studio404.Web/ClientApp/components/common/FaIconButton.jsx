@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import FontIcon from 'material-ui/FontIcon';
-import {grey900, grey600, grey500} from 'material-ui/styles/colors';
+import {grey900, grey600, grey500, grey200} from 'material-ui/styles/colors';
 
 const mainColor = grey900;
 const hoverColor = grey600;
 const mainColorAlt = grey500;
 const hoverColorAlt = grey600;
+const disabledColor = grey200;
 
 class FaIconButton extends Component {
 
@@ -13,10 +14,13 @@ class FaIconButton extends Component {
         super(props);
 
         let altColor = this.props.alt === true;
+        let disabled = this.props.disabled === true;
         this.colors = {
-            main: !altColor ? mainColor : mainColorAlt,
-            hover: !altColor ? hoverColor : hoverColorAlt
-        }
+            main: disabled ? disabledColor
+                        : !altColor ? mainColor : mainColorAlt,
+            hover: disabled ? disabledColor
+                        : !altColor ? hoverColor : hoverColorAlt
+        };
 
         this.styles = this.props.style ? this.props.style : {};
         this.styles.cursor = "pointer";
@@ -32,7 +36,7 @@ class FaIconButton extends Component {
                 <FontIcon 
                     className={"fa fa-" + this.props.icon}
                     style={this.styles}
-                    onClick={this.props.disable ? null : this.props.onClick}
+                    onClick={this.props.disabled ? null : this.props.onClick}
                     color={this.colors.main}
                     hoverColor={this.colors.hover} />
         );

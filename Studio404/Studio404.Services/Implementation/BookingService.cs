@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Options;
+using Studio404.Common.Exceptions;
 using Studio404.Common.Settings;
 using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
@@ -85,6 +86,12 @@ namespace Studio404.Services.Implementation
                 Guid = Guid.NewGuid(),
                 UserId = user.Id
             });
+        }
+
+        public void RejectBooking(int id, UserEntity user)
+        {
+            if (!_bookingRepository.GetAll().Any(x => x.Id == id && x.UserId == user.Id))
+                throw new ServiceException("User does not have such permissions");
         }
     }
 }

@@ -17,6 +17,10 @@ const BookingService = {
             from: from,
             to: to
         });
+    },
+
+    RejectBooking: (id) => {
+        return Http.Post("/api/booking/reject", { id: id });
     }
 }
 

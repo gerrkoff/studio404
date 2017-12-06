@@ -45,7 +45,7 @@ namespace Studio404.Web.Controllers
         [HttpPost]
         public void Reject(int id)
         {
-            
+            _bookingService.RejectBooking(id, GetUser());
         }
     }
 }

@@ -87,6 +87,7 @@ namespace Studio404.Services.Implementation
                 From = makeBookingInfo.From.Value,
                 To = makeBookingInfo.To.Value,
                 // ReSharper restore PossibleInvalidOperationException
+                Status = BookingStatusEnum.Unpaid,
                 Guid = Guid.NewGuid(),
                 UserId = user.Id
             });

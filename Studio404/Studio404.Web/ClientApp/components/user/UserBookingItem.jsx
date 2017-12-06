@@ -14,9 +14,9 @@ class UserBookingItem extends Component {
         return (
             <TableRow>
                 <TableRowColumn>{this.props.date}</TableRowColumn>
-                <TableRowColumn>{this.props.time}</TableRowColumn>
-                <TableRowColumn>{this.props.status}</TableRowColumn>
-                <TableRowColumn>
+                <TableRowColumn style={{textAlign: 'center'}}>{this.props.time}</TableRowColumn>
+                <TableRowColumn style={{textAlign: 'center'}}>{this.props.status}</TableRowColumn>
+                <TableRowColumn style={{textAlign: 'center'}}>
                     <FaIconButton
                         size="sm"
                         icon="credit-card" />

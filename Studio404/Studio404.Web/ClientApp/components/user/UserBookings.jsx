@@ -53,14 +53,15 @@ class UserBookings extends Component {
             <div>
                 <Table>
                     <TableHeader
-                        height="50px"
-                        displaySelectAll={false}>
-                            <TableRow>
-                                <TableHeaderColumn>Date</TableHeaderColumn>
-                                <TableHeaderColumn>Time</TableHeaderColumn>
-                                <TableHeaderColumn>Status</TableHeaderColumn>
-                                <TableHeaderColumn>Actions</TableHeaderColumn>
-                            </TableRow>
+                        displaySelectAll={false}
+                        adjustForCheckbox={false}>
+                        
+                        <TableRow>
+                            <TableHeaderColumn style={{textAlign: 'center'}}>Date</TableHeaderColumn>
+                            <TableHeaderColumn style={{textAlign: 'center'}}>Time</TableHeaderColumn>
+                            <TableHeaderColumn style={{textAlign: 'center'}}>Status</TableHeaderColumn>
+                            <TableHeaderColumn style={{textAlign: 'center'}}>Actions</TableHeaderColumn>
+                        </TableRow>
                     </TableHeader>
                     <TableBody
                         showRowHover={true}>

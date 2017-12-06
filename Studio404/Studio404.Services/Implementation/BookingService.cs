@@ -79,14 +79,24 @@ namespace Studio404.Services.Implementation
         }
 
         public void MakeBooking(MakeBookingInfoDto makeBookingInfo, UserEntity user)
-        {   
+        {
+            // ReSharper disable PossibleInvalidOperationException
+            DateTime date = makeBookingInfo.Date.Value.Date;
+            int from = makeBookingInfo.From.Value;
+            int to = makeBookingInfo.To.Value;
+            // ReSharper restore PossibleInvalidOperationException
+
+            if (_bookingRepository.GetAll().Any(x => x.Date == date &&
+                                                     x.To >= from &&
+                                                     x.From <= to &&
+                                                     x.Status != BookingStatusEnum.Canceled))
+                throw new ServiceException("Booking is invalid for this action");
+            
             _bookingRepository.Save(new BookingEntity
-            {
-                // ReSharper disable PossibleInvalidOperationException
-                Date = makeBookingInfo.Date.Value,
-                From = makeBookingInfo.From.Value,
-                To = makeBookingInfo.To.Value,
-                // ReSharper restore PossibleInvalidOperationException
+            {   
+                Date = date,
+                From = from,
+                To = to,
                 Status = BookingStatusEnum.Unpaid,
                 Guid = Guid.NewGuid(),
                 UserId = user.Id
@@ -97,6 +107,9 @@ namespace Studio404.Services.Implementation
         {
             if (!_bookingRepository.GetAll().Any(x => x.Id == id && x.UserId == user.Id))
                 throw new ServiceException("User does not have such permissions");
+
+            if (_bookingRepository.GetAll().Any(x => x.Id == id && x.Status == BookingStatusEnum.Canceled))
+                throw new ServiceException("Booking is invalid for this action");
 
             var booking = new BookingEntity
             {

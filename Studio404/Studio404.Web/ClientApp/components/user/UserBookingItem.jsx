@@ -13,7 +13,7 @@ class UserBookingItem extends Component {
     render() {
         return (
             <TableRow>
-                <TableRowColumn>{this.props.date}</TableRowColumn>
+                <TableRowColumn style={{textAlign: 'center'}}>{this.props.date}</TableRowColumn>
                 <TableRowColumn style={{textAlign: 'center'}}>{this.props.time}</TableRowColumn>
                 <TableRowColumn style={{textAlign: 'center'}}>{this.props.status}</TableRowColumn>
                 <TableRowColumn style={{textAlign: 'center'}}>

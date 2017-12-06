@@ -3,16 +3,17 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar as MuiToolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import {withRouter} from "react-router-dom";
 import ToolbarLoginInfoContainer from "../../containers/ToolbarLoginInfoContainer";
+import { ToolbarStyle, ToolbarBrandStyle } from "../../styles/Styles";
 
 class Toolbar extends Component {
     render() {
         return (
             <div>
-                <MuiToolbar>
+                <MuiToolbar style={ToolbarStyle}>
                     <ToolbarGroup>
                         <ToolbarTitle
                             text="404 studio"
-                            style={{cursor: "pointer"}}
+                            style={ToolbarBrandStyle}
                             onClick={() => this.props.history.push("/")} />
                     </ToolbarGroup>
                     <ToolbarGroup>

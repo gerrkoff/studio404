@@ -68,13 +68,13 @@ namespace Studio404.Web.Controllers
         {
             // TODO: validate phone here
 
-            return await _accountService.SendPhoneConfirmation(GetUser(), phone);
+            return await _accountService.SendPhoneConfirmation(await GetUserAsync(), phone);
         }
 
         [HttpPost]
         public async Task<ConfirmPhoneResultEnum> ConfirmPhone(string phone, string code)
         {
-            return await _accountService.ConfirmPhone(GetUser(), phone, code);
+            return await _accountService.ConfirmPhone(await GetUserAsync(), phone, code);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Dal.Entity;
+using System.Threading.Tasks;
 
 namespace Studio404.Web.Controllers.Base
 {
@@ -15,7 +16,12 @@ namespace Studio404.Web.Controllers.Base
         
         protected UserEntity GetUser()
         {
-            return _userManager.GetUserAsync(HttpContext.User).Result;
+            return GetUserAsync().Result;
+        }
+
+        protected async Task<UserEntity> GetUserAsync()
+        {
+            return await _userManager.GetUserAsync(HttpContext.User);
         }
     }
 }

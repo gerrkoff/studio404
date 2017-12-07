@@ -12,6 +12,7 @@ using Studio404.Dal.Entity;
 using Studio404.Dto.Account;
 using Studio404.Services.Interface;
 using Studio404.Web.Controllers.Base;
+using System.Threading;
 
 namespace Studio404.Web.Controllers
 {
@@ -67,7 +68,7 @@ namespace Studio404.Web.Controllers
         public async Task<SendPhoneConfirmationResultEnum> SendPhoneConfirmation(string phone)
         {
             // TODO: validate phone here
-
+            Thread.Sleep(5000);
             return await _accountService.SendPhoneConfirmation(await GetUserAsync(), phone);
         }
 

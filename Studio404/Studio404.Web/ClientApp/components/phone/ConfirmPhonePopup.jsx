@@ -41,7 +41,8 @@ class ConfirmPhonePopup extends Component {
                             "Code was successfully sent. Enter it in the field below",
                             "Enter code",
                             "Code",
-                            "",
+                            this.props.codeError,
+                            true,
                             this.props.code,
                             this.props.updateCode,
                             "Confirm",
@@ -53,7 +54,8 @@ class ConfirmPhonePopup extends Component {
                             "We send you a code just to confirm that it is you phone",
                             "Enter phone",
                             "Phone",
-                            "",
+                            this.props.phoneError,
+                            this.props.phoneIsValid,
                             this.props.phone,
                             this.props.updatePhone,
                             "Send code",
@@ -67,7 +69,7 @@ class ConfirmPhonePopup extends Component {
         );
     }
 
-    renderPart(label, fieldHint, fieldLabel, fieldError, value, updateValueFunc, btnLabel, btnFunc, flagLoading, flagError, errorText) {
+    renderPart(label, fieldHint, fieldLabel, fieldError, fieldValid, value, updateValueFunc, btnLabel, btnFunc, flagLoading, flagError, errorText) {
         return (
             <div>
                 <Row>
@@ -89,11 +91,12 @@ class ConfirmPhonePopup extends Component {
                                 <RaisedButton
                                     label={btnLabel}
                                     secondary={true}
-                                    onClick={() => btnFunc(value)} />
+                                    onClick={() => btnFunc(value)}
+                                    disabled={flagLoading || !fieldValid} />
                                 {flagLoading &&
-                                    <div style={{ display: "inline-block", padding: 10 }}>
+                                    <span style={{ position: "relative", paddingLeft: 15, top: "5px" }}>
                                         <Loader />
-                                    </div>
+                                    </span>
                                 }
                             </div>
                         </div>

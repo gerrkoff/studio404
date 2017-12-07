@@ -1,5 +1,5 @@
 const phoneProcess = (phone) => {
-    let isValid = false;
+    let isValid = phone && phone.length > 3;
     return { phone, isValid };
 }
 
@@ -7,7 +7,9 @@ const initialState = {
     open: false,
     phone: phoneProcess("").phone,
     phoneIsValid: false,
+    phoneError: "",
     code: "",
+    codeError: "",
     codeIsSending: false,
     codeSendError: false,
     codeSendSuccess: false,
@@ -88,6 +90,18 @@ const phoneConfirmPopup = (state = initialState, action) => {
                 confirmPhoneIsSending: false,
                 confirmPhoneSendError: true,
                 confirmPhoneSendSuccess: false
+            };
+
+        case "PHONE_CONFIRM_POPUP_INVALID_PHONE":
+            return {
+                ...state,
+                phoneError: "Sms was not delivered to this phone number"
+            };
+        
+        case "PHONE_CONFIRM_POPUP_INVALID_CODE":
+            return {
+                ...state,
+                codeError: "Invalid code"
             };
 
         default:

@@ -5,6 +5,7 @@ import userBookings from "./userBookings";
 import booking from "./booking";
 import message from "./message";
 import confirmDialog from "./confirmDialog";
+import phoneConfirmPopup from "./phoneConfirmPopup";
 
 const rootReducer = combineReducers({
     account,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     userBookings,
     booking,
     message,
-    confirmDialog
+    confirmDialog,
+    phoneConfirmPopup
 })
 
 export default rootReducer

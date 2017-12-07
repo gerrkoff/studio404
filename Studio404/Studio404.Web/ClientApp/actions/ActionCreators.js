@@ -187,3 +187,67 @@ export const Booking = {
         }
     }
 }
+
+export const ConfirmPhonePopup = {
+    open: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_OPEN"
+        }
+    },
+
+    close: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_CLOSE"
+        }
+    },
+
+    updatePhone: (phone) => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_UPDATE_PHONE",
+            phone
+        }
+    },
+
+    updateCode: (code) => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_UPDATE_CODE",
+            code
+        }
+    },
+
+    sendLoading: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_SEND_CODE_LOADING"
+        }
+    },
+
+    sendSuccess: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_SEND_CODE_SUCCESS"
+        }
+    },
+
+    sendError: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_SEND_CODE_ERROR"
+        }
+    },
+
+    confirmLoading: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_SEND_CONFIRM_LOADING"
+        }
+    },
+
+    confirmSuccess: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_SEND_CONFIRM_SUCCESS"
+        }
+    },
+
+    confirmError: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_SEND_CONFIRM_ERROR"
+        }
+    }
+}

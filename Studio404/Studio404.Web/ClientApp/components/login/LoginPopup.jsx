@@ -7,13 +7,13 @@ import RegisterForm from "../../components/login/RegisterForm";
 import Toggle from 'material-ui/Toggle';
 
 class LoginPopup extends Component {
-    
+
     render() {
         const actions = [
             <FlatButton
                 label="Cancel"
                 primary={true}
-                onClick={this.props.closePopup}                
+                onClick={this.props.closePopup}
             />,
             <FlatButton
                 label={this.props.registration === true ? "Register" : "Login"}
@@ -30,7 +30,7 @@ class LoginPopup extends Component {
                 }
             />
         ];
-    
+
         return (
             <div>
                 <FlatButton label="Login" primary={true} onClick={this.props.openPopup} />
@@ -40,12 +40,12 @@ class LoginPopup extends Component {
                     modal={false}
                     open={this.props.open}
                     onRequestClose={this.props.closePopup}
-                    contentStyle={{width: '100%', maxWidth: '600px'}}
+                    contentStyle={{ width: '100%', maxWidth: '600px' }}
                     autoScrollBodyContent={true}>
 
                     {this.props.registration === true
                         ? <RegisterForm updateRegisterInfo={this.props.updateRegisterInfo} registerInfo={this.props.registerInfo} />
-                        : <LoginForm updateLoginInfo={this.props.updateLoginInfo} loginInfo={this.props.loginInfo} /> 
+                        : <LoginForm updateLoginInfo={this.props.updateLoginInfo} loginInfo={this.props.loginInfo} />
                     }
                     <br />
                     <Toggle

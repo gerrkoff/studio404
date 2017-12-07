@@ -25,10 +25,7 @@ const phoneConfirmPopup = (state = initialState, action) => {
             };
 
         case "PHONE_CONFIRM_POPUP_CLOSE":
-            return {
-                ...state,
-                open: false
-            };
+            return initialState;
 
         case "PHONE_CONFIRM_POPUP_UPDATE_PHONE":
             let result = phoneProcess(action.phone);

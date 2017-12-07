@@ -46,7 +46,7 @@ class ConfirmPhonePopup extends Component {
                             this.props.code,
                             this.props.updateCode,
                             "Confirm",
-                            this.props.confirmPhone,
+                            () => this.props.confirmPhone(this.props.phone, this.props.code),
                             this.props.confirmPhoneIsSending,
                             this.props.confirmPhoneSendError,
                             "Error occured while confirming")
@@ -59,7 +59,7 @@ class ConfirmPhonePopup extends Component {
                             this.props.phone,
                             this.props.updatePhone,
                             "Send code",
-                            this.props.sendPhoneConfirmation,
+                            () => this.props.sendPhoneConfirmation(this.props.phone),
                             this.props.codeIsSending,
                             this.props.codeSendError,
                             "Error occured while sending code")
@@ -83,23 +83,22 @@ class ConfirmPhonePopup extends Component {
                             hintText={fieldHint}
                             floatingLabelText={fieldLabel}
                             value={value}
-                            onChange={(e) => updateValueFunc(e.target.value)} />
+                            onChange={(e) => updateValueFunc(e.target.value)}
+                            errorText={fieldError} />
                     </Col>
                     <Col md="6">
-                        <div style={{ display: "table", height: "100%" }}>
-                            <div style={{ display: "table-cell", verticalAlign: "middle", paddingTop: "23px" }}>
-                                <RaisedButton
-                                    label={btnLabel}
-                                    secondary={true}
-                                    onClick={() => btnFunc(value)}
-                                    disabled={flagLoading || !fieldValid} />
-                                {flagLoading &&
-                                    <span style={{ position: "relative", paddingLeft: 15, top: "5px" }}>
-                                        <Loader />
-                                    </span>
-                                }
-                            </div>
-                        </div>
+                        <RaisedButton
+                            label={btnLabel}
+                            secondary={true}
+                            onClick={btnFunc}
+                            disabled={flagLoading || !fieldValid}
+                            style={{ paddingTop: 28 }} />
+
+                        {flagLoading &&
+                            <span style={{ position: "relative", paddingLeft: 15, top: "5px" }}>
+                                <Loader />
+                            </span>
+                        }
                     </Col>
                 </Row>
                 <Row>

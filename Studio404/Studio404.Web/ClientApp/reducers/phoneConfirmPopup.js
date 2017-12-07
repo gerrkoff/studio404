@@ -95,12 +95,16 @@ const phoneConfirmPopup = (state = initialState, action) => {
         case "PHONE_CONFIRM_POPUP_INVALID_PHONE":
             return {
                 ...state,
+                codeIsSending: false,
+                codeSendSuccess: false,
                 phoneError: "Sms was not delivered to this phone number"
             };
         
         case "PHONE_CONFIRM_POPUP_INVALID_CODE":
             return {
                 ...state,
+                confirmPhoneIsSending: false,
+                confirmPhoneSendSuccess: false,
                 codeError: "Invalid code"
             };
 

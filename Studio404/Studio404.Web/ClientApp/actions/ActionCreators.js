@@ -249,5 +249,17 @@ export const ConfirmPhonePopup = {
         return {
             type: "PHONE_CONFIRM_POPUP_SEND_CONFIRM_ERROR"
         }
+    },
+
+    invalidPhone: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_INVALID_PHONE"
+        }
+    },
+
+    invalidCode: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_INVALID_CODE"
+        }
     }
 }

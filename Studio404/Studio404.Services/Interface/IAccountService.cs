@@ -9,7 +9,7 @@ namespace Studio404.Services.Interface
     {
         Task<RegisterResultEnum> Register(RegisterInfoDto registerInfo);
         Task<LoginResultEnum> Login(LoginInfoDto loginInfo);
-        Task<SendPhoneConfirmationResultEnum> SendPhoneConfirmation(UserEntity user, string phone);
+        Task<SmsSendResultEnum> SendPhoneConfirmation(UserEntity user, string phone);
         Task<ConfirmPhoneResultEnum> ConfirmPhone(UserEntity user, string phone, string code);
     }
 }

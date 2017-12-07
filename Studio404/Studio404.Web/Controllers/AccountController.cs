@@ -65,16 +65,17 @@ namespace Studio404.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<SendPhoneConfirmationResultEnum> SendPhoneConfirmation(string phone)
+        public async Task<SmsSendResultEnum> SendPhoneConfirmation(string phone)
         {
             // TODO: validate phone here
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
             return await _accountService.SendPhoneConfirmation(await GetUserAsync(), phone);
         }
 
         [HttpPost]
         public async Task<ConfirmPhoneResultEnum> ConfirmPhone(string phone, string code)
         {
+            Thread.Sleep(1000);
             return await _accountService.ConfirmPhone(await GetUserAsync(), phone, code);
         }
     }

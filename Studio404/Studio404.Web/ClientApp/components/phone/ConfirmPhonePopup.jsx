@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
+import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
 class ConfirmPhonePopup extends Component {
@@ -15,7 +16,7 @@ class ConfirmPhonePopup extends Component {
 
         return (
             <div>
-                <FlatButton label="Confirm phone" primary={true} onClick={this.props.openPopup} />
+                <RaisedButton label="Confirm phone" primary={true} onClick={this.props.openPopup} />
                 <Dialog
                     title="Phone"
                     actions={actions}

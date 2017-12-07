@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import FontIcon from 'material-ui/FontIcon';

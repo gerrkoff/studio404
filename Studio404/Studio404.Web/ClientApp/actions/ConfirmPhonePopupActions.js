@@ -53,3 +53,7 @@ export const confirmPhone = (phone, code) => {
 export const openConfirmPhonePopup = () => ConfirmPhonePopup.open();
 
 export const closeConfirmPhonePopup = () => ConfirmPhonePopup.close();
+
+export const updatePhone = (phone) => ConfirmPhonePopup.updatePhone(phone);
+
+export const updateCode = (code) => ConfirmPhonePopup.updateCode(code);

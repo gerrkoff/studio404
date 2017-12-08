@@ -10,25 +10,28 @@ namespace Studio404.Services.Implementation
     public class PayService : IPayService
     {
         private readonly IRepository<BookingEntity> _bookingRepository;
+        private readonly INotificationService _notificationService;
 
-        public PayService(IRepository<BookingEntity> bookingRepository)
+        public PayService(IRepository<BookingEntity> bookingRepository, INotificationService notificationService)
         {
             _bookingRepository = bookingRepository;
+            _notificationService = notificationService;
         }
 
         public void ConfirmBooking(Guid guid)
         {
-            BookingEntity booking = _bookingRepository.GetAll()
-                .Single(x => x.Guid == guid);
+            // TODO: Log warning if booking already paid
+            
+            int bookingId = _bookingRepository.GetAll()
+                .Where(x => x.Guid == guid)
+                .Select(x => x.Id)
+                .Single();
 
-            if (booking.Status == BookingStatusEnum.Paid)
-            {
-                // TODO: Log warning if booking already paid                
-            }
+            string code = GenerateBookingCode();
+            var booking = new BookingEntity {Id = bookingId, Code = code, Status = BookingStatusEnum.Paid};
+            _bookingRepository.SaveProperties(booking, x => x.Code, x => x.Status);
 
-            booking.Code = GenerateBookingCode();
-            booking.Status = BookingStatusEnum.Paid;
-            _bookingRepository.Save(booking);
+            _notificationService.SendBookingCodeAsync(bookingId);
         }
 
         private string GenerateBookingCode()

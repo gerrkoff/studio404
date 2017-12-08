@@ -14,14 +14,14 @@ namespace Studio404.Services.Implementation
     {
         private readonly UserManager<UserEntity> _userManager;
         private readonly SignInManager<UserEntity> _signInManager;
-        private readonly ISmsService _smsService;
+        private readonly INotificationService _notificationService;
 
         public AccountService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager,
-            ISmsService smsService)
+            INotificationService notificationService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _smsService = smsService;
+            _notificationService = notificationService;
         }
 
         public async Task<RegisterResultEnum> Register(RegisterInfoDto registerInfo)
@@ -65,7 +65,7 @@ namespace Studio404.Services.Implementation
                 return SendPhoneConfirmationResultEnum.PhoneAlreadyConfirmed;
             
             string token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phone);
-            bool succeed = await _smsService.SendAsync(phone, $"Hello: {token}");
+            bool succeed = await _notificationService.SendPhoneConfirmationAsync(phone, $"Hello: {token}");
 
             return succeed
                 ? SendPhoneConfirmationResultEnum.Success

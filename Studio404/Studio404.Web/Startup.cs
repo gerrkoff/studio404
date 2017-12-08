@@ -130,6 +130,7 @@ namespace Studio404.Web
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ISmsService, SmsServiceMock>();
+            services.AddScoped<INotificationService, NotificationService>();
         }
 
         #endregion

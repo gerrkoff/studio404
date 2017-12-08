@@ -12,9 +12,9 @@ namespace Studio404.Services.Implementation
             _smsService = smsService;
         }
 
-        public async Task<bool> SendPhoneConfirmationAsync(string phone, string text)
+        public async Task<bool> SendPhoneConfirmationAsync(string phone, string code)
         {
-            return await _smsService.SendAsync(phone, text);
+            return await _smsService.SendAsync(phone, $"Your phone confirmation code: {code}");
         }
     }
 }

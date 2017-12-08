@@ -65,7 +65,7 @@ namespace Studio404.Services.Implementation
                 return SendPhoneConfirmationResultEnum.PhoneAlreadyConfirmed;
             
             string token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phone);
-            bool succeed = await _notificationService.SendPhoneConfirmationAsync(phone, $"Hello: {token}");
+            bool succeed = await _notificationService.SendPhoneConfirmationAsync(phone, token);
 
             return succeed
                 ? SendPhoneConfirmationResultEnum.Success

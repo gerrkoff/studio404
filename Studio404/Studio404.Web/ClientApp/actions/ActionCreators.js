@@ -251,9 +251,9 @@ export const ConfirmPhonePopup = {
         }
     },
 
-    invalidPhone: () => {
+    phoneAlreadyConfirmed: () => {
         return {
-            type: "PHONE_CONFIRM_POPUP_INVALID_PHONE"
+            type: "PHONE_CONFIRM_POPUP_PHONE_ALREADY_CONFIRMED"
         }
     },
 

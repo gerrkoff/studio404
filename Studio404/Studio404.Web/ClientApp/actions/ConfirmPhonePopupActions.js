@@ -19,7 +19,7 @@ export const sendPhoneConfirmation = (phone) => {
                         break;
 
                     case 2:
-                        dispatch(ConfirmPhonePopup.invalidPhone());
+                        dispatch(ConfirmPhonePopup.phoneAlreadyConfirmed());
                         break;
 
                     default:

@@ -96,13 +96,13 @@ const phoneConfirmPopup = (state = initialState, action) => {
                 codeError: ""
             };
 
-        case "PHONE_CONFIRM_POPUP_INVALID_PHONE":
+        case "PHONE_CONFIRM_POPUP_PHONE_ALREADY_CONFIRMED":
             return {
                 ...state,
                 codeIsSending: false,
                 codeSendSuccess: false,
                 phoneIsValid: false,
-                phoneError: "Sms was not delivered to this phone number"
+                phoneError: "This phone is already confirmed"
             };
         
         case "PHONE_CONFIRM_POPUP_INVALID_CODE":

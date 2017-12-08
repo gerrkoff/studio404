@@ -38,7 +38,7 @@ class ConfirmPhonePopup extends Component {
 
                     {this.props.codeSendSuccess
                         ? this.renderPart(
-                            "Code was successfully sent. Enter it in the field below",
+                            `Code was successfully sent on ${this.props.phone}. Enter it in the field below`,
                             "Enter code",
                             "Code",
                             this.props.codeError,
@@ -46,12 +46,13 @@ class ConfirmPhonePopup extends Component {
                             this.props.code,
                             this.props.updateCode,
                             "Confirm",
-                            () => this.props.confirmPhone(this.props.phone, this.props.code),
+                            () => this.props.confirmPhone(this.props.phoneReal, this.props.code),
                             this.props.confirmPhoneIsSending,
                             this.props.confirmPhoneSendError,
-                            "Error occured while confirming")
+                            "Error occured while confirming",
+                            true)
                         : this.renderPart(
-                            "We send you a code just to confirm that it is you phone",
+                            "We will send you a code just to confirm that it is you phone",
                             "Enter phone",
                             "Phone",
                             this.props.phoneError,
@@ -59,17 +60,18 @@ class ConfirmPhonePopup extends Component {
                             this.props.phone,
                             this.props.updatePhone,
                             "Send code",
-                            () => this.props.sendPhoneConfirmation(this.props.phone),
+                            () => this.props.sendPhoneConfirmation(this.props.phoneReal),
                             this.props.codeIsSending,
                             this.props.codeSendError,
-                            "Error occured while sending code")
+                            "Error occured while sending code",
+                            false)
                     }
                 </Dialog>
             </div>
         );
     }
 
-    renderPart(label, fieldHint, fieldLabel, fieldError, fieldValid, value, updateValueFunc, btnLabel, btnFunc, flagLoading, flagError, errorText) {
+    renderPart(label, fieldHint, fieldLabel, fieldError, fieldValid, value, updateValueFunc, btnLabel, btnFunc, flagLoading, flagError, errorText, flagCodePart) {
         return (
             <div>
                 <Row>
@@ -103,9 +105,17 @@ class ConfirmPhonePopup extends Component {
                 </Row>
                 <Row>
                     <Col md="12">
+                        {flagCodePart && <FlatButton label="Resend code" secondary={true} onClick={this.props.reenterPhone} />}
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md="12">
                         {flagError && <ErrorLabel align="left" text={errorText} />}
                     </Col>
                 </Row>
+
+
+                
             </div>
         );
     }

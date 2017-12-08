@@ -261,5 +261,11 @@ export const ConfirmPhonePopup = {
         return {
             type: "PHONE_CONFIRM_POPUP_INVALID_CODE"
         }
+    },
+
+    reenterPhone: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_REENTER_PHONE"
+        }
     }
 }

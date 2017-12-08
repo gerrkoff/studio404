@@ -1,11 +1,13 @@
 const phoneProcess = (phone) => {
     let isValid = phone && phone.length > 3;
-    return { phone, isValid };
+    let phoneReal = phone;
+    return { phone, phoneReal, isValid };
 }
 
 const initialState = {
     open: false,
     phone: phoneProcess("").phone,
+    phoneReal: "",
     phoneIsValid: false,
     phoneError: "",
     code: "",
@@ -35,6 +37,7 @@ const phoneConfirmPopup = (state = initialState, action) => {
             return {
                 ...state,
                 phone: result.phone,
+                phoneReal: result.phoneReal,
                 phoneIsValid: result.isValid
             };
 
@@ -107,6 +110,15 @@ const phoneConfirmPopup = (state = initialState, action) => {
                 confirmPhoneIsSending: false,
                 confirmPhoneSendSuccess: false,
                 codeError: "Invalid code"
+            };
+        
+        case "PHONE_CONFIRM_POPUP_REENTER_PHONE":
+            return {
+                ...state,
+                codeSendSuccess: false,
+                code: "",
+                codeError: "",
+                codeSendError: false
             };
 
         default:

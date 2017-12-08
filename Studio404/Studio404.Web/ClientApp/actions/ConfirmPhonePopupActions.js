@@ -68,3 +68,5 @@ export const closeConfirmPhonePopup = () => ConfirmPhonePopup.close();
 export const updatePhone = (phone) => ConfirmPhonePopup.updatePhone(phone);
 
 export const updateCode = (code) => ConfirmPhonePopup.updateCode(code);
+
+export const reenterPhone = (code) => ConfirmPhonePopup.reenterPhone();

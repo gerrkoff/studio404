@@ -101,6 +101,7 @@ const phoneConfirmPopup = (state = initialState, action) => {
                 ...state,
                 codeIsSending: false,
                 codeSendSuccess: false,
+                phoneIsValid: false,
                 phoneError: "Sms was not delivered to this phone number"
             };
         
@@ -109,6 +110,7 @@ const phoneConfirmPopup = (state = initialState, action) => {
                 ...state,
                 confirmPhoneIsSending: false,
                 confirmPhoneSendSuccess: false,
+                codeIsValid: false,
                 codeError: "Invalid code"
             };
         

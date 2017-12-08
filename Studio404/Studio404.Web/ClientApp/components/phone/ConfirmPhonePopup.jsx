@@ -94,10 +94,10 @@ class ConfirmPhonePopup extends Component {
                             secondary={true}
                             onClick={btnFunc}
                             disabled={flagLoading || !fieldValid}
-                            style={{ paddingTop: 28 }} />
+                            style={{ position: "relative", top: "28px" }} />
 
                         {flagLoading &&
-                            <span style={{ position: "relative", paddingLeft: 15, top: "5px" }}>
+                            <span style={{ position: "relative", paddingLeft: 25, top: "32px" }}>
                                 <Loader />
                             </span>
                         }

@@ -5,6 +5,6 @@ namespace Studio404.Services.Interface
 {
     public interface ISmsService
     {
-        Task<SmsSendResultEnum> SendAsync(string phone, string text);
+        Task<bool> SendAsync(string phone, string text);
     }
 }

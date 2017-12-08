@@ -61,7 +61,7 @@ namespace Studio404.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<SmsSendResultEnum> SendPhoneConfirmation(PhoneInfoDto phoneInfo)
+        public async Task<SendPhoneConfirmationResultEnum> SendPhoneConfirmation(PhoneInfoDto phoneInfo)
         {
             Validate();
             

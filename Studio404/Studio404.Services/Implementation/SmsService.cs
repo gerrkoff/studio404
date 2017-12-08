@@ -20,8 +20,10 @@ namespace Studio404.Services.Implementation
             _smsServiceSettings = smsServiceSettings.Value;
         }
         
-        public async Task<SmsSendResultEnum> SendAsync(string phone, string text)
+        public async Task<bool> SendAsync(string phone, string text)
         {
+            // TODO: implement logging, success/fail
+            
             string smsRequestUrl = GenerateServiceRequstUrl(phone, text);
             
             using (var httpClient = new HttpClient())
@@ -44,25 +46,22 @@ namespace Studio404.Services.Implementation
             return string.Format(url, apiId, phone, HttpUtility.UrlEncode(text));
         }
 
-        private SmsSendResultEnum ProcessResult(string content, string phone)
+        private bool ProcessResult(string content, string phone)
         {
             ServiceReponseDto serviceResponse = JsonConvert.DeserializeObject<ServiceReponseDto>(content);
 
             if (serviceResponse.StatusCode != 100)
-                return SmsSendResultEnum.ServiceError;
+                return false;
 
             if (!serviceResponse.Sms.ContainsKey(phone))
-                return SmsSendResultEnum.ServiceError;
+                return false;
 
             ServiceReponseDto.SmsResult smsResult = serviceResponse.Sms[phone];
 
-            if (smsResult.StatusCode == 207 || smsResult.StatusCode == 202)
-                return SmsSendResultEnum.WrongNumber;
+            if (smsResult.StatusCode != 100)
+                return false;
 
-            if (smsResult.StatusCode == 100)
-                return SmsSendResultEnum.Succeed;
-
-            return SmsSendResultEnum.ServiceError;
+            return true;
         }
     }
 }

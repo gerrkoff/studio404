@@ -59,14 +59,17 @@ namespace Studio404.Services.Implementation
                 return LoginResultEnum.WrongUsernamePassword;
         }
 
-        public async Task<SmsSendResultEnum> SendPhoneConfirmation(UserEntity user, string phone)
+        public async Task<SendPhoneConfirmationResultEnum> SendPhoneConfirmation(UserEntity user, string phone)
         {
             if (user.PhoneNumberConfirmed && string.Equals(user.PhoneNumber, phone))
-                throw ServiceExceptionCreator.InvalidEntity("Phone");
+                return SendPhoneConfirmationResultEnum.PhoneAlreadyConfirmed;
             
             string token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phone);
-            SmsSendResultEnum result = await _smsService.SendAsync(phone, $"Hello: {token}");
-            return result;
+            bool succeed = await _smsService.SendAsync(phone, $"Hello: {token}");
+
+            return succeed
+                ? SendPhoneConfirmationResultEnum.Success
+                : SendPhoneConfirmationResultEnum.Unknown;
         }
 
         public async Task<ConfirmPhoneResultEnum> ConfirmPhone(UserEntity user, string phone, string code)

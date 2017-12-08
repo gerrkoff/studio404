@@ -20,18 +20,19 @@ namespace Studio404.Services.Implementation
 
         public void ConfirmBooking(Guid guid)
         {
-            // TODO: Log warning if booking already paid
-            
-            int bookingId = _bookingRepository.GetAll()
-                .Where(x => x.Guid == guid)
-                .Select(x => x.Id)
-                .Single();
+            BookingEntity booking = _bookingRepository.GetAll()
+                .Single(x => x.Guid == guid);
 
-            string code = GenerateBookingCode();
-            var booking = new BookingEntity {Id = bookingId, Code = code, Status = BookingStatusEnum.Paid};
-            _bookingRepository.SaveProperties(booking, x => x.Code, x => x.Status);
+            if (booking.Status == BookingStatusEnum.Paid)
+            {
+                // TODO: Log warning if booking already paid                
+            }
 
-            _notificationService.SendBookingCodeAsync(bookingId);
+            booking.Code = GenerateBookingCode();
+            booking.Status = BookingStatusEnum.Paid;
+            _bookingRepository.Save(booking);
+
+            _notificationService.SendBookingCodeAsync(booking);
         }
 
         private string GenerateBookingCode()

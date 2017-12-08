@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using Studio404.Services.Interface;
@@ -10,12 +11,12 @@ namespace Studio404.Services.Implementation
     public class NotificationService : INotificationService
     {
         private readonly ISmsService _smsService;
-        private readonly IRepository<BookingEntity> _bookingRepository;
+        private readonly UserManager<UserEntity> _userManager;
 
-        public NotificationService(ISmsService smsService, IRepository<BookingEntity> bookingRepository)
+        public NotificationService(ISmsService smsService, UserManager<UserEntity> userManager)
         {
             _smsService = smsService;
-            _bookingRepository = bookingRepository;
+            _userManager = userManager;
         }
 
         public async Task<bool> SendPhoneConfirmationAsync(string phone, string code)
@@ -32,18 +33,19 @@ namespace Studio404.Services.Implementation
             }
         }
 
-        public async Task<bool> SendBookingCodeAsync(int id)
+        public async Task<bool> SendBookingCodeAsync(BookingEntity booking)
         {
-            BookingEntity booking = _bookingRepository.GetAll(x => x.User).Single(x => x.Id == id);
+            UserEntity user = await _userManager.FindByIdAsync(booking.UserId);
 
-            if (!booking.User.PhoneNumberConfirmed)
+            if (!user.PhoneNumberConfirmed)
             {
                 // TODO: log it
                 return false;
             }
             
-            string phone = booking.User.PhoneNumber;
+            string phone = user.PhoneNumber;
             string text =
+                // TODO: fix sms format
                 $"Studio is waiting for you at {booking.Date.ToShortDateString()} from {booking.From} to {booking.To + 1}. Code: {booking.Code}";
             try
             {

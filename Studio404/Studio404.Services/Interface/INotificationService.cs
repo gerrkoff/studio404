@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Studio404.Dal.Entity;
 
 namespace Studio404.Services.Interface
 {
     public interface INotificationService
     {
         Task<bool> SendPhoneConfirmationAsync(string phone, string code);
-        Task<bool> SendBookingCodeAsync(int id);
+        Task<bool> SendBookingCodeAsync(BookingEntity booking);
     }
 }

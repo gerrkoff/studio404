@@ -89,7 +89,8 @@ const phoneConfirmPopup = (state = initialState, action) => {
                 ...state,
                 confirmPhoneIsSending: false,
                 confirmPhoneSendError: true,
-                confirmPhoneSendSuccess: false
+                confirmPhoneSendSuccess: false,
+                codeError: ""
             };
 
         case "PHONE_CONFIRM_POPUP_INVALID_PHONE":

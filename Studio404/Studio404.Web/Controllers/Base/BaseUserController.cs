@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Studio404.Web.Controllers.Base
 {
-    public class BaseUserController : Controller
+    public class BaseUserController : BaseController
     {
         private readonly UserManager<UserEntity> _userManager;
         

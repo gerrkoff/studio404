@@ -31,20 +31,16 @@ namespace Studio404.Web.Controllers
 
         [HttpPost]
         public async Task<RegisterResultEnum> Register(RegisterInfoDto registerInfo)
-        {   
-            if (ModelState.IsValid)
-                return await _accountService.Register(registerInfo);
-            else
-                throw new ModelValidationException(ModelState);
+        {
+            Validate();
+            return await _accountService.Register(registerInfo);
         }
 
         [HttpPost]
         public async Task<LoginResultEnum> Login(LoginInfoDto loginInfo)
         {
-            if (ModelState.IsValid)
-                return await _accountService.Login(loginInfo);
-            else
-                throw new ModelValidationException(ModelState);
+            Validate();   
+            return await _accountService.Login(loginInfo);
         }
 
         [HttpPost]
@@ -65,18 +61,20 @@ namespace Studio404.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<SmsSendResultEnum> SendPhoneConfirmation(string phone)
+        public async Task<SmsSendResultEnum> SendPhoneConfirmation(PhoneInfoDto phoneInfo)
         {
-            // TODO: validate phone here
+            Validate();
             Thread.Sleep(1000);
-            return await _accountService.SendPhoneConfirmation(await GetUserAsync(), phone);
+            return await _accountService.SendPhoneConfirmation(await GetUserAsync(), phoneInfo.Phone);
         }
 
         [HttpPost]
-        public async Task<ConfirmPhoneResultEnum> ConfirmPhone(string phone, string code)
+        public async Task<ConfirmPhoneResultEnum> ConfirmPhone(ConfirmPhoneInfoDto confirmPhoneInfo)
         {
+            Validate();
             Thread.Sleep(1000);
-            return await _accountService.ConfirmPhone(await GetUserAsync(), phone, code);
+            return await _accountService.ConfirmPhone(await GetUserAsync(), confirmPhoneInfo.Phone,
+                confirmPhoneInfo.Code);
         }
     }
 }

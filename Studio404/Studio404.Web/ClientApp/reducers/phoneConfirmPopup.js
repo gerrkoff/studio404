@@ -129,11 +129,14 @@ const phoneConfirmPopup = (state = initialState, action) => {
 export default phoneConfirmPopup;
 
 function phoneProcess(phoneOld, phone) {
+    if (phone.length > 0 && phone[0] !== "8") {
+        let digit = phone[0];
+        phone = phone.substring(1);
+        phone += digit;
+    }
 
     let phoneReal = phone.replace( /\D/g, "" );
-
-    if (phoneReal[0] === "8")
-        phoneReal = phoneReal.substring(1);
+    phoneReal = phoneReal.substring(1);
 
     if (phone.length > 0 && phone.length < phoneOld.length && /\D$/.test(phoneOld))
         phoneReal = phoneReal.substring(0, phoneReal.length - 1);

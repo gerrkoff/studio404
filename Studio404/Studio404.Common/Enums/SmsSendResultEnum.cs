@@ -2,6 +2,6 @@
 {
     public enum SmsSendResultEnum
     {
-        Unknown, Succeed, WrongNumber, Error
+        Unknown, Succeed, WrongNumber, ServiceError 
     }
 }

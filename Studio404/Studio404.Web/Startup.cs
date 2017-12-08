@@ -108,6 +108,9 @@ namespace Studio404.Web
         {
             services.Configure<StudioSettings>(options =>
                 Configuration.GetSection("StudioSettings").Bind(options));
+            
+            services.Configure<SmsServiceSettings>(options =>
+                Configuration.GetSection("SmsServiceSettings").Bind(options));
         }
 
         private void ConfigAutoMapper(IServiceCollection services)

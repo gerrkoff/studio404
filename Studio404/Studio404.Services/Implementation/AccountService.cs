@@ -65,7 +65,7 @@ namespace Studio404.Services.Implementation
                 throw ServiceExceptionCreator.InvalidEntity("Phone");
             
             string token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phone);
-            SmsSendResultEnum result = await _smsService.SendAsync(phone, $"Your phone confirmation code: {token}");
+            SmsSendResultEnum result = await _smsService.SendAsync(phone, $"Hello: {token}");
             return result;
         }
 

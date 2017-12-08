@@ -64,6 +64,8 @@ namespace Studio404.Web.Controllers
         public async Task<SmsSendResultEnum> SendPhoneConfirmation(PhoneInfoDto phoneInfo)
         {
             Validate();
+            
+            // TODO: remove sleep
             Thread.Sleep(1000);
             return await _accountService.SendPhoneConfirmation(await GetUserAsync(), phoneInfo.Phone);
         }
@@ -72,6 +74,8 @@ namespace Studio404.Web.Controllers
         public async Task<ConfirmPhoneResultEnum> ConfirmPhone(ConfirmPhoneInfoDto confirmPhoneInfo)
         {
             Validate();
+            
+            // TODO: remove sleep
             Thread.Sleep(1000);
             return await _accountService.ConfirmPhone(await GetUserAsync(), confirmPhoneInfo.Phone,
                 confirmPhoneInfo.Code);

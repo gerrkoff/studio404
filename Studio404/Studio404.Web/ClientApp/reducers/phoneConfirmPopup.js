@@ -1,16 +1,11 @@
-const phoneProcess = (phone) => {
-    let isValid = phone && phone.length > 3;
-    let phoneReal = phone;
-    return { phone, phoneReal, isValid };
-}
-
 const initialState = {
     open: false,
-    phone: phoneProcess("").phone,
+    phone: phoneProcess("", "").phone,
     phoneReal: "",
     phoneIsValid: false,
     phoneError: "",
     code: "",
+    codeIsValid: false,
     codeError: "",
     codeIsSending: false,
     codeSendError: false,
@@ -32,19 +27,24 @@ const phoneConfirmPopup = (state = initialState, action) => {
             return initialState;
 
         case "PHONE_CONFIRM_POPUP_UPDATE_PHONE":
-            let result = phoneProcess(action.phone);
+            let result = phoneProcess(state.phone, action.phone);
 
             return {
                 ...state,
                 phone: result.phone,
                 phoneReal: result.phoneReal,
-                phoneIsValid: result.isValid
+                phoneIsValid: result.isValid,
+                phoneError: result.error
             };
 
         case "PHONE_CONFIRM_POPUP_UPDATE_CODE":
+            let codeValidationResult = codeValidate(action.code);
+
             return {
                 ...state,
-                code: action.code
+                code: action.code,
+                codeError: codeValidationResult.error,
+                codeIsValid: codeValidationResult.isValid
             };
 
         case "PHONE_CONFIRM_POPUP_SEND_CODE_LOADING":
@@ -126,4 +126,52 @@ const phoneConfirmPopup = (state = initialState, action) => {
     }
 }
 
-export default phoneConfirmPopup
+export default phoneConfirmPopup;
+
+function phoneProcess(phoneOld, phone) {
+
+    let phoneReal = phone.replace( /\D/g, "" );
+
+    if (phoneReal[0] === "8")
+        phoneReal = phoneReal.substring(1);
+
+    if (phone.length > 0 && phone.length < phoneOld.length && /\D$/.test(phoneOld))
+        phoneReal = phoneReal.substring(0, phoneReal.length - 1);
+
+    let isValid = phoneReal.length === 10;
+    let error = isValid || phoneReal.length === 0 ? "" : "Phone must be like 8 (xxx) xxx-xx-xx";
+
+    phone = "8 (";
+    for (let i = 0; i < phoneReal.length; i++) {
+        if(!phoneReal[i])
+            break;
+        phone += phoneReal[i] + postFix(i);
+    }
+
+    return { phone, phoneReal, isValid, error };
+}
+
+function postFix(i) {
+    switch (i) {
+        case 2: return ") ";
+        case 5: return "-";
+        case 7: return "-";
+        default: return "";
+    }
+}
+
+function codeValidate(code) {
+    let result = {
+        isValid: false,
+        error: ""
+    };
+
+    if (code.length === 6) {
+        result.isValid = true;
+    }
+    else if (code.length > 0) {
+        result.error = "Code must be 6 digit";
+    }
+    
+    return result;
+}

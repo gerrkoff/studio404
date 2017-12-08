@@ -42,7 +42,7 @@ class ConfirmPhonePopup extends Component {
                             "Enter code",
                             "Code",
                             this.props.codeError,
-                            true,
+                            this.props.codeIsValid,
                             this.props.code,
                             this.props.updateCode,
                             "Confirm",
@@ -105,17 +105,14 @@ class ConfirmPhonePopup extends Component {
                 </Row>
                 <Row>
                     <Col md="12">
-                        {flagCodePart && <FlatButton label="Resend code" secondary={true} onClick={this.props.reenterPhone} />}
+                        {flagError && <ErrorLabel align="left" text={errorText} />}
                     </Col>
                 </Row>
                 <Row>
                     <Col md="12">
-                        {flagError && <ErrorLabel align="left" text={errorText} />}
+                        {flagCodePart && <FlatButton label="Resend code" secondary={true} onClick={this.props.reenterPhone} />}
                     </Col>
                 </Row>
-
-
-                
             </div>
         );
     }

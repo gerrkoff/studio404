@@ -61,8 +61,8 @@ namespace Studio404.Services.Implementation
 
         public async Task<SmsSendResultEnum> SendPhoneConfirmation(UserEntity user, string phone)
         {
-            // TODO: if confirmed and not changed - stop
-            // TODO: check possible exceptions - return diff results
+            if (user.PhoneNumberConfirmed && string.Equals(user.PhoneNumber, phone))
+                throw ServiceExceptionCreator.InvalidEntity("Phone");
             
             string token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phone);
             SmsSendResultEnum result = await _smsService.SendAsync(phone, $"Your phone confirmation code: {token}");

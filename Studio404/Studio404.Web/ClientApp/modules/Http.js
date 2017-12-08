@@ -27,7 +27,7 @@ const errorHandler = (data) => {
     let exception = data.responseJSON;
     if(exception && (exception.Message || exception.message))
     {
-        console.log(exception);
+        console.error(exception);
         return Message.show(exception.Message ? exception.Message : exception.message);
     }
     else {

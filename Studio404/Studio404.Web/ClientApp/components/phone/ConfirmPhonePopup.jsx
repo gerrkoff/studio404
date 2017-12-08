@@ -38,7 +38,7 @@ class ConfirmPhonePopup extends Component {
 
                     {this.props.codeSendSuccess
                         ? this.renderPart(
-                            `Code was successfully sent on ${this.props.phone}. Enter it in the field below`,
+                            `Code was successfully sent on ${this.props.phone}`,
                             "Enter code",
                             "Code",
                             this.props.codeError,

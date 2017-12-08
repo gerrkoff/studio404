@@ -7,16 +7,18 @@ import ConfirmDialog from "../../containers/ConfirmDialogContainer";
 class App extends Component {
     render() {
         return (
-            <Container>
+            <div>
                 <Toolbar />
-                <Row style={{marginTop: "10px"}}>
-                    <Col md="12">
-                        {this.props.children}
-                    </Col>
-                </Row>
-                <Message />
-                <ConfirmDialog />
-            </Container>
+                <Container>
+                    <Row style={{marginTop: "10px"}}>
+                        <Col md="12">
+                            {this.props.children}
+                        </Col>
+                    </Row>
+                    <Message />
+                    <ConfirmDialog />
+                </Container>
+            </div>
         );
     }
 }

@@ -50,3 +50,17 @@ export const cancelBooking = (id) => {
             });
     };
 }
+
+export const resendBookingCode = (id) => {
+    return (dispatch) => {
+
+        Http.Post("/api/booking/resendcode", { id })
+            .fail((data) => dispatch(errorHandler(data)))
+            .done((data) => {
+                if (data === "true")
+                    dispatch(show(Labels.resend_success));
+                else
+                    dispatch(show(Labels.resend_error));
+            });
+    };
+}

@@ -31,6 +31,14 @@ class UserBookingItem extends Component {
                             paddingLeft: "15px",
                             fontSize: "19px"
                         }} />
+                    <FaIconButton
+                        size="sm"
+                        icon="credit-card"
+                        disabled={this.props.status !== 2}
+                        onClick={() => this.props.resend(this.props.id)} 
+                        style={{
+                            paddingLeft: "15px"
+                        }} />
                 </TableRowColumn>
             </TableRow>
         );

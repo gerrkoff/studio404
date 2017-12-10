@@ -72,7 +72,8 @@ class UserBookings extends Component {
                                     date={DateService.toDateString(item.date)}
                                     time={DateService.convertHourIntervalToLabel(item.from, item.to)}
                                     status={item.status}
-                                    cancel={this.props.cancelBooking}/>
+                                    cancel={this.props.cancelBooking}
+                                    resend={this.props.resendBookingCode}/>
                             )}
                     </TableBody>
                 </Table>

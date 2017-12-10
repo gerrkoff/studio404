@@ -14,6 +14,8 @@ const Labels = {
     registerError: "Register error",
     defaultError: "Something went wrong...",
     bookingCanceled: "Booking canceled!",
+    resend_success: "Booking code was sent successfully!",
+    resend_error: "Booking code sending failed!",
 
     //validation
     bookingHoursIncorrectInput: "Incorrect input",
@@ -61,7 +63,11 @@ const Labels = {
     userBookings_date: "Date",
     userBookings_time: "Time",
     userBookings_status: "Status",
-    userBookings_actions: "Actions"
+    userBookings_actions: "Actions",
+    userBookings_cancelQuestion: "Are you sure you want to cancel booking?",
+    userBookings_cancel: "Cancel booking",
+    userBookings_resendQuestion: "Are you sure you want to resend booking code?",
+    userBookings_resend: "Resend booking code"
 }
 
 export default Labels;

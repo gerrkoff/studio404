@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Dal.Entity;
@@ -46,9 +47,9 @@ namespace Studio404.Web.Controllers
         }
         
         [HttpPost]
-        public void ResendCode(int id)
+        public async Task<bool> ResendCode(int id)
         {
-            _bookingService.ResendBookingCode(id, GetUser());
+            return await _bookingService.ResendBookingCode(id, GetUser());
         }
     }
 }

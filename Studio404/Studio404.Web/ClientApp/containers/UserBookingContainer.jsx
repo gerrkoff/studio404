@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import UserBookings from "../components/user/UserBookings";
-import { loadBookings, cancelBooking } from "../actions/UserBookingsActions";
+import { loadBookings, cancelBooking, resendBookingCode } from "../actions/UserBookingsActions";
 import { show } from "../actions/ConfirmDialogActions";
+import Labels from "../modules/Labels";
 
 const mapStateToProps = (state) => {
     return {
@@ -14,9 +15,13 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadBookings: () => dispatch(loadBookings()),
         cancelBooking: (id) => dispatch(show(
-            "Are you sure you want to cancel booking?",
-            "Cancel booking",
-            () => dispatch(cancelBooking(id))))
+            Labels.userBookings_cancelQuestion,
+            Labels.userBookings_cancel,
+            () => dispatch(cancelBooking(id)))),
+        resendBookingCode: (id) => dispatch(show(
+            Labels.userBookings_resendQuestion,
+            Labels.userBookings_resend,
+            () => dispatch(resendBookingCode(id))))
     }
 }
 

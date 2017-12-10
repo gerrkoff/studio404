@@ -44,5 +44,11 @@ namespace Studio404.Web.Controllers
         {
             _bookingService.CancelBooking(id, GetUser());
         }
+        
+        [HttpPost]
+        public void ResendCode(int id)
+        {
+            _bookingService.ResendBookingCode(id, GetUser());
+        }
     }
 }

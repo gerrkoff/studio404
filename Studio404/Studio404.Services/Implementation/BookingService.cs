@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Studio404.Common.Enums;
 using Studio404.Common.Exceptions;
@@ -16,10 +17,13 @@ namespace Studio404.Services.Implementation
     {
         private readonly IRepository<BookingEntity> _bookingRepository;
         private readonly StudioSettings _studioSettings;
+        private readonly INotificationService _notificationService;
 
-        public BookingService(IRepository<BookingEntity> bookingRepository, IOptions<StudioSettings> studioSettings)
+        public BookingService(IRepository<BookingEntity> bookingRepository, IOptions<StudioSettings> studioSettings,
+            INotificationService notificationService)
         {
             _bookingRepository = bookingRepository;
+            _notificationService = notificationService;
             _studioSettings = studioSettings.Value;
         }
 
@@ -105,6 +109,9 @@ namespace Studio404.Services.Implementation
 
         public void CancelBooking(int id, UserEntity user)
         {
+            if (!_bookingRepository.GetAll().Any(x => x.Id == id))
+                throw new ServiceException("Booking does not exist");
+            
             if (!_bookingRepository.GetAll().Any(x => x.Id == id && x.UserId == user.Id))
                 throw new ServiceException("User does not have such permissions");
 
@@ -119,6 +126,22 @@ namespace Studio404.Services.Implementation
                 Status = BookingStatusEnum.Canceled
             };
             _bookingRepository.SaveProperties(booking, x => x.Status);
+        }
+
+        public async Task<bool> ResendBookingCode(int id, UserEntity user)
+        {
+            if (!_bookingRepository.GetAll().Any(x => x.Id == id))
+                throw new ServiceException("Booking does not exist");
+            
+            if (!_bookingRepository.GetAll().Any(x => x.Id == id && x.UserId == user.Id))
+                throw new ServiceException("User does not have such permissions");
+            
+            if (_bookingRepository.GetAll().Any(x => x.Id == id && x.Status == BookingStatusEnum.Paid))
+                throw new ServiceException("Booking is invalid for this action");
+
+            BookingEntity booking = _bookingRepository.GetById(id);
+
+            return await _notificationService.SendBookingCodeAsync(booking);
         }
     }
 }

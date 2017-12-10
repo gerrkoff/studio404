@@ -4,20 +4,20 @@ import { show } from "./MessageActions";
 const UserBookings = {
     loading: () => {
         return {
-            type: "LOADING"
+            type: "USER_BOOKINGS_LOADING"
         }
     },
 
     loadedSuccess: (bookings) => {
         return {
-            type: "LOADED_SUCCESS",
+            type: "USER_BOOKINGS_LOADED_SUCCESS",
             bookings
         }
     },
 
     loadedError: () => {
         return {
-            type: "LOADED_ERROR"
+            type: "USER_BOOKINGS_LOADED_ERROR"
         }
     }
 }

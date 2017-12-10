@@ -11,7 +11,7 @@ const account = (state = initialState, action) => {
                 username: action.currentUser.username
             };
 
-        case "LOGOFF":
+        case "CURRENT_USER_LOGOFF":
             return {...state,
                 userLoggedIn: false,
                 username: ""

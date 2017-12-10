@@ -11,7 +11,7 @@ const Account = {
 
     logoff: () => {
         return {
-            type: "LOGOFF"
+            type: "CURRENT_USER_LOGOFF"
         }
     }
 }

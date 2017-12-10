@@ -6,19 +6,19 @@ const initialState = {
 
 const userBookings = (state = initialState, action) => {
     switch (action.type) {
-        case "LOADING":
+        case "USER_BOOKINGS_LOADING":
             return {...state,
                 isLoading: true,
                 error: false
             };
 
-        case "LOADED_SUCCESS":
+        case "USER_BOOKINGS_LOADED_SUCCESS":
             return {...state,
                 isLoading: false,
                 bookings: action.bookings
             };
 
-        case "LOADED_ERROR":
+        case "USER_BOOKINGS_LOADED_ERROR":
             return {...state,
                 isLoading: false,
                 error: true

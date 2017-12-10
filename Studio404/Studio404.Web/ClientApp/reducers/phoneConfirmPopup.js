@@ -1,3 +1,5 @@
+import Labels from "../modules/Labels";
+
 const initialState = {
     open: false,
     phone: phoneProcess("", "").phone,
@@ -102,7 +104,7 @@ const phoneConfirmPopup = (state = initialState, action) => {
                 codeIsSending: false,
                 codeSendSuccess: false,
                 phoneIsValid: false,
-                phoneError: "This phone is already confirmed"
+                phoneError: Labels.phoneAlreadyConfirmed
             };
         
         case "PHONE_CONFIRM_POPUP_INVALID_CODE":
@@ -111,7 +113,7 @@ const phoneConfirmPopup = (state = initialState, action) => {
                 confirmPhoneIsSending: false,
                 confirmPhoneSendSuccess: false,
                 codeIsValid: false,
-                codeError: "Invalid code"
+                codeError: Labels.phoneConfirmationCodeInvalid
             };
         
         case "PHONE_CONFIRM_POPUP_REENTER_PHONE":
@@ -144,7 +146,7 @@ function phoneProcess(phoneOld, phone) {
         phoneReal = phoneReal.substring(0, phoneReal.length - 1);
 
     let isValid = phoneReal.length === 10;
-    let error = isValid || phoneReal.length === 0 ? "" : "Phone must be like 8 (xxx) xxx-xx-xx";
+    let error = isValid || phoneReal.length === 0 ? "" : Labels.phoneRule;
 
     phone = "8 (";
     for (let i = 0; i < phoneReal.length; i++) {
@@ -175,7 +177,7 @@ function codeValidate(code) {
         result.isValid = true;
     }
     else if (code.length > 0) {
-        result.error = "Code must be 6 digit";
+        result.error = Labels.phoneConfirmationCodeRule;
     }
     
     return result;

@@ -1,4 +1,5 @@
 import DateService from "../modules/DateService";
+import Labels from "../modules/Labels";
 
 const initialState = {
     weekStartDate: DateService.getMonday(new Date()),
@@ -94,7 +95,7 @@ const validateHours = (hours) => {
     else if(hours.length > 1) {
         hours.sortNumbers();
         isValid = hours[hours.length-1] - hours[0] === hours.length - 1;
-        error = !isValid ? "Incorrect input" : "";
+        error = !isValid ? Labels.bookingHoursIncorrectInput : "";
     }
 
     return { isValid, error };

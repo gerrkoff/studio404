@@ -1,4 +1,4 @@
-const fieldIsRequired = "This field is required"
+import Labels from "../modules/Labels";
 
 const initialState = {
     open: false,
@@ -12,11 +12,11 @@ const initialState = {
     },
     registerInfo: {
         username: "",
-        usernameError: fieldIsRequired,
+        usernameError: Labels.fieldIsRequired,
         password: "",
-        passwordError: fieldIsRequired,
+        passwordError: Labels.fieldIsRequired,
         passwordConfirm: "",
-        passwordConfirmError: fieldIsRequired,
+        passwordConfirmError: Labels.fieldIsRequired,
         isValid: false
     },
 }
@@ -69,15 +69,15 @@ const loginPopup = (state = initialState, action) => {
         case "LOGIN_ERROR_WRONG_USER_PASSWORD":
             return {...state,
                 loginInfo: {...state.loginInfo,
-                    usernameError: "Wrong username...",
-                    passwordError: "...or password"
+                    usernameError: Labels.loginWrongUser,
+                    passwordError: Labels.loginWrongPass
                 }
             };
         
         case "REGISTER_ERROR_WRONG_USER_PASSWORD":
             return {...state,
                 registerInfo: {...state.registerInfo,
-                    usernameError: "This username already registered"
+                    usernameError: Labels.userAlreadyRegistered
                 }
             };
 
@@ -97,7 +97,7 @@ const validateRegisterInfo = (registerInfo) => {
 
     if (registerInfo.username === "") {
         isValid = false;
-        registerInfo.usernameError = fieldIsRequired;
+        registerInfo.usernameError = Labels.fieldIsRequired;
     }
     else {
         registerInfo.usernameError = "";
@@ -105,11 +105,11 @@ const validateRegisterInfo = (registerInfo) => {
 
     if (registerInfo.password === "") {
         isValid = false;
-        registerInfo.passwordError = fieldIsRequired;
+        registerInfo.passwordError = Labels.fieldIsRequired;
     }
     else if (registerInfo.password.length < 5) {
         isValid = false;
-        registerInfo.passwordError = "Password must be 5 length minimum";
+        registerInfo.passwordError = Labels.passwordCreateRule;
     }
     else {
         registerInfo.passwordError = "";
@@ -117,11 +117,11 @@ const validateRegisterInfo = (registerInfo) => {
 
     if (registerInfo.passwordConfirm === "") {
         isValid = false;
-        registerInfo.passwordConfirmError = fieldIsRequired;
+        registerInfo.passwordConfirmError = Labels.fieldIsRequired;
     }
     else if (registerInfo.passwordConfirm !== registerInfo.password) {
         isValid = false;
-        registerInfo.passwordConfirmError = "Passwords are not equal";
+        registerInfo.passwordConfirmError = Labels.passwordConfirmFail;
     }
     else {
         registerInfo.passwordConfirmError = "";

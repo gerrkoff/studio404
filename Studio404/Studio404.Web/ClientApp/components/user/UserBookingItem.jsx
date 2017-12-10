@@ -25,7 +25,7 @@ class UserBookingItem extends Component {
                         onClick={() => alert("Pay " + this.props.id)} />
                     <FaIconButton
                         icon="times"
-                        disabled={this.props.status === 3}
+                        disabled={this.props.status === 3 || this.props.status === 2}
                         onClick={() => this.props.cancel(this.props.id)}
                         style={{
                             paddingLeft: "15px",

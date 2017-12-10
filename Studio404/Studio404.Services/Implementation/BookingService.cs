@@ -108,7 +108,9 @@ namespace Studio404.Services.Implementation
             if (!_bookingRepository.GetAll().Any(x => x.Id == id && x.UserId == user.Id))
                 throw new ServiceException("User does not have such permissions");
 
-            if (_bookingRepository.GetAll().Any(x => x.Id == id && x.Status == BookingStatusEnum.Canceled))
+            if (_bookingRepository.GetAll().Any(x => x.Id == id &&
+                                                     (x.Status == BookingStatusEnum.Canceled ||
+                                                      x.Status == BookingStatusEnum.Paid)))
                 throw new ServiceException("Booking is invalid for this action");
 
             var booking = new BookingEntity

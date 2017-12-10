@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'reactstrap';
 import RaisedButton from 'material-ui/RaisedButton';
-import BookingService from "../../modules/BookingService";
 import DateService from "../../modules/DateService";
 import HourSelector from "../../components/booking/HourSelector";
 import Loader from "../../components/common/Loader";

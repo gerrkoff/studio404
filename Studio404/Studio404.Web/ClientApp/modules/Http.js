@@ -1,6 +1,6 @@
 import $ from "jQuery";
 import NProgress from "react-nprogress";
-import { Message } from "../actions/ActionCreators";
+import { show } from "../actions/MessageActions";
 
 NProgress.configure({ showSpinner: false });
 
@@ -28,10 +28,10 @@ const errorHandler = (data) => {
     if(exception && (exception.Message || exception.message))
     {
         console.error(exception);
-        return Message.show(exception.Message ? exception.Message : exception.message);
+        return show(exception.Message ? exception.Message : exception.message);
     }
     else {
-        return Message.show(`Error: ${data.status} | ${data.statusText}`);
+        return show(`Error: ${data.status} | ${data.statusText}`);
     }
 }
 

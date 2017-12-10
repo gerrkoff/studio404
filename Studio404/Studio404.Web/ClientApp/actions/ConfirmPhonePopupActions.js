@@ -1,6 +1,87 @@
-import { ConfirmPhonePopup } from "./ActionCreators";
-import { showDefaultError, show } from "./MessageActions";
 import { Http, errorHandler } from "../modules/Http";
+import { showDefaultError, show } from "./MessageActions";
+
+const ConfirmPhonePopup = {
+    open: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_OPEN"
+        }
+    },
+
+    close: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_CLOSE"
+        }
+    },
+
+    updatePhone: (phone) => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_UPDATE_PHONE",
+            phone
+        }
+    },
+
+    updateCode: (code) => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_UPDATE_CODE",
+            code
+        }
+    },
+
+    sendLoading: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_SEND_CODE_LOADING"
+        }
+    },
+
+    sendSuccess: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_SEND_CODE_SUCCESS"
+        }
+    },
+
+    sendError: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_SEND_CODE_ERROR"
+        }
+    },
+
+    confirmLoading: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_SEND_CONFIRM_LOADING"
+        }
+    },
+
+    confirmSuccess: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_SEND_CONFIRM_SUCCESS"
+        }
+    },
+
+    confirmError: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_SEND_CONFIRM_ERROR"
+        }
+    },
+
+    phoneAlreadyConfirmed: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_PHONE_ALREADY_CONFIRMED"
+        }
+    },
+
+    invalidCode: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_INVALID_CODE"
+        }
+    },
+
+    reenterPhone: () => {
+        return {
+            type: "PHONE_CONFIRM_POPUP_REENTER_PHONE"
+        }
+    }
+}
 
 export const sendPhoneConfirmation = (phone) => {
     return (dispatch) => {

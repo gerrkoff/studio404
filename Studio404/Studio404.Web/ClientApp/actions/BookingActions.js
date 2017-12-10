@@ -1,17 +1,84 @@
-import BookingService from "../modules/BookingService";
+import { Http, errorHandler } from "../modules/Http";
+import { show } from "./MessageActions";
 import DateService from "../modules/DateService";
-import { Booking, Message } from "./ActionCreators";
-import { errorHandler } from "../modules/Http";
+
+const Booking = {
+    changeWeekStartDate: (date) => {
+        return {
+            type: "CHANGE_WEEK_START_DATE",
+            date
+        }
+    },
+
+    weekWorkloadLoading: () => {
+        return {
+            type: "WEEK_WORKLOAD_LOADING"
+        }
+    },
+
+    weekWorkloadLoadedSuccess: (weekWorkload) => {
+        return {
+            type: "WEEK_WORKLOAD_LOADED_SUCCESS",
+            weekWorkload
+        }
+    },
+
+    weekWorkloadLoadedError: () => {
+        return {
+            type: "WEEK_WORKLOAD_LOADED_ERROR"
+        }
+    },
+
+    chooseDay: (date) => {
+        return {
+            type: "CHOOSE_DATE",
+            date
+        }
+    },
+
+    dayHoursLoading: () => {
+        return {
+            type: "DAY_HOURS_LOADING"
+        }
+    },
+
+    dayHoursLoadedSuccess: (dayHours) => {
+        return {
+            type: "DAY_HOURS_LOADED_SUCCESS",
+            dayHours
+        }
+    },
+
+    dayHoursLoadedError: () => {
+        return {
+            type: "DAY_HOURS_LOADED_ERROR"
+        }
+    },
+
+    updateHours: (hours) => {
+        return {
+            type: "UPDATE_HOURS",
+            hours
+        }
+    },
+
+    bookingSaved: () => {
+        return {
+            type: "BOOKING_SAVED"
+        }
+    }
+}
 
 export const loadWeekWorkload = (date) => {
     return (dispatch) => {
 
         dispatch(Booking.weekWorkloadLoading());
-        BookingService.GetWeekWorkload(date)
+        Http.Get("api/booking/workload", {weekStartDate: date.toISOString()})
             .fail((data) => {
                 dispatch(Booking.weekWorkloadLoadedError());
                 dispatch(errorHandler(data));
             })
+            .done(data => data.forEach(x => x.date = new Date(x.date)))
             .done(data => {
                 data = data.map(x => {
                     return {
@@ -29,7 +96,7 @@ export const loadDayHours = (date) => {
     return (dispatch) => {
 
         dispatch(Booking.dayHoursLoading());
-        BookingService.GetDayWorkload(date)
+        Http.Get("api/booking/hours", {date: date.toISOString()})
             .fail((data) => {
                 dispatch(Booking.dayHoursLoadedError());
                 dispatch(errorHandler(data))
@@ -51,11 +118,15 @@ export const saveBooking = (date, hours, weekStartDate) => {
     return (dispatch) => {
         
         hours.sortNumbers();
-        BookingService.MakeBooking(date, hours[0], hours[hours.length-1])
+        Http.Post("/api/booking/make", {
+                    date: date.toISOString(),
+                    from: hours[0],
+                    to: hours[hours.length-1]
+                })
             .fail((data) => dispatch(errorHandler(data)))
             .done(() => {
                 dispatch(Booking.bookingSaved());
-                dispatch(Message.show("Booking saved successfully!"));
+                dispatch(show("Booking saved successfully!"));
                 dispatch(loadWeekWorkload(weekStartDate));
             });
     };

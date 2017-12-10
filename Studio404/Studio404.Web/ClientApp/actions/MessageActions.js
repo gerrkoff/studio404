@@ -1,4 +1,17 @@
-import { Message } from "./ActionCreators";
+const Message = {
+    show: (text) => {
+        return {
+            type: "MESSAGE_SHOW",
+            text
+        }
+    },
+
+    hide: () => {
+        return {
+            type: "MESSAGE_HIDE"
+        }
+    },
+}
 
 export const show = (text) => Message.show(text);
 

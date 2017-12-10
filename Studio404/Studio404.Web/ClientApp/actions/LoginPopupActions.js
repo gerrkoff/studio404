@@ -1,13 +1,66 @@
-import AccountService from "../modules/AccountService";
-import { LoginPopup } from "./ActionCreators";
+import { Http, errorHandler } from "../modules/Http";
 import { loadCurrentUser } from "./AccountActions";
 import { showDefaultError, show } from "./MessageActions";
-import { errorHandler } from "../modules/Http";
+
+const LoginPopup = {
+    open: () => {
+        return {
+            type: "OPEN_LOGIN_POPUP"
+        }
+    },
+
+    close: () => {
+        return {
+            type: "CLOSE_LOGIN_POPUP"
+        }
+    },
+
+    toggleRegistration: (registration) => {
+        return {
+            type: "REGISTRATION_TOGGLE",
+            registration
+        }
+    },
+
+    updateLoginInfo: (fieldName, fieldValue) => {
+        return {
+            type: "UPDATE_LOGIN_INFO",
+            fieldName,
+            fieldValue
+        }
+    },
+
+    updateRegisterInfo: (fieldName, fieldValue) => {
+        return {
+            type: "UPDATE_REGISTER_INFO",
+            fieldName,
+            fieldValue
+        }
+    },
+
+    resetRegister: () => {
+        return {
+            type: "RESET_REGISTER"
+        }
+    },
+
+    loginErrorWrongUserPassword: () => {
+        return {
+            type: "LOGIN_ERROR_WRONG_USER_PASSWORD"
+        }
+    },
+
+    registerErrorUserExists: () => {
+        return {
+            type: "REGISTER_ERROR_WRONG_USER_PASSWORD"
+        }
+    }
+}
 
 export const login = (loginInfo) => {
     return (dispatch) => {
 
-        AccountService.Login(loginInfo)
+        Http.Post("api/account/login", loginInfo)
             .fail((data) => dispatch(errorHandler(data)))
             .done((result) => {
                 switch (result) {
@@ -32,7 +85,7 @@ export const login = (loginInfo) => {
 export const register = (registerInfo) => {
     return (dispatch) => {
 
-        AccountService.Register(registerInfo)
+        Http.Post("api/account/register", registerInfo)
             .fail((data) => dispatch(errorHandler(data)))
             .done((result) => {
                 switch (result) {

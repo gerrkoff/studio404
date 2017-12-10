@@ -1,18 +1,37 @@
-import UserService from "../modules/UserService";
-import BookingService from "../modules/BookingService";
-import { UserBookings } from "./ActionCreators";
+import { Http, errorHandler } from "../modules/Http";
 import { show } from "./MessageActions";
-import { errorHandler } from "../modules/Http";
+
+const UserBookings = {
+    loading: () => {
+        return {
+            type: "LOADING"
+        }
+    },
+
+    loadedSuccess: (bookings) => {
+        return {
+            type: "LOADED_SUCCESS",
+            bookings
+        }
+    },
+
+    loadedError: () => {
+        return {
+            type: "LOADED_ERROR"
+        }
+    }
+}
 
 export const loadBookings = () => {
     return (dispatch) => {
 
         dispatch(UserBookings.loading());
-        UserService.GetUserBookings()
+        Http.Get("api/user/bookings")
             .fail((data) => {
                 dispatch(UserBookings.loadedError());
                 dispatch(errorHandler(data));
             })
+            .done(data => data.forEach(x => x.date = new Date(x.date)))
             .done((bookings) => {
                 dispatch(UserBookings.loadedSuccess(bookings));
             });
@@ -22,7 +41,7 @@ export const loadBookings = () => {
 export const cancelBooking = (id) => {
     return (dispatch) => {
 
-        BookingService.CancelBooking(id)
+        Http.Post("/api/booking/cancel", { id })
             .fail((data) => dispatch(errorHandler(data)))
             .done(() => {
                 dispatch(show(`Booking canceled!`));

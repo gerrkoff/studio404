@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import AccountService from "../../modules/AccountService";
+import Toggle from 'material-ui/Toggle';
 import LoginForm from "../../components/login/LoginForm";
 import RegisterForm from "../../components/login/RegisterForm";
-import Toggle from 'material-ui/Toggle';
 
 class LoginPopup extends Component {
 

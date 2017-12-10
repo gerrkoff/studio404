@@ -1,17 +1,31 @@
-import AccountService from "../modules/AccountService";
-import { Account, Message } from "./ActionCreators";
-import { errorHandler } from "../modules/Http";
+import { Http, errorHandler } from "../modules/Http";
+import { show } from "./MessageActions";
+
+const Account = {
+    userLoaded: (currentUser) => {
+        return {
+            type: "CURRENT_USER_LOADED",
+            currentUser
+        }
+    },
+
+    logoff: () => {
+        return {
+            type: "LOGOFF"
+        }
+    }
+}
 
 export const loadCurrentUser = (showWelcomeMessage) => {
     return (dispatch) => {
 
-        AccountService.GetCurrentUser()
+        Http.Get("api/account/current")
             .fail((data) => dispatch(errorHandler(data)))
             .done((currentUser) => {
                 dispatch(Account.userLoaded(currentUser));
 
                 if(showWelcomeMessage && currentUser.userLoggedIn)
-                    dispatch(Message.show(`Welcome, ${currentUser.username}!`));
+                    dispatch(show(`Welcome, ${currentUser.username}!`));
             });
     };
 }
@@ -19,11 +33,11 @@ export const loadCurrentUser = (showWelcomeMessage) => {
 export const logoff = () => {
     return (dispatch) => {
 
-        AccountService.Logoff()
+        Http.Post("api/account/logoff")
             .fail((data) => dispatch(errorHandler(data)))
             .done(() => {
                 dispatch(Account.logoff());
-                dispatch(Message.show("Logged out"));
+                dispatch(show("Logged out"));
             });
     };
 }

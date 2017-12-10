@@ -57,7 +57,7 @@ export const resendBookingCode = (id) => {
         Http.Post("/api/booking/resendcode", { id })
             .fail((data) => dispatch(errorHandler(data)))
             .done((data) => {
-                if (data === "true")
+                if (data)
                     dispatch(show(Labels.resend_success));
                 else
                     dispatch(show(Labels.resend_error));

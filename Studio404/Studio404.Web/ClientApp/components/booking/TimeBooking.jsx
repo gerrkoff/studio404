@@ -6,6 +6,7 @@ import DateService from "../../modules/DateService";
 import HourSelector from "../../components/booking/HourSelector";
 import Loader from "../../components/common/Loader";
 import ErrorLabel from "../common/ErrorLabel";
+import Labels from "../../modules/Labels";
 
 class TimeBooking extends Component {
     constructor(props) {
@@ -34,7 +35,7 @@ class TimeBooking extends Component {
                             <div style={{display: "inline-block", position: "relative", padding: 10, top: "-10px"}}>
                                 {this.props.dayHoursIsLoading === true && <Loader />}
                             </div>
-                            {this.props.dayHoursError && <ErrorLabel align="left" text="Error occured while loading data. Try to reload." />}
+                            {this.props.dayHoursError && <ErrorLabel align="left" text={Labels.errorLoadCommon} />}
                         </div>
                     </Col>
                     <Col md="6">

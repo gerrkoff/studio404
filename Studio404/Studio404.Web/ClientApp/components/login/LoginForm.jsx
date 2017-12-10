@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
+import Labels from "../../modules/Labels";
 
 class LoginForm extends Component {
 
@@ -7,15 +8,15 @@ class LoginForm extends Component {
         return (
             <div>
                 <TextField
-                    hintText="Enter username"
-                    floatingLabelText="Username"                    
+                    hintText={Labels.loginForm_userEnter}
+                    floatingLabelText={Labels.loginForm_user}
                     value={this.props.loginInfo.username}
                     onChange={(e) => this.props.updateLoginInfo("username", e.target.value)}
                     errorText={this.props.loginInfo.usernameError} />
                 <br />
                 <TextField
-                    hintText="Enter password"
-                    floatingLabelText="Password"
+                    hintText={Labels.loginForm_passEnter}
+                    floatingLabelText={Labels.loginForm_pass}
                     type="password"
                     value={this.props.loginInfo.password}
                     onChange={(e) => this.props.updateLoginInfo("password", e.target.value)}

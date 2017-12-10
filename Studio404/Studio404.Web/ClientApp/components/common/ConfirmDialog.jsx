@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import Labels from "../../modules/Labels";
 
 class ConfirmDialog extends Component {
 
     render() {
         const actions = [
             <FlatButton
-                label="Cancel"
+                label={Labels.cancel}
                 primary={true}
                 onClick={this.props.hide}
             />,

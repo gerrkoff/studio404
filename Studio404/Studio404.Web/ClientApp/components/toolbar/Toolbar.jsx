@@ -4,6 +4,7 @@ import {Toolbar as MuiToolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} fro
 import {withRouter} from "react-router-dom";
 import ToolbarLoginInfoContainer from "../../containers/ToolbarLoginInfoContainer";
 import { ToolbarStyle, ToolbarBrandStyle } from "../../styles/Styles";
+import Labels from "../../modules/Labels";
 
 class Toolbar extends Component {
     render() {
@@ -17,7 +18,7 @@ class Toolbar extends Component {
                             onClick={() => this.props.history.push("/")} />
                     </ToolbarGroup>
                     <ToolbarGroup>
-                        <RaisedButton label="Booking" primary={true} onClick={() => this.props.history.push("/booking")} />
+                        <RaisedButton label={Labels.booking} primary={true} onClick={() => this.props.history.push("/booking")} />
                         <ToolbarSeparator />
                         <div style={{width: "30px"}}/>
                         <ToolbarLoginInfoContainer />

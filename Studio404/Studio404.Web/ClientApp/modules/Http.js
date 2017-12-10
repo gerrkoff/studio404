@@ -1,6 +1,7 @@
 import $ from "jQuery";
 import NProgress from "react-nprogress";
 import { show } from "../actions/MessageActions";
+import Labels from "./Labels";
 
 NProgress.configure({ showSpinner: false });
 
@@ -31,7 +32,7 @@ const errorHandler = (data) => {
         return show(exception.Message ? exception.Message : exception.message);
     }
     else {
-        return show(`Error: ${data.status} | ${data.statusText}`);
+        return show(Labels.error(data.status, data.statusText));
     }
 }
 

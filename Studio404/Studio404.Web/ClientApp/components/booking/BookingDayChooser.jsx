@@ -4,6 +4,7 @@ import FaIconButton from "../common/FaIconButton";
 import WeekWorkload from "./WeekWorkload";
 import LoaderContent from "../common/LoaderContent";
 import ErrorLabel from "../common/ErrorLabel";
+import Labels from "../../modules/Labels";
 
 class BookingDayChooser extends Component {
     render() {
@@ -24,7 +25,7 @@ class BookingDayChooser extends Component {
                             {this.props.weekWorkloadIsLoading === true
                                 ? <LoaderContent />                                
                                 : this.props.weekWorkloadError === true
-                                    ? <ErrorLabel text="Error occured while loading data. Try to reload." />
+                                    ? <ErrorLabel text={Labels.errorLoadCommon} />
                                     : <WeekWorkload workload={this.props.weekWorkload} chooseDay={this.props.chooseDay} />
                             }
                         </div>

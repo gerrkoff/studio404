@@ -7,6 +7,7 @@ import FontIcon from 'material-ui/FontIcon';
 import UserBookings from "../../containers/UserBookingContainer";
 import UserSettings from "./UserSettings";
 import ErrorLabel from "../common/ErrorLabel";
+import Labels from "../../modules/Labels";
 
 class User extends Component {
 
@@ -28,7 +29,7 @@ class User extends Component {
                 {this.props.userLoggedIn === true
                     ? this.renderUser()
                     : <Row>
-                        <Col md="12"><ErrorLabel text="Login to see this page"/></Col>
+                        <Col md="12"><ErrorLabel text={Labels.errorLoginNeed}/></Col>
                     </Row>
                 }
             </div>
@@ -41,12 +42,12 @@ class User extends Component {
                 <Col md="3">
                     <List>
                         <ListItem
-                            primaryText="Bookings"
+                            primaryText={Labels.bookings}
                             leftIcon={<FontIcon className="fa fa-list-alt" />}
                             onClick={() => this.handleMenuItemClick(0)}
                             styles={{ backgroundColor: "red" }} />
                         <ListItem
-                            primaryText="Settings"
+                            primaryText={Labels.settings}
                             leftIcon={<FontIcon className="fa fa-cog" />}
                             onClick={() => this.handleMenuItemClick(1)} />
                     </List>

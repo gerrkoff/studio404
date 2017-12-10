@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Labels from "../../modules/Labels";
 
 export default class HourSelector extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ export default class HourSelector extends Component {
                 return '';
             default:
                 let first = this.props.dayHours.find(x => x.value === values[0]);
-                return `${first.title}, ${values.length} hours`;
+                return Labels.hoursSelector_valueText(first.title, values.length);
         }
     }
 
@@ -45,7 +46,7 @@ export default class HourSelector extends Component {
                 onChange={this.handleChange}
                 selectionRenderer={this.selectionRenderer}
                 disabled={this.props.disabled}
-                floatingLabelText="Select hours"
+                floatingLabelText={Labels.hoursSelector_label}
                 errorText={this.props.error}>
             
                 {this.menuItems(this.props.dayHours)}

@@ -4,18 +4,19 @@ import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 import LoginForm from "../../components/login/LoginForm";
 import RegisterForm from "../../components/login/RegisterForm";
+import Labels from "../../modules/Labels";
 
 class LoginPopup extends Component {
 
     render() {
         const actions = [
             <FlatButton
-                label="Cancel"
+                label={Labels.cancel}
                 primary={true}
                 onClick={this.props.closePopup}
             />,
             <FlatButton
-                label={this.props.registration === true ? "Register" : "Login"}
+                label={this.props.registration === true ? Labels.loginPopup_register : Labels.loginPopup_login}
                 primary={true}
                 onClick={
                     this.props.registration === true
@@ -32,9 +33,9 @@ class LoginPopup extends Component {
 
         return (
             <div>
-                <FlatButton label="Login" primary={true} onClick={this.props.openPopup} />
+                <FlatButton label={Labels.loginPopup_login} primary={true} onClick={this.props.openPopup} />
                 <Dialog
-                    title={this.props.registration === true ? "Register" : "Login"}
+                    title={this.props.registration === true ? Labels.loginPopup_register : Labels.loginPopup_login}
                     actions={actions}
                     modal={false}
                     open={this.props.open}
@@ -48,7 +49,7 @@ class LoginPopup extends Component {
                     }
                     <br />
                     <Toggle
-                        label="Registration"
+                        label={Labels.loginPopup_toogleRegister}
                         labelPosition="right"
                         toggled={this.props.registration}
                         onToggle={(event, isChecked) => this.props.toggleRegistration(isChecked)} />

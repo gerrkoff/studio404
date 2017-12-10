@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Loader from "../../components/common/Loader";
 import ErrorLabel from "../common/ErrorLabel";
+import Labels from "../../modules/Labels";
 
 class ConfirmPhonePopup extends Component {
 
@@ -18,7 +19,7 @@ class ConfirmPhonePopup extends Component {
     render() {
         const actions = [
             <FlatButton
-                label="Close"
+                label={Labels.cancel}
                 primary={true}
                 onClick={this.props.closePopup}
             />
@@ -26,9 +27,9 @@ class ConfirmPhonePopup extends Component {
 
         return (
             <div>
-                <RaisedButton label="Confirm phone" primary={true} onClick={this.props.openPopup} />
+                <RaisedButton label={Labels.phone_confirm} primary={true} onClick={this.props.openPopup} />
                 <Dialog
-                    title="Phone"
+                    title={Labels.phone_title}
                     actions={actions}
                     modal={false}
                     open={this.props.open}
@@ -38,32 +39,32 @@ class ConfirmPhonePopup extends Component {
 
                     {this.props.codeSendSuccess
                         ? this.renderPart(
-                            `Code was successfully sent on ${this.props.phone}`,
-                            "Enter code",
-                            "Code",
+                            Labels.phone_smsSent(this.props.phone),
+                            Labels.phone_codeEnter,
+                            Labels.phone_code,
                             this.props.codeError,
                             this.props.codeIsValid,
                             this.props.code,
                             this.props.updateCode,
-                            "Confirm",
+                            Labels.phone_confirm,
                             () => this.props.confirmPhone(this.props.phoneReal, this.props.code),
                             this.props.confirmPhoneIsSending,
                             this.props.confirmPhoneSendError,
-                            "Error occured while confirming",
+                            Labels.phone_confirmError,
                             true)
                         : this.renderPart(
-                            "We will send you a code just to confirm that it is you phone",
-                            "Enter phone",
-                            "Phone",
+                            Labels.phone_enterPhoneText,
+                            Labels.phone_phoneEnter,
+                            Labels.phone_phone,
                             this.props.phoneError,
                             this.props.phoneIsValid,
                             this.props.phone,
                             this.props.updatePhone,
-                            "Send code",
+                            Labels.phone_sendCode,
                             () => this.props.sendPhoneConfirmation(this.props.phoneReal),
                             this.props.codeIsSending,
                             this.props.codeSendError,
-                            "Error occured while sending code",
+                            Labels.phone_sendError,
                             false)
                     }
                 </Dialog>

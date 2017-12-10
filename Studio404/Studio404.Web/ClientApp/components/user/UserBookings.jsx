@@ -12,6 +12,7 @@ import DateService from "../../modules/DateService";
 import LoaderContent from "../../components/common/LoaderContent";
 import UserTitle from "../../components/user/UserTitle";
 import ErrorLabel from "../common/ErrorLabel";
+import Labels from "../../modules/Labels";
 
 class UserBookings extends Component {
 
@@ -25,11 +26,11 @@ class UserBookings extends Component {
     render() {
         return (
             <div>
-                <UserTitle title="My bookings"/>
+                <UserTitle title={Labels.userBookings_title} />
                 {this.props.isLoading === true
                     ? this.renderLoader()
                     : this.props.error === true
-                        ? <ErrorLabel text="Error occured while loading data. Try to reload."/>
+                        ? <ErrorLabel text={Labels.errorLoadCommon}/>
                         : this.renderTable()
                 }
             </div>
@@ -56,10 +57,10 @@ class UserBookings extends Component {
                         adjustForCheckbox={false}>
                         
                         <TableRow>
-                            <TableHeaderColumn style={{textAlign: 'center'}}>Date</TableHeaderColumn>
-                            <TableHeaderColumn style={{textAlign: 'center'}}>Time</TableHeaderColumn>
-                            <TableHeaderColumn style={{textAlign: 'center'}}>Status</TableHeaderColumn>
-                            <TableHeaderColumn style={{textAlign: 'center'}}>Actions</TableHeaderColumn>
+                            <TableHeaderColumn style={{textAlign: 'center'}}>{Labels.userBookings_date}</TableHeaderColumn>
+                            <TableHeaderColumn style={{textAlign: 'center'}}>{Labels.userBookings_time}</TableHeaderColumn>
+                            <TableHeaderColumn style={{textAlign: 'center'}}>{Labels.userBookings_status}</TableHeaderColumn>
+                            <TableHeaderColumn style={{textAlign: 'center'}}>{Labels.userBookings_actions}</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
                     <TableBody

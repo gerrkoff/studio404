@@ -1,7 +1,11 @@
 const Labels = {
 
     welcome: (user) => `Welcome, ${user}!`,
+    error: (code, text) => `Error: ${code} | ${text}`,
+    hoursSelector_valueText: (title, count) => `from ${title}, ${count} hours`,
+    phone_smsSent: (phone) => `Code was successfully sent on ${phone}`,
 
+    //messages
     logout: "Logged out",
     bookingSaved: "Booking saved successfully!",
     smsSent: "Sms was sent!",
@@ -22,7 +26,42 @@ const Labels = {
     phoneRule: "Phone must be like 8 (xxx) xxx-xx-xx",
     phoneAlreadyConfirmed: "This phone is already confirmed",
     phoneConfirmationCodeRule: "Code must be 6 digit",
-    phoneConfirmationCodeInvalid: "Invalid code"
+    phoneConfirmationCodeInvalid: "Invalid code", 
+
+    //errors
+    errorLoadCommon: "Error occured while loading data. Try to reload.",
+    errorLoginNeed: "Login to see this page",
+
+    //labels
+    hoursSelector_label: "Select hours",
+    cancel: "Cancel",
+    loginForm_user: "Username",
+    loginForm_userEnter: "Enter username",
+    loginForm_pass: "Password",
+    loginForm_passEnter: "Enter password",
+    loginForm_passConfirm: "Password Confirmation",
+    loginForm_passConfirmEnter: "Confirm password",
+    loginPopup_login: "Login",
+    loginPopup_register: "Register",
+    loginPopup_toogleRegister: "Registration",
+    phone_confirm: "Confirm phone",
+    phone_title: "Phone",
+    phone_phoneEnter: "Enter phone",
+    phone_phone: "Phone",
+    phone_codeEnter: "Enter code",
+    phone_code: "Code",
+    phone_sendCode: "Send code",
+    phone_confirmError:"Error occured while confirming",
+    phone_sendError:"Error occured while sending code",
+    phone_enterPhoneText: "We will send you a code just to confirm that it is you phone",
+    booking: "Booking",
+    bookings: "Bookings",
+    settings: "Settings",
+    userBookings_title: "My bookings",
+    userBookings_date: "Date",
+    userBookings_time: "Time",
+    userBookings_status: "Status",
+    userBookings_actions: "Actions"
 }
 
 export default Labels;

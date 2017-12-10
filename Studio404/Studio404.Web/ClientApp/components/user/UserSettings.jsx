@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import UserTitle from "../../components/user/UserTitle";
 import ConfirmPhonePopupContainer from "../../containers/ConfirmPhonePopupContainer";
+import Labels from "../../modules/Labels";
 
 class UserSettings extends Component {
     render() {
         return (
             <div>
-                <UserTitle title="Settings" />
+                <UserTitle title={Labels.settings} />
                 <Row>
                     <Col md="12">
                         <div style={{ padding: 10 }}>

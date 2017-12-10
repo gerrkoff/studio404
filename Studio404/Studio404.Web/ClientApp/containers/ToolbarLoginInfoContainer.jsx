@@ -5,8 +5,7 @@ import { loadCurrentUser, logoff } from "../actions/AccountActions";
 
 const mapStateToProps = (state) => {
     return {
-        username: state.account.username,
-        userLoggedIn: state.account.userLoggedIn
+        ...state.account
     }
 }
 

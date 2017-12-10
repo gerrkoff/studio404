@@ -5,17 +5,7 @@ import { changeWeekStartDate, loadWeekWorkload, chooseDay, loadDayHours, updateH
 
 const mapStateToProps = (state) => {
     return {
-        weekStartDate: state.booking.weekStartDate,
-        weekWorkloadIsLoading: state.booking.weekWorkloadIsLoading,
-        weekWorkload: state.booking.weekWorkload,
-        weekWorkloadError: state.booking.weekWorkloadError,
-        chosenDate: state.booking.chosenDate,
-        dayHoursIsLoading: state.booking.dayHoursIsLoading,
-        dayHours: state.booking.dayHours,
-        dayHoursError: state.booking.dayHoursError,
-        bookingHours: state.booking.bookingHours,
-        bookingHoursError: state.booking.bookingHoursError,
-        bookingIsValid: state.booking.bookingIsValid,
+        ...state.booking,
         userLoggedIn: state.account.userLoggedIn
     }
 }

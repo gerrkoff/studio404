@@ -5,10 +5,7 @@ import { hide } from "../actions/ConfirmDialogActions";
 
 const mapStateToProps = (state) => {
     return {
-        open: state.confirmDialog.open,
-        text: state.confirmDialog.text,
-        actionText: state.confirmDialog.actionText,
-        action: state.confirmDialog.action
+        ...state.confirmDialog
     }
 }
 

@@ -5,8 +5,7 @@ import { hide } from "../actions/MessageActions";
 
 const mapStateToProps = (state) => {
     return {
-        open: state.message.open,
-        text: state.message.text
+        ...state.message
     }
 }
 

@@ -6,9 +6,7 @@ import { show } from "../actions/ConfirmDialogActions";
 
 const mapStateToProps = (state) => {
     return {
-        bookings: state.userBookings.bookings,
-        isLoading: state.userBookings.isLoading,
-        error: state.userBookings.error
+        ...state.userBookings
     }
 }
 

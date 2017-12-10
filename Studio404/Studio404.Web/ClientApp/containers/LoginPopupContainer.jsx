@@ -5,10 +5,7 @@ import { login, openLoginPopup, closeLoginPopup, register, toggleRegistration, u
 
 const mapStateToProps = (state) => {
     return {
-        registration: state.loginPopup.registration,
-        open: state.loginPopup.open,
-        loginInfo: state.loginPopup.loginInfo,
-        registerInfo: state.loginPopup.registerInfo
+        ...state.loginPopup
     }
 }
 

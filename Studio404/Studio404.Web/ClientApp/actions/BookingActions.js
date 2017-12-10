@@ -1,6 +1,7 @@
 import { Http, errorHandler } from "../modules/Http";
 import { show } from "./MessageActions";
 import DateService from "../modules/DateService";
+import Labels from "../modules/Labels";
 
 const Booking = {
     changeWeekStartDate: (date) => {
@@ -126,7 +127,7 @@ export const saveBooking = (date, hours, weekStartDate) => {
             .fail((data) => dispatch(errorHandler(data)))
             .done(() => {
                 dispatch(Booking.bookingSaved());
-                dispatch(show("Booking saved successfully!"));
+                dispatch(show(Labels.bookingSaved));
                 dispatch(loadWeekWorkload(weekStartDate));
             });
     };

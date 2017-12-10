@@ -1,3 +1,5 @@
+import Labels from "../modules/Labels";
+
 const Message = {
     show: (text) => {
         return {
@@ -15,6 +17,6 @@ const Message = {
 
 export const show = (text) => Message.show(text);
 
-export const showDefaultError = () => Message.show("Something went wrong...");
+export const showDefaultError = () => Message.show(Labels.defaultError);
 
 export const hide = () => Message.hide();

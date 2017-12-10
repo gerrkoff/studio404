@@ -1,5 +1,6 @@
 import { Http, errorHandler } from "../modules/Http";
 import { show } from "./MessageActions";
+import Labels from "../modules/Labels";
 
 const UserBookings = {
     loading: () => {
@@ -44,7 +45,7 @@ export const cancelBooking = (id) => {
         Http.Post("/api/booking/cancel", { id })
             .fail((data) => dispatch(errorHandler(data)))
             .done(() => {
-                dispatch(show(`Booking canceled!`));
+                dispatch(show(Labels.bookingCanceled));
                 dispatch(loadBookings());
             });
     };

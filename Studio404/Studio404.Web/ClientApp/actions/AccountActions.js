@@ -1,5 +1,6 @@
 import { Http, errorHandler } from "../modules/Http";
 import { show } from "./MessageActions";
+import Labels from "../modules/Labels";
 
 const Account = {
     userLoaded: (currentUser) => {
@@ -25,7 +26,7 @@ export const loadCurrentUser = (showWelcomeMessage) => {
                 dispatch(Account.userLoaded(currentUser));
 
                 if(showWelcomeMessage && currentUser.userLoggedIn)
-                    dispatch(show(`Welcome, ${currentUser.username}!`));
+                    dispatch(show(Labels.welcome(currentUser.username)));
             });
     };
 }
@@ -37,7 +38,7 @@ export const logoff = () => {
             .fail((data) => dispatch(errorHandler(data)))
             .done(() => {
                 dispatch(Account.logoff());
-                dispatch(show("Logged out"));
+                dispatch(show(Labels.logout));
             });
     };
 }

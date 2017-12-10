@@ -1,5 +1,6 @@
 import { Http, errorHandler } from "../modules/Http";
 import { showDefaultError, show } from "./MessageActions";
+import Labels from "../modules/Labels";
 
 const ConfirmPhonePopup = {
     open: () => {
@@ -96,7 +97,7 @@ export const sendPhoneConfirmation = (phone) => {
                 switch (result) {
                     case 1:
                         dispatch(ConfirmPhonePopup.sendSuccess());
-                        dispatch(show("Sms was sent!"));
+                        dispatch(show(Labels.smsSent));
                         break;
 
                     case 2:
@@ -126,7 +127,7 @@ export const confirmPhone = (phone, code) => {
                     case 1:
                         dispatch(ConfirmPhonePopup.confirmSuccess());
                         dispatch(ConfirmPhonePopup.close());
-                        dispatch(show("Phone confirmed!"));
+                        dispatch(show(Labels.phoneConfirmed));
                         break;
 
                     case 2:

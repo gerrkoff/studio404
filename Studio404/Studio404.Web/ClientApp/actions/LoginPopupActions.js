@@ -1,6 +1,7 @@
 import { Http, errorHandler } from "../modules/Http";
 import { loadCurrentUser } from "./AccountActions";
 import { showDefaultError, show } from "./MessageActions";
+import Labels from "../modules/Labels";
 
 const LoginPopup = {
     open: () => {
@@ -71,7 +72,7 @@ export const login = (loginInfo) => {
                 
                     case 2:
                         dispatch(loginErrorWrongUserPassword());
-                        dispatch(show("Login error"));
+                        dispatch(show(Labels.loginError));
                         break;
 
                     default:
@@ -98,7 +99,7 @@ export const register = (registerInfo) => {
                 
                     case 2:
                         dispatch(registerErrorUserExists());
-                        dispatch(show("Register error"));
+                        dispatch(show(Labels.registerError));
                         break;
 
                     default:

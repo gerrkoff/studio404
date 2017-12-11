@@ -7,6 +7,7 @@ using Studio404.Dal.Entity;
 using Studio404.Dto.Booking;
 using Studio404.Services.Interface;
 using Studio404.Web.Controllers.Base;
+using Microsoft.Extensions.Logging;
 
 namespace Studio404.Web.Controllers
 {
@@ -14,11 +15,13 @@ namespace Studio404.Web.Controllers
     public class BookingController : BaseUserController
     {
         private readonly IBookingService _bookingService;
+        private readonly ILogger<BookingController> _logger;
 
-        public BookingController(UserManager<UserEntity> userManager, IBookingService bookingService)
+        public BookingController(UserManager<UserEntity> userManager, IBookingService bookingService, ILogger<BookingController> logger)
             : base(userManager)
         {
             _bookingService = bookingService;
+            _logger = logger;
         }
         
         [HttpGet]
@@ -38,18 +41,24 @@ namespace Studio404.Web.Controllers
         {
             Validate();
             _bookingService.MakeBooking(makeBookingInfo, GetUser());
+
+            _logger.LogInformation($"Date: {makeBookingInfo.Date}; From: {makeBookingInfo.From}; To: {makeBookingInfo.To}");
         }
 
         [HttpPost]
         public void Cancel(int id)
         {
             _bookingService.CancelBooking(id, GetUser());
+
+            _logger.LogInformation($"Id: {id}");
         }
         
         [HttpPost]
         public async Task<bool> ResendCode(int id)
         {
             return await _bookingService.ResendBookingCode(id, GetUser());
+
+            _logger.LogInformation($"Id: {id}");
         }
     }
 }

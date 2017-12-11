@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Rest;
 using Studio404.Common.Enums;
-using Studio404.Common.Exceptions;
 using Studio404.Dal.Entity;
 using Studio404.Dto.Account;
 using Studio404.Services.Interface;
 using Studio404.Web.Controllers.Base;
-using System.Threading;
 
 namespace Studio404.Web.Controllers
 {
@@ -64,9 +57,6 @@ namespace Studio404.Web.Controllers
         public async Task<SendPhoneConfirmationResultEnum> SendPhoneConfirmation(PhoneInfoDto phoneInfo)
         {
             Validate();
-            
-            // TODO: remove sleep
-            Thread.Sleep(1000);
             return await _accountService.SendPhoneConfirmation(await GetUserAsync(), phoneInfo.Phone);
         }
 
@@ -74,9 +64,6 @@ namespace Studio404.Web.Controllers
         public async Task<ConfirmPhoneResultEnum> ConfirmPhone(ConfirmPhoneInfoDto confirmPhoneInfo)
         {
             Validate();
-            
-            // TODO: remove sleep
-            Thread.Sleep(1000);
             return await _accountService.ConfirmPhone(await GetUserAsync(), confirmPhoneInfo.Phone,
                 confirmPhoneInfo.Code);
         }

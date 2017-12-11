@@ -19,8 +19,11 @@ namespace Studio404.Web.Controllers
         [HttpGet("{shift}/{code}")]
         public bool Get(int shift, string code)
         {
-            _logger.LogInformation("Checking " + code);
-            return _checkService.Check(shift, code);
+            bool checkResult = _checkService.Check(shift, code);
+
+            _logger.LogInformation($"Shift: {shift}; Code: {code}; Result: {checkResult}");
+
+            return checkResult;
         }
     }
 }

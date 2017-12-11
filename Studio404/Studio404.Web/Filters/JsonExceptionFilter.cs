@@ -1,12 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 
 namespace Studio404.Web.Filters
 {
     public class JsonExceptionFilter : IExceptionFilter
     {
+        private readonly ILogger<JsonExceptionFilter> _logger;
+
+        public JsonExceptionFilter(ILogger<JsonExceptionFilter> logger)
+        {
+            _logger = logger;
+        }
+
         public void OnException(ExceptionContext context)
         {
+            _logger.LogError(context.Exception, string.Empty);
+
             context.Result = new ObjectResult(new
             {
                 Message = "Something went wrong..."

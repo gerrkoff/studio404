@@ -13,10 +13,12 @@ class ToolbarLoginInfo extends Component {
     }
 
     render() {
+        const username = this.props.username.substring(0, 20) + "...";
+
         const userLoggedIn = (
             <div>
                 <ToolbarTitle
-                    text={this.props.username}
+                    text={username}
                     onClick={() => this.props.history.push("/my")}
                     style={{cursor: "pointer"}} />
                 <FaIconButton

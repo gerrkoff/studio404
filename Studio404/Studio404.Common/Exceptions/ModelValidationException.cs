@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Linq;
 
 namespace Studio404.Common.Exceptions
 {
@@ -28,5 +30,7 @@ namespace Studio404.Common.Exceptions
 
             base.GetObjectData(info, context);
         }
+
+        public override IDictionary Data => Errors.ToDictionary(x => x.ErrorMessage);
     }
 }

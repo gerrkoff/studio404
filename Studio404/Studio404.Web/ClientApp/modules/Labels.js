@@ -69,7 +69,15 @@ const Labels = {
     userBookings_cancelQuestion: "Are you sure you want to cancel booking?",
     userBookings_cancel: "Cancel booking",
     userBookings_resendQuestion: "Are you sure you want to resend booking code?",
-    userBookings_resend: "Resend booking code"
+    userBookings_resend: "Resend booking code",
+    changePass_title: "Change password",
+    changePass_button: "Change password",
+    changePass_currentPass: "Current password",
+    changePass_currentPassEnter: "Enter current password",
+    changePass_newPass: "New password",
+    changePass_newPassEnter: "Enter new password",
+    changePass_newPassConfirm: "New password confirmation",
+    changePass_newPassConfirmEnter: "Confirm new password"
 }
 
 export default Labels;

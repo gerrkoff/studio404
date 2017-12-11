@@ -55,17 +55,17 @@ function validateInfo(info) {
 
     if (info.currentPassword === "") {
         isValid = false;
-        info.currentPassword = Labels.fieldIsRequired;
+        info.currentPasswordError = Labels.fieldIsRequired;
     }
     else {
-        info.currentPassword = "";
+        info.currentPasswordError = "";
     }
 
     if (info.newPassword === "") {
         isValid = false;
-        info.newPassword = Labels.fieldIsRequired;
+        info.newPasswordError = Labels.fieldIsRequired;
     }
-    else if (registerInfo.newPassword.length < 5) {
+    else if (info.newPassword.length < 5) {
         isValid = false;
         info.newPasswordError = Labels.passwordCreateRule;
     }
@@ -77,7 +77,7 @@ function validateInfo(info) {
         isValid = false;
         info.newPasswordConfirmError = Labels.fieldIsRequired;
     }
-    else if (info.newPasswordConfirm !== registerInfo.password) {
+    else if (info.newPasswordConfirm !== info.newPassword) {
         isValid = false;
         info.newPasswordConfirmError = Labels.passwordConfirmFail;
     }

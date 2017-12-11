@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 import Labels from "../../modules/Labels";
 
 class ChangePassPopup extends Component {
@@ -22,7 +24,7 @@ class ChangePassPopup extends Component {
 
         return (
             <div>
-                <FlatButton label={Labels.changePass_button} primary={true} onClick={this.props.openChangePassPopup} />
+                <RaisedButton label={Labels.changePass_button} primary={true} onClick={this.props.openChangePassPopup} />
                 <Dialog
                     title={Labels.changePass_title}
                     actions={actions}

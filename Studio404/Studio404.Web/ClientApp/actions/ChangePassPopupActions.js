@@ -33,7 +33,7 @@ const ChangePassPopup = {
 export const changePassword = (changePassInfo) => {
     return (dispatch) => {
 
-        Http.Post("api/account/changepass", changePassInfo)
+        Http.Post("api/account/changepassword", changePassInfo)
             .fail((data) => dispatch(errorHandler(data)))
             .done((result) => {
                 switch (result) {
@@ -57,3 +57,5 @@ export const changePassword = (changePassInfo) => {
 export const openChangePassPopup = () => ChangePassPopup.open();
 
 export const closeChangePassPopup = () => ChangePassPopup.close();
+
+export const updateChangePassInfo = (fieldName, fieldValue) => ChangePassPopup.updateChangePassInfo(fieldName, fieldValue);

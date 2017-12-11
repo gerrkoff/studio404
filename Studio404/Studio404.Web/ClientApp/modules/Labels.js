@@ -16,6 +16,7 @@ const Labels = {
     bookingCanceled: "Booking canceled!",
     resend_success: "Booking code was sent successfully!",
     resend_error: "Booking code sending failed!",
+    changePassword_success: "Password changed!",
 
     //validation
     bookingHoursIncorrectInput: "Incorrect input",
@@ -28,7 +29,8 @@ const Labels = {
     phoneRule: "Phone must be like 8 (xxx) xxx-xx-xx",
     phoneAlreadyConfirmed: "This phone is already confirmed",
     phoneConfirmationCodeRule: "Code must be 6 digit",
-    phoneConfirmationCodeInvalid: "Invalid code", 
+    phoneConfirmationCodeInvalid: "Invalid code",
+    currentPasswordInvalid: "Wrong current password",
 
     //errors
     errorLoadCommon: "Error occured while loading data. Try to reload.",

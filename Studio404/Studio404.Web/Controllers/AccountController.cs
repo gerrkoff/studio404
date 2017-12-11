@@ -67,5 +67,12 @@ namespace Studio404.Web.Controllers
             return await _accountService.ConfirmPhone(await GetUserAsync(), confirmPhoneInfo.Phone,
                 confirmPhoneInfo.Code);
         }
+
+        [HttpPost]
+        public async Task<ChangePassResultEnum> ChangePassword(ChangePassInfoDto changePassInfo)
+        {
+            Validate();
+            return await _accountService.ChangePassword(await GetUserAsync(), changePassInfo);
+        }
     }
 }

@@ -81,5 +81,17 @@ namespace Studio404.Services.Implementation
             else
                 return ConfirmPhoneResultEnum.Unknown;
         }
+
+        public async Task<ChangePassResultEnum> ChangePassword(UserEntity user, ChangePassInfoDto changePassInfo)
+        {
+            IdentityResult result = await _userManager.ChangePasswordAsync(user, changePassInfo.CurrentPassword, changePassInfo.NewPassword);
+
+            if (result.Succeeded)
+                return ChangePassResultEnum.Success;
+            /*else if (result.Errors.Any(x => string.Equals(x.Code, "InvalidToken")))
+                return ChangePassResultEnum.WrongCurrentPassword;*/
+            else
+                return ChangePassResultEnum.Unknown;
+        }
     }
 }

@@ -7,16 +7,19 @@ using Newtonsoft.Json;
 using Studio404.Common.Exceptions;
 using Studio404.Common.Settings;
 using Studio404.Dto.Sms;
+using Microsoft.Extensions.Logging;
 
 namespace Studio404.Services.Implementation
 {
     public class SmsService : ISmsService
     {
         private readonly SmsServiceSettings _smsServiceSettings;
+        private readonly ILogger<SmsService> _logger;
 
-        public SmsService(IOptions<SmsServiceSettings> smsServiceSettings)
+        public SmsService(IOptions<SmsServiceSettings> smsServiceSettings, ILogger<SmsService> logger)
         {
             _smsServiceSettings = smsServiceSettings.Value;
+            _logger = logger;
         }
         
         public async Task<bool> SendAsync(string phone, string text)
@@ -29,7 +32,9 @@ namespace Studio404.Services.Implementation
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    return ProcessResult(content, phone);
+                    bool result = ProcessResult(content, phone);
+                    _logger.LogInformation($"Sms was sent. Phone: {phone}. Text: [{text}]");
+                    return result;
                 }
             }
             

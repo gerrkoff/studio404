@@ -40,11 +40,12 @@ const phoneConfirmPopup = (state = initialState, action) => {
             };
 
         case "PHONE_CONFIRM_POPUP_UPDATE_CODE":
-            let codeValidationResult = codeValidate(action.code);
+            let code = action.code.replace(/\D/g, "");
+            let codeValidationResult = codeValidate(code);
 
             return {
                 ...state,
-                code: action.code,
+                code: code,
                 codeError: codeValidationResult.error,
                 codeIsValid: codeValidationResult.isValid
             };

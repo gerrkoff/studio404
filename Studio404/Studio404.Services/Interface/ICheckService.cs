@@ -2,6 +2,6 @@
 {
     public interface ICheckService
     {
-        bool Check(string code);
+        bool Check(int shiftMinutes, string code);
     }
 }

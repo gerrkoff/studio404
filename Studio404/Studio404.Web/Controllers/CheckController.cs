@@ -13,10 +13,10 @@ namespace Studio404.Web.Controllers
             _checkService = checkService;
         }
         
-        [HttpGet("{code}")]
-        public bool Get(string code)
+        [HttpGet("{shift}/{code}")]
+        public bool Get(int shift, string code)
         {
-            return _checkService.Check(code);
+            return _checkService.Check(shift, code);
         }
     }
 }

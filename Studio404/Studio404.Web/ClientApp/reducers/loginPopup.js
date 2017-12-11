@@ -99,6 +99,10 @@ const validateRegisterInfo = (registerInfo) => {
         isValid = false;
         registerInfo.usernameError = Labels.fieldIsRequired;
     }
+    else if (registerInfo.username.length > 30 || /[^a-zA-Z0-9_]/.test(registerInfo.username)) {
+        isValid = false;
+        registerInfo.usernameError = Labels.usernameCreateRule;
+    }
     else {
         registerInfo.usernameError = "";
     }

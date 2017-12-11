@@ -13,7 +13,9 @@ class ToolbarLoginInfo extends Component {
     }
 
     render() {
-        const username = this.props.username.substring(0, 20) + "...";
+        const username = this.props.username && this.props.username.length > 30
+            ? this.props.username.substring(0, 30) + "..."
+            : this.props.username;
 
         const userLoggedIn = (
             <div>

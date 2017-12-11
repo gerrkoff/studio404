@@ -24,6 +24,7 @@ const Labels = {
     loginWrongUser: "Wrong username...",
     loginWrongPass: "...or password",
     userAlreadyRegistered: "This username already registered",
+    usernameCreateRule: "Username must be 30 length maximum and contain only english letters, digits or '_'",
     passwordCreateRule: "Password must be 5 length minimum",
     passwordConfirmFail: "Passwords are not equal",
     phoneRule: "Phone must be like 8 (xxx) xxx-xx-xx",

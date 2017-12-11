@@ -46,6 +46,9 @@ namespace Studio404.Web.Controllers
         [HttpGet]
         public async Task<CurrentUserDto> Current()
         {
+            if (!User.Identity.IsAuthenticated)
+                return new CurrentUserDto {UserLoggedIn = false};
+                
             UserEntity user = await GetUserAsync();
             return new CurrentUserDto
             {

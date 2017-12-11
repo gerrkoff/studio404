@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Studio404.Common.Enums;
 using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using Studio404.Dto.Booking;

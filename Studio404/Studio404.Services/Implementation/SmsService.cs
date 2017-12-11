@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Web;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Studio404.Common.Enums;
 using Studio404.Common.Exceptions;
 using Studio404.Common.Settings;
 using Studio404.Dto.Sms;
@@ -22,8 +21,6 @@ namespace Studio404.Services.Implementation
         
         public async Task<bool> SendAsync(string phone, string text)
         {
-            // TODO: implement logging, success/fail
-            
             string smsRequestUrl = GenerateServiceRequstUrl(phone, text);
             
             using (var httpClient = new HttpClient())
@@ -36,7 +33,7 @@ namespace Studio404.Services.Implementation
                 }
             }
             
-            throw new ServiceException($"Sms Service request failed - {smsRequestUrl}");
+            throw new ServiceException($"Sms Service request failed. Url: {smsRequestUrl}");
         }
         
         private string GenerateServiceRequstUrl(string phone, string text)

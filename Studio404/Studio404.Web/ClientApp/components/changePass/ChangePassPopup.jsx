@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import Toggle from 'material-ui/Toggle';
-import LoginForm from "../../components/login/LoginForm";
-import RegisterForm from "../../components/login/RegisterForm";
 import Labels from "../../modules/Labels";
 
-class LoginPopup extends Component {
+class ChangePassPopup extends Component {
 
     render() {
         const actions = [
@@ -64,4 +61,4 @@ class LoginPopup extends Component {
     }
 }
 
-export default LoginPopup;
+export default ChangePassPopup;

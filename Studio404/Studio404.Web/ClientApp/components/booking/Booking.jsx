@@ -79,6 +79,7 @@ class Booking extends Component {
                             updateHours={this.props.updateHours}
                             saveBooking={this.saveBooking}
                             userLoggedIn={this.props.userLoggedIn}
+                            phoneConfirmed={this.props.phoneConfirmed}
                         />
                     </Paper>
                 </div>

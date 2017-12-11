@@ -6,7 +6,8 @@ import { changeWeekStartDate, loadWeekWorkload, chooseDay, loadDayHours, updateH
 const mapStateToProps = (state) => {
     return {
         ...state.booking,
-        userLoggedIn: state.account.userLoggedIn
+        userLoggedIn: state.account.userLoggedIn,
+        phoneConfirmed: state.account.phoneConfirmed
     }
 }
 

@@ -1,6 +1,7 @@
 const initialState = {
     userLoggedIn: false,
-    username: ""
+    username: "",
+    phoneConfirmed: false
 }
 
 const account = (state = initialState, action) => {
@@ -8,14 +9,12 @@ const account = (state = initialState, action) => {
         case "CURRENT_USER_LOADED":
             return {...state,
                 userLoggedIn: action.currentUser.userLoggedIn,
-                username: action.currentUser.username
+                username: action.currentUser.username,
+                phoneConfirmed: action.currentUser.phoneConfirmed,
             };
 
         case "CURRENT_USER_LOGOFF":
-            return {...state,
-                userLoggedIn: false,
-                username: ""
-            }
+            return initialState;
 
         default:
             return state;

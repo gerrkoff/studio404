@@ -44,12 +44,14 @@ namespace Studio404.Web.Controllers
         }
 
         [HttpGet]
-        public CurrentUserDto Current()
+        public async Task<CurrentUserDto> Current()
         {
+            UserEntity user = await GetUserAsync();
             return new CurrentUserDto
             {
                 UserLoggedIn = User.Identity.IsAuthenticated,
-                Username = User.Identity.Name
+                Username = user.UserName,
+                PhoneConfirmed = user.PhoneNumberConfirmed
             };
         }
 

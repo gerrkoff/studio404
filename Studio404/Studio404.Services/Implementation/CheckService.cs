@@ -19,7 +19,7 @@ namespace Studio404.Services.Implementation
         
         public bool Check(int shiftMinutes, string code)
         {
-            var now = _dateService.Now;
+            var now = _dateService.NowUtc;
             return _bookingRepository.GetAll()
                 .Any(x => x.Code == code &&
                           x.Date == now.Date &&

@@ -88,8 +88,8 @@ namespace Studio404.Services.Implementation
 
             if (result.Succeeded)
                 return ChangePassResultEnum.Success;
-            /*else if (result.Errors.Any(x => string.Equals(x.Code, "InvalidToken")))
-                return ChangePassResultEnum.WrongCurrentPassword;*/
+            else if (result.Errors.Any(x => string.Equals(x.Code, "PasswordMismatch")))
+                return ChangePassResultEnum.WrongCurrentPassword;
             else
                 return ChangePassResultEnum.Unknown;
         }

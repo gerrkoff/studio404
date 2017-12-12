@@ -5,11 +5,11 @@ import $ from "jQuery";
 class PayAction extends Component {
 
     render() {
-        const paymentDestination = `Rehearsal on ${this.props.date} from ${this.props.from} to ${this.props.to+1}`;
+        const paymentDestination = `Rehearsal on ${this.props.date}, ${this.props.time}`;
 
         return (
             <div style={{ display: "inline-block" }}>
-                <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml" id="payForm">
+                <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml" id={"payForm" + this.props.id}>
                     <input type="hidden" name="receiver" value={this.props.payAccId} />
                     <input type="hidden" name="quickpay-form" value="small" />
                     <input type="hidden" name="targets" value="Rehearsal payment" />
@@ -21,7 +21,7 @@ class PayAction extends Component {
                     <FaIconButton
                         size="sm"
                         icon="credit-card"                    
-                        onClick={() => $("#payForm").submit()}
+                        onClick={() => $("#payForm" + this.props.id).submit()}
                         disabled={this.props.disabled} />
                 </form>
             </div>

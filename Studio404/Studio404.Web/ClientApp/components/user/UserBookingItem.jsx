@@ -20,9 +20,9 @@ class UserBookingItem extends Component {
                 <TableRowColumn style={{ textAlign: 'center' }}>{EnumService.bookingStatus(this.props.status)}</TableRowColumn>
                 <TableRowColumn style={{ textAlign: 'center' }}>
                     <PayAction
-                        date={new Date()}
-                        from={10}
-                        to={11}
+                        id={this.props.id}
+                        date={this.props.date}
+                        time={this.props.time}
                         payAccId={410015855170459}
                         cost={50}
                         guid={11111}

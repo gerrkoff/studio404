@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Services.Interface;
 using Microsoft.Extensions.Logging;
+using Studio404.Dto.Pay;
 
 namespace Studio404.Web.Controllers
 {
@@ -20,10 +21,18 @@ namespace Studio404.Web.Controllers
         [HttpGet("{guid}")]
         public void Confirm(Guid guid)
         {
+            _logger.LogInformation($"Guid: {guid}");
+            
             // TODO: implement security
             _payService.ConfirmBooking(guid);
-
-            _logger.LogInformation($"Guid: {guid}");
+        }
+        
+        [HttpPost]
+        public PrepareBookingPaymentDto Prepare(int id)
+        {
+            _logger.LogInformation($"Id: {id}");
+            
+            return _payService.PrepareBookingPayment(id);
         }
     }
 }

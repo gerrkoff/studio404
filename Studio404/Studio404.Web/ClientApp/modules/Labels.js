@@ -17,6 +17,7 @@ const Labels = {
     resend_success: "Booking code was sent successfully!",
     resend_error: "Booking code sending failed!",
     changePassword_success: "Password changed!",
+    redirectNotify: "You will be redirected",
 
     //validation
     bookingHoursIncorrectInput: "Incorrect input",
@@ -71,6 +72,8 @@ const Labels = {
     userBookings_cancel: "Cancel booking",
     userBookings_resendQuestion: "Are you sure you want to resend booking code?",
     userBookings_resend: "Resend booking code",
+    userBookings_payBooking: "Are you sure you want to pay booking?",
+    userBookings_pay: "Pay booking",
     changePass_title: "Change password",
     changePass_button: "Change password",
     changePass_currentPass: "Current password",

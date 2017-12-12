@@ -64,3 +64,15 @@ export const resendBookingCode = (id) => {
             });
     };
 }
+
+export const payBooking = (id) => {
+    return (dispatch) => {
+
+        Http.Post("/api/pay/prepare", { id })
+            .fail((data) => dispatch(errorHandler(data)))
+            .done((data) => {
+                dispatch(show(Labels.redirectNotify));
+                Http.FormSubmit(data.url, data.form);
+            });
+    };
+}

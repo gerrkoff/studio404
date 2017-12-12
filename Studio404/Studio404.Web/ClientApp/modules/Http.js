@@ -21,6 +21,16 @@ const Http = {
 
      Post: (url, data) => {
         return $.post(url, data);
+    },
+
+    FormSubmit: (url, form) => {
+        let formHtml = `<form method="POST" action="${url}">`;
+        form.forEach(input => {
+            formHtml += `<input type="hidden" name="${input.name}" value="${input.value}" />`;
+        });
+        formHtml += "</form>";
+
+        $(formHtml).appendTo(document.body).submit();
     }
 }
 

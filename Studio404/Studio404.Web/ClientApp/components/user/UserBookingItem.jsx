@@ -9,7 +9,6 @@ import {
 } from 'material-ui/Table';
 import FaIconButton from "../common/FaIconButton";
 import EnumService from "../../modules/EnumService";
-import PayAction from "../pay/PayAction";
 
 class UserBookingItem extends Component {
     render() {
@@ -19,14 +18,11 @@ class UserBookingItem extends Component {
                 <TableRowColumn style={{ textAlign: 'center' }}>{this.props.time}</TableRowColumn>
                 <TableRowColumn style={{ textAlign: 'center' }}>{EnumService.bookingStatus(this.props.status)}</TableRowColumn>
                 <TableRowColumn style={{ textAlign: 'center' }}>
-                    <PayAction
-                        id={this.props.id}
-                        date={this.props.date}
-                        time={this.props.time}
-                        payAccId={410015855170459}
-                        cost={50}
-                        guid={11111}
-                        disabled={this.props.status !== 1} />
+                    <FaIconButton
+                        size="sm"
+                        icon="credit-card"
+                        disabled={this.props.status !== 1}
+                        onClick={() => this.props.pay(this.props.id)} />
                     <FaIconButton
                         size="sm"
                         icon="envelope-o"

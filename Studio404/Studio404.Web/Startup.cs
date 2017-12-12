@@ -135,6 +135,7 @@ namespace Studio404.Web
             services.AddScoped<ISmsService, SmsServiceMock>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IDateService, DateService>();
+            services.AddScoped<ICostEvaluationService, CostEvaluationService>();
         }
 
         #endregion

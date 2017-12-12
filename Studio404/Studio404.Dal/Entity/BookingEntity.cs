@@ -12,6 +12,7 @@ namespace Studio404.Dal.Entity
         public int To { get; set; }
         
         public BookingStatusEnum Status { get; set; }
+        public double Cost { get; set; }
 
         public Guid Guid { get; set; }
         public string Code { get; set; }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal;
 using Microsoft.Extensions.Options;
 using Studio404.Common.Enums;
 using Studio404.Common.Exceptions;
@@ -20,12 +22,15 @@ namespace Studio404.Services.Implementation
         private readonly StudioSettings _studioSettings;
         private readonly INotificationService _notificationService;
         private readonly PayServiceSettings _payServiceSettings;
+        private readonly ICostEvaluationService _costEvaluationService;
 
         public BookingService(IRepository<BookingEntity> bookingRepository, IOptions<StudioSettings> studioSettings,
-            INotificationService notificationService, IOptions<PayServiceSettings> payServiceSettings)
+            INotificationService notificationService, IOptions<PayServiceSettings> payServiceSettings,
+            ICostEvaluationService costEvaluationService)
         {
             _bookingRepository = bookingRepository;
             _notificationService = notificationService;
+            _costEvaluationService = costEvaluationService;
             _studioSettings = studioSettings.Value;
             _payServiceSettings = payServiceSettings.Value;
         }
@@ -106,6 +111,7 @@ namespace Studio404.Services.Implementation
                 To = to,
                 Status = BookingStatusEnum.Unpaid,
                 Guid = Guid.NewGuid(),
+                Cost = _costEvaluationService.EvaluateBookingCost(date, from, to),
                 UserId = user.Id
             });
         }
@@ -150,7 +156,7 @@ namespace Studio404.Services.Implementation
             data.AddFormInput("short-dest", paymentInfo);
             data.AddFormInput("receiver", _payServiceSettings.YandexId);
             data.AddFormInput("label", booking.Guid.ToString());
-            data.AddFormInput("sum", "50"); // TODO: calculate sum
+            data.AddFormInput("sum", booking.Cost.ToString(CultureInfo.InvariantCulture));
 
             return Task.FromResult(data);
         }

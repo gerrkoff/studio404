@@ -4,5 +4,6 @@
     {
         public int ScheduleStart { get; set; }
         public int ScheduleEnd { get; set; }
+        public double HourCost { get; set; }
     }
 }

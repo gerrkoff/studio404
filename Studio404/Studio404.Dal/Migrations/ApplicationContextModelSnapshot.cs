@@ -135,6 +135,8 @@ namespace Studio404.Dal.Migrations
 
                     b.Property<string>("Code");
 
+                    b.Property<double>("Cost");
+
                     b.Property<DateTime>("Date");
 
                     b.Property<int>("From");

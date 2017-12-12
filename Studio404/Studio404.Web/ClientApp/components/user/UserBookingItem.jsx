@@ -6,23 +6,27 @@ import {
     TableHeaderColumn,
     TableRow,
     TableRowColumn,
-  } from 'material-ui/Table';
-  import FaIconButton from "../common/FaIconButton";
-  import EnumService from "../../modules/EnumService";
+} from 'material-ui/Table';
+import FaIconButton from "../common/FaIconButton";
+import EnumService from "../../modules/EnumService";
+import PayAction from "../pay/PayAction";
 
 class UserBookingItem extends Component {
     render() {
         return (
             <TableRow>
-                <TableRowColumn style={{textAlign: 'center'}}>{this.props.date}</TableRowColumn>
-                <TableRowColumn style={{textAlign: 'center'}}>{this.props.time}</TableRowColumn>
-                <TableRowColumn style={{textAlign: 'center'}}>{EnumService.bookingStatus(this.props.status)}</TableRowColumn>
-                <TableRowColumn style={{textAlign: 'center'}}>
-                    <FaIconButton
-                        size="sm"
-                        icon="credit-card"
-                        disabled={this.props.status !== 1}
-                        onClick={() => alert("Pay " + this.props.id)} />
+                <TableRowColumn style={{ textAlign: 'center' }}>{this.props.date}</TableRowColumn>
+                <TableRowColumn style={{ textAlign: 'center' }}>{this.props.time}</TableRowColumn>
+                <TableRowColumn style={{ textAlign: 'center' }}>{EnumService.bookingStatus(this.props.status)}</TableRowColumn>
+                <TableRowColumn style={{ textAlign: 'center' }}>
+                    <PayAction
+                        date={new Date()}
+                        from={10}
+                        to={11}
+                        payAccId={410015855170459}
+                        cost={50}
+                        guid={11111}
+                        disabled={this.props.status !== 1} />
                     <FaIconButton
                         size="sm"
                         icon="envelope-o"

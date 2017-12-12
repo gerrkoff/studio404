@@ -68,7 +68,7 @@ export const resendBookingCode = (id) => {
 export const payBooking = (id) => {
     return (dispatch) => {
 
-        Http.Post("/api/pay/prepare", { id })
+        Http.Post("/api/booking/prepare", { id })
             .fail((data) => dispatch(errorHandler(data)))
             .done((data) => {
                 dispatch(show(Labels.redirectNotify));

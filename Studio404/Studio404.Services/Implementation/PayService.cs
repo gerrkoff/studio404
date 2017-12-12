@@ -38,25 +38,6 @@ namespace Studio404.Services.Implementation
             _notificationService.SendBookingCodeAsync(booking);
         }
 
-        public PrepareBookingPaymentDto PrepareBookingPayment(int id)
-        {
-            var data = new PrepareBookingPaymentDto
-            {
-                Url = "https://money.yandex.ru/quickpay/confirm.xml",
-                Form = new List<PrepareBookingPaymentDto.FormInput>()
-            };
-            data.AddFormInput("quickpay-form", "small");
-            data.AddFormInput("receiver", "410015855170459");
-            data.AddFormInput("targets", "Rehearsal payment");
-            data.AddFormInput("paymentType", "AC");
-            data.AddFormInput("sum", "50");
-            data.AddFormInput("label", "11111");
-            data.AddFormInput("formcomment", "Qwerty");
-            data.AddFormInput("short-dest", "Qwerty");
-
-            return data;
-        }
-
         private string GenerateBookingCode()
         {
             var random = new Random();

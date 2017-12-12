@@ -26,13 +26,5 @@ namespace Studio404.Web.Controllers
             // TODO: implement security
             _payService.ConfirmBooking(guid);
         }
-        
-        [HttpPost]
-        public PrepareBookingPaymentDto Prepare(int id)
-        {
-            _logger.LogInformation($"Id: {id}");
-            
-            return _payService.PrepareBookingPayment(id);
-        }
     }
 }

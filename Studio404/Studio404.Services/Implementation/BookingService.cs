@@ -9,6 +9,7 @@ using Studio404.Common.Settings;
 using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using Studio404.Dto.Booking;
+using Studio404.Dto.Pay;
 using Studio404.Services.Interface;
 
 namespace Studio404.Services.Implementation
@@ -124,6 +125,25 @@ namespace Studio404.Services.Implementation
             ValidateBookingForAction(booking, user.Id, x => x.Status == BookingStatusEnum.Paid);
 
             return await _notificationService.SendBookingCodeAsync(booking);
+        }
+
+        public Task<PrepareBookingPaymentDto> PrepareBookingPayment(int id, UserEntity user)
+        {
+            var data = new PrepareBookingPaymentDto
+            {
+                Url = "https://money.yandex.ru/quickpay/confirm.xml",
+                Form = new List<PrepareBookingPaymentDto.FormInput>()
+            };
+            data.AddFormInput("quickpay-form", "small");
+            data.AddFormInput("receiver", "410015855170459");
+            data.AddFormInput("targets", "Rehearsal payment");
+            data.AddFormInput("paymentType", "AC");
+            data.AddFormInput("sum", "50");
+            data.AddFormInput("label", "11111");
+            data.AddFormInput("formcomment", "Qwerty");
+            data.AddFormInput("short-dest", "Qwerty");
+
+            return Task.FromResult(data);
         }
 
         private void ValidateBookingForAction(BookingEntity booking, string userId, Func<BookingEntity, bool> bookingCheck)

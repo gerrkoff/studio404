@@ -8,6 +8,7 @@ using Studio404.Dto.Booking;
 using Studio404.Services.Interface;
 using Studio404.Web.Controllers.Base;
 using Microsoft.Extensions.Logging;
+using Studio404.Dto.Pay;
 
 namespace Studio404.Web.Controllers
 {
@@ -56,9 +57,17 @@ namespace Studio404.Web.Controllers
         [HttpPost]
         public async Task<bool> ResendCode(int id)
         {
-            return await _bookingService.ResendBookingCode(id, GetUser());
-
             _logger.LogInformation($"Id: {id}");
+            
+            return await _bookingService.ResendBookingCode(id, GetUser());
+        }
+        
+        [HttpPost]
+        public async Task<PrepareBookingPaymentDto> Prepare(int id)
+        {
+            _logger.LogInformation($"Id: {id}");
+            
+            return await _bookingService.PrepareBookingPayment(id, await GetUserAsync());
         }
     }
 }

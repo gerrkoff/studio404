@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal;
 using Microsoft.Extensions.Options;
 using Studio404.Common.Enums;
 using Studio404.Common.Exceptions;
@@ -21,18 +19,18 @@ namespace Studio404.Services.Implementation
         private readonly IRepository<BookingEntity> _bookingRepository;
         private readonly StudioSettings _studioSettings;
         private readonly INotificationService _notificationService;
-        private readonly PayServiceSettings _payServiceSettings;
         private readonly ICostEvaluationService _costEvaluationService;
+        private readonly IPayService _payService;
 
         public BookingService(IRepository<BookingEntity> bookingRepository, IOptions<StudioSettings> studioSettings,
-            INotificationService notificationService, IOptions<PayServiceSettings> payServiceSettings,
-            ICostEvaluationService costEvaluationService)
+            INotificationService notificationService, ICostEvaluationService costEvaluationService,
+            IPayService payService)
         {
             _bookingRepository = bookingRepository;
             _notificationService = notificationService;
             _costEvaluationService = costEvaluationService;
+            _payService = payService;
             _studioSettings = studioSettings.Value;
-            _payServiceSettings = payServiceSettings.Value;
         }
 
         public IEnumerable<DayWorkloadDto> GetWeekWorkload(DateTime weekStartDate)
@@ -141,29 +139,7 @@ namespace Studio404.Services.Implementation
 
             ValidateBookingForAction(booking, user.Id, x => x.Status == BookingStatusEnum.Unpaid);
 
-            string paymentInfo =
-                $"404 studio: rehearsal on {booking.Date.ToShortDateString()}, {ToTime(booking.From)} - {ToTime(booking.To + 1)}";
-            
-            var data = new PrepareBookingPaymentDto
-            {
-                Url = "https://money.yandex.ru/quickpay/confirm.xml",
-                Form = new List<PrepareBookingPaymentDto.FormInput>()
-            };
-            data.AddFormInput("quickpay-form", "small");
-            data.AddFormInput("targets", "Rehearsal payment");
-            data.AddFormInput("paymentType", "AC");
-            data.AddFormInput("formcomment", paymentInfo);
-            data.AddFormInput("short-dest", paymentInfo);
-            data.AddFormInput("receiver", _payServiceSettings.YandexId);
-            data.AddFormInput("label", booking.Guid.ToString());
-            data.AddFormInput("sum", booking.Cost.ToString(CultureInfo.InvariantCulture));
-
-            return Task.FromResult(data);
-        }
-
-        private string ToTime(int hour)
-        {
-            return (hour < 10 ? "0" : "") + $"{hour}:00";
+            return Task.FromResult(_payService.PrepareBookingPaymnent(booking));
         }
 
         private void ValidateBookingForAction(BookingEntity booking, string userId, Func<BookingEntity, bool> bookingCheck)

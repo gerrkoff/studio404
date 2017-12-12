@@ -1,8 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Options;
 using Studio404.Common.Settings;
-using Studio404.Dal.Entity;
-using Studio404.Dal.Repository;
 using Studio404.Services.Interface;
 
 namespace Studio404.Services.Implementation

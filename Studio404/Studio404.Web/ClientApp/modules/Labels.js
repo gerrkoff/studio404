@@ -17,7 +17,7 @@ const Labels = {
     resend_success: "Booking code was sent successfully!",
     resend_error: "Booking code sending failed!",
     changePassword_success: "Password changed!",
-    redirectNotify: "You will be redirected",
+    redirectNotify: "You will be redirected...",
 
     //validation
     bookingHoursIncorrectInput: "Incorrect input",

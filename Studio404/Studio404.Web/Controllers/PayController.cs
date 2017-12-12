@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Services.Interface;
 using Microsoft.Extensions.Logging;
@@ -18,13 +19,14 @@ namespace Studio404.Web.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{guid}")]
-        public void Confirm(Guid guid)
+        [HttpPost]
+        public void Confirm(ConfirmBookingDto confirmBooking)
         {
-            _logger.LogInformation($"Guid: {guid}");
-            
+            //string q = HttpContext.Request.Form["wew"];
+            //_logger.LogInformation($"Guid: {guid}");
+
             // TODO: implement security
-            _payService.ConfirmBooking(guid);
+            //_payService.ConfirmBooking(guid);
         }
     }
 }

@@ -111,6 +111,9 @@ namespace Studio404.Web
             
             services.Configure<SmsServiceSettings>(options =>
                 Configuration.GetSection("SmsServiceSettings").Bind(options));
+            
+            services.Configure<PayServiceSettings>(options =>
+                Configuration.GetSection("PayServiceSettings").Bind(options));
         }
 
         private void ConfigAutoMapper(IServiceCollection services)

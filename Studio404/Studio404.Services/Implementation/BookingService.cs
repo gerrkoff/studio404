@@ -19,13 +19,15 @@ namespace Studio404.Services.Implementation
         private readonly IRepository<BookingEntity> _bookingRepository;
         private readonly StudioSettings _studioSettings;
         private readonly INotificationService _notificationService;
+        private readonly PayServiceSettings _payServiceSettings;
 
         public BookingService(IRepository<BookingEntity> bookingRepository, IOptions<StudioSettings> studioSettings,
-            INotificationService notificationService)
+            INotificationService notificationService, IOptions<PayServiceSettings> payServiceSettings)
         {
             _bookingRepository = bookingRepository;
             _notificationService = notificationService;
             _studioSettings = studioSettings.Value;
+            _payServiceSettings = payServiceSettings.Value;
         }
 
         public IEnumerable<DayWorkloadDto> GetWeekWorkload(DateTime weekStartDate)
@@ -129,21 +131,33 @@ namespace Studio404.Services.Implementation
 
         public Task<PrepareBookingPaymentDto> PrepareBookingPayment(int id, UserEntity user)
         {
+            BookingEntity booking = _bookingRepository.GetById(id);
+
+            ValidateBookingForAction(booking, user.Id, x => x.Status == BookingStatusEnum.Unpaid);
+
+            string paymentInfo =
+                $"404 studio: rehearsal on {booking.Date.ToShortDateString()}, {ToTime(booking.From)} - {ToTime(booking.To + 1)}";
+            
             var data = new PrepareBookingPaymentDto
             {
                 Url = "https://money.yandex.ru/quickpay/confirm.xml",
                 Form = new List<PrepareBookingPaymentDto.FormInput>()
             };
             data.AddFormInput("quickpay-form", "small");
-            data.AddFormInput("receiver", "410015855170459");
             data.AddFormInput("targets", "Rehearsal payment");
             data.AddFormInput("paymentType", "AC");
-            data.AddFormInput("sum", "50");
-            data.AddFormInput("label", "11111");
-            data.AddFormInput("formcomment", "Qwerty");
-            data.AddFormInput("short-dest", "Qwerty");
+            data.AddFormInput("formcomment", paymentInfo);
+            data.AddFormInput("short-dest", paymentInfo);
+            data.AddFormInput("receiver", _payServiceSettings.YandexId);
+            data.AddFormInput("label", booking.Guid.ToString());
+            data.AddFormInput("sum", "50"); // TODO: calculate sum
 
             return Task.FromResult(data);
+        }
+
+        private string ToTime(int hour)
+        {
+            return (hour < 10 ? "0" : "") + $"{hour}:00";
         }
 
         private void ValidateBookingForAction(BookingEntity booking, string userId, Func<BookingEntity, bool> bookingCheck)

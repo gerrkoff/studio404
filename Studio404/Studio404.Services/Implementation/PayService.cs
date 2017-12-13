@@ -47,7 +47,7 @@ namespace Studio404.Services.Implementation
         public PrepareBookingPaymentDto PrepareBookingPaymnent(BookingEntity booking)
         {
             string paymentInfo =
-                $"404 studio: rehearsal on {booking.Date.ToShortDateString()}, {ToTime(booking.From)} - {ToTime(booking.To + 1)}";
+                $"Rehearsal on {booking.Date.ToShortDateString()}, {ToTime(booking.From)} - {ToTime(booking.To + 1)}";
             
             var data = new PrepareBookingPaymentDto
             {
@@ -57,7 +57,7 @@ namespace Studio404.Services.Implementation
             data.AddFormInput("quickpay-form", "small");
             data.AddFormInput("targets", "Rehearsal payment");
             data.AddFormInput("paymentType", "AC");
-            data.AddFormInput("formcomment", paymentInfo);
+            data.AddFormInput("formcomment", "404 studio");
             data.AddFormInput("short-dest", paymentInfo);
             data.AddFormInput("receiver", _payServiceSettings.YandexId);
             data.AddFormInput("label", booking.Guid.ToString());

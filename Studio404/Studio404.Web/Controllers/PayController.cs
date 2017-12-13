@@ -8,6 +8,7 @@ using System.Text;
 using System.Linq;
 using Microsoft.Extensions.Options;
 using Studio404.Common.Settings;
+using System;
 
 namespace Studio404.Web.Controllers
 {
@@ -35,10 +36,10 @@ namespace Studio404.Web.Controllers
                 return;
             }
 
-            //_logger.LogInformation($"Guid: {guid}");
+            var guid = new Guid(confirmBooking.Label);
+            _payService.ConfirmBooking(guid);
 
-            // TODO: implement security
-            //_payService.ConfirmBooking(guid);
+            _logger.LogInformation($"Payment Confirmation success. Guid: {guid}");
         }
 
         private bool ValidateConfirmForm(IFormCollection form, out string paramString)

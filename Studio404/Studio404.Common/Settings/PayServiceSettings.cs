@@ -3,5 +3,6 @@
     public class PayServiceSettings
     {
         public string YandexId { get; set; }
+        public string YandexSecret { get; set; }
     }
 }

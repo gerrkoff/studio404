@@ -13,6 +13,16 @@ $(document).ajaxStop(function() {
     NProgress.done();
 });
 
+const tokenKey = "accessToken";
+const saveToken = (token) => sessionStorage.setItem(tokenKey, token);
+const loadToken = () => sessionStorage.getItem(tokenKey);
+
+$.ajaxSetup({
+    beforeSend: (xhr) => {
+        xhr.setRequestHeader("Authorization", "Bearer " + loadToken());
+    }
+});
+
 const Http = {
 
      Get: (url, params) => {
@@ -46,4 +56,4 @@ const errorHandler = (data) => {
     }
 }
 
-export { Http, errorHandler };
+export { Http, errorHandler, saveToken };

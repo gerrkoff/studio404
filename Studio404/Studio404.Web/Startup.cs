@@ -22,6 +22,7 @@ using Studio404.Dal.Entity;
 using Studio404.Web.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Studio404.Web.Controllers;
 
 namespace Studio404.Web
 {
@@ -131,6 +132,9 @@ namespace Studio404.Web
             builder
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationContext>();
+
+            services.AddScoped<SignInManager<UserEntity>>();
+            services.AddScoped<UserManager<UserEntity>>();
         }
         
         private void ConfigConfiguration(IServiceCollection services)

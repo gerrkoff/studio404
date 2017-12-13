@@ -29,18 +29,14 @@ namespace Studio404.Web.Controllers
         };
 
         [HttpPost]
-        public async Task Token()
+        public async Task<TokenObtainResultDto> Token(LoginInfoDto loginInfo)
         {
-            var username = Request.Form["username"];
-            var password = Request.Form["password"];
+            var username = loginInfo.Username;
+            var password = loginInfo.Password;
 
             var identity = GetIdentity(username, password);
             if (identity == null)
-            {
-                Response.StatusCode = 400;
-                await Response.WriteAsync("Invalid username or password.");
-                return;
-            }
+                return new TokenObtainResultDto {Result = LoginResultEnum.WrongUsernamePassword};
 
             var now = DateTime.UtcNow;
             // создаем JWT-токен
@@ -53,15 +49,11 @@ namespace Studio404.Web.Controllers
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            var response = new
+            return new TokenObtainResultDto
             {
-                access_token = encodedJwt,
-                username = identity.Name
+                Token = encodedJwt,
+                Result = LoginResultEnum.Success
             };
-
-            // сериализация ответа
-            Response.ContentType = "application/json";
-            await Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented }));
         }
 
         private ClaimsIdentity GetIdentity(string username, string password)

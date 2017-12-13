@@ -1,4 +1,4 @@
-import { Http, errorHandler } from "../modules/Http";
+import { Http, errorHandler, saveToken } from "../modules/Http";
 import { loadCurrentUser } from "./AccountActions";
 import { showDefaultError, show } from "./MessageActions";
 import Labels from "../modules/Labels";
@@ -61,11 +61,12 @@ const LoginPopup = {
 export const login = (loginInfo) => {
     return (dispatch) => {
 
-        Http.Post("api/account/login", loginInfo)
+        Http.Post("api/token", loginInfo)
             .fail((data) => dispatch(errorHandler(data)))
-            .done((result) => {
-                switch (result) {
+            .done((data) => {
+                switch (data.result) {
                     case 1:
+                        saveToken(data.token);
                         dispatch(closeLoginPopup());
                         dispatch(loadCurrentUser(true));
                         break;

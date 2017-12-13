@@ -21,7 +21,7 @@ namespace Studio404.Web.Controllers.Base
 
         protected async Task<UserEntity> GetUserAsync()
         {
-            return await _userManager.GetUserAsync(HttpContext.User);
+            return await _userManager.FindByNameAsync(User.Identity.Name);
         }
     }
 }

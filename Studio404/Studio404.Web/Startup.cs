@@ -169,6 +169,7 @@ namespace Studio404.Web
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IDateService, DateService>();
             services.AddScoped<ICostEvaluationService, CostEvaluationService>();
+            services.AddScoped<ITokenService, TokenService>();
         }
 
         #endregion

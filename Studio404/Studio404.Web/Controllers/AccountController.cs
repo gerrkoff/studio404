@@ -1,9 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Common.Enums;
-using Studio404.Dal.Entity;
 using Studio404.Dto.Account;
 using Studio404.Services.Interface;
 using Studio404.Web.Controllers.Base;
@@ -35,7 +33,7 @@ namespace Studio404.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<CurrentUserDto> Current()
+        public CurrentUserDto Current()
         {
             if (!User.Identity.IsAuthenticated)
                 return new CurrentUserDto {UserLoggedIn = false};

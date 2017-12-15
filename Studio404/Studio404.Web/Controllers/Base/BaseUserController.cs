@@ -1,7 +1,4 @@
 ﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
-using Studio404.Dal.Entity;
-using System.Threading.Tasks;
 using Studio404.Dto.Account;
 
 namespace Studio404.Web.Controllers.Base

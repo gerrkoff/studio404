@@ -15,7 +15,7 @@ namespace Studio404.Web.Controllers
     {
         private readonly IUserService _userService;
         
-        public UserController(UserManager<UserEntity> userManager, IUserService userService) : base(userManager)
+        public UserController(UserManager<UserEntity> userManager, IUserService userService)
         {
             _userService = userService;
         }

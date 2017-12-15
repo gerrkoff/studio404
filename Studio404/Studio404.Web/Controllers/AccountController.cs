@@ -15,7 +15,7 @@ namespace Studio404.Web.Controllers
     {
         private readonly IAccountService _accountService;
 
-        public AccountController(IAccountService accountService, UserManager<UserEntity> userManager) : base(userManager)
+        public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
         }

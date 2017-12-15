@@ -20,7 +20,6 @@ namespace Studio404.Web.Controllers
         private readonly ILogger<BookingController> _logger;
 
         public BookingController(UserManager<UserEntity> userManager, IBookingService bookingService, ILogger<BookingController> logger)
-            : base(userManager)
         {
             _bookingService = bookingService;
             _logger = logger;

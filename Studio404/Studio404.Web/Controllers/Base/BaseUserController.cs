@@ -8,13 +8,6 @@ namespace Studio404.Web.Controllers.Base
 {
     public class BaseUserController : BaseController
     {
-        private readonly UserManager<UserEntity> _userManager;
-        
-        public BaseUserController(UserManager<UserEntity> userManager)
-        {
-            _userManager = userManager;
-        }
-
         protected CurrentUser GetUser()
         {
             var identity = (ClaimsIdentity) User.Identity;

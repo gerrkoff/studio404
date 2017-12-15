@@ -42,7 +42,8 @@ namespace Studio404.Services.Implementation
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
+                new Claim(ClaimTypes.Sid, user.Id)
             };
 
             ClaimsIdentity claimsIdentity =

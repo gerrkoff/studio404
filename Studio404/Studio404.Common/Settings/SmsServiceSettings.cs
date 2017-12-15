@@ -3,5 +3,6 @@
     public class SmsServiceSettings
     {
         public string ApiId { get; set; }
+        public bool Mock { get; set; }
     }
 }

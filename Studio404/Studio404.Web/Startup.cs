@@ -159,11 +159,16 @@ namespace Studio404.Web
             services.AddScoped<IPayService, PayService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAccountService, AccountService>();
-            services.AddScoped<ISmsService, SmsServiceMock>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IDateService, DateService>();
             services.AddScoped<ICostEvaluationService, CostEvaluationService>();
             services.AddScoped<ITokenService, TokenService>();
+            
+            SmsServiceSettings smsSettings = Configuration.GetSection("Auth").Get<SmsServiceSettings>();
+            if (smsSettings.Mock)
+                services.AddScoped<ISmsService, SmsServiceMock>();
+            else
+                services.AddScoped<ISmsService, SmsService>();
         }
 
         #endregion

@@ -1,7 +1,8 @@
-import { Http, errorHandler, saveToken } from "../modules/Http";
+import { Http, errorHandler } from "../modules/Http";
 import { loadCurrentUser } from "./AccountActions";
 import { showDefaultError, show } from "./MessageActions";
 import Labels from "../modules/Labels";
+import Token from "../modules/Token";
 
 const LoginPopup = {
     open: () => {
@@ -61,14 +62,14 @@ const LoginPopup = {
 export const login = (loginInfo) => {
     return (dispatch) => {
 
-        Http.Post("api/token", loginInfo)
+        Http.Post("api/account/login", loginInfo)
             .fail((data) => dispatch(errorHandler(data)))
             .done((data) => {
                 switch (data.result) {
                     case 1:
-                        saveToken(data.token);
-                        dispatch(closeLoginPopup());
+                        Token.Save(data.token);                        
                         dispatch(loadCurrentUser(true));
+                        dispatch(closeLoginPopup());
                         break;
                 
                     case 2:
@@ -89,13 +90,14 @@ export const register = (registerInfo) => {
 
         Http.Post("api/account/register", registerInfo)
             .fail((data) => dispatch(errorHandler(data)))
-            .done((result) => {
-                switch (result) {
+            .done((data) => {
+                switch (data.result) {
                     case 1:
+                        Token.Save(data.token);
+                        dispatch(loadCurrentUser(true));
+                        dispatch(closeLoginPopup());
                         dispatch(toggleRegistration(false));
                         dispatch(LoginPopup.resetRegister());
-                        dispatch(closeLoginPopup());
-                        dispatch(loadCurrentUser(true));
                         break;
                 
                     case 2:

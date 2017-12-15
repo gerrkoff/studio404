@@ -2,6 +2,7 @@ import $ from "jQuery";
 import NProgress from "react-nprogress";
 import { show } from "../actions/MessageActions";
 import Labels from "./Labels";
+import Token from "./Token";
 
 NProgress.configure({ showSpinner: false });
 
@@ -13,13 +14,9 @@ $(document).ajaxStop(function() {
     NProgress.done();
 });
 
-const tokenKey = "accessToken";
-const saveToken = (token) => sessionStorage.setItem(tokenKey, token);
-const loadToken = () => sessionStorage.getItem(tokenKey);
-
 $.ajaxSetup({
     beforeSend: (xhr) => {
-        xhr.setRequestHeader("Authorization", "Bearer " + loadToken());
+        xhr.setRequestHeader("Authorization", "Bearer " + Token.Load());
     }
 });
 
@@ -56,4 +53,4 @@ const errorHandler = (data) => {
     }
 }
 
-export { Http, errorHandler, saveToken };
+export { Http, errorHandler };

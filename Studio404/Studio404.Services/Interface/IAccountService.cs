@@ -7,8 +7,8 @@ namespace Studio404.Services.Interface
 {
     public interface IAccountService
     {
-        Task<RegisterResultEnum> Register(RegisterInfoDto registerInfo);
-        Task<LoginResultEnum> Login(LoginInfoDto loginInfo);
+        Task<RegisterResultDto> Register(RegisterInfoDto registerInfo);
+        Task<LoginResultDto> Login(LoginInfoDto loginInfo);
         Task<SendPhoneConfirmationResultEnum> SendPhoneConfirmation(UserEntity user, string phone);
         Task<ConfirmPhoneResultEnum> ConfirmPhone(UserEntity user, string phone, string code);
         Task<ChangePassResultEnum> ChangePassword(UserEntity user, ChangePassInfoDto changePassInfo);

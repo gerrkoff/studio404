@@ -10,51 +10,62 @@ namespace Studio404.Services.Implementation
 {
     public class AccountService : IAccountService
     {
-        private readonly UserManager<UserEntity> _userManager;
-        private readonly SignInManager<UserEntity> _signInManager;
+        private readonly UserManager<UserEntity> _userManager;        
         private readonly INotificationService _notificationService;
+        private readonly ITokenService _tokenService;
 
-        public AccountService(UserManager<UserEntity> userManager, SignInManager<UserEntity> signInManager,
-            INotificationService notificationService)
+        public AccountService(UserManager<UserEntity> userManager, INotificationService notificationService, ITokenService tokenService)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _notificationService = notificationService;
+            _tokenService = tokenService;
         }
 
-        public async Task<RegisterResultEnum> Register(RegisterInfoDto registerInfo)
+        public async Task<RegisterResultDto> Register(RegisterInfoDto registerInfo)
         {
-            var user = new UserEntity
-            {
-                UserName = registerInfo.Username
-            };
-                
-            IdentityResult result = await _userManager.CreateAsync(user, registerInfo.Password);
+            var result = new RegisterResultDto();
 
-            if (result.Succeeded)
+            var user = new UserEntity { UserName = registerInfo.Username };                
+            IdentityResult creareUserResult = await _userManager.CreateAsync(user, registerInfo.Password);
+
+            if (creareUserResult.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false);
-                return RegisterResultEnum.Success;
+                result.Result = RegisterResultEnum.Success;
+                result.Token = _tokenService.GetToken(user);
             }
-            else if (result.Errors.Any(x => string.Equals(x.Code, "DuplicateUserName")))
+            else if (creareUserResult.Errors.Any(x => string.Equals(x.Code, "DuplicateUserName")))
             {
-                return RegisterResultEnum.UsernameAlreadyExists;
+                result.Result = RegisterResultEnum.UsernameAlreadyExists;
             }
             else
             {
-                return RegisterResultEnum.Unknown;
+                result.Result = RegisterResultEnum.Unknown;
             }
+
+            return result;
         }
 
-        public async Task<LoginResultEnum> Login(LoginInfoDto loginInfo)
+        public async Task<LoginResultDto> Login(LoginInfoDto loginInfo)
         {
-            SignInResult result =
-                await _signInManager.PasswordSignInAsync(loginInfo.Username, loginInfo.Password, false, false);
+            var result = new LoginResultDto();
 
-            if (result.Succeeded)
-                return LoginResultEnum.Success;
+            UserEntity user = await _userManager.FindByNameAsync(loginInfo.Username);
+
+            if (user == null)
+            {
+                result.Result = LoginResultEnum.WrongUsernamePassword;
+            }
+            else if (!await _userManager.CheckPasswordAsync(user, loginInfo.Password))
+            {
+                result.Result = LoginResultEnum.WrongUsernamePassword;
+            }
             else
-                return LoginResultEnum.WrongUsernamePassword;
+            {
+                result.Result = LoginResultEnum.Success;
+                result.Token = _tokenService.GetToken(user);
+            }
+
+            return result;
         }
 
         public async Task<SendPhoneConfirmationResultEnum> SendPhoneConfirmation(UserEntity user, string phone)

@@ -1,10 +1,9 @@
-﻿using System.Threading.Tasks;
-using Studio404.Dto.Account;
+﻿using Studio404.Dal.Entity;
 
 namespace Studio404.Services.Interface
 {
     public interface ITokenService
     {
-        Task<TokenObtainResultDto> GetToken(LoginInfoDto loginInfo);
+        string GetToken(UserEntity user);
     }
 }

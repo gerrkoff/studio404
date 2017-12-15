@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using Studio404.Common.Enums;
 using Studio404.Dal.Entity;
-using Studio404.Dto.Account;
 using Studio404.Services.Interface;
 
 namespace Studio404.Services.Implementation
@@ -16,18 +12,9 @@ namespace Studio404.Services.Implementation
     public class TokenService : ITokenService
     {
 
-        private readonly UserManager<UserEntity> _userManager;
-
-        public TokenService(UserManager<UserEntity> userManager)
+        public string GetToken(UserEntity user)
         {
-            _userManager = userManager;
-        }
-
-        public async Task<TokenObtainResultDto> GetToken(LoginInfoDto loginInfo)
-        {
-            ClaimsIdentity identity = await GetIdentity(loginInfo);
-            if (identity == null)
-                return new TokenObtainResultDto {Result = LoginResultEnum.WrongUsernamePassword};
+            ClaimsIdentity identity = GetIdentity(user);
 
             var now = DateTime.UtcNow;
             var jwt = new JwtSecurityToken(
@@ -40,23 +27,11 @@ namespace Studio404.Services.Implementation
             
             string encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            return new TokenObtainResultDto
-            {
-                Token = encodedJwt,
-                Result = LoginResultEnum.Success
-            };
+            return encodedJwt;
         }
         
-        private async Task<ClaimsIdentity> GetIdentity(LoginInfoDto loginInfo)
+        private ClaimsIdentity GetIdentity(UserEntity user)
         {
-            UserEntity user = await _userManager.FindByNameAsync(loginInfo.Username);
-
-            if (user == null)
-                return null;
-
-            if (!await _userManager.CheckPasswordAsync(user, loginInfo.Password))
-                return null;
-            
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)

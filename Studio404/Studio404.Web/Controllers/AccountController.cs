@@ -13,34 +13,24 @@ namespace Studio404.Web.Controllers
     public class AccountController : BaseUserController
     {
         private readonly IAccountService _accountService;
-        private readonly SignInManager<UserEntity> _signInManager;
 
-        public AccountController(IAccountService accountService, SignInManager<UserEntity> signInManager,
-            UserManager<UserEntity> userManager) : base(userManager)
+        public AccountController(IAccountService accountService, UserManager<UserEntity> userManager) : base(userManager)
         {
             _accountService = accountService;
-            _signInManager = signInManager;
         }
 
         [HttpPost]
-        public async Task<RegisterResultEnum> Register(RegisterInfoDto registerInfo)
+        public async Task<RegisterResultDto> Register(RegisterInfoDto registerInfo)
         {
             Validate();
             return await _accountService.Register(registerInfo);
         }
 
         [HttpPost]
-        public async Task<LoginResultEnum> Login(LoginInfoDto loginInfo)
+        public async Task<LoginResultDto> Login(LoginInfoDto loginInfo)
         {
             Validate();   
             return await _accountService.Login(loginInfo);
-        }
-
-        [HttpPost]
-        public async Task Logoff()
-        {
-            // TODO: remove method when jwt
-            await _signInManager.SignOutAsync();
         }
 
         [HttpGet]

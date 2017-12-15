@@ -2,7 +2,7 @@
 
 namespace Studio404.Dto.Account
 {
-    public class TokenObtainResultDto
+    public class LoginResultDto
     {
         public string Token { get; set; }
         public LoginResultEnum Result { get; set; }

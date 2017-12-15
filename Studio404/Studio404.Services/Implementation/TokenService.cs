@@ -46,6 +46,9 @@ namespace Studio404.Services.Implementation
                 new Claim(ClaimTypes.Sid, user.Id)
             };
 
+            if (user.PhoneNumberConfirmed)
+                claims.Add(new Claim(ClaimTypes.MobilePhone, user.PhoneNumber));
+
             ClaimsIdentity claimsIdentity =
                 new ClaimsIdentity(claims, "Token",
                     ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

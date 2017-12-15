@@ -58,7 +58,7 @@ namespace Studio404.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<ConfirmPhoneResultEnum> ConfirmPhone(ConfirmPhoneInfoDto confirmPhoneInfo)
+        public async Task<ConfirmPhoneResultDto> ConfirmPhone(ConfirmPhoneInfoDto confirmPhoneInfo)
         {
             Validate();
             return await _accountService.ConfirmPhone(GetUser(), confirmPhoneInfo.Phone,

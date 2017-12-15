@@ -2,6 +2,7 @@ import { Http, errorHandler } from "../modules/Http";
 import { showDefaultError, show } from "./MessageActions";
 import { loadCurrentUser } from "./AccountActions";
 import Labels from "../modules/Labels";
+import Token from "../modules/Token";
 
 const ConfirmPhonePopup = {
     open: () => {
@@ -123,12 +124,13 @@ export const confirmPhone = (phone, code) => {
                 dispatch(ConfirmPhonePopup.confirmError());
                 dispatch(errorHandler(data));
             })
-            .done((result) => {
-                switch (result) {
+            .done((data) => {
+                switch (data.result) {
                     case 1:
                         dispatch(ConfirmPhonePopup.confirmSuccess());
                         dispatch(ConfirmPhonePopup.close());
                         dispatch(show(Labels.phoneConfirmed));
+                        Token.Save(data.token);
                         dispatch(loadCurrentUser());
                         break;
 

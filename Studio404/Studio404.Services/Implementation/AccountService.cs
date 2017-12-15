@@ -82,17 +82,28 @@ namespace Studio404.Services.Implementation
                 : SendPhoneConfirmationResultEnum.Unknown;
         }
 
-        public async Task<ConfirmPhoneResultEnum> ConfirmPhone(CurrentUser user, string phone, string code)
+        public async Task<ConfirmPhoneResultDto> ConfirmPhone(CurrentUser user, string phone, string code)
         {
-            UserEntity userEntity = await _userManager.FindByIdAsync(user.UserId);
-            IdentityResult result = await _userManager.ChangePhoneNumberAsync(userEntity, phone, code);
+            var result = new ConfirmPhoneResultDto();
             
-            if (result.Succeeded)
-                return ConfirmPhoneResultEnum.Success;
-            else if (result.Errors.Any(x => string.Equals(x.Code, "InvalidToken")))
-                return ConfirmPhoneResultEnum.InvalidCode;
+            UserEntity userEntity = await _userManager.FindByIdAsync(user.UserId);
+            IdentityResult changePhoneresult = await _userManager.ChangePhoneNumberAsync(userEntity, phone, code);
+
+            if (changePhoneresult.Succeeded)
+            {
+                result.Result = ConfirmPhoneResultEnum.Success;
+                result.Token = _tokenService.GetToken(userEntity);
+            }
+            else if (changePhoneresult.Errors.Any(x => string.Equals(x.Code, "InvalidToken")))
+            {
+                result.Result = ConfirmPhoneResultEnum.InvalidCode;
+            }
             else
-                return ConfirmPhoneResultEnum.Unknown;
+            {
+                result.Result = ConfirmPhoneResultEnum.Unknown;
+            }
+
+            return result;
         }
 
         public async Task<ChangePassResultEnum> ChangePassword(CurrentUser user, ChangePassInfoDto changePassInfo)

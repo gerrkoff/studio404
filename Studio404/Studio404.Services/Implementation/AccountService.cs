@@ -92,7 +92,7 @@ namespace Studio404.Services.Implementation
             if (changePhoneresult.Succeeded)
             {
                 result.Result = ConfirmPhoneResultEnum.Success;
-                result.Token = _tokenService.GetToken(userEntity);
+                result.Token = _tokenService.GetToken(userEntity, user.Expires);
             }
             else if (changePhoneresult.Errors.Any(x => string.Equals(x.Code, "InvalidToken")))
             {

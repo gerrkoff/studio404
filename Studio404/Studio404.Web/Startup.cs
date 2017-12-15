@@ -23,6 +23,7 @@ using Studio404.Web.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Studio404.Web.Controllers;
+using System.Text;
 
 namespace Studio404.Web
 {
@@ -123,6 +124,9 @@ namespace Studio404.Web
 
             services.Configure<PayServiceSettings>(options =>
                 Configuration.GetSection("PayServiceSettings").Bind(options));
+
+            services.Configure<AuthSettings>(options =>
+                Configuration.GetSection("Auth").Bind(options));
         }
 
         private void ConfigAutoMapper(IServiceCollection services)
@@ -135,6 +139,7 @@ namespace Studio404.Web
 
         private void ConfigAuth(IServiceCollection services)
         {
+            AuthSettings authSettings = Configuration.GetSection("Auth").Get<AuthSettings>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
@@ -142,11 +147,11 @@ namespace Studio404.Web
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
                             ValidateIssuer = true,
-                            ValidIssuer = AuthOptions.ISSUER,
+                            ValidIssuer = authSettings.Issuer,
                             ValidateAudience = true,
-                            ValidAudience = AuthOptions.AUDIENCE,
+                            ValidAudience = authSettings.Audience,
                             ValidateLifetime = true,
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(authSettings.Key)),
                             ValidateIssuerSigningKey = true,
                             ClockSkew = TimeSpan.Zero
                         };

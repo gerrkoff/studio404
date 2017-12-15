@@ -6,11 +6,19 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Studio404.Dal.Entity;
 using Studio404.Services.Interface;
+using Studio404.Common.Settings;
+using Microsoft.Extensions.Options;
 
 namespace Studio404.Services.Implementation
 {
     public class TokenService : ITokenService
     {
+        private readonly AuthSettings _authSettings;
+
+        public TokenService(IOptions<AuthSettings> authSettings)
+        {
+            _authSettings = authSettings.Value;
+        }
 
         public string GetToken(UserEntity user)
         {
@@ -18,12 +26,12 @@ namespace Studio404.Services.Implementation
 
             var now = DateTime.UtcNow;
             var jwt = new JwtSecurityToken(
-                issuer: AuthOptions.ISSUER,
-                audience: AuthOptions.AUDIENCE,
+                issuer: _authSettings.Issuer,
+                audience: _authSettings.Audience,
                 notBefore: now,
                 claims: identity.Claims,
-                expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+                expires: now.Add(TimeSpan.FromMinutes(_authSettings.Lifetime)),
+                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_authSettings.Key)), SecurityAlgorithms.HmacSha256));
             
             string encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
@@ -41,18 +49,6 @@ namespace Studio404.Services.Implementation
                 new ClaimsIdentity(claims, "Token",
                     ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             return claimsIdentity;
-        }
-    }
-
-    public class AuthOptions
-    {
-        public const string ISSUER = "404Studio";
-        public const string AUDIENCE = "404Studio";
-        const string KEY = "404Studio_Secret_Key";
-        public const int LIFETIME = 1;
-        public static SymmetricSecurityKey GetSymmetricSecurityKey()
-        {
-            return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));
         }
     }
 }

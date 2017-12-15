@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Common.Enums;
@@ -36,16 +37,10 @@ namespace Studio404.Web.Controllers
         public CurrentUserDto Current()
         {
             if (!User.Identity.IsAuthenticated)
-                return new CurrentUserDto {UserLoggedIn = false};
-                
-            CurrentUser user = GetUser();
-            return new CurrentUserDto
-            {
-                UserLoggedIn = true,
-                Username = user.Username,
-                PhoneConfirmed = user.PhoneConfirmed
-            };
-            // TODO: automapper
+                return new CurrentUserDto();
+
+            CurrentUserDto user = Mapper.Map<CurrentUserDto>(GetUser());
+            return user;
         }
 
         [Authorize]

@@ -29,7 +29,7 @@ namespace Studio404.Web.Controllers
         [HttpPost]
         public async Task<LoginResultDto> Login(LoginInfoDto loginInfo)
         {
-            Validate();   
+            Validate();
             return await _accountService.Login(loginInfo);
         }
 

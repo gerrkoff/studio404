@@ -38,37 +38,13 @@ namespace Studio404.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
-                    {
-                        options.RequireHttpsMetadata = false;
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            // укзывает, будет ли валидироваться издатель при валидации токена
-                            ValidateIssuer = true,
-                            // строка, представляющая издателя
-                            ValidIssuer = AuthOptions.ISSUER,
-
-                            // будет ли валидироваться потребитель токена
-                            ValidateAudience = true,
-                            // установка потребителя токена
-                            ValidAudience = AuthOptions.AUDIENCE,
-                            // будет ли валидироваться время существования
-                            ValidateLifetime = true,
-
-                            // установка ключа безопасности
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                            // валидация ключа безопасности
-                            ValidateIssuerSigningKey = true,
-                        };
-                    });
-
+            ConfigAuth(services);
             ConfigDb(services);
             ConfigIdentity(services);
             ConfigDiServices(services);
             ConfigAutoMapper(services);
             ConfigConfiguration(services);
-            
+
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(JsonExceptionFilter));
@@ -82,7 +58,7 @@ namespace Studio404.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseAuthentication();
@@ -94,10 +70,10 @@ namespace Studio404.Web
         private void ConfigDb(IServiceCollection services)
         {
             #region Connection String
-            
+
             string databaseProvider = Configuration.GetValue<string>("databaseProvider");
             string connectionString = Configuration.GetConnectionString("appDb");
-            
+
             switch (databaseProvider)
             {
                 case "SqlServer":
@@ -111,11 +87,11 @@ namespace Studio404.Web
                 default:
                     throw new ArgumentException("Argument value must be 'SqlServer' or 'Postgre'", nameof(databaseProvider));
             }
-            
+
             #endregion
-            
+
             services.AddScoped<DbContext, ApplicationContext>();
-            
+
         }
 
         private void ConfigIdentity(IServiceCollection services)
@@ -136,15 +112,15 @@ namespace Studio404.Web
             services.AddScoped<SignInManager<UserEntity>>();
             services.AddScoped<UserManager<UserEntity>>();
         }
-        
+
         private void ConfigConfiguration(IServiceCollection services)
         {
             services.Configure<StudioSettings>(options =>
                 Configuration.GetSection("StudioSettings").Bind(options));
-            
+
             services.Configure<SmsServiceSettings>(options =>
                 Configuration.GetSection("SmsServiceSettings").Bind(options));
-            
+
             services.Configure<PayServiceSettings>(options =>
                 Configuration.GetSection("PayServiceSettings").Bind(options));
         }
@@ -155,6 +131,26 @@ namespace Studio404.Web
             {
                 cfg.AddProfile<MappingProfile>();
             });
+        }
+
+        private void ConfigAuth(IServiceCollection services)
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = false;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidIssuer = AuthOptions.ISSUER,
+                            ValidateAudience = true,
+                            ValidAudience = AuthOptions.AUDIENCE,
+                            ValidateLifetime = true,
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            ValidateIssuerSigningKey = true,
+                            ClockSkew = TimeSpan.Zero
+                        };
+                    });
         }
 
         private void ConfigDiServices(IServiceCollection services)

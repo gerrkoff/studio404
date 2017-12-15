@@ -43,12 +43,13 @@ namespace Studio404.Services.Implementation
             return claimsIdentity;
         }
     }
+
     public class AuthOptions
     {
-        public const string ISSUER = "MyAuthServer"; // издатель токена
-        public const string AUDIENCE = "http://localhost:51884/"; // потребитель токена
-        const string KEY = "mysupersecret_secretkey!123";   // ключ для шифрации
-        public const int LIFETIME = 1; // время жизни токена - 1 минута
+        public const string ISSUER = "404Studio";
+        public const string AUDIENCE = "404Studio";
+        const string KEY = "404Studio_Secret_Key";
+        public const int LIFETIME = 1;
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {
             return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));

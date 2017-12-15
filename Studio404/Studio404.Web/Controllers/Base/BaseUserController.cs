@@ -15,7 +15,7 @@ namespace Studio404.Web.Controllers.Base
             _userManager = userManager;
         }
 
-        protected CurrentUser GetCurrentUser()
+        protected CurrentUser GetUser()
         {
             var identity = (ClaimsIdentity) User.Identity;
             var user = new CurrentUser
@@ -25,16 +25,6 @@ namespace Studio404.Web.Controllers.Base
                 Phone = identity.FindFirst(ClaimTypes.MobilePhone)?.Value
             };
             return user;
-        }
-        
-        protected UserEntity GetUser()
-        {
-            return GetUserAsync().Result;
-        }
-
-        protected async Task<UserEntity> GetUserAsync()
-        {
-            return await _userManager.FindByNameAsync(User.Identity.Name);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Dal.Entity;
@@ -37,6 +38,7 @@ namespace Studio404.Web.Controllers
             return _bookingService.GetDayWorkload(date);
         }
 
+        [Authorize]
         [HttpPost]
         public void Make(MakeBookingInfoDto makeBookingInfo)
         {
@@ -46,6 +48,7 @@ namespace Studio404.Web.Controllers
             _logger.LogInformation($"Date: {makeBookingInfo.Date}; From: {makeBookingInfo.From}; To: {makeBookingInfo.To}");
         }
 
+        [Authorize]
         [HttpPost]
         public void Cancel(int id)
         {
@@ -54,6 +57,7 @@ namespace Studio404.Web.Controllers
             _logger.LogInformation($"Id: {id}");
         }
         
+        [Authorize]
         [HttpPost]
         public async Task<bool> ResendCode(int id)
         {
@@ -62,12 +66,13 @@ namespace Studio404.Web.Controllers
             return await _bookingService.ResendBookingCode(id, GetUser());
         }
         
+        [Authorize]
         [HttpPost]
-        public async Task<PrepareBookingPaymentDto> Prepare(int id)
+        public PrepareBookingPaymentDto Prepare(int id)
         {
             _logger.LogInformation($"Id: {id}");
             
-            return await _bookingService.PrepareBookingPayment(id, await GetUserAsync());
+            return _bookingService.PrepareBookingPayment(id, GetUser());
         }
     }
 }

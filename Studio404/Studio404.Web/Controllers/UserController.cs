@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Dal.Entity;
@@ -19,6 +20,7 @@ namespace Studio404.Web.Controllers
             _userService = userService;
         }
 
+        [Authorize]
         [HttpGet]
         public IEnumerable<BookingSimpleDto> Bookings()
         {

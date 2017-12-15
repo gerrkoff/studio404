@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Common.Enums;
@@ -39,35 +40,39 @@ namespace Studio404.Web.Controllers
             if (!User.Identity.IsAuthenticated)
                 return new CurrentUserDto {UserLoggedIn = false};
                 
-            UserEntity user = await GetUserAsync();
+            CurrentUser user = GetUser();
             return new CurrentUserDto
             {
-                UserLoggedIn = User.Identity.IsAuthenticated,
-                Username = user.UserName,
-                PhoneConfirmed = user.PhoneNumberConfirmed
+                UserLoggedIn = true,
+                Username = user.Username,
+                PhoneConfirmed = user.PhoneConfirmed
             };
+            // TODO: automapper
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<SendPhoneConfirmationResultEnum> SendPhoneConfirmation(PhoneInfoDto phoneInfo)
         {
             Validate();
-            return await _accountService.SendPhoneConfirmation(await GetUserAsync(), phoneInfo.Phone);
+            return await _accountService.SendPhoneConfirmation(GetUser(), phoneInfo.Phone);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ConfirmPhoneResultEnum> ConfirmPhone(ConfirmPhoneInfoDto confirmPhoneInfo)
         {
             Validate();
-            return await _accountService.ConfirmPhone(await GetUserAsync(), confirmPhoneInfo.Phone,
+            return await _accountService.ConfirmPhone(GetUser(), confirmPhoneInfo.Phone,
                 confirmPhoneInfo.Code);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ChangePassResultEnum> ChangePassword(ChangePassInfoDto changePassInfo)
         {
             Validate();
-            return await _accountService.ChangePassword(await GetUserAsync(), changePassInfo);
+            return await _accountService.ChangePassword(GetUser(), changePassInfo);
         }
     }
 }

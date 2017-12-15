@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper.QueryableExtensions;
 using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
+using Studio404.Dto.Account;
 using Studio404.Dto.Booking;
 using Studio404.Services.Interface;
 
@@ -17,10 +18,10 @@ namespace Studio404.Services.Implementation
             _bookingRepository = bookingRepository;
         }
 
-        public IEnumerable<BookingSimpleDto> GetUserBookings(UserEntity user)
+        public IEnumerable<BookingSimpleDto> GetUserBookings(CurrentUser user)
         {
             return _bookingRepository.GetAll()
-                .Where(x => x.UserId == user.Id)
+                .Where(x => x.UserId == user.UserId)
                 .OrderBy(x => x.Date)
                 .ThenBy(x => x.From)
                 .ProjectTo<BookingSimpleDto>()

@@ -68,12 +68,13 @@ namespace Studio404.Services.Implementation
             return result;
         }
 
-        public async Task<SendPhoneConfirmationResultEnum> SendPhoneConfirmation(UserEntity user, string phone)
+        public async Task<SendPhoneConfirmationResultEnum> SendPhoneConfirmation(CurrentUser user, string phone)
         {
-            if (user.PhoneNumberConfirmed && string.Equals(user.PhoneNumber, phone))
+            if (user.PhoneConfirmed && string.Equals(user.Phone, phone))
                 return SendPhoneConfirmationResultEnum.PhoneAlreadyConfirmed;
-            
-            string token = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phone);
+
+            UserEntity userEntity = await _userManager.FindByIdAsync(user.UserId);
+            string token = await _userManager.GenerateChangePhoneNumberTokenAsync(userEntity, phone);
             bool succeed = await _notificationService.SendPhoneConfirmationAsync(phone, token);
 
             return succeed
@@ -81,9 +82,10 @@ namespace Studio404.Services.Implementation
                 : SendPhoneConfirmationResultEnum.Unknown;
         }
 
-        public async Task<ConfirmPhoneResultEnum> ConfirmPhone(UserEntity user, string phone, string code)
+        public async Task<ConfirmPhoneResultEnum> ConfirmPhone(CurrentUser user, string phone, string code)
         {
-            IdentityResult result = await _userManager.ChangePhoneNumberAsync(user, phone, code);
+            UserEntity userEntity = await _userManager.FindByIdAsync(user.UserId);
+            IdentityResult result = await _userManager.ChangePhoneNumberAsync(userEntity, phone, code);
             
             if (result.Succeeded)
                 return ConfirmPhoneResultEnum.Success;
@@ -93,9 +95,11 @@ namespace Studio404.Services.Implementation
                 return ConfirmPhoneResultEnum.Unknown;
         }
 
-        public async Task<ChangePassResultEnum> ChangePassword(UserEntity user, ChangePassInfoDto changePassInfo)
+        public async Task<ChangePassResultEnum> ChangePassword(CurrentUser user, ChangePassInfoDto changePassInfo)
         {
-            IdentityResult result = await _userManager.ChangePasswordAsync(user, changePassInfo.CurrentPassword, changePassInfo.NewPassword);
+            UserEntity userEntity = await _userManager.FindByIdAsync(user.UserId);
+            IdentityResult result = await _userManager.ChangePasswordAsync(userEntity, changePassInfo.CurrentPassword,
+                changePassInfo.NewPassword);
 
             if (result.Succeeded)
                 return ChangePassResultEnum.Success;

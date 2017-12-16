@@ -29,8 +29,7 @@ namespace Studio404.Web.Controllers
         [HttpPost]
         public void Confirm(ConfirmBookingDto confirmBooking)
         {
-            string paramString;
-            if (!ValidateConfirmForm(HttpContext.Request.Form, out paramString))
+            if (!ValidateConfirmForm(HttpContext.Request.Form, out string paramString))
             {
                 _logger.LogWarning($"Payment Confirmation hash checking failed. Param string: {paramString}");
                 return;

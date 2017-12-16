@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Common.Enums;
-using Studio404.Dal.Entity;
 using Studio404.Dto.Account;
 using Studio404.Services.Interface;
 using Studio404.Web.Controllers.Base;
@@ -13,71 +13,57 @@ namespace Studio404.Web.Controllers
     public class AccountController : BaseUserController
     {
         private readonly IAccountService _accountService;
-        private readonly SignInManager<UserEntity> _signInManager;
 
-        public AccountController(IAccountService accountService, SignInManager<UserEntity> signInManager,
-            UserManager<UserEntity> userManager) : base(userManager)
+        public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
-            _signInManager = signInManager;
         }
 
         [HttpPost]
-        public async Task<RegisterResultEnum> Register(RegisterInfoDto registerInfo)
+        public async Task<RegisterResultDto> Register(RegisterInfoDto registerInfo)
         {
             Validate();
             return await _accountService.Register(registerInfo);
         }
 
         [HttpPost]
-        public async Task<LoginResultEnum> Login(LoginInfoDto loginInfo)
+        public async Task<LoginResultDto> Login(LoginInfoDto loginInfo)
         {
-            Validate();   
+            Validate();
             return await _accountService.Login(loginInfo);
         }
 
-        [HttpPost]
-        public async Task Logoff()
-        {
-            // TODO: remove method when jwt
-            await _signInManager.SignOutAsync();
-        }
-
         [HttpGet]
-        public async Task<CurrentUserDto> Current()
+        public CurrentUserDto Current()
         {
-            if (!User.Identity.IsAuthenticated)
-                return new CurrentUserDto {UserLoggedIn = false};
-                
-            UserEntity user = await GetUserAsync();
-            return new CurrentUserDto
-            {
-                UserLoggedIn = User.Identity.IsAuthenticated,
-                Username = user.UserName,
-                PhoneConfirmed = user.PhoneNumberConfirmed
-            };
+            return User.Identity.IsAuthenticated
+                ? Mapper.Map<CurrentUserDto>(GetUser())
+                : new CurrentUserDto();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<SendPhoneConfirmationResultEnum> SendPhoneConfirmation(PhoneInfoDto phoneInfo)
         {
             Validate();
-            return await _accountService.SendPhoneConfirmation(await GetUserAsync(), phoneInfo.Phone);
+            return await _accountService.SendPhoneConfirmation(GetUser(), phoneInfo.Phone);
         }
 
+        [Authorize]
         [HttpPost]
-        public async Task<ConfirmPhoneResultEnum> ConfirmPhone(ConfirmPhoneInfoDto confirmPhoneInfo)
+        public async Task<ConfirmPhoneResultDto> ConfirmPhone(ConfirmPhoneInfoDto confirmPhoneInfo)
         {
             Validate();
-            return await _accountService.ConfirmPhone(await GetUserAsync(), confirmPhoneInfo.Phone,
+            return await _accountService.ConfirmPhone(GetUser(), confirmPhoneInfo.Phone,
                 confirmPhoneInfo.Code);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ChangePassResultEnum> ChangePassword(ChangePassInfoDto changePassInfo)
         {
             Validate();
-            return await _accountService.ChangePassword(await GetUserAsync(), changePassInfo);
+            return await _accountService.ChangePassword(GetUser(), changePassInfo);
         }
     }
 }

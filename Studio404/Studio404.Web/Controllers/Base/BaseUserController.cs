@@ -1,27 +1,33 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Studio404.Dal.Entity;
-using System.Threading.Tasks;
+﻿using System;
+using System.Security.Claims;
+using Studio404.Dto.Account;
 
 namespace Studio404.Web.Controllers.Base
 {
     public class BaseUserController : BaseController
     {
-        private readonly UserManager<UserEntity> _userManager;
-        
-        public BaseUserController(UserManager<UserEntity> userManager)
+        protected CurrentUser GetUser()
         {
-            _userManager = userManager;
-        }
-        
-        protected UserEntity GetUser()
-        {
-            return GetUserAsync().Result;
-        }
+            var identity = (ClaimsIdentity) User.Identity;
+            var user = new CurrentUser
+            {
+                Username = identity.FindFirst(ClaimsIdentity.DefaultNameClaimType).Value,
+                UserId = identity.FindFirst(ClaimTypes.Sid).Value,
+                Phone = identity.FindFirst(ClaimTypes.MobilePhone)?.Value
+            };
 
-        protected async Task<UserEntity> GetUserAsync()
+            string expiration = identity.FindFirst("exp")?.Value;
+            if (!string.IsNullOrWhiteSpace(expiration))
+                user.Expires = UnixTimeStampToDateTime(double.Parse(expiration));
+            
+            return user;
+        }
+        
+        private DateTime UnixTimeStampToDateTime( double unixTimeStamp )
         {
-            return await _userManager.GetUserAsync(HttpContext.User);
+            var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
         }
     }
 }

@@ -2,6 +2,7 @@ import $ from "jQuery";
 import NProgress from "react-nprogress";
 import { show } from "../actions/MessageActions";
 import Labels from "./Labels";
+import Token from "./Token";
 
 NProgress.configure({ showSpinner: false });
 
@@ -11,6 +12,12 @@ $(document).ajaxStart(function() {
 
 $(document).ajaxStop(function() {
     NProgress.done();
+});
+
+$.ajaxSetup({
+    beforeSend: (xhr) => {
+        xhr.setRequestHeader("Authorization", "Bearer " + Token.Load());
+    }
 });
 
 const Http = {

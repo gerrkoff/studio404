@@ -8,6 +8,7 @@ using Studio404.Common.Exceptions;
 using Studio404.Common.Settings;
 using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
+using Studio404.Dto.Account;
 using Studio404.Dto.Booking;
 using Studio404.Dto.Pay;
 using Studio404.Services.Interface;
@@ -88,7 +89,7 @@ namespace Studio404.Services.Implementation
             return list;
         }
 
-        public void MakeBooking(MakeBookingInfoDto makeBookingInfo, UserEntity user)
+        public void MakeBooking(MakeBookingInfoDto makeBookingInfo, CurrentUser user)
         {
             // ReSharper disable PossibleInvalidOperationException
             DateTime date = makeBookingInfo.Date.Value.Date;
@@ -96,6 +97,9 @@ namespace Studio404.Services.Implementation
             int to = makeBookingInfo.To.Value;
             // ReSharper restore PossibleInvalidOperationException
 
+            if (!user.PhoneConfirmed)
+                throw new ServiceException("User does not have such permissions");
+            
             if (_bookingRepository.GetAll().Any(x => x.Date == date &&
                                                      x.To >= from &&
                                                      x.From <= to &&
@@ -110,40 +114,40 @@ namespace Studio404.Services.Implementation
                 Status = BookingStatusEnum.Unpaid,
                 Guid = Guid.NewGuid(),
                 Cost = _costEvaluationService.EvaluateBookingCost(date, from, to),
-                UserId = user.Id
+                UserId = user.UserId
             });
         }
 
-        public void CancelBooking(int id, UserEntity user)
+        public void CancelBooking(int id, CurrentUser user)
         {
             BookingEntity booking = _bookingRepository.GetById(id);
 
-            ValidateBookingForAction(booking, user.Id, x => x.Status != BookingStatusEnum.Paid && x.Status != BookingStatusEnum.Canceled);
+            ValidateBookingForAction(booking, user.UserId, x => x.Status != BookingStatusEnum.Paid && x.Status != BookingStatusEnum.Canceled);
 
             booking.Status = BookingStatusEnum.Canceled;
             _bookingRepository.Save(booking);
         }
 
-        public async Task<bool> ResendBookingCode(int id, UserEntity user)
+        public async Task<bool> ResendBookingCode(int id, CurrentUser user)
         {
             BookingEntity booking = _bookingRepository.GetById(id);
 
-            ValidateBookingForAction(booking, user.Id, x => x.Status == BookingStatusEnum.Paid);
+            ValidateBookingForAction(booking, user.UserId, x => x.Status == BookingStatusEnum.Paid);
 
             return await _notificationService.SendBookingCodeAsync(booking);
         }
 
-        public Task<PrepareBookingPaymentDto> PrepareBookingPayment(int id, UserEntity user)
+        public PrepareBookingPaymentDto PrepareBookingPayment(int id, CurrentUser user)
         {
             BookingEntity booking = _bookingRepository.GetById(id);
 
-            ValidateBookingForAction(booking, user.Id, x => x.Status == BookingStatusEnum.Unpaid);
+            ValidateBookingForAction(booking, user.UserId, x => x.Status == BookingStatusEnum.Unpaid);
 
-            return Task.FromResult(_payService.PrepareBookingPaymnent(booking));
+            return _payService.PrepareBookingPaymnent(booking);
         }
 
         private void ValidateBookingForAction(BookingEntity booking, string userId, Func<BookingEntity, bool> bookingCheck)
-        {
+        {            
             if (booking == null)
                 throw new ServiceException("Booking does not exist");
 

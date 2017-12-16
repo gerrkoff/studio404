@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Dal.Entity;
@@ -14,11 +14,12 @@ namespace Studio404.Web.Controllers
     {
         private readonly IUserService _userService;
         
-        public UserController(UserManager<UserEntity> userManager, IUserService userService) : base(userManager)
+        public UserController(UserManager<UserEntity> userManager, IUserService userService)
         {
             _userService = userService;
         }
 
+        [Authorize]
         [HttpGet]
         public IEnumerable<BookingSimpleDto> Bookings()
         {

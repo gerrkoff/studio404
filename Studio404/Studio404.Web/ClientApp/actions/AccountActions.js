@@ -1,6 +1,7 @@
 import { Http, errorHandler } from "../modules/Http";
 import { show } from "./MessageActions";
 import Labels from "../modules/Labels";
+import Token from "../modules/Token";
 
 const Account = {
     userLoaded: (currentUser) => {
@@ -34,11 +35,8 @@ export const loadCurrentUser = (showWelcomeMessage) => {
 export const logoff = () => {
     return (dispatch) => {
 
-        Http.Post("api/account/logoff")
-            .fail((data) => dispatch(errorHandler(data)))
-            .done(() => {
-                dispatch(Account.logoff());
-                dispatch(show(Labels.logout));
-            });
+        Token.Clear();
+        dispatch(Account.logoff());
+        dispatch(show(Labels.logout));
     };
 }

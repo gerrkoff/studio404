@@ -19,7 +19,7 @@ namespace Studio404.Web.Filters
 
             context.Result = new ObjectResult(new
             {
-                Message = "Something went wrong..."
+                Message = "Something went wrong...!"
             }) {StatusCode = 500};
             
             

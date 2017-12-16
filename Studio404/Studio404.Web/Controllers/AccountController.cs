@@ -36,11 +36,9 @@ namespace Studio404.Web.Controllers
         [HttpGet]
         public CurrentUserDto Current()
         {
-            if (!User.Identity.IsAuthenticated)
-                return new CurrentUserDto();
-
-            CurrentUserDto user = Mapper.Map<CurrentUserDto>(GetUser());
-            return user;
+            return User.Identity.IsAuthenticated
+                ? Mapper.Map<CurrentUserDto>(GetUser())
+                : new CurrentUserDto();
         }
 
         [Authorize]

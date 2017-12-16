@@ -97,6 +97,9 @@ namespace Studio404.Services.Implementation
             int to = makeBookingInfo.To.Value;
             // ReSharper restore PossibleInvalidOperationException
 
+            if (!user.PhoneConfirmed)
+                throw new ServiceException("User does not have such permissions");
+            
             if (_bookingRepository.GetAll().Any(x => x.Date == date &&
                                                      x.To >= from &&
                                                      x.From <= to &&
@@ -144,9 +147,7 @@ namespace Studio404.Services.Implementation
         }
 
         private void ValidateBookingForAction(BookingEntity booking, string userId, Func<BookingEntity, bool> bookingCheck)
-        {
-            // TODO: IMPLEMENT PHONE CHECKING
-            
+        {            
             if (booking == null)
                 throw new ServiceException("Booking does not exist");
 

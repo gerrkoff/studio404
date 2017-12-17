@@ -4,7 +4,8 @@
   "scripts": {
     "watch": "webpack --watch -d",
     "build": "webpack -d",
-    "start": "webpack-dev-server --open --content-base wwwroot/"
+    "start": "webpack-dev-server --open --content-base wwwroot/",
+    "publish": "webpack"
   },
   "author": "",
   "license": "ISC",

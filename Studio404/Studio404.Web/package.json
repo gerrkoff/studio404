@@ -1,6 +1,6 @@
 {
   "name": "studio.404",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
     "watch": "webpack --watch -d --config webpack.dev.js",
     "build_d": "webpack -d --config webpack.dev.js",

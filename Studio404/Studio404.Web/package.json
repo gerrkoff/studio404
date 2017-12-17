@@ -2,10 +2,10 @@
   "name": "studio.404",
   "version": "0.0.1",
   "scripts": {
-    "watch": "webpack --watch -d",
-    "build": "webpack -d",
-    "start": "webpack-dev-server --open --content-base wwwroot/",
-    "publish": "webpack"
+    "watch": "webpack --watch -d --config webpack.config.dev.js",
+    "build": "webpack -d --config webpack.config.dev.js",
+    "start": "webpack-dev-server --open --content-base wwwroot/ --config webpack.config.dev.js",
+    "publish": "webpack --config webpack.config.prod.js"
   },
   "author": "",
   "license": "ISC",
@@ -28,7 +28,9 @@
     "css-loader": "^0.28.7",
     "react-router-dom": "^4.2.2",
     "style-loader": "^0.19.0",
+    "uglifyjs-webpack-plugin": "^1.1.4",
     "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.1"
   }
 }

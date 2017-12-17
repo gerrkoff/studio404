@@ -10,13 +10,6 @@ module.exports = {
     resolve:{
         extensions: ['.js', '.jsx']
     },
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin(),
-        new webpack.DefinePlugin({
-            VERSION: JSON.stringify("0.0.5.0"),
-            MOCKSERVER: true
-        })
-    ],
     module:{
         rules:[
             {

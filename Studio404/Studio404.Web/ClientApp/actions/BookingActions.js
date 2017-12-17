@@ -1,85 +1,86 @@
-import { Http, errorHandler } from "../modules/Http";
-import { show } from "./MessageActions";
-import DateService from "../modules/DateService";
-import Labels from "../modules/Labels";
+import { Http, errorHandler } from '../modules/Http'
+import { show } from './MessageActions'
+import DateService from '../modules/DateService'
+import Labels from '../modules/Labels'
 
 const Booking = {
     changeWeekStartDate: (date) => {
         return {
-            type: "CHANGE_WEEK_START_DATE",
+            type: 'CHANGE_WEEK_START_DATE',
             date
         }
     },
 
     weekWorkloadLoading: () => {
         return {
-            type: "WEEK_WORKLOAD_LOADING"
+            type: 'WEEK_WORKLOAD_LOADING'
         }
     },
 
     weekWorkloadLoadedSuccess: (weekWorkload) => {
         return {
-            type: "WEEK_WORKLOAD_LOADED_SUCCESS",
+            type: 'WEEK_WORKLOAD_LOADED_SUCCESS',
             weekWorkload
         }
     },
 
     weekWorkloadLoadedError: () => {
         return {
-            type: "WEEK_WORKLOAD_LOADED_ERROR"
+            type: 'WEEK_WORKLOAD_LOADED_ERROR'
         }
     },
 
     chooseDay: (date) => {
         return {
-            type: "CHOOSE_DATE",
+            type: 'CHOOSE_DATE',
             date
         }
     },
 
     dayHoursLoading: () => {
         return {
-            type: "DAY_HOURS_LOADING"
+            type: 'DAY_HOURS_LOADING'
         }
     },
 
     dayHoursLoadedSuccess: (dayHours) => {
         return {
-            type: "DAY_HOURS_LOADED_SUCCESS",
+            type: 'DAY_HOURS_LOADED_SUCCESS',
             dayHours
         }
     },
 
     dayHoursLoadedError: () => {
         return {
-            type: "DAY_HOURS_LOADED_ERROR"
+            type: 'DAY_HOURS_LOADED_ERROR'
         }
     },
 
     updateHours: (hours) => {
         return {
-            type: "UPDATE_HOURS",
+            type: 'UPDATE_HOURS',
             hours
         }
     },
 
     bookingSaved: () => {
         return {
-            type: "BOOKING_SAVED"
+            type: 'BOOKING_SAVED'
         }
     }
 }
 
 export const loadWeekWorkload = (date) => {
     return (dispatch) => {
-
-        dispatch(Booking.weekWorkloadLoading());
-        Http.Get("api/booking/workload", {weekStartDate: date.toISOString()})
+        dispatch(Booking.weekWorkloadLoading())
+        Http.Get('api/booking/workload', {weekStartDate: date.toISOString()})
             .fail((data) => {
-                dispatch(Booking.weekWorkloadLoadedError());
-                dispatch(errorHandler(data));
+                dispatch(Booking.weekWorkloadLoadedError())
+                dispatch(errorHandler(data))
             })
-            .done(data => data.forEach(x => x.date = new Date(x.date)))
+            .done(data => data.forEach(x => {
+                x.date = new Date(x.date)
+            }))
             .done(data => {
                 data = data.map(x => {
                     return {
@@ -87,19 +88,18 @@ export const loadWeekWorkload = (date) => {
                         title: DateService.getDayOfWeekLabel(x.date),
                         labels: DateService.convertHoursToLabels(x.freeHours)
                     }
-                });
-                dispatch(Booking.weekWorkloadLoadedSuccess(data));
-            });
-    };
+                })
+                dispatch(Booking.weekWorkloadLoadedSuccess(data))
+            })
+    }
 }
 
 export const loadDayHours = (date) => {
     return (dispatch) => {
-
-        dispatch(Booking.dayHoursLoading());
-        Http.Get("api/booking/hours", {date: date.toISOString()})
+        dispatch(Booking.dayHoursLoading())
+        Http.Get('api/booking/hours', {date: date.toISOString()})
             .fail((data) => {
-                dispatch(Booking.dayHoursLoadedError());
+                dispatch(Booking.dayHoursLoadedError())
                 dispatch(errorHandler(data))
             })
             .done(data => {
@@ -108,46 +108,43 @@ export const loadDayHours = (date) => {
                         value: x.hour,
                         title: DateService.convertHourToLabel(x.hour),
                         disabled: !x.available
-                    };
-                });
-                dispatch(Booking.dayHoursLoadedSuccess(dayHours));
-            });
-    };
+                    }
+                })
+                dispatch(Booking.dayHoursLoadedSuccess(dayHours))
+            })
+    }
 }
 
 export const saveBooking = (date, hours, weekStartDate) => {
     return (dispatch) => {
-        
-        hours.sortNumbers();
-        Http.Post("/api/booking/make", {
-                    date: date.toISOString(),
-                    from: hours[0],
-                    to: hours[hours.length-1]
-                })
+        hours.sortNumbers()
+        Http.Post('/api/booking/make', {
+            date: date.toISOString(),
+            from: hours[0],
+            to: hours[hours.length - 1]
+        })
             .fail((data) => dispatch(errorHandler(data)))
             .done(() => {
-                dispatch(Booking.bookingSaved());
-                dispatch(show(Labels.bookingSaved));
-                dispatch(loadWeekWorkload(weekStartDate));
-            });
-    };
+                dispatch(Booking.bookingSaved())
+                dispatch(show(Labels.bookingSaved))
+                dispatch(loadWeekWorkload(weekStartDate))
+            })
+    }
 }
 
 export const changeWeekStartDate = (date) => {
     return (dispatch) => {
-        
-        dispatch(Booking.changeWeekStartDate(date));
-        dispatch(loadWeekWorkload(date));
+        dispatch(Booking.changeWeekStartDate(date))
+        dispatch(loadWeekWorkload(date))
     }
 }
 
 export const chooseDay = (date) => {
     return (dispatch) => {
-        
-        dispatch(Booking.chooseDay(date));
-        dispatch(loadDayHours(date));
-        dispatch(updateHours([]));
+        dispatch(Booking.chooseDay(date))
+        dispatch(loadDayHours(date))
+        dispatch(updateHours([]))
     }
 }
 
-export const updateHours = (hours) => Booking.updateHours(hours);
+export const updateHours = (hours) => Booking.updateHours(hours)

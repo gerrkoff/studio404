@@ -1,22 +1,22 @@
-import Labels from "../modules/Labels";
+import Labels from '../modules/Labels'
 
 const Message = {
     show: (text) => {
         return {
-            type: "MESSAGE_SHOW",
+            type: 'MESSAGE_SHOW',
             text
         }
     },
 
     hide: () => {
         return {
-            type: "MESSAGE_HIDE"
+            type: 'MESSAGE_HIDE'
         }
-    },
+    }
 }
 
-export const show = (text) => Message.show(text);
+export const show = (text) => Message.show(text)
 
-export const showDefaultError = () => Message.show(Labels.defaultError);
+export const showDefaultError = () => Message.show(Labels.defaultError)
 
-export const hide = () => Message.hide();
+export const hide = () => Message.hide()

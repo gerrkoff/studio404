@@ -6,27 +6,27 @@ const initialState = {
 
 const userBookings = (state = initialState, action) => {
     switch (action.type) {
-        case "USER_BOOKINGS_LOADING":
+        case 'USER_BOOKINGS_LOADING':
             return {...state,
                 isLoading: true,
                 error: false
-            };
+            }
 
-        case "USER_BOOKINGS_LOADED_SUCCESS":
+        case 'USER_BOOKINGS_LOADED_SUCCESS':
             return {...state,
                 isLoading: false,
                 bookings: action.bookings
-            };
+            }
 
-        case "USER_BOOKINGS_LOADED_ERROR":
+        case 'USER_BOOKINGS_LOADED_ERROR':
             return {...state,
                 isLoading: false,
                 error: true
-            };
+            }
 
         default:
-            return state;
+            return state
     }
 }
-  
+
 export default userBookings

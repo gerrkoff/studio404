@@ -1,6 +1,5 @@
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {fade} from 'material-ui/utils/colorManipulator';
-import spacing from 'material-ui/styles/spacing';
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import {fade} from 'material-ui/utils/colorManipulator'
 import {
     yellow600,
     yellow800,
@@ -12,10 +11,10 @@ import {
     grey300,
     darkBlack,
     fullBlack
-} from 'material-ui/styles/colors';
+} from 'material-ui/styles/colors'
 
 export const muiTheme = getMuiTheme({
-    
+
     palette: {
         primary1Color: yellow600,
         primary2Color: yellow800,
@@ -32,4 +31,4 @@ export const muiTheme = getMuiTheme({
         clockCircleColor: fade(darkBlack, 0.07),
         shadowColor: fullBlack
     }
-});
+})

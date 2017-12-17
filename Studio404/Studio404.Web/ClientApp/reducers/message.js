@@ -1,25 +1,25 @@
 const initialState = {
     open: false,
-    text: ""
+    text: ''
 }
 
 const message = (state = initialState, action) => {
     switch (action.type) {
-        case "MESSAGE_SHOW":
+        case 'MESSAGE_SHOW':
             return {...state,
                 open: true,
                 text: action.text
-            };
+            }
 
-        case "MESSAGE_HIDE":
+        case 'MESSAGE_HIDE':
             return {...state,
                 open: false,
-                text: ""
-            };
+                text: ''
+            }
 
         default:
-            return state;
+            return state
     }
 }
-  
+
 export default message

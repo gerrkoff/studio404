@@ -78,3 +78,5 @@ Studio404/Studio404.Automapper/bin
 Studio404/Studio404.Services.Tests/obj/
 Studio404/Studio404.Services.Tests/bin/
 *.userprefs
+app.js.map
+Publish

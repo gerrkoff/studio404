@@ -2,6 +2,7 @@ version: "3"
 services:
     web:
         build: .
+        image: studio404
         ports:
             - "5000:80"
         depends_on:

@@ -1,6 +1,6 @@
 FROM microsoft/aspnetcore:2.0
 
-COPY /Publish /app
+COPY /src /app
 WORKDIR /app
 
 ENTRYPOINT ["dotnet", "Studio404.Web.dll"]

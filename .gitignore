@@ -80,3 +80,4 @@ Studio404/Studio404.Services.Tests/bin/
 *.userprefs
 app.js.map
 Publish
+Deploy/src/

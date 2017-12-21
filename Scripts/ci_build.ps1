@@ -1,3 +1,6 @@
+cd ../Deploy
+Remove-Item src -recurse
+
 cd ../Studio404/Studio404.Web/
 npm install
 npm run build_p

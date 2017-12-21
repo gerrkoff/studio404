@@ -1,7 +1,6 @@
-cd ../Deploy
-Remove-Item src -recurse
+Remove-Item Deploy/src -recurse
 
-cd ../Studio404/Studio404.Web/
+cd Studio404/Studio404.Web/
 npm install
 npm run build_p
 dotnet publish -c Release -o ../../Deploy/src

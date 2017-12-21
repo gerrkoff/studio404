@@ -15,6 +15,7 @@
     "material-ui": "^0.19.4",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
+    "react-nprogress": "^0.1.6",
     "react-redux": "^5.0.6",
     "reactstrap": "^5.0.0-alpha.4",
     "redux": "^3.7.2"

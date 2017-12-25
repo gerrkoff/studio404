@@ -2,7 +2,7 @@ import { Http, errorHandler } from '../modules/Http'
 import { showDefaultError, show } from './MessageActions'
 import { loadCurrentUser } from './AccountActions'
 import Labels from '../modules/Labels'
-import Token from '../modules/Token'
+import { Token } from '../modules/Storage'
 
 const ConfirmPhonePopup = {
     open: () => {

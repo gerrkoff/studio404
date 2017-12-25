@@ -2,7 +2,7 @@ import $ from 'jQuery'
 import NProgress from 'react-nprogress'
 import { show } from '../actions/MessageActions'
 import Labels from './Labels'
-import Token from './Token'
+import { Token } from './Storage'
 
 NProgress.configure({ showSpinner: false })
 

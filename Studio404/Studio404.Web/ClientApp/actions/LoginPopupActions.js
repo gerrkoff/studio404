@@ -2,7 +2,7 @@ import { Http, errorHandler } from '../modules/Http'
 import { loadCurrentUser } from './AccountActions'
 import { showDefaultError, show } from './MessageActions'
 import Labels from '../modules/Labels'
-import Token from '../modules/Token'
+import { Token } from '../modules/Storage'
 
 const LoginPopup = {
     open: () => {

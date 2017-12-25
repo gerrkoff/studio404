@@ -4,7 +4,7 @@ import { Col } from 'reactstrap';
 import WeekWorkloadItem from "./WeekWorkloadItem";
 
 const style = {
-    height: 100,
+    minHeight: 100,
     width: 100,
     margin: 10,
     textAlign: 'center',

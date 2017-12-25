@@ -6,7 +6,7 @@ const Labels = {
     error: (code, text) => `Error: ${code} | ${text}`,
     hoursSelector_valueText: (title, count) => `from ${title}, ${count} hours`,
     phone_smsSent: (phone) => `Code was successfully sent on ${phone}`,
-    booking_choiceInfo: (from, to) => `Rehearsal ${DateService.convertHourToLabel(from)} - ${DateService.convertHourToLabel(to)}`,
+    booking_choiceInfo: (from, to) => `Rehearsal ${DateService.convertHourToLabel(from)} - ${DateService.convertHourToLabel(to + 1)}`,
 
     // messages
     logout: 'Logged out',

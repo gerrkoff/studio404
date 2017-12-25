@@ -22,15 +22,17 @@ namespace Studio404.Services.Implementation
         private readonly INotificationService _notificationService;
         private readonly ICostEvaluationService _costEvaluationService;
         private readonly IPayService _payService;
+        private readonly IDateService _dateService;
 
         public BookingService(IRepository<BookingEntity> bookingRepository, IOptions<StudioSettings> studioSettings,
             INotificationService notificationService, ICostEvaluationService costEvaluationService,
-            IPayService payService)
+            IPayService payService, IDateService dateService)
         {
             _bookingRepository = bookingRepository;
             _notificationService = notificationService;
             _costEvaluationService = costEvaluationService;
             _payService = payService;
+            _dateService = dateService;
             _studioSettings = studioSettings.Value;
         }
 
@@ -99,6 +101,9 @@ namespace Studio404.Services.Implementation
 
             if (!user.PhoneConfirmed)
                 throw new ServiceException("User does not have such permissions");
+            
+            if(date < _dateService.NowUtc.Date)
+                throw new ServiceException("Booking is invalid for this action");
             
             if (_bookingRepository.GetAll().Any(x => x.Date == date &&
                                                      x.To >= from &&

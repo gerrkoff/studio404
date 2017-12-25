@@ -23,7 +23,13 @@ class BookingDayChooser extends Component {
                     <Col md="12">
                         <div style={{textAlign: "center"}}>
                             <FaIconButton icon="arrow-left" size="sm" onClick={this.props.previousWeek} style={{padding: 10}} alt={true}/>
-                            <span style={{padding: 10}}>{this.props.weekLabel}</span>
+                            <span style={{
+                                padding: 10,
+                                display: "inline-block",
+                                width: "350px"
+                            }}>
+                                {this.props.weekLabel}
+                            </span>
                             <FaIconButton icon="arrow-right" size="sm" onClick={this.props.nextWeek} style={{padding: 10}} alt={true}/>
                         </div>
                     </Col>

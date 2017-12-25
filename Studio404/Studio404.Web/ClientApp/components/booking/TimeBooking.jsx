@@ -8,6 +8,7 @@ import Loader from "../../components/common/Loader";
 import ErrorLabel from "../common/ErrorLabel";
 import Labels from "../../modules/Labels";
 import ConfirmPhonePopupContainer from "../../containers/ConfirmPhonePopupContainer";
+import LoginPopupContainer from "../../containers/LoginPopupContainer";
 
 class TimeBooking extends Component {
     constructor(props) {
@@ -58,7 +59,12 @@ class TimeBooking extends Component {
 
     renderInfo() {
         if (!this.props.userLoggedIn)
-            return <p>{Labels.booking_userNotLoggedIn}</p>;
+            return (
+                <div>
+                    <p>{Labels.booking_userNotLoggedIn}</p>
+                    <LoginPopupContainer />
+                </div>
+            );
 
         if (!this.props.phoneConfirmed)
             return (

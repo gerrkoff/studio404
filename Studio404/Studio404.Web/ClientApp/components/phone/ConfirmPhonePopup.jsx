@@ -46,7 +46,7 @@ class ConfirmPhonePopup extends Component {
                             this.props.codeIsValid,
                             this.props.code,
                             this.props.updateCode,
-                            Labels.phone_confirm,
+                            Labels.phone_confirm_code,
                             () => this.props.confirmPhone(this.props.phoneReal, this.props.code),
                             this.props.confirmPhoneIsSending,
                             this.props.confirmPhoneSendError,

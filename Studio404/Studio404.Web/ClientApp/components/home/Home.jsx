@@ -17,7 +17,7 @@ class Home extends Component {
                         <Paper style={{marginTop: 8, height: 300}} zDepth={2}>
                             <Row>
                                 <Col md="12">
-                                    <h4 style={{padding: 10}}>Welcome to 404 studio!</h4>
+                                    <h4 style={{padding: 20, textAlign: "center"}}>Welcome to 404 studio!</h4>
                                 </Col>
                             </Row>
                         </Paper>

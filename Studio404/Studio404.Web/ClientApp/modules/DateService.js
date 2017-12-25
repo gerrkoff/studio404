@@ -57,6 +57,10 @@ const DateService = {
         labels.push(this.convertHourIntervalToLabel(start, hours[hours.length - 1]))
 
         return labels
+    },
+
+    dateLessToday (date) {
+        return true
     }
 }
 

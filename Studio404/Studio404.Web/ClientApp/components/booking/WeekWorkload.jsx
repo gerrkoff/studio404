@@ -2,22 +2,45 @@ import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import { Col } from 'reactstrap';
 import WeekWorkloadItem from "./WeekWorkloadItem";
+import DateService from '../../modules/DateService';
 
-const style = {
-    minHeight: 100,
-    width: 100,
-    margin: 10,
-    textAlign: 'center',
-    display: 'inline-block',
-    cursor: 'pointer'
+const styles = {
+    common: {
+        minHeight: 100,
+        width: 100,
+        margin: 10,
+        textAlign: 'center',
+        display: 'inline-block'
+    }
 };
+
+styles.enable = {
+    ...styles.common,
+    cursor: 'pointer'
+}
+
+styles.disable = {
+    ...styles.common,
+    color: 'gray'
+}
 
 class WeekWorkload extends Component {
     render() {
         return (
             <div>
                 {this.props.workload.map((item =>
-                    <Paper style={style} zDepth={2} onClick={() => this.props.chooseDay(item.date)} key={item.date}>
+                    <Paper
+                        style={DateService.dateLessToday(item.date)
+                            ? styles.disable
+                            : styles.enable   
+                        }
+                        zDepth={2}
+                        onClick={() => {
+                            if (!DateService.dateLessToday(item.date)) 
+                                this.props.chooseDay(item.date)
+                        }}
+                        key={item.date}>
+                        
                         <WeekWorkloadItem data={item} />
                     </Paper>
                 ))}

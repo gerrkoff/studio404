@@ -81,7 +81,8 @@ const Labels = {
     changePass_newPass: 'New password',
     changePass_newPassEnter: 'Enter new password',
     changePass_newPassConfirm: 'New password confirmation',
-    changePass_newPassConfirmEnter: 'Confirm new password'
+    changePass_newPassConfirmEnter: 'Confirm new password',
+    booking_help: 'Some booking help!'
 }
 
 export default Labels

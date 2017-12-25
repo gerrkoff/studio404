@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
+import Paper from 'material-ui/Paper';
 import FaIconButton from "../common/FaIconButton";
 import WeekWorkload from "./WeekWorkload";
 import LoaderContent from "../common/LoaderContent";
 import ErrorLabel from "../common/ErrorLabel";
-import Labels from "../../modules/Labels";
+import BookingHelp from "./BookingHelp";
 
 class BookingDayChooser extends Component {
     render() {
         return (
             <div>
+                <Row>
+                    <Col md="12">
+                        <BookingHelp />
+                    </Col>
+                </Row>
+                <br/>
                 <Row>
                     <Col md="12">
                         <div style={{textAlign: "center"}}>

@@ -164,7 +164,7 @@ namespace Studio404.Web
             services.AddScoped<ICostEvaluationService, CostEvaluationService>();
             services.AddScoped<ITokenService, TokenService>();
             
-            SmsServiceSettings smsSettings = Configuration.GetSection("Auth").Get<SmsServiceSettings>();
+            SmsServiceSettings smsSettings = Configuration.GetSection("SmsServiceSettings").Get<SmsServiceSettings>();
             if (smsSettings.Mock)
                 services.AddScoped<ISmsService, SmsServiceMock>();
             else

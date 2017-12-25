@@ -5,12 +5,13 @@ import { openConfirmPhonePopup, closeConfirmPhonePopup, sendPhoneConfirmation, c
 
 const mapStateToProps = (state) => {
     return {
-        ...state.phoneConfirmPopup
+        ...state.phoneConfirmPopup,
+        phoneConfirmed: state.account.phoneConfirmed
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {        
+    return {
         openPopup: () => dispatch(openConfirmPhonePopup()),
         closePopup: () => dispatch(closeConfirmPhonePopup()),
         updatePhone: (phone) => dispatch(updatePhone(phone)),

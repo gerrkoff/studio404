@@ -7,6 +7,7 @@ import HourSelector from "../../components/booking/HourSelector";
 import Loader from "../../components/common/Loader";
 import ErrorLabel from "../common/ErrorLabel";
 import Labels from "../../modules/Labels";
+import ConfirmPhonePopupContainer from "../../containers/ConfirmPhonePopupContainer";
 
 class TimeBooking extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class TimeBooking extends Component {
                 <Row>
                     <Col md="6">
                         <div style={styles.formElement}>
-                            <h5>{DateService.toDateString(this.props.chosenDate)}</h5>
+                            <h5 style={{paddingLeft: "15px"}}>{DateService.toDateString(this.props.chosenDate)}</h5>
                         </div>
                         <div style={{padding: 20, paddingTop: 0, verticalAlign: "center", position: "relative"}}>
                             <div style={{display: "inline-block"}}>
@@ -56,18 +57,30 @@ class TimeBooking extends Component {
     }
 
     renderInfo() {
+        if (!this.props.userLoggedIn)
+            return <p>{Labels.booking_userNotLoggedIn}</p>;
+
+        if (!this.props.phoneConfirmed)
+            return (
+                <div>
+                    <p>{Labels.booking_phoneNotConfirmed}</p>
+                    <ConfirmPhonePopupContainer />
+                </div>
+            );
+
         if (this.props.bookingHours.length === 0)
-            return <p>Some default info!</p>;
-        if (this.props.bookingIsValid === true)
-            return <p>Some info about booking!</p>;
-        else
-            return <p>Hours are incorrect!</p>;
+            return <p>{Labels.booking_defaultInfo}</p>;
+
+        if (!this.props.bookingIsValid)
+            return <p>{Labels.booking_hoursInvalid}</p>;
+
+        return <p>{Labels.booking_choiceInfo(this.props.bookingHours[0], this.props.bookingHours[this.props.bookingHours.length-1])}</p>;
     }
 }
 
 const styles = {
     formElement: {
-        padding: 20
+        padding: 10
     }
 }
 

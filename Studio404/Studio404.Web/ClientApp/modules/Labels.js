@@ -1,9 +1,12 @@
+import DateService from './DateService'
+
 const Labels = {
 
     welcome: (user) => `Welcome, ${user}!`,
     error: (code, text) => `Error: ${code} | ${text}`,
     hoursSelector_valueText: (title, count) => `from ${title}, ${count} hours`,
     phone_smsSent: (phone) => `Code was successfully sent on ${phone}`,
+    booking_choiceInfo: (from, to) => `Rehearsal ${DateService.convertHourToLabel(from)} - ${DateService.convertHourToLabel(to)}`,
 
     // messages
     logout: 'Logged out',
@@ -51,6 +54,7 @@ const Labels = {
     loginPopup_register: 'Register',
     loginPopup_toogleRegister: 'Registration',
     phone_confirm: 'Confirm phone',
+    phone_change: 'Change phone',
     phone_title: 'Phone',
     phone_phoneEnter: 'Enter phone',
     phone_phone: 'Phone',
@@ -82,7 +86,11 @@ const Labels = {
     changePass_newPassEnter: 'Enter new password',
     changePass_newPassConfirm: 'New password confirmation',
     changePass_newPassConfirmEnter: 'Confirm new password',
-    booking_help: 'Some booking help!'
+    booking_help: 'Some booking help!',
+    booking_userNotLoggedIn: 'User not logged in',
+    booking_phoneNotConfirmed: 'Phone not confirmed',
+    booking_defaultInfo: 'Default info',
+    booking_hoursInvalid: 'Hours invalid'
 }
 
 export default Labels

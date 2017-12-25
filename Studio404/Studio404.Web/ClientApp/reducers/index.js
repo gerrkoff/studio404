@@ -7,6 +7,7 @@ import message from './message'
 import confirmDialog from './confirmDialog'
 import phoneConfirmPopup from './phoneConfirmPopup'
 import changePassPopup from './changePassPopup'
+import info from './info'
 
 const rootReducer = combineReducers({
     account,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     message,
     confirmDialog,
     phoneConfirmPopup,
-    changePassPopup
+    changePassPopup,
+    info
 })
 
 export default rootReducer

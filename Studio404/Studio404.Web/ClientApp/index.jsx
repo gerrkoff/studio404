@@ -11,7 +11,7 @@ import thunk from 'redux-thunk';
 
 import AppMaterial from "./components/root/AppMaterial";
 import NotFound from "./components/root/NotFound";
-import Home from "./components/home/Home";
+import Home from "./containers/HomeContainer";
 import Booking from "./containers/BookingContainer";
 import User from "./containers/UserContainer";
 import rootReducer from './reducers'

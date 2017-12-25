@@ -2,10 +2,10 @@ import DateService from './DateService'
 
 const Labels = {
 
-    welcome: (user) => `Welcome, ${user}!`,
-    error: (code, text) => `Error: ${code} | ${text}`,
+    welcome: (user) => `Добро пожаловать, ${user}!`,
+    error: (code, text) => `Ошибка: ${code} | ${text}`,
     hoursSelector_valueText: (title, count) => `с ${title}, ${count} час(а)`,
-    phone_smsSent: (phone) => `Code was successfully sent on ${phone}`,
+    phone_smsSent: (phone) => `Код успешно выслан на ${phone}`,
     booking_choiceInfo: (from, to) => `Выбрано время ${DateService.convertHourIntervalToLabel(from, to)}`,
 
     // messages
@@ -78,14 +78,14 @@ const Labels = {
     userBookings_resend: 'Resend booking code',
     userBookings_payBooking: 'Are you sure you want to pay booking?',
     userBookings_pay: 'Pay booking',
-    changePass_title: 'Change password',
-    changePass_button: 'Change password',
-    changePass_currentPass: 'Current password',
-    changePass_currentPassEnter: 'Enter current password',
-    changePass_newPass: 'New password',
-    changePass_newPassEnter: 'Enter new password',
-    changePass_newPassConfirm: 'New password confirmation',
-    changePass_newPassConfirmEnter: 'Confirm new password',
+    changePass_title: 'Новый пароль',
+    changePass_button: 'Изменить пароль',
+    changePass_currentPass: 'Текущий пароль',
+    changePass_currentPassEnter: 'Введите текущий пароль',
+    changePass_newPass: 'Новый пароль',
+    changePass_newPassEnter: 'Введите новый пароль',
+    changePass_newPassConfirm: 'Подтверждение нового пароля',
+    changePass_newPassConfirmEnter: 'Подтвердите новый пароль',
     booking_help: 'Всего три действия – бронируете время, оплачиваете репетицию, получаете код от базы.\n\nБронировать время просто: выбираете неделю, выбираете день, выбираете время.\nНеделю можно поменять тыкая в стрелочки.\nДень – кликнув на нужный день (для каждого указано свободное время).\nВремя – выбрав желаемые часы в выпадающем списке.\n\nЧтобы забронировать время вам нужно зарегистрироваться и указать свой телефон. Во-первых, мы хотим иметь возможность связаться с вами в экстренном случае, во-вторых – телефон нужен для получения кода, с помощью которого вы попадете на базу.\n\nИ не забудьте оплатить репетицию – только после этого вам придет смс с кодом.',
     booking_helpShow: 'Помощь',
     booking_userNotLoggedIn: 'Залогиньтесь, чтобы иметь возможность бронировать время',

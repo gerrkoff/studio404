@@ -60,11 +60,14 @@ const DateService = {
     },
 
     dateLessToday (date) {
-        return true
+        return date < today
     }
 }
 
-let weekday = new Array(7)
+const today = new Date()
+today.setHours(0, 0, 0, 0)
+
+const weekday = new Array(7)
 weekday[0] = 'Sunday'
 weekday[1] = 'Monday'
 weekday[2] = 'Tuesday'

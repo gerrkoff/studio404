@@ -1,5 +1,8 @@
 import DateService from '../modules/DateService'
 import Labels from '../modules/Labels'
+import { ShowBookingHelp } from '../modules/Storage'
+
+const showBookingHelp = ShowBookingHelp.Load()
 
 const initialState = {
     weekStartDate: DateService.getMonday(new Date()),
@@ -13,7 +16,7 @@ const initialState = {
     bookingHours: [],
     bookingHoursError: '',
     bookingIsValid: false,
-    showHelp: true
+    showHelp: showBookingHelp === null || showBookingHelp === 'true'
 }
 
 const booking = (state = initialState, action) => {

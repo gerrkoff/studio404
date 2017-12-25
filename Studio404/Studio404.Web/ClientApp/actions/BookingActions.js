@@ -2,6 +2,7 @@ import { Http, errorHandler } from '../modules/Http'
 import { show } from './MessageActions'
 import DateService from '../modules/DateService'
 import Labels from '../modules/Labels'
+import { ShowBookingHelp } from '../modules/Storage'
 
 const Booking = {
     changeWeekStartDate: (date) => {
@@ -156,4 +157,7 @@ export const chooseDay = (date) => {
 
 export const updateHours = (hours) => Booking.updateHours(hours)
 
-export const toggleHelp = (showHelp) => Booking.toggleHelp(showHelp)
+export const toggleHelp = (showHelp) => {
+    ShowBookingHelp.Save(showHelp)
+    return Booking.toggleHelp(showHelp)
+}

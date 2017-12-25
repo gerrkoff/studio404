@@ -21,7 +21,7 @@ class TimeBooking extends Component {
                 <Row>
                     <Col md="6">
                         <div style={styles.formElement}>
-                            <h5 style={{paddingLeft: "15px"}}>{DateService.toDateString(this.props.chosenDate)}</h5>
+                            <h5 style={{paddingLeft: "10px"}}>{DateService.toDateString(this.props.chosenDate)}</h5>
                         </div>
                         <div style={{padding: 20, paddingTop: 0, verticalAlign: "center", position: "relative"}}>
                             <div style={{display: "inline-block"}}>

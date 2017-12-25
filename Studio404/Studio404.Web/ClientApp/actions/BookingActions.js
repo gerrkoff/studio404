@@ -67,6 +67,13 @@ const Booking = {
         return {
             type: 'BOOKING_SAVED'
         }
+    },
+
+    toggleHelp: (showHelp) => {
+        return {
+            type: 'BOOKING_TOGGLE_HELP',
+            showHelp
+        }
     }
 }
 
@@ -148,3 +155,5 @@ export const chooseDay = (date) => {
 }
 
 export const updateHours = (hours) => Booking.updateHours(hours)
+
+export const toggleHelp = (showHelp) => Booking.toggleHelp(showHelp)

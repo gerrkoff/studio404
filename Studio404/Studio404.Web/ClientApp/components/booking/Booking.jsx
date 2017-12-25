@@ -50,6 +50,8 @@ class Booking extends Component {
                             weekWorkloadIsLoading={this.props.weekWorkloadIsLoading}
                             weekWorkloadError={this.props.weekWorkloadError}
                             chooseDay={this.props.chooseDay}
+                            showHelp={this.props.showHelp}
+                            toggleHelp={this.props.toggleHelp}
                         />
                     </Col>
                 </Row>

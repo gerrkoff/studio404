@@ -13,10 +13,12 @@ class BookingDayChooser extends Component {
             <div>
                 <Row>
                     <Col md="12">
-                        <BookingHelp />
+                        <BookingHelp 
+                            showHelp={this.props.showHelp}
+                            toggleHelp={this.props.toggleHelp} />
                     </Col>
                 </Row>
-                <br/>
+                {this.props.showHelp && <br/>}
                 <Row>
                     <Col md="12">
                         <div style={{textAlign: "center"}}>

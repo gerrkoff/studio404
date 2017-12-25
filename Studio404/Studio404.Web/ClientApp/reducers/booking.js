@@ -12,7 +12,8 @@ const initialState = {
     dayHoursError: false,
     bookingHours: [],
     bookingHoursError: '',
-    bookingIsValid: false
+    bookingIsValid: false,
+    showHelp: true
 }
 
 const booking = (state = initialState, action) => {
@@ -77,6 +78,11 @@ const booking = (state = initialState, action) => {
                 bookingHours: [],
                 bookingHoursError: '',
                 bookingIsValid: false
+            }
+
+        case 'BOOKING_TOGGLE_HELP':
+            return {...state,
+                showHelp: action.showHelp
             }
 
         default:

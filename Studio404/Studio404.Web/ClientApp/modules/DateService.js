@@ -1,7 +1,13 @@
 const DateService = {
 
-    getDayOfWeekLabel (date) {
-        return weekday[date.getDay()]
+    toWeekdayWithDate (date) {
+        var options = {
+            weekday: 'long',
+            month: '2-digit',
+            day: 'numeric'
+        }
+
+        return date.toLocaleString('ru', options)
     },
 
     getMonday (date) {
@@ -66,14 +72,5 @@ const DateService = {
 
 const today = new Date()
 today.setHours(0, 0, 0, 0)
-
-const weekday = new Array(7)
-weekday[0] = 'Sunday'
-weekday[1] = 'Monday'
-weekday[2] = 'Tuesday'
-weekday[3] = 'Wednesday'
-weekday[4] = 'Thursday'
-weekday[5] = 'Friday'
-weekday[6] = 'Saturday'
 
 export default DateService

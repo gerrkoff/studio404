@@ -3,7 +3,7 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 
 const styles = {
     component: {
-        fontSize: "9px"
+        fontSize: "11px"
     },
     item: {
         padding: "2px",

@@ -93,7 +93,7 @@ export const loadWeekWorkload = (date) => {
                 data = data.map(x => {
                     return {
                         date: x.date,
-                        title: DateService.getDayOfWeekLabel(x.date),
+                        title: DateService.toWeekdayWithDate(x.date),
                         labels: DateService.convertHoursToLabels(x.freeHours)
                     }
                 })

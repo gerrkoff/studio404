@@ -6,8 +6,8 @@ import DateService from '../../modules/DateService';
 
 const styles = {
     common: {
-        minHeight: 100,
-        width: 100,
+        minHeight: 125,
+        width: 125,
         margin: 10,
         textAlign: 'center',
         display: 'inline-block'

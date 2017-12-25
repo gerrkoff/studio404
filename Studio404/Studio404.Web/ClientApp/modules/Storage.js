@@ -1,13 +1,13 @@
 const tokenKey = 'accessToken'
 export const Token = {
-    Save: (token) => sessionStorage.setItem(tokenKey, token),
-    Load: () => sessionStorage.getItem(tokenKey),
-    Clear: () => sessionStorage.removeItem(tokenKey)
+    Save: (token) => localStorage.setItem(tokenKey, token),
+    Load: () => localStorage.getItem(tokenKey),
+    Clear: () => localStorage.removeItem(tokenKey)
 }
 
 const showBookingHelpKey = 'showBookingHelp'
 export const ShowBookingHelp = {
-    Save: (value) => sessionStorage.setItem(showBookingHelpKey, value),
-    Load: () => sessionStorage.getItem(showBookingHelpKey),
-    Clear: () => sessionStorage.removeItem(showBookingHelpKey)
+    Save: (value) => localStorage.setItem(showBookingHelpKey, value),
+    Load: () => localStorage.getItem(showBookingHelpKey),
+    Clear: () => localStorage.removeItem(showBookingHelpKey)
 }

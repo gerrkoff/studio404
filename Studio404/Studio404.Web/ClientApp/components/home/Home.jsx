@@ -42,7 +42,7 @@ class Home extends Component {
 const styles = {
     footer: {
         lineHeight: "25px",
-        padding: "5px",
+        padding: "5px 20px 5px 20px",
         fontSize: "12px"
     }
 }

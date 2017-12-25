@@ -4,9 +4,9 @@ const Labels = {
 
     welcome: (user) => `Welcome, ${user}!`,
     error: (code, text) => `Error: ${code} | ${text}`,
-    hoursSelector_valueText: (title, count) => `from ${title}, ${count} hours`,
+    hoursSelector_valueText: (title, count) => `с ${title}, ${count} час(а)`,
     phone_smsSent: (phone) => `Code was successfully sent on ${phone}`,
-    booking_choiceInfo: (from, to) => `Rehearsal ${DateService.convertHourToLabel(from)} - ${DateService.convertHourToLabel(to + 1)}`,
+    booking_choiceInfo: (from, to) => `Выбрано время ${DateService.convertHourIntervalToLabel(from, to)}`,
 
     // messages
     logout: 'Logged out',
@@ -23,7 +23,7 @@ const Labels = {
     redirectNotify: 'You will be redirected...',
 
     // validation
-    bookingHoursIncorrectInput: 'Incorrect input',
+    bookingHoursIncorrectInput: 'Некорретный ввод',
     fieldIsRequired: 'This field is required',
     loginWrongUser: 'Wrong username...',
     loginWrongPass: '...or password',
@@ -42,7 +42,7 @@ const Labels = {
     errorLoginNeed: 'Login to see this page',
 
     // labels
-    hoursSelector_label: 'Select hours',
+    hoursSelector_label: 'Выберите часы',
     cancel: 'Cancel',
     loginForm_user: 'Username',
     loginForm_userEnter: 'Enter username',
@@ -86,12 +86,13 @@ const Labels = {
     changePass_newPassEnter: 'Enter new password',
     changePass_newPassConfirm: 'New password confirmation',
     changePass_newPassConfirmEnter: 'Confirm new password',
-    booking_help: 'Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! Some booking help! ',
-    booking_helpShow: 'Show help',
-    booking_userNotLoggedIn: 'User not logged in',
-    booking_phoneNotConfirmed: 'Phone not confirmed',
-    booking_defaultInfo: 'Default info',
-    booking_hoursInvalid: 'Hours invalid'
+    booking_help: 'Всего три действия – бронируете время, оплачиваете репетицию, получаете код от базы.\n\nБронировать время просто: выбираете неделю, выбираете день, выбираете время.\nНеделю можно поменять тыкая в стрелочки.\nДень – кликнув на нужный день (для каждого указано свободное время).\nВремя – выбрав желаемые часы в выпадающем списке.\n\nЧтобы забронировать время вам нужно зарегистрироваться и указать свой телефон. Во-первых, мы хотим иметь возможность связаться с вами в экстренном случае, во-вторых – телефон нужен для получения кода, с помощью которого вы попадете на базу.\n\nИ не забудьте оплатить репетицию – только после этого вам придет смс с кодом.',
+    booking_helpShow: 'Помощь',
+    booking_userNotLoggedIn: 'Залогиньтесь, чтобы иметь возможность бронировать время',
+    booking_phoneNotConfirmed: 'Укажите телефон, чтобы иметь возможность бронировать время',
+    booking_defaultInfo: 'Выберите часы, в которые вы хотите репетировать',
+    booking_hoursInvalid: 'Часы выбраны некорректно – они должны идти подряд, без пропусков',
+    booking_book: 'Забронировать'
 }
 
 export default Labels

@@ -45,7 +45,7 @@ class TimeBooking extends Component {
                         </div>
                         <div style={{padding: 20, textAlign: "right"}}>
                             <RaisedButton
-                                label="Book"
+                                label={Labels.booking_book}
                                 primary={true}
                                 onClick={() => this.props.saveBooking(this.props.chosenDate, this.props.bookingHours)}
                                 disabled={!this.props.bookingIsValid || !this.props.userLoggedIn || !this.props.phoneConfirmed} />

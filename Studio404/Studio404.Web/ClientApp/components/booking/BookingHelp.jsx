@@ -14,7 +14,7 @@ class BookingHelp extends Component {
                         <Paper zDepth={2}>
                             <Row>
                                 <Col md="11">
-                                    <p style={{padding: "10px 0px 0px 20px"}}>
+                                    <p style={{padding: "10px 0px 0px 20px", whiteSpace: "pre-line"}}>
                                         {Labels.booking_help}
                                     </p>
                                 </Col>

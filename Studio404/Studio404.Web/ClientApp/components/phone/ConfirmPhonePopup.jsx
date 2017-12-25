@@ -27,7 +27,7 @@ class ConfirmPhonePopup extends Component {
 
         return (
             <div>
-                <RaisedButton label={this.props.phoneConfirmed ? Labels.phone_change : Labels.phone_confirm} primary={true} onClick={this.props.openPopup} />
+                <FlatButton label={this.props.phoneConfirmed ? Labels.phone_change : Labels.phone_confirm} secondary={true} onClick={this.props.openPopup} />
                 <Dialog
                     title={Labels.phone_title}
                     actions={actions}

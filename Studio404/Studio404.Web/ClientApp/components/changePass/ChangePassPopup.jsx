@@ -24,7 +24,7 @@ class ChangePassPopup extends Component {
 
         return (
             <div>
-                <RaisedButton label={Labels.changePass_button} primary={true} onClick={this.props.openChangePassPopup} />
+                <FlatButton label={Labels.changePass_button} secondary={true} onClick={this.props.openChangePassPopup} />
                 <Dialog
                     title={Labels.changePass_title}
                     actions={actions}

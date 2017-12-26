@@ -111,7 +111,7 @@ class ConfirmPhonePopup extends Component {
                 </Row>
                 <Row>
                     <Col md="12">
-                        {flagCodePart && <FlatButton label="Resend code" secondary={true} onClick={this.props.reenterPhone} />}
+                        {flagCodePart && <FlatButton label={Labels.phone_resendCode} secondary={true} onClick={this.props.reenterPhone} />}
                     </Col>
                 </Row>
             </div>

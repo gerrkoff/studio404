@@ -35,7 +35,7 @@ class LoginPopup extends Component {
             <div>
                 <FlatButton label={Labels.loginPopup_login} primary={true} onClick={this.props.openPopup} />
                 <Dialog
-                    title={this.props.registration === true ? Labels.loginPopup_register : Labels.loginPopup_login}
+                    title={this.props.registration === true ? Labels.loginPopup_register_title : Labels.loginPopup_login_title}
                     actions={actions}
                     modal={false}
                     open={this.props.open}

@@ -6,9 +6,9 @@ const EnumService = {
 }
 
 let bookingStatus = new Array(4)
-bookingStatus[0] = 'None'
-bookingStatus[1] = 'Unpaid'
-bookingStatus[2] = 'Paid'
-bookingStatus[3] = 'Canceled'
+bookingStatus[0] = 'Неизвестно'
+bookingStatus[1] = 'Неоплачено'
+bookingStatus[2] = 'Оплачено'
+bookingStatus[3] = 'Отменено'
 
 export default EnumService

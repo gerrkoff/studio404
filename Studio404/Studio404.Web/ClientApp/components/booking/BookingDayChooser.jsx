@@ -6,6 +6,7 @@ import WeekWorkload from "./WeekWorkload";
 import LoaderContent from "../common/LoaderContent";
 import ErrorLabel from "../common/ErrorLabel";
 import BookingHelp from "./BookingHelp";
+import Labels from "../../modules/Labels";
 
 class BookingDayChooser extends Component {
     render() {

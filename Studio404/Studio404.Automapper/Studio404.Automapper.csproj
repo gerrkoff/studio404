@@ -4,7 +4,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.2.1" />
-    <PackageReference Include="Microsoft.NETCore.App" Version="2.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Studio404.Dal\Studio404.Dal.csproj" />

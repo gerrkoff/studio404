@@ -11,3 +11,5 @@ dotnet ef database update
 
 
 //.Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+
+dotnet ../../Scripts/dotnet-setversion/dotnet-setversion.dll vs 1

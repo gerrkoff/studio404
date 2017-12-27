@@ -74,12 +74,12 @@ namespace Studio404.Web
                     services.AddDbContext<ApplicationContext>(options =>
                         options.UseSqlServer(connectionString));
                     break;
-                case "Postgre":
+                case "Postgres":
                     services.AddDbContext<ApplicationContext>(options =>
                         options.UseNpgsql(connectionString));
                     break;
                 default:
-                    throw new ArgumentException("Argument value must be 'SqlServer' or 'Postgre'", nameof(databaseProvider));
+                    throw new ArgumentException("Argument value must be 'SqlServer' or 'Postgres'", nameof(databaseProvider));
             }
 
             #endregion

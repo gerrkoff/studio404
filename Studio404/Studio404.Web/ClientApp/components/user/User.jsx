@@ -53,7 +53,7 @@ class User extends Component {
                     </List>
                 </Col>
                 <Col md="9">
-                    <Paper style={{ marginTop: 8 }} zDepth={2}>
+                    <Paper style={{ marginTop: 8 }} zDepth={1}>
                         {this.renderMenuItem()}
                     </Paper>
                 </Col>

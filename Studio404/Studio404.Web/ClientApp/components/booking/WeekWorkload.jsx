@@ -34,7 +34,7 @@ class WeekWorkload extends Component {
                             ? styles.disable
                             : styles.enable   
                         }
-                        zDepth={2}
+                        zDepth={1}
                         onClick={() => {
                             if (!DateService.dateLessToday(item.date)) 
                                 this.props.chooseDay(item.date)

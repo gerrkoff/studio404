@@ -11,7 +11,7 @@ class BookingHelp extends Component {
             <div>
                 {this.props.showHelp
                     ? (
-                        <Paper zDepth={2}>
+                        <Paper zDepth={1}>
                             <Row>
                                 <Col md="11">
                                     <p style={{padding: "10px 0px 0px 20px", whiteSpace: "pre-line"}}>

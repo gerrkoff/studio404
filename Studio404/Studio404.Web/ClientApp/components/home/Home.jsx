@@ -14,7 +14,7 @@ class Home extends Component {
             <div>
                 <Row>
                     <Col md="12">
-                        <Paper style={{marginTop: 8, height: 300}} zDepth={2}>
+                        <Paper style={{marginTop: 8, height: 300}} zDepth={1}>
                             <Row>
                                 <Col md="12">
                                     <h4 style={{padding: 20, textAlign: "center"}}>Welcome to 404 studio!</h4>
@@ -26,7 +26,7 @@ class Home extends Component {
                 <br/>
                 <Row>
                     <Col md="12">
-                        <Paper zDepth={2} style={styles.footer}>
+                        <Paper zDepth={1} style={styles.footer}>
                             {this.props.info.infoLoaded
                                 ? <span>version: {this.props.info.version}</span>
                                 : <span>...</span>

@@ -68,7 +68,7 @@ class Booking extends Component {
         return (
             <div style={{ textAlign: "center" }}>
                 <div style={{ display: "inline-block" }}>
-                    <Paper style={{ marginTop: 10 }} zDepth={2}>
+                    <Paper style={{ marginTop: 10 }} zDepth={1}>
                         <TimeBooking
                             chosenDate={this.props.chosenDate}
                             dayHoursIsLoading={this.props.dayHoursIsLoading}

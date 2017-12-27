@@ -6,5 +6,6 @@ namespace Studio404.Services.Interface
     {
         DateTime Now { get; }
         DateTime NowUtc { get; }
+        string ToShortDate(DateTime date);
     }
 }

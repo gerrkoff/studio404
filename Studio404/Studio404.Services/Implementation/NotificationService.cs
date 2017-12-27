@@ -12,17 +12,19 @@ namespace Studio404.Services.Implementation
         private readonly ISmsService _smsService;
         private readonly UserManager<UserEntity> _userManager;
         private readonly ILogger<NotificationService> _logger;
+        private readonly IDateService _dateService;
 
-        public NotificationService(ISmsService smsService, UserManager<UserEntity> userManager, ILogger<NotificationService> logger)
+        public NotificationService(ISmsService smsService, UserManager<UserEntity> userManager, ILogger<NotificationService> logger, IDateService dateService)
         {
             _smsService = smsService;
             _userManager = userManager;
             _logger = logger;
+            _dateService = dateService;
         }
 
         public async Task<bool> SendPhoneConfirmationAsync(string phone, string code)
         {
-            string text = $"Your phone confirmation code: {code}";
+            string text = $"Код подтверждения: {code}";
             try
             {
                 return await _smsService.SendAsync(phone, text);
@@ -51,9 +53,7 @@ namespace Studio404.Services.Implementation
             }
             
             string phone = user.PhoneNumber;
-            string text =
-                // TODO: fix sms format
-                $"Studio is waiting for you at {booking.Date.ToShortDateString()} from {booking.From} to {booking.To + 1}. Code: {booking.Code}";
+            string text = $"Студия открыта для вас {_dateService.ToShortDate(booking.Date)} с {booking.From}:00 до {booking.To + 1}:00. Код: {booking.Code}";
             try
             {
                 return await _smsService.SendAsync(phone, text);

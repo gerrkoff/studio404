@@ -7,6 +7,7 @@ const Labels = {
     hoursSelector_valueText: (title, count) => `с ${title}, ${count} час(а)`,
     phone_smsSent: (phone) => `Код успешно выслан на ${phone}`,
     booking_choiceInfo: (from, to) => `Выбрано время ${DateService.convertHourIntervalToLabel(from, to)}`,
+    settings_currentPhone: (phone) => `Ваш телефон: ${phone}`,
 
     // messages
     logout: 'Вы вышли',

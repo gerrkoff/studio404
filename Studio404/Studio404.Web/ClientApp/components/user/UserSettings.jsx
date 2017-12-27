@@ -13,7 +13,14 @@ class UserSettings extends Component {
                 <Row>
                     <Col md="12">
                         <div style={{ padding: 10 }}>
-                            <ConfirmPhonePopupContainer />
+                            <div style={{ display: "inline-block" }}>
+                                <ConfirmPhonePopupContainer />
+                            </div>
+                            {this.props.phoneConfirmed &&
+                                <span style={{ color: "gray", fontSize: "12px", fontWeight: "bold", paddingLeft: "15px" }}>
+                                    {Labels.settings_currentPhone(this.props.phone)}
+                                </span>
+                            }
                         </div>
                         <div style={{ padding: 10 }}>
                             <ChangePassPopupContainer />

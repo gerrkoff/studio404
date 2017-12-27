@@ -64,7 +64,7 @@ class User extends Component {
     renderMenuItem() {
         switch (this.state.menuChoosed) {
             case 0: return <UserBookings />;
-            case 1: return <UserSettings />;
+            case 1: return <UserSettings phone={this.props.phone} phoneConfirmed={this.props.phoneConfirmed} />;
         }
     }
 }

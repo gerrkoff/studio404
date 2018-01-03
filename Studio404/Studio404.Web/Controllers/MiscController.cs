@@ -12,6 +12,7 @@ namespace Studio404.Web.Controllers
         [HttpGet]
         public MiscInfoDto Info()
         {
+			throw new System.Exception("!!!!!!!!!!!!");
             return new MiscInfoDto
             {
                 Version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()

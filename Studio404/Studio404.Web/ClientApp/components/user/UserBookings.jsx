@@ -57,10 +57,11 @@ class UserBookings extends Component {
                         adjustForCheckbox={false}>
                         
                         <TableRow>
-                            <TableHeaderColumn style={{textAlign: 'center'}}>{Labels.userBookings_date}</TableHeaderColumn>
-                            <TableHeaderColumn style={{textAlign: 'center'}}>{Labels.userBookings_time}</TableHeaderColumn>
-                            <TableHeaderColumn style={{textAlign: 'center'}}>{Labels.userBookings_status}</TableHeaderColumn>
-                            <TableHeaderColumn style={{textAlign: 'center'}}>{Labels.userBookings_actions}</TableHeaderColumn>
+                            <TableHeaderColumn style={{ textAlign: 'center' }}>{Labels.userBookings_date}</TableHeaderColumn>
+                            <TableHeaderColumn style={{ textAlign: 'center' }}>{Labels.userBookings_time}</TableHeaderColumn>
+                            <TableHeaderColumn style={{ textAlign: 'center' }}>{Labels.userBookings_cost}</TableHeaderColumn>
+                            <TableHeaderColumn style={{ textAlign: 'center' }}>{Labels.userBookings_status}</TableHeaderColumn>
+                            <TableHeaderColumn style={{ textAlign: 'center' }}>{Labels.userBookings_actions}</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
                     <TableBody
@@ -71,6 +72,7 @@ class UserBookings extends Component {
                                     id={item.id}
                                     date={DateService.toDateString(item.date)}
                                     time={DateService.convertHourIntervalToLabel(item.from, item.to)}
+                                    cost={item.cost}
                                     status={item.status}
                                     cancel={this.props.cancelBooking}
                                     resend={this.props.resendBookingCode}

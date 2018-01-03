@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+﻿import React, { Component } from 'react';
 import {
     Table,
     TableBody,
@@ -16,6 +16,7 @@ class UserBookingItem extends Component {
             <TableRow>
                 <TableRowColumn style={{ textAlign: 'center' }}>{this.props.date}</TableRowColumn>
                 <TableRowColumn style={{ textAlign: 'center' }}>{this.props.time}</TableRowColumn>
+                <TableRowColumn style={{ textAlign: 'center' }}>{this.props.cost}₽</TableRowColumn>
                 <TableRowColumn style={{ textAlign: 'center' }}>{EnumService.bookingStatus(this.props.status)}</TableRowColumn>
                 <TableRowColumn style={{ textAlign: 'center' }}>
                     <FaIconButton

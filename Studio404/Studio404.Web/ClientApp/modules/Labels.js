@@ -75,6 +75,7 @@ const Labels = {
     userBookings_title: 'Мои брони',
     userBookings_date: 'Дата',
     userBookings_time: 'Время',
+    userBookings_cost: 'Стоимость',
     userBookings_status: 'Статус',
     userBookings_actions: 'Действия',
     userBookings_cancelQuestion: 'Вы уверены, что хотите отменить бронь?',

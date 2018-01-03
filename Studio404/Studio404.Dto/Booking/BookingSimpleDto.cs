@@ -10,5 +10,6 @@ namespace Studio404.Dto.Booking
         public int From { get; set; }
         public int To { get; set; }
         public BookingStatusEnum Status { get; set; }
-    }
+		public double Cost { get; set; }
+	}
 }

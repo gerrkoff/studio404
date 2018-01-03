@@ -63,7 +63,7 @@ namespace Studio404.Services.Implementation
             data.AddFormInput("receiver", _payServiceSettings.YandexId);
             data.AddFormInput("label", booking.Guid.ToString());
             data.AddFormInput("sum", booking.Cost.ToString(CultureInfo.InvariantCulture));
-			data.AddFormInput("successURL", HttpUtility.UrlEncode(_payServiceSettings.SuccessUrl));
+			//data.AddFormInput("successURL", HttpUtility.UrlEncode(_payServiceSettings.SuccessUrl));
 
 			return data;
         }

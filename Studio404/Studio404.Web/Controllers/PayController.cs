@@ -29,7 +29,9 @@ namespace Studio404.Web.Controllers
         [HttpPost]
         public void Confirm(ConfirmBookingDto confirmBooking)
         {
-            if (!ValidateConfirmForm(HttpContext.Request.Form, out string paramString))
+			_logger.LogInformation($"Payment Confirmation request. Amount: [{confirmBooking.Amount}], CodePro: [{confirmBooking.CodePro}], Currency: [{confirmBooking.Currency}], DateTime: [{confirmBooking.DateTime}], Hash: [{confirmBooking.Hash}], Label: [{confirmBooking.Label}], NotificationType: [{confirmBooking.NotificationType}], OperationId: [{confirmBooking.OperationId}], Sender: [{confirmBooking.Sender}]");
+
+			if (!ValidateConfirmForm(HttpContext.Request.Form, out string paramString))
             {
                 _logger.LogWarning($"Payment Confirmation hash checking failed. Param string: {paramString}");
                 return;

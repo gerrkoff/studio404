@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.DotNet.PlatformAbstractions;
 using Studio404.Dto.Misc;
 using Studio404.Web.Controllers.Base;
 
@@ -12,7 +11,6 @@ namespace Studio404.Web.Controllers
         [HttpGet]
         public MiscInfoDto Info()
         {
-			throw new System.Exception("!!!!!!!!!!!!");
             return new MiscInfoDto
             {
                 Version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()

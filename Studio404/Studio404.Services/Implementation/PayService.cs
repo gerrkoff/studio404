@@ -10,7 +10,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Studio404.Common.Settings;
 using Studio404.Dto.Pay;
-using System.Web;
 
 namespace Studio404.Services.Implementation
 {
@@ -63,7 +62,7 @@ namespace Studio404.Services.Implementation
             data.AddFormInput("receiver", _payServiceSettings.YandexId);
             data.AddFormInput("label", booking.Guid.ToString());
             data.AddFormInput("sum", booking.Cost.ToString(CultureInfo.InvariantCulture));
-			//data.AddFormInput("successURL", HttpUtility.UrlEncode(_payServiceSettings.SuccessUrl));
+			//data.AddFormInput("successURL", _payServiceSettings.SuccessUrl);
 
 			return data;
         }

@@ -2,3 +2,18 @@
     width: 100% !important;
     max-width: 600px !important;
 }
+
+.text {
+	padding-top: 10px;
+}
+
+.button {
+	position: relative;
+	top: 28px;
+}
+
+.loader {
+	position: relative;
+	padding-left: 25px;
+	top: 32px;
+}

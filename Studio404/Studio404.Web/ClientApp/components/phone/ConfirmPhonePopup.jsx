@@ -78,7 +78,7 @@ class ConfirmPhonePopup extends Component {
             <div>
                 <Row>
                     <Col md="12">
-                        <label style={{paddingTop: 10}}>{label}</label>
+                        <label className={ css.text }>{label}</label>
                     </Col>
                 </Row>
                 <Row>
@@ -96,10 +96,10 @@ class ConfirmPhonePopup extends Component {
                             secondary={true}
                             onClick={btnFunc}
                             disabled={flagLoading || !fieldValid}
-                            style={{ position: "relative", top: "28px" }} />
+                            className={ css.button } />
 
                         {flagLoading &&
-                            <span style={{ position: "relative", paddingLeft: 25, top: "32px" }}>
+                            <span className={ css.loader }>
                                 <Loader />
                             </span>
                         }

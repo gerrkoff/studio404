@@ -7,6 +7,7 @@ import LoaderContent from "../common/LoaderContent";
 import ErrorLabel from "../common/ErrorLabel";
 import BookingHelp from "./BookingHelp";
 import Labels from "../../modules/Labels";
+import css from "../../styles/booking.css";
 
 class BookingDayChooser extends Component {
     render() {
@@ -22,22 +23,18 @@ class BookingDayChooser extends Component {
                 {this.props.showHelp && <br/>}
                 <Row>
                     <Col md="12">
-                        <div style={{textAlign: "center"}}>
-                            <FaIconButton icon="arrow-left" size="sm" onClick={this.props.previousWeek} style={{padding: 10}} alt={true}/>
-                            <span style={{
-                                padding: 10,
-                                display: "inline-block",
-                                width: "350px"
-                            }}>
+                        <div className={ css.center }>
+                            <FaIconButton icon="arrow-left" size="sm" onClick={this.props.previousWeek} className={ css.weekChooseButton } alt={true}/>
+                            <span className={ css.weekLabel }>
                                 {this.props.weekLabel}
                             </span>
-                            <FaIconButton icon="arrow-right" size="sm" onClick={this.props.nextWeek} style={{padding: 10}} alt={true}/>
+                            <FaIconButton icon="arrow-right" size="sm" onClick={this.props.nextWeek} className={ css.weekChooseButton } alt={true}/>
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col md="12">
-                        <div style={{textAlign: "center"}}>
+                        <div className={css.center}>
                             {this.props.weekWorkloadIsLoading === true
                                 ? <LoaderContent />                                
                                 : this.props.weekWorkloadError === true

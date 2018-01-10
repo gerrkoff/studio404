@@ -6,3 +6,17 @@
 	display: inline-block;
 	margin-top: 10px;
 }
+
+.center {
+	text-align: center;
+}
+
+.weekChooseButton {
+	padding: 10px;
+}
+
+.weekLabel {
+	padding: 10px;
+	display: inline-block;
+	width: 350px;
+}

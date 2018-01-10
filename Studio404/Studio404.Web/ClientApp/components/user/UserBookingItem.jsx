@@ -9,16 +9,17 @@ import {
 } from 'material-ui/Table';
 import FaIconButton from "../common/FaIconButton";
 import EnumService from "../../modules/EnumService";
+import css from "../../styles/userProfile.css";
 
 class UserBookingItem extends Component {
     render() {
         return (
             <TableRow>
-                <TableRowColumn style={{ textAlign: 'center' }}>{this.props.date}</TableRowColumn>
-                <TableRowColumn style={{ textAlign: 'center' }}>{this.props.time}</TableRowColumn>
-                <TableRowColumn style={{ textAlign: 'center' }}>{this.props.cost}₽</TableRowColumn>
-                <TableRowColumn style={{ textAlign: 'center' }}>{EnumService.bookingStatus(this.props.status)}</TableRowColumn>
-                <TableRowColumn style={{ textAlign: 'center' }}>
+                <TableRowColumn className={ css.bookingTableCell }>{this.props.date}</TableRowColumn>
+                <TableRowColumn className={ css.bookingTableCell }>{this.props.time}</TableRowColumn>
+                <TableRowColumn className={ css.bookingTableCell }>{this.props.cost}₽</TableRowColumn>
+                <TableRowColumn className={ css.bookingTableCell }>{EnumService.bookingStatus(this.props.status)}</TableRowColumn>
+                <TableRowColumn className={ css.bookingTableCell }>
                     <FaIconButton
                         size="sm"
                         icon="credit-card"
@@ -29,17 +30,12 @@ class UserBookingItem extends Component {
                         icon="envelope-o"
                         disabled={this.props.status !== 2}
                         onClick={() => this.props.resend(this.props.id)} 
-                        style={{
-                            paddingLeft: "15px"
-                        }} />
+                        className={ css.actionPadding } />
                     <FaIconButton
                         icon="times"
                         disabled={this.props.status === 3 || this.props.status === 2}
                         onClick={() => this.props.cancel(this.props.id)}
-                        style={{
-                            paddingLeft: "15px",
-                            fontSize: "19px"
-                        }} />
+                        className={ css.actionCancel } />
                 </TableRowColumn>
             </TableRow>
         );

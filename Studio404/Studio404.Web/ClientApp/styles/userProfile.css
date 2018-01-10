@@ -1,0 +1,36 @@
+.main {
+    margin-top: 8px;
+}
+
+.bookingTableCell {
+    text-align: center !important;
+}
+
+.actionPadding {
+    padding-left: 15px;
+}
+
+.actionCancel {
+    composes: actionPadding;
+    font-size: 19px !important;
+}
+
+.loader {
+    text-align: center;
+    padding: 15px;
+}
+
+.setting {
+    padding: 10px;
+}
+
+.changePhone {
+    display: inline-block;
+}
+
+.currentPhone {
+    color: gray;
+    font-size: 12px;
+    font-weight: bold;
+    padding-left: 15px;
+}

@@ -13,6 +13,7 @@ import LoaderContent from "../../components/common/LoaderContent";
 import UserTitle from "../../components/user/UserTitle";
 import ErrorLabel from "../common/ErrorLabel";
 import Labels from "../../modules/Labels";
+import css from "../../styles/userProfile.css";
 
 class UserBookings extends Component {
 
@@ -39,10 +40,7 @@ class UserBookings extends Component {
 
     renderLoader() {
         return (
-            <div style={{
-                textAlign: "center",
-                padding: "15px"
-            }}>
+            <div className={ css.loader }>
                 <LoaderContent />
             </div>
         );
@@ -57,11 +55,11 @@ class UserBookings extends Component {
                         adjustForCheckbox={false}>
                         
                         <TableRow>
-                            <TableHeaderColumn style={{ textAlign: 'center' }}>{Labels.userBookings_date}</TableHeaderColumn>
-                            <TableHeaderColumn style={{ textAlign: 'center' }}>{Labels.userBookings_time}</TableHeaderColumn>
-                            <TableHeaderColumn style={{ textAlign: 'center' }}>{Labels.userBookings_cost}</TableHeaderColumn>
-                            <TableHeaderColumn style={{ textAlign: 'center' }}>{Labels.userBookings_status}</TableHeaderColumn>
-                            <TableHeaderColumn style={{ textAlign: 'center' }}>{Labels.userBookings_actions}</TableHeaderColumn>
+                            <TableHeaderColumn className={ css.bookingTableCell }>{Labels.userBookings_date}</TableHeaderColumn>
+                            <TableHeaderColumn className={ css.bookingTableCell }>{Labels.userBookings_time}</TableHeaderColumn>
+                            <TableHeaderColumn className={ css.bookingTableCell }>{Labels.userBookings_cost}</TableHeaderColumn>
+                            <TableHeaderColumn className={ css.bookingTableCell }>{Labels.userBookings_status}</TableHeaderColumn>
+                            <TableHeaderColumn className={ css.bookingTableCell }>{Labels.userBookings_actions}</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
                     <TableBody

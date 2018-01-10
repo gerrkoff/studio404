@@ -8,6 +8,7 @@ import UserBookings from "../../containers/UserBookingContainer";
 import UserSettings from "./UserSettings";
 import ErrorLabel from "../common/ErrorLabel";
 import Labels from "../../modules/Labels";
+import css from "../../styles/userProfile.css";
 
 class User extends Component {
 
@@ -44,8 +45,7 @@ class User extends Component {
                         <ListItem
                             primaryText={Labels.bookings}
                             leftIcon={<FontIcon className="fa fa-list-alt" />}
-                            onClick={() => this.handleMenuItemClick(0)}
-                            styles={{ backgroundColor: "red" }} />
+                            onClick={() => this.handleMenuItemClick(0)} />
                         <ListItem
                             primaryText={Labels.settings}
                             leftIcon={<FontIcon className="fa fa-cog" />}
@@ -53,7 +53,7 @@ class User extends Component {
                     </List>
                 </Col>
                 <Col md="9">
-                    <Paper style={{ marginTop: 8 }} zDepth={1}>
+                    <Paper className={ css.main } zDepth={1}>
                         {this.renderMenuItem()}
                     </Paper>
                 </Col>

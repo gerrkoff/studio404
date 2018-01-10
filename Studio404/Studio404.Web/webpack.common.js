@@ -29,7 +29,13 @@ module.exports = {
             },
             {
                 test: /\.css$/,
+                include: /node_modules/,
                 loader: 'style-loader!css-loader'
+            },
+            {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
             }
         ]
     }

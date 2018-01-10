@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import Paper from 'material-ui/Paper';
+import css from '../../styles/home.css';
 
 class Home extends Component {
 
@@ -14,10 +15,10 @@ class Home extends Component {
             <div>
                 <Row>
                     <Col md="12">
-                        <Paper style={{marginTop: 8, height: 300}} zDepth={1}>
+                        <Paper className={ css.main } zDepth={1}>
                             <Row>
                                 <Col md="12">
-                                    <h4 style={{padding: 20, textAlign: "center"}}>Welcome to 404 studio!</h4>
+                                    <h4 className={ css.greeting }>Welcome to 404 studio!</h4>
                                 </Col>
                             </Row>
                         </Paper>
@@ -26,7 +27,7 @@ class Home extends Component {
                 <br/>
                 <Row>
                     <Col md="12">
-                        <Paper zDepth={1} style={styles.footer}>
+                        <Paper zDepth={1} className={ css.footer }>
                             {this.props.info.infoLoaded
                                 ? <span>version: {this.props.info.version}</span>
                                 : <span>...</span>
@@ -36,14 +37,6 @@ class Home extends Component {
                 </Row>
             </div>
         );
-    }
-}
-
-const styles = {
-    footer: {
-        lineHeight: "25px",
-        padding: "5px 20px 5px 20px",
-        fontSize: "12px"
     }
 }
 

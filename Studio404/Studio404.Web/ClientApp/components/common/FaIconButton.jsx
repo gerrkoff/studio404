@@ -29,12 +29,14 @@ class FaIconButton extends Component {
                 this.styles.fontSize = "17px";
                 break;
         }
+
+        this.additionalClass = this.props.className ? " " + this.props.className : "";
     }
 
     render() {
         return (
                 <FontIcon 
-                    className={"fa fa-" + this.props.icon}
+                    className={"fa fa-" + this.props.icon + this.additionalClass}
                     style={this.styles}
                     onClick={this.props.disabled ? null : this.props.onClick}
                     color={this.colors.main}

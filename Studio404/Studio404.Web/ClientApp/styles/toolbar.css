@@ -1,3 +1,11 @@
 .brand {
     cursor: pointer;
 }
+
+.user {
+    cursor: pointer;
+}
+
+.signOut {
+    padding-left: 10px;
+}

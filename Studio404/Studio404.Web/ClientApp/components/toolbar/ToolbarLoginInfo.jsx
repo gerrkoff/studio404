@@ -4,6 +4,7 @@ import {withRouter} from "react-router-dom";
 import {Toolbar as MuiToolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import LoginPopupContainer from "../../containers/LoginPopupContainer";
 import FaIconButton from "../common/FaIconButton";
+import css from "../../styles/toolbar.css";
 
 class ToolbarLoginInfo extends Component {
 
@@ -22,12 +23,12 @@ class ToolbarLoginInfo extends Component {
                 <ToolbarTitle
                     text={username}
                     onClick={() => this.props.history.push("/my")}
-                    style={{cursor: "pointer"}} />
+                    className={ css.user } />
                 <FaIconButton
                     onClick={this.props.logoff}
                     icon="sign-out"
                     size="sm"
-                    style={{paddingLeft: "10px"}}
+                    className={ css.signOut }
                     alt={true} />
             </div>
         );

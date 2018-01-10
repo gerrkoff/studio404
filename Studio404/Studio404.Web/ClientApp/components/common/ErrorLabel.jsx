@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import muiThemeable from 'material-ui/styles/muiThemeable';
+import css from "../../styles/errorLabel.css";
 
 class ErrorLabel extends Component {
     render() {
         return (
-            <h6 
+            <h6 className={css.error}
                 style={{
                     textAlign: this.props.align ? this.props.align : "center",
-                    color: this.props.muiTheme.palette.disabledColor,
-                    fontSize: "12px",
-                    fontWeight: "bold",
-                    paddingTop: 10,
-                    paddingBottom: 10
-                }}
-            >
+                    color: this.props.muiTheme.palette.disabledColor
+                }}>
                 {this.props.text}
             </h6>
         );

@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import DateService from "../../modules/DateService";
 import TimeBooking from "./TimeBooking";
 import BookingDayChooser from "../../components/booking/BookingDayChooser";
+import css from "../../styles/booking.css";
 
 class Booking extends Component {
 
@@ -66,9 +67,9 @@ class Booking extends Component {
 
     renderTimeBooking() {
         return (
-            <div style={{ textAlign: "center" }}>
-                <div style={{ display: "inline-block" }}>
-                    <Paper style={{ marginTop: 10 }} zDepth={1}>
+            <div className={ css.timeContainer }>
+                <div className={ css.timePageContainer }>
+                    <Paper zDepth={1}>
                         <TimeBooking
                             chosenDate={this.props.chosenDate}
                             dayHoursIsLoading={this.props.dayHoursIsLoading}

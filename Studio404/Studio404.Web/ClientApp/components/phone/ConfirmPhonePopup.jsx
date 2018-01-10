@@ -7,7 +7,8 @@ import TextField from 'material-ui/TextField';
 import Loader from "../../components/common/Loader";
 import ErrorLabel from "../common/ErrorLabel";
 import Labels from "../../modules/Labels";
-import css from "../../styles/phonePopup.css";
+import cssPopup from "../../styles/popup.css";
+import css from "../../styles/popupPhone.css";
 
 class ConfirmPhonePopup extends Component {
 
@@ -35,7 +36,7 @@ class ConfirmPhonePopup extends Component {
                     modal={false}
                     open={this.props.open}
                     onRequestClose={this.props.closePopup}
-                    contentClassName={ css.popup }
+                    contentClassName={cssPopup.popup }
                     autoScrollBodyContent={true}>
 
                     {this.props.codeSendSuccess

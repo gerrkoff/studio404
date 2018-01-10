@@ -5,6 +5,7 @@ import Toggle from 'material-ui/Toggle';
 import LoginForm from "../../components/login/LoginForm";
 import RegisterForm from "../../components/login/RegisterForm";
 import Labels from "../../modules/Labels";
+import css from "../../styles/popup.css";
 
 class LoginPopup extends Component {
 
@@ -40,7 +41,7 @@ class LoginPopup extends Component {
                     modal={false}
                     open={this.props.open}
                     onRequestClose={this.props.closePopup}
-                    contentStyle={{ width: '100%', maxWidth: '600px' }}
+                    contentClassName={ css.popup }
                     autoScrollBodyContent={true}>
 
                     {this.props.registration === true

@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Labels from "../../modules/Labels";
+import css from "../../styles/popup.css";
 
 class ChangePassPopup extends Component {
 
@@ -31,7 +32,7 @@ class ChangePassPopup extends Component {
                     modal={false}
                     open={this.props.open}
                     onRequestClose={this.props.closeChangePassPopup}
-                    contentStyle={{ width: '100%', maxWidth: '600px' }}
+                    contentClassName={ css.popup }
                     autoScrollBodyContent={true}>
 
                     <TextField

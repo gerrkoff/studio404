@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import Labels from "../../modules/Labels";
 import FaIconButton from "../common/FaIconButton";
+import css from "../../styles/booking.css";
 
 class BookingHelp extends Component {
     render() {
@@ -14,18 +15,18 @@ class BookingHelp extends Component {
                         <Paper zDepth={1}>
                             <Row>
                                 <Col md="11">
-                                    <p style={{padding: "10px 0px 0px 20px", whiteSpace: "pre-line"}}>
+                                    <p className={ css.helpText }>
                                         {Labels.booking_help}
                                     </p>
                                 </Col>
-                                <Col md="1" style={{textAlign: "right"}}>
-                                    <FaIconButton icon="times" size="sm" onClick={() => this.props.toggleHelp(false)} alt={true} style={{padding: 10}}/>
+                                <Col md="1" className={ css.rightAligned }>
+                                    <FaIconButton icon="times" size="sm" onClick={() => this.props.toggleHelp(false)} alt={true} className={ css.helpCloseButton }/>
                                 </Col>
                             </Row>
                         </Paper>
                     )
                     : (
-                        <div style={{textAlign: "right"}}>
+                        <div className={ css.rightAligned }>
                             <FlatButton
                                 label={Labels.booking_helpShow}
                                 secondary={true}

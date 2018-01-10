@@ -1,29 +1,15 @@
 import React from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
-
-const styles = {
-    component: {
-        fontSize: "11px"
-    },
-    item: {
-        padding: "2px",
-        borderStyle: "none"
-    },
-    title: {
-        fontWeight: "bold",
-        lineHeight: "25px",
-        display: "inline-block"
-    }
-};
+import css from "../../styles/booking.css";
 
 export default class WeekWorkloadItem extends React.Component {
     render() {
         return (
-            <div style={styles.component}>
-                <span style={styles.title}>{this.props.data.title}</span>
+            <div className={css.weekWorkloadContainer}>
+                <span className={css.weekWorkloadTitle}>{this.props.data.title}</span>
                 <ListGroup>
                     {this.props.data.labels.map((label) =>
-                        <ListGroupItem key={label} style={styles.item}>{label}</ListGroupItem>    
+                        <ListGroupItem key={label} className={css.weekWorkloadItem}>{label}</ListGroupItem>    
                     )}
                 </ListGroup>
             </div>

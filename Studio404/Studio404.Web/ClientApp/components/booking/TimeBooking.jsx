@@ -9,6 +9,7 @@ import ErrorLabel from "../common/ErrorLabel";
 import Labels from "../../modules/Labels";
 import ConfirmPhonePopupContainer from "../../containers/ConfirmPhonePopupContainer";
 import LoginPopupContainer from "../../containers/LoginPopupContainer";
+import css from "../../styles/booking.css";
 
 class TimeBooking extends Component {
     constructor(props) {
@@ -18,14 +19,14 @@ class TimeBooking extends Component {
 
     render() {
         return (
-            <div style={{width: "800px", textAlign: "left"}}>
+            <div className={ css.timeForm }>
                 <Row>
                     <Col md="6">
-                        <div style={styles.formElement}>
-                            <h5 style={{paddingLeft: "10px"}}>{DateService.toDateString(this.props.chosenDate)}</h5>
+                        <div className={css.timeFormElement}>
+                            <h5 className={css.timeFormDateLabel}>{DateService.toDateString(this.props.chosenDate)}</h5>
                         </div>
-                        <div style={{padding: 20, paddingTop: 0, verticalAlign: "center", position: "relative"}}>
-                            <div style={{display: "inline-block"}}>
+                        <div className={css.hourSelectBlock}>
+                            <div className={css.hourSelectContainer}>
                                 <HourSelector
                                     dayHours={this.props.dayHours}
                                     hours={this.props.bookingHours}
@@ -34,17 +35,17 @@ class TimeBooking extends Component {
                                     updateHours={this.props.updateHours}
                                 />
                             </div>
-                            <div style={{display: "inline-block", position: "relative", padding: 10, top: "-10px"}}>
-                                {this.props.dayHoursIsLoading === true && <Loader />}
+                            <div className={css.hourSelectLoader}>
+                                {this.props.dayHoursIsLoading && <Loader />}
                             </div>
                             {this.props.dayHoursError && <ErrorLabel align="left" text={Labels.errorLoadCommon} />}
                         </div>
                     </Col>
                     <Col md="6">
-                        <div style={styles.formElement}>
+                        <div className={css.timeFormElement}>
                             {this.renderInfo()}
                         </div>
-                        <div style={{padding: 20, textAlign: "right"}}>
+                        <div className={css.timeFormSubmitContainer}>
                             <RaisedButton
                                 label={Labels.booking_book}
                                 primary={true}
@@ -81,12 +82,6 @@ class TimeBooking extends Component {
             return <p>{Labels.booking_hoursInvalid}</p>;
 
         return <p>{Labels.booking_choiceInfo(this.props.bookingHours[0], this.props.bookingHours[this.props.bookingHours.length-1])}</p>;
-    }
-}
-
-const styles = {
-    formElement: {
-        padding: 10
     }
 }
 

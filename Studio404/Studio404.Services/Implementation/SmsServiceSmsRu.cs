@@ -20,7 +20,10 @@ namespace Studio404.Services.Implementation
         {
             _smsServiceSettings = smsServiceSettings.Value;
             _logger = logger;
-        }
+
+			if (!_smsServiceSettings.ValidateSettingsSmsRu())
+				throw new ServiceException($"Sms Service [SmsRu] is not properly set up");
+		}
         
         public async Task<bool> SendAsync(string phone, string text)
         {

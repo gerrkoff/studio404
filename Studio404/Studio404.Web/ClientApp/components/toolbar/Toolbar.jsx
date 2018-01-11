@@ -13,7 +13,7 @@ class Toolbar extends Component {
                 <MuiToolbar>
                     <ToolbarGroup>
                         <ToolbarTitle
-                            text="404 studio"
+                            text="Studio 404"
                             className={ css.brand }
                             onClick={() => this.props.history.push("/")} />
                     </ToolbarGroup>

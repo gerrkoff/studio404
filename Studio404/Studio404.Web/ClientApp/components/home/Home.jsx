@@ -18,7 +18,7 @@ class Home extends Component {
                         <Paper className={ css.main } zDepth={1}>
                             <Row>
                                 <Col md="12">
-                                    <h4 className={ css.greeting }>Welcome to 404 studio!</h4>
+                                    <h4 className={ css.greeting }>Welcome to Studio 404!</h4>
                                 </Col>
                             </Row>
                         </Paper>

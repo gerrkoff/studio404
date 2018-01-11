@@ -55,10 +55,10 @@ namespace Studio404.Services.Implementation
                 Form = new List<PrepareBookingPaymentDto.FormInput>()
             };
             data.AddFormInput("quickpay-form", "small");
-            data.AddFormInput("targets", "Rehearsal payment");
+            data.AddFormInput("short-dest", "Rehearsal payment");
             data.AddFormInput("paymentType", "AC");
             data.AddFormInput("formcomment", "404 studio");
-            data.AddFormInput("short-dest", paymentInfo);
+            data.AddFormInput("targets", paymentInfo);
             data.AddFormInput("receiver", _payServiceSettings.YandexId);
             data.AddFormInput("label", booking.Guid.ToString());
             data.AddFormInput("sum", booking.Cost.ToString(CultureInfo.InvariantCulture));

@@ -173,7 +173,7 @@ namespace Studio404.Web
 					services.AddScoped<ISmsService, SmsServiceMock>();
 					break;				
 				case "smsru":
-					services.AddScoped<ISmsService, SmsService>();
+					services.AddScoped<ISmsService, SmsServiceSmsRu>();
 					break;
 				default:
 					throw new ArgumentException("Argument value must be in ('mock', 'smsru')", nameof(smsSettings.Provider));

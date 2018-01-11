@@ -11,12 +11,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Studio404.Services.Implementation
 {
-    public class SmsService : ISmsService
+    public class SmsServiceSmsRu : ISmsService
     {
         private readonly SmsServiceSettings _smsServiceSettings;
-        private readonly ILogger<SmsService> _logger;
+        private readonly ILogger<SmsServiceSmsRu> _logger;
 
-        public SmsService(IOptions<SmsServiceSettings> smsServiceSettings, ILogger<SmsService> logger)
+        public SmsServiceSmsRu(IOptions<SmsServiceSettings> smsServiceSettings, ILogger<SmsServiceSmsRu> logger)
         {
             _smsServiceSettings = smsServiceSettings.Value;
             _logger = logger;
@@ -38,7 +38,7 @@ namespace Studio404.Services.Implementation
                 }
             }
             
-            throw new ServiceException($"Sms Service request failed. Url: {smsRequestUrl}");
+            throw new ServiceException($"Sms Service [SmsRu] request failed. Url: {smsRequestUrl}");
         }
         
         private string GenerateServiceRequstUrl(string phone, string text)

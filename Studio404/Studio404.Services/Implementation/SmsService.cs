@@ -44,7 +44,7 @@ namespace Studio404.Services.Implementation
         private string GenerateServiceRequstUrl(string phone, string text)
         {
             string url = "https://sms.ru/sms/send?api_id={0}&to={1}&msg={2}&json=1";
-            string apiId = _smsServiceSettings.ApiId;
+            string apiId = _smsServiceSettings.SmsRu_ApiId;
             return string.Format(url, apiId, phone, HttpUtility.UrlEncode(text));
         }
 

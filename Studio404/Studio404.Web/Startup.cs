@@ -163,14 +163,25 @@ namespace Studio404.Web
             services.AddScoped<IDateService, DateService>();
             services.AddScoped<ICostEvaluationService, CostEvaluationService>();
             services.AddScoped<ITokenService, TokenService>();
-            
-            SmsServiceSettings smsSettings = Configuration.GetSection("SmsServiceSettings").Get<SmsServiceSettings>();
-            if (smsSettings.Mock)
-                services.AddScoped<ISmsService, SmsServiceMock>();
-            else
-                services.AddScoped<ISmsService, SmsService>();
-        }
 
-        #endregion
-    }
+			#region SmsService
+
+			SmsServiceSettings smsSettings = Configuration.GetSection("SmsServiceSettings").Get<SmsServiceSettings>();
+			switch (smsSettings.Provider)
+			{
+				case "mock":
+					services.AddScoped<ISmsService, SmsServiceMock>();
+					break;				
+				case "smsru":
+					services.AddScoped<ISmsService, SmsService>();
+					break;
+				default:
+					throw new ArgumentException("Argument value must be in ('mock', 'smsru')", nameof(smsSettings.Provider));
+			}
+
+			#endregion
+		}
+
+		#endregion
+	}
 }

@@ -2,7 +2,7 @@
 {
     public class SmsServiceSettings
     {
-        public string ApiId { get; set; }
-        public bool Mock { get; set; }
+		public string Provider { get; set; }
+		public string SmsRu_ApiId { get; set; }
     }
 }

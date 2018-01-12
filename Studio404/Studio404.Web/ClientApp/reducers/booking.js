@@ -1,5 +1,4 @@
 import DateService from '../modules/DateService'
-import Labels from '../modules/Labels'
 import { ShowBookingHelp } from '../modules/Storage'
 
 const showBookingHelp = ShowBookingHelp.Load()
@@ -71,11 +70,10 @@ const booking = (state = initialState, action) => {
             }
 
         case 'UPDATE_HOURS':
-            let validRes = validateHours(action.hours)
             return {...state,
                 bookingHours: action.hours,
-                bookingHoursError: validRes.error,
-                bookingIsValid: validRes.isValid
+                bookingHoursError: action.error,
+                bookingIsValid: action.isValid
             }
 
         case 'BOOKING_SAVED':
@@ -115,22 +113,6 @@ const booking = (state = initialState, action) => {
         default:
             return state
     }
-}
-
-const validateHours = (hours) => {
-    let isValid = true
-    let error = ''
-
-    if (hours.length === 0) {
-        isValid = false
-    }
-    else if (hours.length > 1) {
-        hours.sortNumbers()
-        isValid = hours[hours.length - 1] - hours[0] === hours.length - 1
-        error = !isValid ? Labels.bookingHoursIncorrectInput : ''
-    }
-
-    return { isValid, error }
 }
 
 export default booking

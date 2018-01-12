@@ -6,7 +6,7 @@ const Labels = {
     error: (code, text) => `Ошибка: ${code} | ${text}`,
     hoursSelector_valueText: (title, count) => `с ${title}, ${count} час(а)`,
     phone_smsSent: (phone) => `Код успешно выслан на ${phone}`,
-    booking_choiceInfo: (from, to) => `Выбрано время ${DateService.convertHourIntervalToLabel(from, to)}`,
+    booking_choiceInfo: (from, to) => `Выбрано время: ${DateService.convertHourIntervalToLabel(from, to)}`,
     settings_currentPhone: (phone) => `Ваш телефон: ${phone}`,
 
     // messages
@@ -98,7 +98,8 @@ const Labels = {
     booking_phoneNotConfirmed: 'Укажите телефон, чтобы иметь возможность бронировать время',
     booking_defaultInfo: 'Выберите часы, в которые вы хотите репетировать',
     booking_hoursInvalid: 'Часы выбраны некорректно – они должны идти подряд, без пропусков',
-    booking_book: 'Забронировать'
+    booking_book: 'Забронировать',
+    booking_hoursCost: 'Стоимость'
 }
 
 export default Labels

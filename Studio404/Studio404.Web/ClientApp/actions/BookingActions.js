@@ -57,10 +57,12 @@ const Booking = {
         }
     },
 
-    updateHours: (hours) => {
+    updateHours: (hours, isValid, error) => {
         return {
             type: 'UPDATE_HOURS',
-            hours
+            hours,
+            isValid,
+            error
         }
     },
 
@@ -186,8 +188,12 @@ export const chooseDay = (date) => {
 
 export const updateHours = (date, hours) => {
     return (dispatch) => {
-        dispatch(Booking.updateHours(hours))
-        dispatch(loadHoursCost(date, hours))
+        let validateResult = validateHours(hours)
+        dispatch(Booking.updateHours(hours, validateResult.isValid, validateResult.error))
+
+        if (validateResult.isValid) {
+            dispatch(loadHoursCost(date, hours))
+        }
     }
 }
 
@@ -202,4 +208,20 @@ function createBookingInfo (date, hours) {
         from: hours[0],
         to: hours[hours.length - 1]
     }
+}
+
+function validateHours (hours) {
+    let isValid = true
+    let error = ''
+
+    if (hours.length === 0) {
+        isValid = false
+    }
+    else if (hours.length > 1) {
+        hours.sortNumbers()
+        isValid = hours[hours.length - 1] - hours[0] === hours.length - 1
+        error = !isValid ? Labels.bookingHoursIncorrectInput : ''
+    }
+
+    return { isValid, error }
 }

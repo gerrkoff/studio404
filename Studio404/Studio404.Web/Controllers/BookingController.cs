@@ -17,12 +17,14 @@ namespace Studio404.Web.Controllers
     public class BookingController : BaseUserController
     {
         private readonly IBookingService _bookingService;
-        private readonly ILogger<BookingController> _logger;
+		private readonly ICostEvaluationService _costEvaluationService;
+		private readonly ILogger<BookingController> _logger;
 
-        public BookingController(UserManager<UserEntity> userManager, IBookingService bookingService, ILogger<BookingController> logger)
+        public BookingController(UserManager<UserEntity> userManager, IBookingService bookingService, ICostEvaluationService costEvaluationService, ILogger<BookingController> logger)
         {
             _bookingService = bookingService;
-            _logger = logger;
+			_costEvaluationService = costEvaluationService;
+			_logger = logger;
         }
         
         [HttpGet]
@@ -73,5 +75,12 @@ namespace Studio404.Web.Controllers
             
             return _bookingService.PrepareBookingPayment(id, GetUser());
         }
-    }
+		
+		[HttpPost]
+		public double Cost(MakeBookingInfoDto makeBookingInfo)
+		{
+			Validate();
+			return _costEvaluationService.EvaluateBookingCost(makeBookingInfo.Date.Value, makeBookingInfo.From.Value, makeBookingInfo.To.Value);
+		}
+	}
 }

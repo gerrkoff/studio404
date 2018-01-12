@@ -14,7 +14,7 @@ import css from "../../styles/booking.css";
 class TimeBooking extends Component {
     constructor(props) {
         super(props);
-        this.props.loadDayHours(this.props.chosenDate);        
+        this.props.loadDayHours(this.props.chosenDate);
     }
 
     render() {
@@ -81,7 +81,28 @@ class TimeBooking extends Component {
         if (!this.props.bookingIsValid)
             return <p>{Labels.booking_hoursInvalid}</p>;
 
-        return <p>{Labels.booking_choiceInfo(this.props.bookingHours[0], this.props.bookingHours[this.props.bookingHours.length-1])}</p>;
+        return (
+            <div>
+                <p>{Labels.booking_choiceInfo(this.props.bookingHours[0], this.props.bookingHours[this.props.bookingHours.length - 1])}</p>
+                {this.renderCostInfo()}
+            </div>
+        );
+    }
+
+    renderCostInfo() {
+        let cost = <span />;
+
+        if (this.props.hoursCostIsLoading)
+            cost = <Loader />;
+        else if (!this.props.hoursCostError)
+            cost = <span>{this.props.hoursCost} rub</span>
+        
+        return (
+            <p>
+                <span>Cost: </span>
+                {cost}
+            </p>
+        );
     }
 }
 

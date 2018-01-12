@@ -94,7 +94,7 @@ const Booking = {
         return {
             type: 'HOURS_COST_LOADED_ERROR'
         }
-    },
+    }
 }
 
 export const loadWeekWorkload = (date) => {
@@ -158,7 +158,7 @@ export const saveBooking = (date, hours, weekStartDate) => {
 export const loadHoursCost = (date, hours) => {
     return (dispatch) => {
         dispatch(Booking.hoursCostLoading())
-        Http.Get('api/booking/cost', createBookingInfo(date, hours))
+        Http.Post('api/booking/cost', createBookingInfo(date, hours))
             .fail((data) => {
                 dispatch(Booking.hoursCostLoadedError())
                 dispatch(errorHandler(data))
@@ -180,18 +180,23 @@ export const chooseDay = (date) => {
     return (dispatch) => {
         dispatch(Booking.chooseDay(date))
         dispatch(loadDayHours(date))
-        dispatch(updateHours([]))
+        dispatch(updateHours(date, []))
     }
 }
 
-export const updateHours = (hours) => Booking.updateHours(hours)
+export const updateHours = (date, hours) => {
+    return (dispatch) => {
+        dispatch(Booking.updateHours(hours))
+        dispatch(loadHoursCost(date, hours))
+    }
+}
 
 export const toggleHelp = (showHelp) => {
     ShowBookingHelp.Save(showHelp)
     return Booking.toggleHelp(showHelp)
 }
 
-function createBookingInfo(date, hours) {
+function createBookingInfo (date, hours) {
     return {
         date: date.toISOString(),
         from: hours[0],

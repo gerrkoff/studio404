@@ -79,10 +79,13 @@ class Booking extends Component {
                             bookingHoursError={this.props.bookingHoursError}
                             bookingIsValid={this.props.bookingIsValid}
                             loadDayHours={this.props.loadDayHours}
-                            updateHours={this.props.updateHours}
+                            updateHours={(hours) => this.props.updateHours(this.props.chosenDate, hours)}
                             saveBooking={this.saveBooking}
                             userLoggedIn={this.props.userLoggedIn}
                             phoneConfirmed={this.props.phoneConfirmed}
+                            hoursCostIsLoading={this.props.hoursCostIsLoading}
+                            hoursCost={this.props.hoursCost}
+                            hoursCostError={this.props.hoursCostError}
                         />
                     </Paper>
                 </div>

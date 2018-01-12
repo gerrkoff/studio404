@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
         loadWeekWorkload: (date) => dispatch(loadWeekWorkload(date)),
         chooseDay: (date) => dispatch(chooseDay(date)),
         loadDayHours: (date) => dispatch(loadDayHours(date)),
-        updateHours: (hours) => dispatch(updateHours(hours)),
+        updateHours: (date, hours) => dispatch(updateHours(date, hours)),
         saveBooking: (date, hours, weekStartDate) => dispatch(saveBooking(date, hours, weekStartDate)),
         toggleHelp: (showHelp) => dispatch(toggleHelp(showHelp))
     }

@@ -16,7 +16,10 @@ const initialState = {
     bookingHours: [],
     bookingHoursError: '',
     bookingIsValid: false,
-    showHelp: showBookingHelp === null || showBookingHelp === 'true'
+    showHelp: showBookingHelp === null || showBookingHelp === 'true',
+    costIsLoading: false,
+    cost: 0,
+    costError: false
 }
 
 const booking = (state = initialState, action) => {
@@ -86,6 +89,27 @@ const booking = (state = initialState, action) => {
         case 'BOOKING_TOGGLE_HELP':
             return {...state,
                 showHelp: action.showHelp
+            }
+
+        case 'HOURS_COST_LOADING':
+            return {
+                ...state,
+                costIsLoading: true,
+                costError: false
+            }
+
+        case 'HOURS_COST_LOADED_SUCCESS':
+            return {
+                ...state,
+                costIsLoading: false,
+                cost: action.cost
+            }
+
+        case 'HOURS_COST_LOADED_ERROR':
+            return {
+                ...state,
+                costIsLoading: false,
+                costError: true
             }
 
         default:

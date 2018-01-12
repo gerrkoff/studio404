@@ -75,7 +75,26 @@ const Booking = {
             type: 'BOOKING_TOGGLE_HELP',
             showHelp
         }
-    }
+    },
+
+    hoursCostLoading: () => {
+        return {
+            type: 'HOURS_COST_LOADING'
+        }
+    },
+
+    hoursCostLoadedSuccess: (hoursCost) => {
+        return {
+            type: 'HOURS_COST_LOADED_SUCCESS',
+            hoursCost
+        }
+    },
+
+    hoursCostLoadedError: () => {
+        return {
+            type: 'HOURS_COST_LOADED_ERROR'
+        }
+    },
 }
 
 export const loadWeekWorkload = (date) => {
@@ -126,16 +145,26 @@ export const loadDayHours = (date) => {
 export const saveBooking = (date, hours, weekStartDate) => {
     return (dispatch) => {
         hours.sortNumbers()
-        Http.Post('/api/booking/make', {
-            date: date.toISOString(),
-            from: hours[0],
-            to: hours[hours.length - 1]
-        })
+        Http.Post('/api/booking/make', createBookingInfo(date, hours))
             .fail((data) => dispatch(errorHandler(data)))
             .done(() => {
                 dispatch(Booking.bookingSaved())
                 dispatch(show(Labels.bookingSaved))
                 dispatch(loadWeekWorkload(weekStartDate))
+            })
+    }
+}
+
+export const loadHoursCost = (date, hours) => {
+    return (dispatch) => {
+        dispatch(Booking.hoursCostLoading())
+        Http.Get('api/booking/cost', createBookingInfo(date, hours))
+            .fail((data) => {
+                dispatch(Booking.hoursCostLoadedError())
+                dispatch(errorHandler(data))
+            })
+            .done(data => {
+                dispatch(Booking.hoursCostLoadedSuccess(data))
             })
     }
 }
@@ -160,4 +189,12 @@ export const updateHours = (hours) => Booking.updateHours(hours)
 export const toggleHelp = (showHelp) => {
     ShowBookingHelp.Save(showHelp)
     return Booking.toggleHelp(showHelp)
+}
+
+function createBookingInfo(date, hours) {
+    return {
+        date: date.toISOString(),
+        from: hours[0],
+        to: hours[hours.length - 1]
+    }
 }

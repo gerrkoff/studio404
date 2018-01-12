@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+﻿import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'reactstrap';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -99,11 +99,11 @@ class TimeBooking extends Component {
                 </div>
             )
         else if (!this.props.hoursCostError)
-            cost = <span>{this.props.hoursCost} rub</span>
+            cost = <span>{this.props.hoursCost}₽</span>
         
         return (
             <div>
-                <span>Cost: </span>
+                <span>{Labels.booking_hoursCost}: </span>
                 {cost}
             </div>
         );

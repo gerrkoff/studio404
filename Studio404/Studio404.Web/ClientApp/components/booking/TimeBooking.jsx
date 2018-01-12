@@ -93,15 +93,19 @@ class TimeBooking extends Component {
         let cost = <span />;
 
         if (this.props.hoursCostIsLoading)
-            cost = <Loader />;
+            cost = (
+                <div className={css.hoursCostLoader}>
+                    <Loader size={15}/>
+                </div>
+            )
         else if (!this.props.hoursCostError)
             cost = <span>{this.props.hoursCost} rub</span>
         
         return (
-            <p>
+            <div>
                 <span>Cost: </span>
                 {cost}
-            </p>
+            </div>
         );
     }
 }

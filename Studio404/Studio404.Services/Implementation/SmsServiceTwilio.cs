@@ -24,25 +24,21 @@ namespace Studio404.Services.Implementation
         {
             _smsServiceSettings = smsServiceSettings.Value;
             _logger = logger;
-            
-            /*
-			if (!_smsServiceSettings.ValidateSettingsSmsRu())
+
+            if (!_smsServiceSettings.ValidateSettingsTwilio())
                 throw new ServiceException($"Sms Service [SmsServiceTwilio] is not properly set up");
-                */
-		}
+        }
         
         public async Task<bool> SendAsync(string phone, string text)
         {
-            const string accountSid = "";
-            const string authToken = "";
-            TwilioClient.Init(accountSid, authToken);
+            TwilioClient.Init(_smsServiceSettings.Twilio_AccountId, _smsServiceSettings.Twilio_AuthToken);
 
             try
             {
-                MessageResource result = MessageResource.Create(
-                from: new PhoneNumber("+"),
-                to: new PhoneNumber($"+7{phone}"),
-                    body: text);    
+                MessageResource.Create(
+                    from: new PhoneNumber(_smsServiceSettings.Twilio_PhoneFrom),
+                    to: new PhoneNumber($"+7{phone}"),
+                    body: text);
             }
             catch(Exception e)
             {

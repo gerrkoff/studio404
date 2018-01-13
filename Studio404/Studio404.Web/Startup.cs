@@ -179,7 +179,8 @@ namespace Studio404.Web
 					services.AddScoped<ISmsService, SmsServiceSmsRu>();
 					break;
 				default:
-					throw new ArgumentException("Argument value must be in ('mock', 'smsru')", nameof(smsSettings.Provider));
+				    throw new ArgumentException("Argument value must be in ('mock', 'twilio', 'smsru')",
+				        nameof(smsSettings.Provider));
 			}
 
 			#endregion

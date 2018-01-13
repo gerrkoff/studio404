@@ -171,7 +171,10 @@ namespace Studio404.Web
 			{
 				case "mock":
 					services.AddScoped<ISmsService, SmsServiceMock>();
-					break;				
+					break;
+                case "twilio":
+                    services.AddScoped<ISmsService, SmsServiceTwilio>();
+                    break;
 				case "smsru":
 					services.AddScoped<ISmsService, SmsServiceSmsRu>();
 					break;

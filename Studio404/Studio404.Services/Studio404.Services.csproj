@@ -4,19 +4,14 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Studio404.Common\Studio404.Common.csproj">
-      <Project>{44BEA391-977C-49C6-AFD2-F1A2E8E88366}</Project>
-      <Name>Studio404.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Studio404.Dal\Studio404.Dal.csproj">
-      <Project>{819D85E5-E9FD-4AAA-8DDC-38F3439FA0EB}</Project>
-      <Name>Studio404.Dal</Name>
     </ProjectReference>
     <ProjectReference Include="..\Studio404.Dto\Studio404.Dto.csproj">
-      <Project>{0E718F2F-05FC-4ADC-B601-122C7043D10F}</Project>
-      <Name>Studio404.Dto</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.2.1" />
+    <PackageReference Include="Twilio" Version="5.9.2" />
   </ItemGroup>
 </Project>

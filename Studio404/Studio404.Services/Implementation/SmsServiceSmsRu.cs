@@ -27,7 +27,9 @@ namespace Studio404.Services.Implementation
         
         public async Task<bool> SendAsync(string phone, string text)
         {
-            string smsRequestUrl = GenerateServiceRequstUrl(phone, text);
+			_logger.LogInformation($"SMS Service [SmsRu] sending sms. Phone: {phone}; Text: {text}");
+
+			string smsRequestUrl = GenerateServiceRequstUrl(phone, text);
             
             using (var httpClient = new HttpClient())
             {

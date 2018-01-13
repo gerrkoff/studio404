@@ -31,7 +31,9 @@ namespace Studio404.Services.Implementation
         
         public async Task<bool> SendAsync(string phone, string text)
         {
-            TwilioClient.Init(_smsServiceSettings.Twilio_AccountId, _smsServiceSettings.Twilio_AuthToken);
+			_logger.LogInformation($"SMS Service [Twilio] sending sms. Phone: {phone}; Text: {text}");
+
+			TwilioClient.Init(_smsServiceSettings.Twilio_AccountId, _smsServiceSettings.Twilio_AuthToken);
 
             await Task.Run(() =>
             {

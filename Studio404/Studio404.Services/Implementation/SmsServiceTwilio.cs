@@ -33,20 +33,23 @@ namespace Studio404.Services.Implementation
         {
             TwilioClient.Init(_smsServiceSettings.Twilio_AccountId, _smsServiceSettings.Twilio_AuthToken);
 
-            try
+            await Task.Run(() =>
             {
-                MessageResource.Create(
-                    from: new PhoneNumber(_smsServiceSettings.Twilio_PhoneFrom),
-                    to: new PhoneNumber($"+7{phone}"),
-                    body: text);
-            }
-            catch(Exception e)
-            {
-                _logger.LogError(e, $"Twilio sms error. Message: {e.Message}");
-                throw;
-            }
+                try
+                {
+                    MessageResource.Create(
+                        from: new PhoneNumber(_smsServiceSettings.Twilio_PhoneFrom),
+                        to: new PhoneNumber($"+7{phone}"),
+                        body: text);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, $"Twilio sms error. Message: {e.Message}");
+                    throw;
+                }
+            });
 
-            return await Task.FromResult(true);
+            return true;
         }
     }
 }

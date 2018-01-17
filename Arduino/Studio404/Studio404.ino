@@ -50,11 +50,15 @@ void setup() {
     ;
   }
   Serial.println("START");
+  Serial.println("SERVER: " + url);
+  Serial.println("ACTION: " + action);
+  Serial.print("KEY WAITING TIME: ");
+  Serial.println(postingInterval);
+  Serial.println("ETHERNET INITIALIZING...");
   if (Ethernet.begin(mac) == 0) {
-    Serial.println("Failed to configure Ethernet using DHCP");
+    Serial.println("... failed to configure Ethernet using DHCP");
     Ethernet.begin(mac, ip);
   }
-  Serial.println("ETHERNET INITIALIZING");
   // give the Ethernet shield a second to initialize:
   delay(1000);
   Serial.println("READY");

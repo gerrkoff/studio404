@@ -5,7 +5,7 @@
 
 // _______________________________________________________________
 char server[] = "studio404.azurewebsites.net";
-String action = "/api/check/4/";
+String action = "/api/check/240/";
 const unsigned long postingInterval = 10L * 1000L;
 // _______________________________________________________________
 

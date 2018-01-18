@@ -9,6 +9,12 @@ String action = "/api/check/240/";
 const unsigned long postingInterval = 10L * 1000L;
 // _______________________________________________________________
 
+// _______________________________________________________________
+const byte pinGreen = 0;
+const byte pinRed = 0;
+const int durationShort = 300;
+const int durationLong = 600;
+// _______________________________________________________________
 
 // _______________________________________________________________
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
@@ -16,7 +22,6 @@ String url((char*)server);
 IPAddress ip(192, 168, 0, 177);
 EthernetClient client;
 // _______________________________________________________________
-
 
 // _______________________________________________________________
 const byte rows = 4; //four rows
@@ -31,7 +36,6 @@ byte rowPins[rows] = {9, 8, 7, 6}; //connect to the row pinouts of the keypad
 byte colPins[cols] = {5, 3, 2}; //connect to the column pinouts of the keypad
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, rows, cols );
 // _______________________________________________________________
-
 
 String code = "";
 String responseBody = "";
@@ -54,6 +58,9 @@ void setup() {
   Serial.println("ACTION: " + action);
   Serial.print("KEY WAITING TIME: ");
   Serial.println(postingInterval);
+  // initialize digital pin as an output.
+  pinMode(pinGreen, OUTPUT);
+  pinMode(pinRed, OUTPUT);
   Serial.println("ETHERNET INITIALIZING...");
   if (Ethernet.begin(mac) == 0) {
     Serial.println("... failed to configure Ethernet using DHCP");
@@ -61,6 +68,7 @@ void setup() {
   }
   // give the Ethernet shield a second to initialize:
   delay(1000);
+  pinBlink(pinGreen, 3, true);
   Serial.println("READY");
 }
 
@@ -130,12 +138,15 @@ void httpRequestProcess() {
 
 void processResponseBody() {
   if (responseBody.indexOf("false") > 0) {
+    pinBlink(pinRed, 1, false);
     Serial.println("result: false");
   }
   if (responseBody.indexOf("true") > 0) {
+    pinBlink(pinGreen, 1, false);
     Serial.println("result: true");
   }
   if (responseBody.indexOf("true") == 0 && responseBody.indexOf("false") == 0) {
+    pinBlink(pinRed, 3, true);
     Serial.println("result: unknown");
   }
 }
@@ -180,3 +191,15 @@ void startResponseAnalyze() {
   Serial.println("________response_______");
 }
 
+void pinBlink(byte pin, byte count, bool quick) {
+  for (int i = 0; i < count; i++) {
+    digitalWrite(pin, HIGH);
+    if (quick) {
+      delay(durationShort);
+    }
+    else {
+      delay(durationLong);
+    }
+    digitalWrite(pin, LOW);
+  }
+}

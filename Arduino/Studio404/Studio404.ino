@@ -10,10 +10,11 @@ const unsigned long postingInterval = 10L * 1000L;
 // _______________________________________________________________
 
 // _______________________________________________________________
-const byte pinGreen = 0;
-const byte pinRed = 0;
-const int durationShort = 300;
-const int durationLong = 600;
+const byte pinGreen = A1;
+const byte pinRed = A0;
+const int durationShort = 500;
+const int durationLong = 1000;
+const int pause = 500;
 // _______________________________________________________________
 
 // _______________________________________________________________
@@ -137,15 +138,15 @@ void httpRequestProcess() {
 
 
 void processResponseBody() {
-  if (responseBody.indexOf("false") > 0) {
+  if (responseBody.indexOf("false") > -1) {
     pinBlink(pinRed, 1, false);
     Serial.println("result: false");
   }
-  if (responseBody.indexOf("true") > 0) {
+  if (responseBody.indexOf("true") > -1) {
     pinBlink(pinGreen, 1, false);
     Serial.println("result: true");
   }
-  if (responseBody.indexOf("true") == 0 && responseBody.indexOf("false") == 0) {
+  if (responseBody.indexOf("true") == -1 && responseBody.indexOf("false") == -1) {
     pinBlink(pinRed, 3, true);
     Serial.println("result: unknown");
   }
@@ -191,6 +192,7 @@ void startResponseAnalyze() {
   Serial.println("________response_______");
 }
 
+
 void pinBlink(byte pin, byte count, bool quick) {
   for (int i = 0; i < count; i++) {
     digitalWrite(pin, HIGH);
@@ -201,5 +203,6 @@ void pinBlink(byte pin, byte count, bool quick) {
       delay(durationLong);
     }
     digitalWrite(pin, LOW);
+    delay(pause);
   }
 }

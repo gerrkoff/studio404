@@ -17,12 +17,6 @@ const ExternalLogin = {
         }
     },
 
-    processSuccess: () => {
-        return {
-            type: 'EXT_LOGIN_PROCESS_SUCCESS'
-        }
-    },
-
     processNeedRegistration: (provider) => {
         return {
             type: 'EXT_LOGIN_PROCESS_NEED_REGISTRATION',

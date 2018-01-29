@@ -17,20 +17,15 @@ const externalLogin = (state = initialState, action) => {
                 processStage: 0
             }
 
-        case 'EXT_LOGIN_PROCESS_SUCCESS':
-            return {...state,
-                processStage: 1
-            }
-
         case 'EXT_LOGIN_PROCESS_NEED_REGISTRATION':
             return {...state,
-                processStage: 2,
+                processStage: 1,
                 providerName: action.provider
             }
 
         case 'EXT_LOGIN_PROCESS_ERROR':
             return {...state,
-                processStage: 3
+                processStage: 2
             }
 
         case 'EXT_LOGIN_REGISTER_LOADING':

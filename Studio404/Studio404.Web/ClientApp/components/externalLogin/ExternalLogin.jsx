@@ -17,13 +17,6 @@ class ExternalLogin extends Component {
     render() {
         if (this.props.processStage === 1)
             return (
-                <Row>
-                    <Col md="12"><ErrorLabel text={Labels.redirectNotify}/></Col>
-                </Row>
-            );
-        
-        if (this.props.processStage === 2)
-            return (
                 <div>
                     <ExternalRegister
                         externalLoginRegister={(username) => this.props.externalLoginRegister(username, this.props.history)}
@@ -38,7 +31,7 @@ class ExternalLogin extends Component {
                 </div>
             );
         
-        if (this.props.processStage === 3)
+        if (this.props.processStage === 2)
             return (
                 <Row>
                     <Col md="12"><ErrorLabel text={Labels.defaultError}/></Col>

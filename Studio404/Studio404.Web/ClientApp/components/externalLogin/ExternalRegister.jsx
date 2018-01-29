@@ -13,32 +13,27 @@ class ExternalRegister extends Component {
         return (
             <div>
                 <Row>
-                    <Col md="12">
+                    <Col md="12" className={ css.center }>
                         <label className={ css.text }>Success</label>
                     </Col>
                 </Row>
                 <Row>
-                    <Col md="6">
-                        <TextField
-                            hintText={Labels.loginForm_userEnter}
-                            floatingLabelText={Labels.loginForm_user}
-                            value={this.props.username}
-                            onChange={(e) => this.props.updateUsername(e.target.value)}
-                            errorText={this.props.usernameError} />
-                    </Col>
-                    <Col md="6">
-                        <RaisedButton
-                            label="Register"
-                            primary={true}
-                            onClick={() => this.props.externalLoginRegister(this.props.username)}
-                            disabled={this.props.registerLoading || this.props.usernameInvalid}
-                            className={ css.button } />
-
-                        {this.props.registerLoading &&
-                            <span className={ css.registrationLoader }>
-                                <Loader />
-                            </span>
-                        }
+                    <Col md="12" className={ css.center }>
+                        <div>
+                            <TextField
+                                hintText={Labels.loginForm_userEnter}
+                                floatingLabelText={Labels.loginForm_user}
+                                value={this.props.username}
+                                onChange={(e) => this.props.updateUsername(e.target.value)}
+                                errorText={this.props.usernameError} />
+                        </div>
+                        <div className={ this.props.usernameInvalid ? "" : css.buttonContainer }>
+                            <RaisedButton
+                                label={Labels.loginPopup_register}
+                                primary={true}
+                                onClick={() => this.props.externalLoginRegister(this.props.username)}
+                                disabled={this.props.registerLoading || this.props.usernameInvalid} />
+                        </div>
                     </Col>
                 </Row>
                 <Row>

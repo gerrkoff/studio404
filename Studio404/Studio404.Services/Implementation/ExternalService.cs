@@ -29,6 +29,7 @@ namespace Studio404.Services.Implementation
 				return result;
 
 			UserLoginInfo loginInfo = GetLoginInfoFromAuthenticateResult(authenticateResult);
+            result.Provider = loginInfo.ProviderDisplayName;
 			UserEntity user = await _userManager.FindByLoginAsync(loginInfo.LoginProvider, loginInfo.ProviderKey);
 			if (user == null)
 			{

@@ -32,6 +32,7 @@ class ExternalLogin extends Component {
                         usernameError={this.props.usernameError}
                         registerLoading={this.props.registerLoading}
                         registerError={this.props.registerError}
+                        provider={this.props.providerName}
                     />
                 </div>
             );

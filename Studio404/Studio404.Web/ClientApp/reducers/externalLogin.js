@@ -6,7 +6,8 @@ const initialState = {
     usernameInvalid: false,
     usernameError: '',
     registerLoading: false,
-    registerError: false
+    registerError: false,
+    providerName: ''
 }
 
 const externalLogin = (state = initialState, action) => {
@@ -23,7 +24,8 @@ const externalLogin = (state = initialState, action) => {
 
         case 'EXT_LOGIN_PROCESS_NEED_REGISTRATION':
             return {...state,
-                processStage: 2
+                processStage: 2,
+                providerName: action.provider
             }
 
         case 'EXT_LOGIN_PROCESS_ERROR':

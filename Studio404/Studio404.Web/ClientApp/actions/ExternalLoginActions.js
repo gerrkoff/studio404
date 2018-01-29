@@ -23,9 +23,10 @@ const ExternalLogin = {
         }
     },
 
-    processNeedRegistration: () => {
+    processNeedRegistration: (provider) => {
         return {
-            type: 'EXT_LOGIN_PROCESS_NEED_REGISTRATION'
+            type: 'EXT_LOGIN_PROCESS_NEED_REGISTRATION',
+            provider
         }
     },
 
@@ -72,7 +73,7 @@ export const externalLoginProcess = () => {
                         break
 
                     case 2:
-                        dispatch(ExternalLogin.processNeedRegistration())
+                        dispatch(ExternalLogin.processNeedRegistration(data.provider))
                         break
 
                     default:

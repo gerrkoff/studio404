@@ -58,7 +58,7 @@ const ExternalLogin = {
     }
 }
 
-export const externalLoginProcess = () => {
+export const externalLoginProcess = (history) => {
     return (dispatch) => {
         dispatch(ExternalLogin.processing())
         Http.Post('external/process')
@@ -69,7 +69,7 @@ export const externalLoginProcess = () => {
             .done(data => {
                 switch (data.result) {
                     case 1:
-                        userLoggedIn(dispatch, data)
+                        userLoggedIn(dispatch, data, history)
                         break
 
                     case 2:
@@ -85,7 +85,7 @@ export const externalLoginProcess = () => {
     }
 }
 
-export const externalLoginRegister = (username) => {
+export const externalLoginRegister = (username, history) => {
     return (dispatch) => {
         dispatch(ExternalLogin.registerLoading())
         Http.Post('external/register', { username: username })
@@ -96,7 +96,7 @@ export const externalLoginRegister = (username) => {
             .done(data => {
                 switch (data.result) {
                     case 1:
-                        userLoggedIn(dispatch, data)
+                        userLoggedIn(dispatch, data, history)
                         break
 
                     case 2:
@@ -140,8 +140,8 @@ function validateUsername (username) {
     return result
 }
 
-function userLoggedIn (dispatch, data) {
-    dispatch(ExternalLogin.processSuccess())
+function userLoggedIn (dispatch, data, history) {
     Token.Save(data.token)
     dispatch(loadCurrentUser(true))
+    history.push('/')
 }

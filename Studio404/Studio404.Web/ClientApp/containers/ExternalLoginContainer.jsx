@@ -11,8 +11,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        externalLoginProcess: () => dispatch(externalLoginProcess()),
-        externalLoginRegister: (username) => dispatch(externalLoginRegister(username)),
+        externalLoginProcess: (history) => dispatch(externalLoginProcess(history)),
+        externalLoginRegister: (username, history) => dispatch(externalLoginRegister(username, history)),
         updateUsername: (username) => dispatch(updateUsername(username))
     }
 }

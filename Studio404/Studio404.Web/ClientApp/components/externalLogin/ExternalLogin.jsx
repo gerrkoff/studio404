@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 import LoaderContent from "../../components/common/LoaderContent";
 import ErrorLabel from "../common/ErrorLabel";
@@ -10,7 +11,7 @@ class ExternalLogin extends Component {
 
     constructor(props) {
         super(props);
-        this.props.externalLoginProcess();
+        this.props.externalLoginProcess(this.props.history);
     }
 
     render() {
@@ -25,7 +26,7 @@ class ExternalLogin extends Component {
             return (
                 <div>
                     <ExternalRegister
-                        externalLoginRegister={this.props.externalLoginRegister}
+                        externalLoginRegister={(username) => this.props.externalLoginRegister(username, this.props.history)}
                         updateUsername={this.props.updateUsername}
                         username={this.props.username}
                         usernameInvalid={this.props.usernameInvalid}
@@ -52,4 +53,4 @@ class ExternalLogin extends Component {
     }
 }
 
-export default ExternalLogin;
+export default withRouter(ExternalLogin);

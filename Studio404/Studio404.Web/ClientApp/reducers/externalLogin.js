@@ -1,3 +1,5 @@
+import Labels from '../modules/Labels'
+
 const initialState = {
     processStage: 0,
     username: '',
@@ -27,6 +29,26 @@ const externalLogin = (state = initialState, action) => {
         case 'EXT_LOGIN_PROCESS_ERROR':
             return {...state,
                 processStage: 3
+            }
+
+        case 'EXT_LOGIN_REGISTER_LOADING':
+            return {...state,
+                registerLoading: true,
+                registerError: false
+            }
+
+        case 'EXT_LOGIN_REGISTER_ERROR':
+            return {...state,
+                registerLoading: false,
+                registerError: true
+            }
+
+        case 'EXT_LOGIN_REGISTER_USERNAME_ALREADY_EXISTS':
+            return {...state,
+                registerLoading: false,
+                registerError: false,
+                usernameError: Labels.userAlreadyRegistered,
+                usernameInvalid: true
             }
 
         case 'EXT_LOGIN_UPDATE_USERNAME':

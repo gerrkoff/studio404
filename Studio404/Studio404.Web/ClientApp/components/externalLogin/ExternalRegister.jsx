@@ -4,6 +4,8 @@ import Labels from "../../modules/Labels";
 import css from "../../styles/externalLogin.css";
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import Loader from "../../components/common/Loader";
+import ErrorLabel from "../common/ErrorLabel";
 
 class ExternalRegister extends Component {
 
@@ -18,8 +20,8 @@ class ExternalRegister extends Component {
                 <Row>
                     <Col md="6">
                         <TextField
-                            hintText="Enter username"
-                            floatingLabelText="Username"
+                            hintText={Labels.loginForm_userEnter}
+                            floatingLabelText={Labels.loginForm_user}
                             value={this.props.username}
                             onChange={(e) => this.props.updateUsername(e.target.value)}
                             errorText={this.props.usernameError} />
@@ -28,7 +30,7 @@ class ExternalRegister extends Component {
                         <RaisedButton
                             label="Register"
                             primary={true}
-                            onClick={this.props.register}
+                            onClick={() => this.props.externalLoginRegister(this.props.username)}
                             disabled={this.props.registerLoading || this.props.usernameInvalid}
                             className={ css.button } />
 

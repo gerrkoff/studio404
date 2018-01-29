@@ -25,7 +25,7 @@ namespace Studio404.Services.Implementation
 		{
 			var result = new ExternalLoginResultDto();
 
-			if (authenticateResult == null)
+            if (authenticateResult == null || !authenticateResult.Succeeded)
 				return result;
 
 			UserLoginInfo loginInfo = GetLoginInfoFromAuthenticateResult(authenticateResult);
@@ -47,7 +47,7 @@ namespace Studio404.Services.Implementation
 		{
 			var result = new ExternalRegisterResultDto();
 
-			if (authenticateResult == null)
+            if (authenticateResult == null || !authenticateResult.Succeeded)
 				return result;
 
 			UserLoginInfo loginInfo = GetLoginInfoFromAuthenticateResult(authenticateResult);

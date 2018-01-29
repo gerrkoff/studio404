@@ -25,7 +25,7 @@ class ExternalLogin extends Component {
             return (
                 <div>
                     <ExternalRegister
-                        register={this.props.register}
+                        externalLoginRegister={this.props.externalLoginRegister}
                         updateUsername={this.props.updateUsername}
                         username={this.props.username}
                         usernameInvalid={this.props.usernameInvalid}

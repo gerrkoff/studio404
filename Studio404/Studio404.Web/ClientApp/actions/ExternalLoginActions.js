@@ -29,6 +29,24 @@ const ExternalLogin = {
         }
     },
 
+    registerLoading: () => {
+        return {
+            type: 'EXT_LOGIN_REGISTER_LOADING'
+        }
+    },
+
+    registerError: () => {
+        return {
+            type: 'EXT_LOGIN_REGISTER_ERROR'
+        }
+    },
+
+    registerUsernameAlreadyExists: () => {
+        return {
+            type: 'EXT_LOGIN_REGISTER_USERNAME_ALREADY_EXISTS'
+        }
+    },
+
     updateUsername: (username, invalid, error) => {
         return {
             type: 'EXT_LOGIN_UPDATE_USERNAME',
@@ -61,6 +79,35 @@ export const externalLoginProcess = () => {
 
                     default:
                         dispatch(ExternalLogin.processError())
+                        dispatch(showDefaultError())
+                        break
+                }
+            })
+    }
+}
+
+export const externalLoginRegister = (username) => {
+    return (dispatch) => {
+        dispatch(ExternalLogin.registerLoading())
+        Http.Post('external/register', { username: username })
+            .fail((data) => {
+                dispatch(ExternalLogin.registerError())
+                dispatch(errorHandler(data))
+            })
+            .done(data => {
+                switch (data.result) {
+                    case 1:
+                        dispatch(ExternalLogin.processSuccess())
+                        Token.Save(data.token)
+                        dispatch(loadCurrentUser())
+                        break
+
+                    case 2:
+                        dispatch(ExternalLogin.registerUsernameAlreadyExists())
+                        break
+
+                    default:
+                        dispatch(ExternalLogin.registerError())
                         dispatch(showDefaultError())
                         break
                 }

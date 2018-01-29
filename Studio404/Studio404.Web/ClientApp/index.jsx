@@ -14,6 +14,7 @@ import NotFound from "./components/root/NotFound";
 import Home from "./containers/HomeContainer";
 import Booking from "./containers/BookingContainer";
 import User from "./containers/UserContainer";
+import ExternalLogin from "./containers/ExternalLoginContainer";
 import rootReducer from './reducers'
 
 let store = createStore(rootReducer, applyMiddleware(thunk))
@@ -26,6 +27,7 @@ ReactDOM.render(
                     <Route path="/" exact component={Home} />
                     <Route path="/booking" component={Booking} />
                     <Route path="/my" component={User} />
+                    <Route path="/extlogin" component={ExternalLogin} />
                     <Route path="*" component={NotFound} />
                 </Switch>
             </AppMaterial>

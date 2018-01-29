@@ -103,7 +103,7 @@ namespace Studio404.Web
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationContext>();
 
-            services.AddScoped<SignInManager<UserEntity>>();
+			services.AddScoped<SignInManager<UserEntity>>();
             services.AddScoped<UserManager<UserEntity>>();
         }
 
@@ -149,7 +149,16 @@ namespace Studio404.Web
                             ClockSkew = TimeSpan.Zero
                         };
                     });
-        }
+			
+			services.AddAuthentication()
+				.AddCookie(IdentityConstants.ExternalScheme)
+				.AddGoogle(googleOptions =>
+				{
+					googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
+					googleOptions.ClientId = authSettings.AuthGoogleSettings.ClientId;
+					googleOptions.ClientSecret = authSettings.AuthGoogleSettings.ClientSecret;
+				});
+		}
 
         private void ConfigDiServices(IServiceCollection services)
         {
@@ -163,6 +172,7 @@ namespace Studio404.Web
             services.AddScoped<IDateService, DateService>();
             services.AddScoped<ICostEvaluationService, CostEvaluationService>();
             services.AddScoped<ITokenService, TokenService>();
+			services.AddScoped<IExternalService, ExternalService>();
 
 			#region SmsService
 

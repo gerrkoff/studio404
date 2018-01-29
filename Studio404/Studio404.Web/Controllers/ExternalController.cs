@@ -6,6 +6,7 @@ using Studio404.Web.Controllers.Base;
 using Microsoft.AspNetCore.Identity;
 using Studio404.Dal.Entity;
 using Microsoft.AspNetCore.Authentication;
+using System.Threading;
 
 namespace Studio404.Web.Controllers
 {
@@ -43,6 +44,9 @@ namespace Studio404.Web.Controllers
 		[HttpPost]
 		public async Task<ExternalLoginResultDto> Process()
 		{
+            // TODO: remove
+            Thread.Sleep(3000);
+
 			return await _externalService.Process(await HttpContext.AuthenticateAsync(IdentityConstants.ExternalScheme));
 		}
 

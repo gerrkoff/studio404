@@ -31,14 +31,12 @@ namespace Studio404.Web.Controllers
 		}
 
 		[HttpGet]
-		public Task<ExternalLoginResultDto> Callback(string returnUrl = null, string remoteError = null)
+        public IActionResult Callback(string returnUrl = null, string remoteError = null)
 		{
-			// TODO: log remote error
+            // TODO: log remote error
 
-			// TODO: redirect to page
-
-			// TODO: remove it
-			return Process();
+            // TODO: redirect to page
+            return Redirect("/#/extlogin");
 		}
 
 		[HttpPost]

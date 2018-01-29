@@ -68,9 +68,7 @@ export const externalLoginProcess = () => {
             .done(data => {
                 switch (data.result) {
                     case 1:
-                        dispatch(ExternalLogin.processSuccess())
-                        Token.Save(data.token)
-                        dispatch(loadCurrentUser())
+                        userLoggedIn(dispatch, data)
                         break
 
                     case 2:
@@ -97,9 +95,7 @@ export const externalLoginRegister = (username) => {
             .done(data => {
                 switch (data.result) {
                     case 1:
-                        dispatch(ExternalLogin.processSuccess())
-                        Token.Save(data.token)
-                        dispatch(loadCurrentUser())
+                        userLoggedIn(dispatch, data)
                         break
 
                     case 2:
@@ -141,4 +137,10 @@ function validateUsername (username) {
     }
 
     return result
+}
+
+function userLoggedIn (dispatch, data) {
+    dispatch(ExternalLogin.processSuccess())
+    Token.Save(data.token)
+    dispatch(loadCurrentUser(true))
 }

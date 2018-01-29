@@ -40,7 +40,7 @@ namespace Studio404.Web.Controllers
 			return Process();
 		}
 
-		[HttpGet]
+		[HttpPost]
 		public async Task<ExternalLoginResultDto> Process()
 		{
 			return await _externalService.Process(await HttpContext.AuthenticateAsync(IdentityConstants.ExternalScheme));

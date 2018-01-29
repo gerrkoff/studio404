@@ -24,7 +24,15 @@ class ExternalLogin extends Component {
         if (this.props.processStage === 2)
             return (
                 <div>
-                    <ExternalRegister />
+                    <ExternalRegister
+                        register={this.props.register}
+                        updateUsername={this.props.updateUsername}
+                        username={this.props.username}
+                        usernameInvalid={this.props.usernameInvalid}
+                        usernameError={this.props.usernameError}
+                        registerLoading={this.props.registerLoading}
+                        registerError={this.props.registerError}
+                    />
                 </div>
             );
         

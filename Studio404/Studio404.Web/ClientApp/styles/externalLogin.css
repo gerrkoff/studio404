@@ -2,3 +2,18 @@
     text-align: center;
     padding: 15px;
 }
+
+.text {
+	padding-top: 10px;
+}
+
+.button {
+	position: relative;
+	top: 28px;
+}
+
+.registrationLoader {
+	position: relative;
+	padding-left: 25px;
+	top: 32px;
+}

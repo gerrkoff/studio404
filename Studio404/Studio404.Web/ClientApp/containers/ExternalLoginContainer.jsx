@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ExternalLogin from "../components/externalLogin/ExternalLogin";
-import { externalLoginProcess } from "../actions/ExternalLoginActions";
+import { externalLoginProcess, updateUsername } from "../actions/ExternalLoginActions";
 
 const mapStateToProps = (state) => {
     return {
@@ -11,7 +11,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        externalLoginProcess: () => dispatch(externalLoginProcess())
+        externalLoginProcess: () => dispatch(externalLoginProcess()),
+        updateUsername: (username) => dispatch(updateUsername(username))
     }
 }
 

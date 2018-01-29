@@ -2,6 +2,7 @@ import { Http, errorHandler } from '../modules/Http'
 import { showDefaultError } from './MessageActions'
 import { Token } from '../modules/Storage'
 import { loadCurrentUser } from './AccountActions'
+import Labels from '../modules/Labels'
 
 const ExternalLogin = {
     processing: () => {
@@ -25,6 +26,15 @@ const ExternalLogin = {
     processNeedRegistration: () => {
         return {
             type: 'EXT_LOGIN_PROCESS_NEED_REGISTRATION'
+        }
+    },
+
+    updateUsername: (username, invalid, error) => {
+        return {
+            type: 'EXT_LOGIN_UPDATE_USERNAME',
+            username,
+            invalid,
+            error
         }
     }
 }
@@ -56,4 +66,32 @@ export const externalLoginProcess = () => {
                 }
             })
     }
+}
+
+export const updateUsername = (username) => {
+    return (dispatch) => {
+        let validationResult = validateUsername(username)
+        dispatch(ExternalLogin.updateUsername(username, validationResult.invalid, validationResult.error))
+    }
+}
+
+function validateUsername (username) {
+    let result = {
+        invalid: false,
+        error: ''
+    }
+
+    if (username === '') {
+        result.invalid = true
+        result.error = Labels.fieldIsRequired
+    }
+    else if (username.length > 30 || /[^a-zA-Z0-9_]/.test(username)) {
+        result.invalid = true
+        result.error = Labels.usernameCreateRule
+    }
+    else {
+        result.error = ''
+    }
+
+    return result
 }

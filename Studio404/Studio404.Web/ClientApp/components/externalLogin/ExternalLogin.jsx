@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { Row, Col } from 'reactstrap';
 import LoaderContent from "../../components/common/LoaderContent";
+import ErrorLabel from "../common/ErrorLabel";
+import Labels from "../../modules/Labels";
 import css from "../../styles/externalLogin.css";
+import ExternalRegister from "./ExternalRegister";
 
 class ExternalLogin extends Component {
 
@@ -12,23 +16,23 @@ class ExternalLogin extends Component {
     render() {
         if (this.props.processStage === 1)
             return (
-                <div>
-                    Success
-                </div>
+                <Row>
+                    <Col md="12"><ErrorLabel text={Labels.redirectNotify}/></Col>
+                </Row>
             );
         
         if (this.props.processStage === 2)
             return (
                 <div>
-                    Register
+                    <ExternalRegister />
                 </div>
             );
         
         if (this.props.processStage === 3)
             return (
-                <div>
-                    Error
-                </div>
+                <Row>
+                    <Col md="12"><ErrorLabel text={Labels.defaultError}/></Col>
+                </Row>
             );
         
         return (

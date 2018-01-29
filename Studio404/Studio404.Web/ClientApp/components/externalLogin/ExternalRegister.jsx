@@ -14,7 +14,7 @@ class ExternalRegister extends Component {
             <div>
                 <Row>
                     <Col md="12" className={ css.center }>
-                        <label className={ css.text }>Success</label>
+                        <label className={ css.text }>{Labels.extlogin_successAuth('Google')}</label>
                     </Col>
                 </Row>
                 <Row>

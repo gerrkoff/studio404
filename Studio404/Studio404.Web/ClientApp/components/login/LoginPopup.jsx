@@ -66,7 +66,7 @@ class LoginPopup extends Component {
     }
 
     externalLogin(provider) {
-        let returnUrl = encodeURI(this.props.location.pathname);
+        let returnUrl = encodeURI(this.props.history.location.pathname);
         let redirectUrl = `/externallogin/${provider}?returnUrl=${returnUrl}`;
         location.replace(redirectUrl);
     }

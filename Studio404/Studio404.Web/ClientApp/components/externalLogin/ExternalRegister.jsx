@@ -25,7 +25,8 @@ class ExternalRegister extends Component {
                                 floatingLabelText={Labels.loginForm_user}
                                 value={this.props.username}
                                 onChange={(e) => this.props.updateUsername(e.target.value)}
-                                errorText={this.props.usernameError} />
+                                errorText={this.props.usernameError}
+                                className={css.left} />
                         </div>
                         <div className={ this.props.usernameInvalid ? "" : css.buttonContainer }>
                             <RaisedButton

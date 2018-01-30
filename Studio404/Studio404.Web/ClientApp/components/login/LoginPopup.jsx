@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
@@ -8,6 +9,11 @@ import Labels from "../../modules/Labels";
 import css from "../../styles/popup.css";
 
 class LoginPopup extends Component {
+
+    constructor(props) {
+        super(props);
+        this.externalLogin = this.externalLogin.bind(this);
+    }
 
     render() {
         const actions = [
@@ -46,7 +52,7 @@ class LoginPopup extends Component {
 
                     {this.props.registration === true
                         ? <RegisterForm updateRegisterInfo={this.props.updateRegisterInfo} registerInfo={this.props.registerInfo} />
-                        : <LoginForm updateLoginInfo={this.props.updateLoginInfo} loginInfo={this.props.loginInfo} />
+                        : <LoginForm updateLoginInfo={this.props.updateLoginInfo} loginInfo={this.props.loginInfo} externalLogin={this.externalLogin} />
                     }
                     <br />
                     <Toggle
@@ -58,6 +64,12 @@ class LoginPopup extends Component {
             </div>
         );
     }
+
+    externalLogin(provider) {
+        let returnUrl = encodeURI(this.props.location.pathname);
+        let redirectUrl = `/external/login/${provider}?returnUrl=${returnUrl}`;
+        location.replace(redirectUrl);
+    }
 }
 
-export default LoginPopup;
+export default withRouter(LoginPopup);

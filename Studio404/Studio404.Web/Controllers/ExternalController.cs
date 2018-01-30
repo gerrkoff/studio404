@@ -6,6 +6,7 @@ using Studio404.Web.Controllers.Base;
 using Microsoft.AspNetCore.Identity;
 using Studio404.Dal.Entity;
 using Microsoft.AspNetCore.Authentication;
+using System.Web;
 
 namespace Studio404.Web.Controllers
 {
@@ -24,7 +25,8 @@ namespace Studio404.Web.Controllers
 		[HttpGet("{provider}")]
 		public IActionResult Login(string provider, string returnUrl = null)
 		{
-			var redirectUrl = Url.Action("Callback");
+			returnUrl = "/my";
+			var redirectUrl = Url.Action("Callback", "External", new { returnUrl = returnUrl });
 			var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
 			return new ChallengeResult(provider, properties);
 		}
@@ -32,8 +34,10 @@ namespace Studio404.Web.Controllers
 		[HttpGet]
         public IActionResult Callback(string returnUrl = null, string remoteError = null)
 		{
-            // TODO: log remote error
-            return Redirect("/#/extlogin");
+			// TODO: log remote error
+
+			returnUrl = HttpUtility.UrlEncode(returnUrl);
+			return Redirect($"/#/extlogin?returnUrl={returnUrl}");
 		}
 
 		[HttpPost]

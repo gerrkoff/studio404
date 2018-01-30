@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
+import queryString from 'query-string';
 import LoaderContent from "../../components/common/LoaderContent";
 import ErrorLabel from "../common/ErrorLabel";
 import Labels from "../../modules/Labels";
@@ -11,7 +12,12 @@ class ExternalLogin extends Component {
 
     constructor(props) {
         super(props);
-        this.props.externalLoginProcess(this.props.history);
+
+        let queryParsed = queryString.parse(this.props.location.search);
+        console.log(queryParsed.returnUrl);
+        this.returnUrl = queryParsed.returnUrl;
+
+        this.props.externalLoginProcess(this.props.history, this.returnUrl);
     }
 
     render() {
@@ -19,7 +25,7 @@ class ExternalLogin extends Component {
             return (
                 <div>
                     <ExternalRegister
-                        externalLoginRegister={(username) => this.props.externalLoginRegister(username, this.props.history)}
+                        externalLoginRegister={(username) => this.props.externalLoginRegister(username, this.props.history, this.returnUrl)}
                         updateUsername={this.props.updateUsername}
                         username={this.props.username}
                         usernameInvalid={this.props.usernameInvalid}

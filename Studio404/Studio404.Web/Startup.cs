@@ -157,6 +157,12 @@ namespace Studio404.Web
 					googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
 					googleOptions.ClientId = authSettings.AuthGoogleSettings.ClientId;
 					googleOptions.ClientSecret = authSettings.AuthGoogleSettings.ClientSecret;
+				})
+				.AddTwitter(twitterOptions =>
+				{
+					twitterOptions.SignInScheme = IdentityConstants.ExternalScheme;
+					twitterOptions.ConsumerKey = authSettings.AuthTwitterSettings.ConsumerKey;
+					twitterOptions.ConsumerSecret = authSettings.AuthTwitterSettings.ConsumerSecret;
 				});
 		}
 

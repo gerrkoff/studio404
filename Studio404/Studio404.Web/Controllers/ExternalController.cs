@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Studio404.Web.Controllers
 {
-	[Route("[controller]/[action]")]
+	[Route("api/[controller]/[action]")]
 	public class ExternalController : BaseController
 	{
 		private readonly IExternalService _externalService;
@@ -22,7 +22,8 @@ namespace Studio404.Web.Controllers
 			_logger = logger;
 		}
 
-		[HttpGet("{provider}")]
+		[HttpGet]
+		[Route("/externallogin/{provider}")]
 		public IActionResult Login(string provider, string returnUrl = null)
 		{
 			var redirectUrl = Url.Action("Callback", "External", new { returnUrl = returnUrl });
@@ -31,7 +32,8 @@ namespace Studio404.Web.Controllers
 		}
 
 		[HttpGet]
-        public IActionResult Callback(string returnUrl = null, string remoteError = null)
+		[Route("/externalcallback")]
+		public IActionResult Callback(string returnUrl = null, string remoteError = null)
 		{
 			if(!string.IsNullOrWhiteSpace(remoteError))
 				_logger.LogWarning($"External login failed failed. Remote error: {remoteError}");

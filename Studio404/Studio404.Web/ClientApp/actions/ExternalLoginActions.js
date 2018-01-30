@@ -55,7 +55,7 @@ const ExternalLogin = {
 export const externalLoginProcess = (history, returnUrl) => {
     return (dispatch) => {
         dispatch(ExternalLogin.processing())
-        Http.Post('external/process')
+        Http.Post('api/external/process')
             .fail((data) => {
                 dispatch(ExternalLogin.processError())
                 dispatch(errorHandler(data))
@@ -82,7 +82,7 @@ export const externalLoginProcess = (history, returnUrl) => {
 export const externalLoginRegister = (username, history, returnUrl) => {
     return (dispatch) => {
         dispatch(ExternalLogin.registerLoading())
-        Http.Post('external/register', { username: username })
+        Http.Post('api/external/register', { username: username })
             .fail((data) => {
                 dispatch(ExternalLogin.registerError())
                 dispatch(errorHandler(data))

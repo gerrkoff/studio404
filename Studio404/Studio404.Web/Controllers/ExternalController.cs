@@ -4,22 +4,22 @@ using Studio404.Dto.External;
 using Studio404.Services.Interface;
 using Studio404.Web.Controllers.Base;
 using Microsoft.AspNetCore.Identity;
-using Studio404.Dal.Entity;
 using Microsoft.AspNetCore.Authentication;
 using System.Web;
+using Microsoft.Extensions.Logging;
 
 namespace Studio404.Web.Controllers
 {
 	[Route("[controller]/[action]")]
 	public class ExternalController : BaseController
 	{
-		private readonly UserManager<UserEntity> _userManager;
 		private readonly IExternalService _externalService;
+		private readonly ILogger<ExternalController> _logger;
 
-		public ExternalController(UserManager<UserEntity> userManager, IExternalService externalService)
+		public ExternalController(IExternalService externalService, ILogger<ExternalController> logger)
 		{
-			_userManager = userManager;
 			_externalService = externalService;
+			_logger = logger;
 		}
 
 		[HttpGet("{provider}")]
@@ -34,7 +34,8 @@ namespace Studio404.Web.Controllers
 		[HttpGet]
         public IActionResult Callback(string returnUrl = null, string remoteError = null)
 		{
-			// TODO: log remote error
+			if(!string.IsNullOrWhiteSpace(remoteError))
+				_logger.LogWarning($"External login failed failed. Remote error: {remoteError}");
 
 			returnUrl = HttpUtility.UrlEncode(returnUrl);
 			return Redirect($"/#/extlogin?returnUrl={returnUrl}");

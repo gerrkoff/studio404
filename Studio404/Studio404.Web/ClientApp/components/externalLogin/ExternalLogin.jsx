@@ -14,7 +14,6 @@ class ExternalLogin extends Component {
         super(props);
 
         let queryParsed = queryString.parse(this.props.location.search);
-        console.log(queryParsed.returnUrl);
         this.returnUrl = queryParsed.returnUrl;
 
         this.props.externalLoginProcess(this.props.history, this.returnUrl);

@@ -25,7 +25,6 @@ namespace Studio404.Web.Controllers
 		[HttpGet("{provider}")]
 		public IActionResult Login(string provider, string returnUrl = null)
 		{
-			returnUrl = "/my";
 			var redirectUrl = Url.Action("Callback", "External", new { returnUrl = returnUrl });
 			var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
 			return new ChallengeResult(provider, properties);

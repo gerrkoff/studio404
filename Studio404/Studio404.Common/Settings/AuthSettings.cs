@@ -9,6 +9,7 @@
 
 		public AuthGoogleSettings AuthGoogleSettings { get; set; }
 		public AuthTwitterSettings AuthTwitterSettings { get; set; }
+		public AuthFacebookSettings AuthFacebookSettings { get; set; }
 	}
 
 	public class AuthGoogleSettings
@@ -21,5 +22,11 @@
 	{
 		public string ConsumerKey { get; set; }
 		public string ConsumerSecret { get; set; }
+	}
+
+	public class AuthFacebookSettings
+	{
+		public string AppId { get; set; }
+		public string AppSecret { get; set; }
 	}
 }

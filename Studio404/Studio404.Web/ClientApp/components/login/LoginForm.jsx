@@ -30,8 +30,8 @@ class LoginForm extends Component {
                         <br /><FlatButton label="VKontakte" secondary={true} onClick={() => this.props.externalLogin("VKontakte")} />
                         <br /><FlatButton label="Facebook" secondary={true} onClick={() => this.props.externalLogin("Facebook")} />
                         <br /><FlatButton label="Twitter" secondary={true} onClick={() => this.props.externalLogin("Twitter")} />
-                        <br /><FlatButton label="Yandex" secondary={true} onClick={() => this.props.externalLogin("Yandex")} />
                         <br /><FlatButton label="Google" secondary={true} onClick={() => this.props.externalLogin("Google")} />
+                        <br /><FlatButton label="Yandex" secondary={true} onClick={() => this.props.externalLogin("Yandex")} />                        
                     </Col>
                 </Row>
             </div>

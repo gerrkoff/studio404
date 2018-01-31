@@ -27,10 +27,11 @@ class LoginForm extends Component {
                             errorText={this.props.loginInfo.passwordError} />
                     </Col>
                     <Col md="4">
+                        <FlatButton label="VKontakte" secondary={true} onClick={() => this.props.externalLogin("VKontakte")} /><br />
                         <FlatButton label="Facebook" secondary={true} onClick={() => this.props.externalLogin("Facebook")} /><br />
                         <FlatButton label="Twitter" secondary={true} onClick={() => this.props.externalLogin("Twitter")} /><br />
+                        <FlatButton label="Yandex" secondary={true} onClick={() => this.props.externalLogin("Yandex")} /><br />
                         <FlatButton label="Google" secondary={true} onClick={() => this.props.externalLogin("Google")} /><br />
-                        <FlatButton label="Microsoft" secondary={true} onClick={() => this.props.externalLogin("Microsoft")} /><br />
                     </Col>
                 </Row>
             </div>

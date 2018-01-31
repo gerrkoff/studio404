@@ -12,7 +12,8 @@ namespace Studio404.Automapper
         {
             CreateMap<BookingEntity, BookingSimpleDto>();
             CreateMap<CurrentUser, CurrentUserDto>()
-                .ForMember(x => x.UserLoggedIn, e => e.MapFrom(x => !string.IsNullOrEmpty(x.Username)))
+				.ForMember(x => x.Username, e => e.MapFrom(x => x.DisplayName))
+				.ForMember(x => x.UserLoggedIn, e => e.MapFrom(x => !string.IsNullOrEmpty(x.Username)))
                 .ForMember(x => x.Phone, e => e.MapFrom(x => "*" + x.Phone.Substring(x.Phone.Length - 4, 4)));
         }
     }

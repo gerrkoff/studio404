@@ -7,6 +7,7 @@ using Studio404.Dto.External;
 using Studio404.Services.Interface;
 using System.Security.Claims;
 using System;
+using Studio404.Common.Exceptions;
 
 namespace Studio404.Services.Implementation
 {
@@ -57,7 +58,23 @@ namespace Studio404.Services.Implementation
 		{
 			string loginProvider = authenticateResult.Principal.Identity.AuthenticationType;
 			string providerKey = authenticateResult.Principal.FindFirst(ClaimTypes.NameIdentifier).Value;
-			string username = loginProvider;
+			string username = string.Empty;
+
+			switch (loginProvider.ToLower())
+			{
+				case "vkontakte":
+				case "facebook":
+				case "google":
+					username = $"{authenticateResult.Principal.FindFirst(ClaimTypes.GivenName).Value} {authenticateResult.Principal.FindFirst(ClaimTypes.Surname).Value}";
+					break;
+
+				case "twitter":
+					username = authenticateResult.Principal.FindFirst(ClaimTypes.Name).Value;
+					break;
+
+				default:
+					throw new ServiceException("No such external login provider");
+			}
 
 			return new ExtendedUserLoginInfo(loginProvider, providerKey, username);
 		}

@@ -6,7 +6,7 @@ using Studio404.Dal.Entity;
 using Studio404.Dto.External;
 using Studio404.Services.Interface;
 using System.Security.Claims;
-using System.Linq;
+using System;
 
 namespace Studio404.Services.Implementation
 {
@@ -25,65 +25,51 @@ namespace Studio404.Services.Implementation
 		{
 			var result = new ExternalLoginResultDto();
 
-            if (authenticateResult == null || !authenticateResult.Succeeded)
+			if (authenticateResult == null || !authenticateResult.Succeeded)
 				return result;
 
-			UserLoginInfo loginInfo = GetLoginInfoFromAuthenticateResult(authenticateResult);
-            result.Provider = loginInfo.ProviderDisplayName;
+			ExtendedUserLoginInfo loginInfo = GetLoginInfoFromAuthenticateResult(authenticateResult);
 			UserEntity user = await _userManager.FindByLoginAsync(loginInfo.LoginProvider, loginInfo.ProviderKey);
+
 			if (user == null)
 			{
-				result.Result = ExternalLoginResultEnum.AccountNotCreated;
-			}
-			else
-			{
-				result.Result = ExternalLoginResultEnum.Success;
-				result.Token = _tokenService.GetToken(user);
-			}
-
-			return result;
-		}
-
-		public async Task<ExternalRegisterResultDto> Register(ExternalRegisterInfoDto externalRegisterInfo, AuthenticateResult authenticateResult)
-		{
-			var result = new ExternalRegisterResultDto();
-
-            if (authenticateResult == null || !authenticateResult.Succeeded)
-				return result;
-
-			UserLoginInfo loginInfo = GetLoginInfoFromAuthenticateResult(authenticateResult);
-			var user = new UserEntity { UserName = externalRegisterInfo.Username };
-			IdentityResult createUserResult = await _userManager.CreateAsync(user);
-			if (createUserResult.Succeeded)
-			{
-				IdentityResult addLoginInfoResult = await _userManager.AddLoginAsync(user, loginInfo);
-				if (addLoginInfoResult.Succeeded)
+				user = new UserEntity { UserName = Guid.NewGuid().ToString(), DisplayName = loginInfo.UserDisplayName };
+				IdentityResult createUserResult = await _userManager.CreateAsync(user);
+				if (createUserResult.Succeeded)
 				{
-					result.Result = ExternalRegisterResultEnum.Success;
-					result.Token = _tokenService.GetToken(user);
+					IdentityResult addLoginInfoResult = await _userManager.AddLoginAsync(user, loginInfo);
+					if (!addLoginInfoResult.Succeeded)
+						return result;
 				}
 				else
 				{
-					result.Result = ExternalRegisterResultEnum.Unknown;
-				}				
+					return result;
+				}
 			}
-			else if (createUserResult.Errors.Any(x => string.Equals(x.Code, "DuplicateUserName")))
-			{
-				result.Result = ExternalRegisterResultEnum.UsernameAlreadyExists;
-			}
-			else
-			{
-				result.Result = ExternalRegisterResultEnum.Unknown;
-			}
+
+			result.Result = ExternalLoginResultEnum.Success;
+			result.Token = _tokenService.GetToken(user);
 
 			return result;
 		}
 
-		private UserLoginInfo GetLoginInfoFromAuthenticateResult(AuthenticateResult authenticateResult)
+		private ExtendedUserLoginInfo GetLoginInfoFromAuthenticateResult(AuthenticateResult authenticateResult)
 		{
 			string loginProvider = authenticateResult.Principal.Identity.AuthenticationType;
 			string providerKey = authenticateResult.Principal.FindFirst(ClaimTypes.NameIdentifier).Value;
-			return new UserLoginInfo(loginProvider, providerKey, loginProvider);
+			string username = loginProvider;
+
+			return new ExtendedUserLoginInfo(loginProvider, providerKey, username);
+		}
+
+		private class ExtendedUserLoginInfo : UserLoginInfo
+		{
+			public ExtendedUserLoginInfo(string loginProvider, string providerKey, string userDisplayName) : base(loginProvider, providerKey, loginProvider)
+			{
+				UserDisplayName = userDisplayName;
+			}
+
+			public string UserDisplayName { get; set; }
 		}
 	}
 }

@@ -47,12 +47,5 @@ namespace Studio404.Web.Controllers
 		{
 			return await _externalService.Process(await HttpContext.AuthenticateAsync(IdentityConstants.ExternalScheme));
 		}
-
-		[HttpPost]
-		public async Task<ExternalRegisterResultDto> Register(ExternalRegisterInfoDto externalRegisterInfo)
-		{
-			Validate();
-			return await _externalService.Register(externalRegisterInfo, await HttpContext.AuthenticateAsync(IdentityConstants.ExternalScheme));
-		}
 	}
 }

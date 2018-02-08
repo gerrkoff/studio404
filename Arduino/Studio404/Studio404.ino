@@ -6,6 +6,7 @@
 // _______________________________________________________________
 char server[] = "studio404.azurewebsites.net";
 String action = "/api/check/240/";
+String masterCode = "1111";
 const unsigned long postingInterval = 10L * 1000L;
 // _______________________________________________________________
 
@@ -15,6 +16,7 @@ const byte pinRed = A0;
 const int durationShort = 500;
 const int durationLong = 1000;
 const int pause = 500;
+const int connectionAttemptLimit = 3;
 // _______________________________________________________________
 
 // _______________________________________________________________
@@ -43,10 +45,12 @@ String responseBody = "";
 int bodyDividerCount = 0;
 bool readingBody = false;
 unsigned long lastConnectionTime = 0;
-int mode = 0;
-// 0 - waiting for code
-// 1 - request creating
-// 2 - request processing
+int connectionAttemptCount = 0;
+int mode = -1;
+// -1 - very first time
+//  0 - waiting for code
+//  1 - request creating
+//  2 - request processing
 
 
 void setup() {
@@ -55,6 +59,7 @@ void setup() {
     ;
   }
   Serial.println("START");
+  Serial.println("MASTER CODE: " + masterCode);
   Serial.println("SERVER: " + url);
   Serial.println("ACTION: " + action);
   Serial.print("KEY WAITING TIME: ");
@@ -65,25 +70,66 @@ void setup() {
   Serial.println("ETHERNET INITIALIZING...");
   if (Ethernet.begin(mac) == 0) {
     Serial.println("... failed to configure Ethernet using DHCP");
-    Ethernet.begin(mac, ip);
+    // Ethernet.begin(mac, ip);
+    pinBlink(pinRed, 5, false);
   }
   // give the Ethernet shield a second to initialize:
   delay(1000);
-  pinBlink(pinGreen, 3, true);
+  pinBlink(pinGreen, 3, false);
   Serial.println("READY");
 }
 
 
 void loop() {
+  if (mode == -1) {
+    resetAll();
+  }
   if (mode == 0) {
     keyProcess();
   }
   if (mode == 1) {
-    httpRequestCreate();
+    if (code == masterCode) {
+      masterCodeProcess();
+    }
+    else {
+      httpRequestCreate();
+    }
   }
   if (mode == 2) {
     httpRequestProcess();
   }
+}
+
+
+void resultSuccess() {
+  Serial.println("===SUCCESS===");
+  pinBlink(pinGreen, 1, false);
+}
+
+
+void resultFail() {
+  Serial.println("===FAIL===");
+  pinBlink(pinRed, 1, false);
+}
+
+
+void resultUnknown() {
+  Serial.println("===UNKNOWN===");
+  pinBlink(pinRed, 3, true);
+}
+
+
+void masterCodeProcess() {
+  resultSuccess();
+  resetAll();
+}
+
+
+void resetAll() {
+  mode = 0;
+  code = "";
+  connectionAttemptCount = 0;
+  Serial.print("enter code: ");
 }
 
 
@@ -131,24 +177,23 @@ void httpRequestProcess() {
     processResponseBody();
     Serial.println("disconnected");
     client.stop();
-    mode = 0;
-    code = "";
+    resetAll();
   }
 }
 
 
 void processResponseBody() {
   if (responseBody.indexOf("false") > -1) {
-    pinBlink(pinRed, 1, false);
     Serial.println("result: false");
+    resultFail();
   }
   if (responseBody.indexOf("true") > -1) {
-    pinBlink(pinGreen, 1, false);
     Serial.println("result: true");
+    resultSuccess();
   }
   if (responseBody.indexOf("true") == -1 && responseBody.indexOf("false") == -1) {
-    pinBlink(pinRed, 3, true);
     Serial.println("result: unknown");
+    resultUnknown();
   }
 }
 
@@ -180,7 +225,14 @@ void httpRequestCreate() {
     mode = 2;
     startResponseAnalyze();
   } else {
-    Serial.println("connection failed");
+    connectionAttemptCount = connectionAttemptCount + 1;
+    Serial.print("connection failed, attempt #");
+    Serial.println(connectionAttemptCount);
+    if (connectionAttemptCount == connectionAttemptLimit) {
+      Serial.println("exceeded connection attempt limit");
+      resultUnknown();
+      resetAll();
+    }
   }
 }
 

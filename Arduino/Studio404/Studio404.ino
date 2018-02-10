@@ -82,7 +82,6 @@ void setup() {
   }
   // give the Ethernet shield a second to initialize:
   delay(1000);
-  pinBlink(pinGreen, 3, false);
   Serial.println("READY");
 }
 

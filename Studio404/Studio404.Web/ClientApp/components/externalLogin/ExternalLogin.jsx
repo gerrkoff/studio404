@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Row, Col } from 'reactstrap';
 import queryString from 'query-string';
 import LoaderContent from "../../components/common/LoaderContent";
 import ErrorLabel from "../common/ErrorLabel";
 import Labels from "../../modules/Labels";
 import css from "../../styles/externalLogin.css";
-import ExternalRegister from "./ExternalRegister";
 
 class ExternalLogin extends Component {
 
@@ -20,34 +18,21 @@ class ExternalLogin extends Component {
     }
 
     render() {
-        if (this.props.processStage === 1)
+        if (!this.props.loading)
             return (
-                <div>
-                    <ExternalRegister
-                        externalLoginRegister={(username) => this.props.externalLoginRegister(username, this.props.history, this.returnUrl)}
-                        updateUsername={this.props.updateUsername}
-                        username={this.props.username}
-                        usernameInvalid={this.props.usernameInvalid}
-                        usernameError={this.props.usernameError}
-                        registerLoading={this.props.registerLoading}
-                        registerError={this.props.registerError}
-                        provider={this.props.providerName}
-                    />
+                <div className={css.center}>
+                    {this.props.error
+                        ? <ErrorLabel text={Labels.defaultError} />
+                        : <label className={css.text}>{Labels.redirectNotify}</label>
+                    }
                 </div>
             );
-        
-        if (this.props.processStage === 2)
+        else
             return (
-                <Row>
-                    <Col md="12"><ErrorLabel text={Labels.defaultError}/></Col>
-                </Row>
+                <div className={css.loader}>
+                    <LoaderContent />
+                </div>
             );
-        
-        return (
-            <div className={ css.loader }>
-                <LoaderContent />
-            </div>
-        );
     }
 }
 

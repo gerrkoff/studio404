@@ -25,7 +25,7 @@ namespace Studio404.Services.Implementation
         {
             var result = new RegisterResultDto();
 
-            var user = new UserEntity { UserName = registerInfo.Username };                
+            var user = new UserEntity { UserName = registerInfo.Username, DisplayName = registerInfo.Username };
             IdentityResult creareUserResult = await _userManager.CreateAsync(user, registerInfo.Password);
 
             if (creareUserResult.Succeeded)

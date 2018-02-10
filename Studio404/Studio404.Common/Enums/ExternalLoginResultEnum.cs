@@ -2,6 +2,6 @@
 {
     public enum ExternalLoginResultEnum
 	{
-        Unknown, Success, AccountNotCreated
+        Unknown, Success
     }
 }

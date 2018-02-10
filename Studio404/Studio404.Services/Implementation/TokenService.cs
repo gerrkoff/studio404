@@ -43,8 +43,9 @@ namespace Studio404.Services.Implementation
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
-                new Claim(ClaimTypes.Sid, user.Id)
-            };
+                new Claim(ClaimTypes.Sid, user.Id),
+				new Claim(ClaimTypes.GivenName, user.DisplayName)
+			};
 
             if (user.PhoneNumberConfirmed)
                 claims.Add(new Claim(ClaimTypes.MobilePhone, user.PhoneNumber));

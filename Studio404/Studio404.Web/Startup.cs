@@ -163,6 +163,18 @@ namespace Studio404.Web
 					twitterOptions.SignInScheme = IdentityConstants.ExternalScheme;
 					twitterOptions.ConsumerKey = authSettings.AuthTwitterSettings.ConsumerKey;
 					twitterOptions.ConsumerSecret = authSettings.AuthTwitterSettings.ConsumerSecret;
+				})
+				.AddFacebook(facebookOptions =>
+				{
+					facebookOptions.SignInScheme = IdentityConstants.ExternalScheme;
+					facebookOptions.AppId = authSettings.AuthFacebookSettings.AppId;
+					facebookOptions.AppSecret = authSettings.AuthFacebookSettings.AppSecret;
+				})
+				.AddVKontakte(vkOptions => 
+				{
+					vkOptions.SignInScheme = IdentityConstants.ExternalScheme;
+					vkOptions.ClientId = authSettings.AuthVkSettings.ClientId;
+					vkOptions.ClientSecret = authSettings.AuthVkSettings.ClientSecret;
 				});
 		}
 

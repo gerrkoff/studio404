@@ -8,7 +8,6 @@ const Labels = {
     phone_smsSent: (phone) => `Код успешно выслан на ${phone}`,
     booking_choiceInfo: (from, to) => `Выбрано время: ${DateService.convertHourIntervalToLabel(from, to)}`,
     settings_currentPhone: (phone) => `Ваш телефон: ${phone}`,
-    extlogin_successAuth: (provider) => `Вы успешно зашли через ваш аккаунт ${provider}. Для продолжения введите имя пользователя:`,
 
     // messages
     logout: 'Вы вышли',

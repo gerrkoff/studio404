@@ -1,5 +1,4 @@
 ﻿import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Row, Col } from 'reactstrap';
 import RaisedButton from 'material-ui/RaisedButton';
 import DateService from "../../modules/DateService";

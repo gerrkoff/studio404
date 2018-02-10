@@ -13,7 +13,8 @@ namespace Studio404.Web.Controllers.Base
             {
                 Username = identity.FindFirst(ClaimsIdentity.DefaultNameClaimType).Value,
                 UserId = identity.FindFirst(ClaimTypes.Sid).Value,
-                Phone = identity.FindFirst(ClaimTypes.MobilePhone)?.Value
+				DisplayName = identity.FindFirst(ClaimTypes.GivenName).Value,
+				Phone = identity.FindFirst(ClaimTypes.MobilePhone)?.Value
             };
 
             string expiration = identity.FindFirst("exp")?.Value;

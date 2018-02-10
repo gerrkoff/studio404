@@ -11,6 +11,7 @@ const unsigned long postingInterval = 10L * 1000L;
 // _______________________________________________________________
 
 // _______________________________________________________________
+const byte pinLed = A2;
 const byte pinGreen = A1;
 const byte pinRed = A0;
 const int durationShort = 500;
@@ -72,6 +73,7 @@ void setup() {
   // initialize digital pin as an output.
   pinMode(pinGreen, OUTPUT);
   pinMode(pinRed, OUTPUT);
+  pinMode(pinLed, OUTPUT);
   Serial.println("ETHERNET INITIALIZING...");
   if (Ethernet.begin(mac) == 0) {
     Serial.println("... failed to configure Ethernet using DHCP");
@@ -135,6 +137,7 @@ void resetAll() {
   code = "";
   connectionAttemptCount = 0;
   Serial.print("enter code: ");
+  digitalWrite(pinLed, HIGH);
 }
 
 
@@ -149,6 +152,7 @@ void keyProcess() {
       Serial.println();
       Serial.println("code: " + code);
       mode = 1;
+      digitalWrite(pinLed, LOW);
     }
     else {
       if (millis() - lastConnectionTime > postingInterval) {

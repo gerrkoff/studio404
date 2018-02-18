@@ -1,4 +1,4 @@
-import { Http, errorHandler } from '../modules/Http'
+import { Http, errorHandler } from '../modules/Http1'
 import { show } from './MessageActions'
 import Labels from '../modules/Labels'
 import { Token } from '../modules/Storage'

@@ -10,7 +10,7 @@ namespace Studio404.Web
         public static void Main(string[] args)
         {
             // NLog: setup the logger first to catch all errors
-            var logger = NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
+            var logger = NLogBuilder1.ConfigureNLog("NLog.config").GetCurrentClassLogger();
             try
             {
                 logger.Debug("init main");

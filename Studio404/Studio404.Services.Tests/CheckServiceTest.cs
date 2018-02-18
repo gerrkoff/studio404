@@ -58,9 +58,8 @@ namespace Studio404.Services.Tests
 
             bool result = check.Check(0, "1");
 
-			// Assert.IsTrue(result);
-			Assert.IsFalse(result);
-		}
+            Assert.IsTrue(result);
+        }
 
         [TestMethod]
         public void WrongTimeCheck()

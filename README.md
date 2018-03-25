@@ -1,5 +1,8 @@
 # studio404
 
+### Info
+Web Application for booking time
+
 ### Staging
 
 Here you can see how it looks like in prod:<br/>

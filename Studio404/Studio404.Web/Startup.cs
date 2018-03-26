@@ -170,7 +170,7 @@ namespace Studio404.Web
 					facebookOptions.AppId = authSettings.AuthFacebookSettings.AppId;
 					facebookOptions.AppSecret = authSettings.AuthFacebookSettings.AppSecret;
 				})
-				.AddVKontakte(vkOptions => 
+				.AddVkontakte(vkOptions => 
 				{
 					vkOptions.SignInScheme = IdentityConstants.ExternalScheme;
 					vkOptions.ClientId = authSettings.AuthVkSettings.ClientId;

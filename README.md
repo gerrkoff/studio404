@@ -6,7 +6,7 @@ Web Application for booking time
 ### Staging
 
 Here you can see how it looks like in prod:<br/>
-https://studio404.azurewebsites.net
+http://194.1.237.76/studio404
 
 ### Run locally
 

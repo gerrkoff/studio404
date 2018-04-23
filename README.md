@@ -1,12 +1,12 @@
 # studio404
 
 ### Info
+
 Web Application for booking time
 
 ### Staging
 
-Here you can see how it looks like in prod:<br/>
-http://194.1.237.76/studio404
+https://studio404.devstage.ru/
 
 ### Run locally
 

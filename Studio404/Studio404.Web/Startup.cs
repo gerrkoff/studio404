@@ -17,6 +17,7 @@ using Studio404.Web.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Studio404.Web.Middleware;
 
 namespace Studio404.Web
 {
@@ -53,6 +54,7 @@ namespace Studio404.Web
                 app.UseDeveloperExceptionPage();
             }
 
+	        app.UseMiddleware<HealthCheckMiddleware>();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseAuthentication();

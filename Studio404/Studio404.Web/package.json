@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "4.0.0-beta.2",
+    "font-awesome": "4.7.0",
     "jquery": "3.2.1",
     "material-ui": "0.19.4",
     "query-string": "5.0.1",
@@ -36,9 +37,11 @@
     "eslint-plugin-node": "5.2.1",
     "eslint-plugin-promise": "3.6.0",
     "eslint-plugin-standard": "3.0.1",
+    "file-loader": "1.1.11",
     "react-router-dom": "4.2.2",
     "style-loader": "0.19.0",
     "uglifyjs-webpack-plugin": "1.1.4",
+    "url-loader": "1.0.1",
     "webpack": "3.8.1",
     "webpack-dev-server": "2.9.4",
     "webpack-merge": "4.1.1"

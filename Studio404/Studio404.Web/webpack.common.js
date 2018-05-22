@@ -1,5 +1,6 @@
 ﻿var path = require('path');
 var webpack = require('webpack');
+var CleanWebpackPlugin = require('clean-webpack-plugin'); 
  
 module.exports = {
     entry: "./ClientApp/index.jsx",
@@ -60,6 +61,9 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(['wwwroot'], {
+            exclude:  ['index.html', 'electric-guitar.png']
+        }),
         function () {
             this.plugin("done", function (stats) {
                 if (stats.compilation.errors && stats.compilation.errors.length && process.argv.indexOf('--watch') == -1) {

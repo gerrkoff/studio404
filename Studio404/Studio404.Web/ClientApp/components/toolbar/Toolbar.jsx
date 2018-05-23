@@ -40,7 +40,7 @@ class Toolbar extends Component {
             <Collapse isOpen={this.state.isOpen} navbar>
                 <Nav className="ml-auto" navbar>
                     <NavItem>
-                        <NavLink onClick={() => this.props.history.push("/booking")} className={css.button}>{Labels.booking}</NavLink>
+                        <NavLink onClick={() => this.props.history.push("/about")} className={css.button}>{Labels.about}</NavLink>
                     </NavItem>
                     <NavItem>
                         <ToolbarLoginInfoContainer />

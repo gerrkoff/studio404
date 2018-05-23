@@ -100,7 +100,8 @@ const Labels = {
     booking_hoursInvalid: 'Часы выбраны некорректно – они должны идти подряд, без пропусков',
     booking_book: 'Забронировать',
     booking_hoursCost: 'Стоимость',
-    close: 'Закрыть'
+    close: 'Закрыть',
+    about: 'Контакты'
 }
 
 export default Labels

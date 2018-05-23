@@ -14,13 +14,13 @@ class BookingHelp extends Component {
                     ? (
                         <Paper zDepth={1}>
                             <Row>
-                                <Col md="11">
+                                <Col md="12">
                                     <p className={ css.helpText }>
                                         {Labels.booking_help}
                                     </p>
                                 </Col>
-                                <Col md="1" className={ css.rightAligned }>
-                                    <FaIconButton icon="times" size="sm" onClick={() => this.props.toggleHelp(false)} alt={true} className={ css.helpCloseButton }/>
+                                <Col md="12" className={ css.rightAligned }>
+                                    <FlatButton label={Labels.close} secondary={true} onClick={() => this.props.toggleHelp(false)} />
                                 </Col>
                             </Row>
                         </Paper>

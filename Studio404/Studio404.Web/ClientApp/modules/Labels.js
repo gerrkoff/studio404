@@ -99,7 +99,8 @@ const Labels = {
     booking_defaultInfo: 'Выберите часы, в которые вы хотите репетировать',
     booking_hoursInvalid: 'Часы выбраны некорректно – они должны идти подряд, без пропусков',
     booking_book: 'Забронировать',
-    booking_hoursCost: 'Стоимость'
+    booking_hoursCost: 'Стоимость',
+    close: 'Закрыть'
 }
 
 export default Labels

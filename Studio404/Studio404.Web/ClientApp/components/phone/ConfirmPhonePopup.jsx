@@ -82,7 +82,7 @@ class ConfirmPhonePopup extends Component {
                         <label className={ css.text }>{label}</label>
                     </Col>
                 </Row>
-                <Row>
+                <Row className={'align-items-center'}>
                     <Col md="6">
                         <TextField
                             hintText={fieldHint}
@@ -96,8 +96,7 @@ class ConfirmPhonePopup extends Component {
                             label={btnLabel}
                             secondary={true}
                             onClick={btnFunc}
-                            disabled={flagLoading || !fieldValid}
-                            className={ css.button } />
+                            disabled={flagLoading || !fieldValid} />
 
                         {flagLoading &&
                             <span className={ css.loader }>

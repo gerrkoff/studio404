@@ -1,30 +1,54 @@
 import React, { Component } from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import {Toolbar as MuiToolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import {withRouter} from "react-router-dom";
-import ToolbarLoginInfoContainer from "../../containers/ToolbarLoginInfoContainer";
-import Labels from "../../modules/Labels";
-import css from "../../styles/toolbar.css";
+import {
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
+import Labels from '../../modules/Labels';
+import ToolbarLoginInfoContainer from '../../containers/ToolbarLoginInfoContainer';
+import css from '../../styles/toolbar.css';
 
 class Toolbar extends Component {
+    constructor(props) {
+        super(props);
+
+        this.toggle = this.toggle.bind(this);
+        this.state = {
+            isOpen: false
+        };
+    }
+
+    toggle() {
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    }
     render() {
         return (
-            <div>
-                <MuiToolbar>
-                    <ToolbarGroup>
-                        <ToolbarTitle
-                            text="Studio 404"
-                            className={ css.brand }
-                            onClick={() => this.props.history.push("/")} />
-                    </ToolbarGroup>
-                    <ToolbarGroup>
-                        <RaisedButton label={Labels.booking} primary={true} onClick={() => this.props.history.push("/booking")} />
-                        <ToolbarSeparator />
-                        <div style={{width: "30px"}}/>
+        <div>
+            <Navbar color="light" light expand="md">
+            <NavbarBrand onClick={() => this.props.history.push("/")} className={css.button}>Studio 404</NavbarBrand>
+            <NavbarToggler onClick={this.toggle} />
+            <Collapse isOpen={this.state.isOpen} navbar>
+                <Nav className="ml-auto" navbar>
+                    <NavItem>
+                        <NavLink onClick={() => this.props.history.push("/booking")} className={css.button}>{Labels.booking}</NavLink>
+                    </NavItem>
+                    <NavItem>
                         <ToolbarLoginInfoContainer />
-                    </ToolbarGroup>
-                </MuiToolbar>
-            </div>
+                    </NavItem>
+                </Nav>
+            </Collapse>
+            </Navbar>
+        </div>
         );
     }
 }

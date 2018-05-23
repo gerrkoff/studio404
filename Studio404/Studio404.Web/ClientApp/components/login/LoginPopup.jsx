@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
+import { NavLink } from 'reactstrap';
 import LoginForm from "../../components/login/LoginForm";
 import RegisterForm from "../../components/login/RegisterForm";
 import Labels from "../../modules/Labels";
@@ -40,7 +41,11 @@ class LoginPopup extends Component {
 
         return (
             <div>
-                <FlatButton label={Labels.loginPopup_login} primary={true} onClick={this.props.openPopup} />
+                {
+                    this.props.toolbarLoginBtn
+                        ? <NavLink className={ css.toolbarLogin } onClick={this.props.openPopup}>{Labels.loginPopup_login}</NavLink>
+                        : <FlatButton label={Labels.loginPopup_login} primary={true} onClick={this.props.openPopup} />
+                }
                 <Dialog
                     title={this.props.registration === true ? Labels.loginPopup_register_title : Labels.loginPopup_login_title}
                     actions={actions}

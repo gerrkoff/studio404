@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import { muiTheme } from '../../modules/MaterialTheme';
+
+console.log(muiTheme);
 
 class Loader extends Component {
     render() {
         const style = {
-            fontSize: this.props.size ? this.props.size + "px" : "15px"
+            fontSize: this.props.size ? this.props.size + "px" : "15px",
+            color: muiTheme.palette.primary1Color
         }
         return (
             <i

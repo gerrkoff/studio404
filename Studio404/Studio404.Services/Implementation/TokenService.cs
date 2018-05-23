@@ -30,7 +30,9 @@ namespace Studio404.Services.Implementation
                 audience: _authSettings.Audience,
                 notBefore: now,
                 claims: identity.Claims,
-                expires: expires ?? now.Add(TimeSpan.FromMinutes(_authSettings.Lifetime)),
+                expires: // TODO: research is needed
+                    // expires ??
+                    now.Add(TimeSpan.FromMinutes(_authSettings.Lifetime)),
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_authSettings.Key)), SecurityAlgorithms.HmacSha256));
             
             string encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);

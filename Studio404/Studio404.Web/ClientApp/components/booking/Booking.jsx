@@ -5,6 +5,7 @@ import DateService from "../../modules/DateService";
 import TimeBooking from "./TimeBooking";
 import BookingDayChooser from "../../components/booking/BookingDayChooser";
 import css from "../../styles/booking.css";
+import $ from 'jQuery'
 
 class Booking extends Component {
 
@@ -14,6 +15,7 @@ class Booking extends Component {
         this.nextWeek = this.nextWeek.bind(this);
         this.getWeekLabel = this.getWeekLabel.bind(this);
         this.saveBooking = this.saveBooking.bind(this);
+        this.chooseDayClick = this.chooseDayClick.bind(this);
 
         this.props.loadWeekWorkload(this.props.weekStartDate);
     }
@@ -38,6 +40,11 @@ class Booking extends Component {
         this.props.saveBooking(date, hours, this.props.weekStartDate);
     }
 
+    chooseDayClick() {
+        $('.' + css.timeContainer).goTo()
+        this.props.chooseDay.apply(null, arguments)
+    }
+
     render() {
         return (
             <div>
@@ -50,7 +57,7 @@ class Booking extends Component {
                             weekWorkload={this.props.weekWorkload}
                             weekWorkloadIsLoading={this.props.weekWorkloadIsLoading}
                             weekWorkloadError={this.props.weekWorkloadError}
-                            chooseDay={this.props.chooseDay}
+                            chooseDay={this.chooseDayClick}
                             showHelp={this.props.showHelp}
                             toggleHelp={this.props.toggleHelp}
                         />

@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
 
 class Loader extends Component {
     render() {
+        const style = {
+            fontSize: this.props.size ? this.props.size + "px" : "15px"
+        }
         return (
-            <CircularProgress size={this.props.size ? this.props.size : 20} thickness={2} />
+            <i
+                style={style}
+                className="fa fa-circle-o-notch fa-spin">
+            </i>
         );
     }
 }

@@ -100,7 +100,7 @@ class ConfirmPhonePopup extends Component {
 
                         {flagLoading &&
                             <span className={ css.loader }>
-                                <Loader />
+                                <Loader size={20}/>
                             </span>
                         }
                     </Col>

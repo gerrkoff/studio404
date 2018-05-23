@@ -7,26 +7,25 @@
 	margin-top: 10px;
 }
 
+.timeFormDateLabel {
+	margin-bottom: 0px;
+}
+
 .timeForm {
-	width: 800px;
+	max-width: 800px;
 	text-align: left;
 }
 
 .timeFormElement {
-	padding: 10px;
+	padding: 15px 15px 0px 15px;
 }
 
-.timeFormDateLabel {
-	padding-left: 10px;
+.timeFormInfo {
+	margin-bottom: 0px;
 }
 
 .hourSelectBlock {
-	padding: 0 20px 20px 20px;
-	position: relative;
-}
-
-.hourSelectContainer {
-	display: inline-block;
+	padding-left: 15px;
 }
 
 .hoursCostLoader {
@@ -34,15 +33,8 @@
 	padding-left: 5px;
 }
 
-.hourSelectLoader {
-	display: inline-block;
-	position: relative;
-	padding: 10px;
-	top: -10px;
-}
-
 .timeFormSubmitContainer {
-	padding: 20px;
+	padding: 15px 20px 20px 20px;
 	text-align: right;
 }
 

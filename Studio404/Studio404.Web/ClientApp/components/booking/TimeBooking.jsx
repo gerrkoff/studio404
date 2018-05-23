@@ -25,7 +25,7 @@ class TimeBooking extends Component {
                             <h5 className={css.timeFormDateLabel}>{DateService.toDateString(this.props.chosenDate)}</h5>
                         </div>
                         <div className={css.hourSelectBlock}>
-                            <div className={css.hourSelectContainer}>
+                            <div>
                                 <HourSelector
                                     dayHours={this.props.dayHours}
                                     hours={this.props.bookingHours}
@@ -33,9 +33,6 @@ class TimeBooking extends Component {
                                     disabled={this.props.dayHoursIsLoading || this.props.dayHoursError}
                                     updateHours={this.props.updateHours}
                                 />
-                            </div>
-                            <div className={css.hourSelectLoader}>
-                                {this.props.dayHoursIsLoading && <Loader />}
                             </div>
                             {this.props.dayHoursError && <ErrorLabel align="left" text={Labels.errorLoadCommon} />}
                         </div>
@@ -61,7 +58,7 @@ class TimeBooking extends Component {
         if (!this.props.userLoggedIn)
             return (
                 <div>
-                    <p>{Labels.booking_userNotLoggedIn}</p>
+                    <p className={css.timeFormInfo}>{Labels.booking_userNotLoggedIn}</p>
                     <LoginPopupContainer />
                 </div>
             );
@@ -69,20 +66,20 @@ class TimeBooking extends Component {
         if (!this.props.phoneConfirmed)
             return (
                 <div>
-                    <p>{Labels.booking_phoneNotConfirmed}</p>
+                    <p className={css.timeFormInfo}>{Labels.booking_phoneNotConfirmed}</p>
                     <ConfirmPhonePopupContainer />
                 </div>
             );
 
         if (this.props.bookingHours.length === 0)
-            return <p>{Labels.booking_defaultInfo}</p>;
+            return <p className={css.timeFormInfo}>{Labels.booking_defaultInfo}</p>;
 
         if (!this.props.bookingIsValid)
-            return <p>{Labels.booking_hoursInvalid}</p>;
+            return <p className={css.timeFormInfo}>{Labels.booking_hoursInvalid}</p>;
 
         return (
             <div>
-                <p>{Labels.booking_choiceInfo(this.props.bookingHours[0], this.props.bookingHours[this.props.bookingHours.length - 1])}</p>
+                <p className={css.timeFormInfo}>{Labels.booking_choiceInfo(this.props.bookingHours[0], this.props.bookingHours[this.props.bookingHours.length - 1])}</p>
                 {this.renderCostInfo()}
             </div>
         );

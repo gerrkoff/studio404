@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { muiTheme } from '../../modules/MaterialTheme';
 
-console.log(muiTheme);
-
 class Loader extends Component {
     render() {
         const style = {

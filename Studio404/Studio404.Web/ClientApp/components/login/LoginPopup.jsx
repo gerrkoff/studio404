@@ -45,7 +45,7 @@ class LoginPopup extends Component {
                 {
                     this.props.toolbarLoginBtn
                         ? <NavLink className={ css.toolbarLogin } onClick={this.props.openPopup}>{Labels.loginPopup_login}</NavLink>
-                        : <FlatButton label={Labels.loginPopup_login} primary={true} onClick={this.props.openPopup} />
+                        : <FlatButton label={Labels.loginPopup_login} secondary={true} onClick={this.props.openPopup} />
                 }
                 <Dialog
                     title={this.props.registration === true ? Labels.loginPopup_register_title : Labels.loginPopup_login_title}

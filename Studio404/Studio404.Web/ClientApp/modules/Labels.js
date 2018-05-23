@@ -55,7 +55,7 @@ const Labels = {
     loginPopup_login_title: 'Вход',
     loginPopup_register: 'Зарегистрироваться',
     loginPopup_register_title: 'Регистрация',
-    loginPopup_toogleRegister: 'Зарегистрироваться',
+    loginPopup_toogleRegister: 'В первый раз?',
     phone_confirm: 'Указать телефон',
     phone_change: 'Изменить телефон',
     phone_confirm_code: 'Подтвердить',

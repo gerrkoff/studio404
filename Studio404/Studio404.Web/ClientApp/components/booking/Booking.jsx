@@ -15,9 +15,9 @@ class Booking extends Component {
         this.nextWeek = this.nextWeek.bind(this);
         this.getWeekLabel = this.getWeekLabel.bind(this);
         this.saveBooking = this.saveBooking.bind(this);
-        this.chooseDayClick = this.chooseDayClick.bind(this);
 
         this.props.loadWeekWorkload(this.props.weekStartDate);
+        this.timeBookingContainerId = 'timeBookingContainer'
     }
 
     previousWeek() {
@@ -40,9 +40,9 @@ class Booking extends Component {
         this.props.saveBooking(date, hours, this.props.weekStartDate);
     }
 
-    chooseDayClick() {
-        $('.' + css.timeContainer).goTo()
-        this.props.chooseDay.apply(null, arguments)
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.chosenDate !== prevProps.chosenDate)
+            $(`#${this.timeBookingContainerId}`).goTo()
     }
 
     render() {
@@ -57,7 +57,7 @@ class Booking extends Component {
                             weekWorkload={this.props.weekWorkload}
                             weekWorkloadIsLoading={this.props.weekWorkloadIsLoading}
                             weekWorkloadError={this.props.weekWorkloadError}
-                            chooseDay={this.chooseDayClick}
+                            chooseDay={this.props.chooseDay}
                             showHelp={this.props.showHelp}
                             toggleHelp={this.props.toggleHelp}
                         />
@@ -74,7 +74,7 @@ class Booking extends Component {
 
     renderTimeBooking() {
         return (
-            <div className={ css.timeContainer }>
+            <div className={ css.timeContainer } id={this.timeBookingContainerId}>
                 <Paper zDepth={1}>
                     <TimeBooking
                         chosenDate={this.props.chosenDate}

@@ -40,13 +40,21 @@
 	text-align: center;
 }
 
+.weekChooser {
+	display: flex;
+	justify-content: center;
+}
+
 .weekChooseButton {
-	padding: 10px;
+	padding: 8px 10px 10px 10px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
 }
 
 .weekLabel {
 	padding: 10px;
-	display: inline-block;
+	text-align: center;
 }
 
 .helpText {

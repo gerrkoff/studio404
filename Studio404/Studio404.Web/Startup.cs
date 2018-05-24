@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Studio404.Web.Middleware;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.IO.Compression;
 
 namespace Studio404.Web
 {
@@ -39,6 +41,7 @@ namespace Studio404.Web
             ConfigDiServices(services);
             ConfigAutoMapper(services);
             ConfigConfiguration(services);
+            ConfigCompression(services);
 
             services.AddMvc(options =>
             {
@@ -55,6 +58,7 @@ namespace Studio404.Web
             }
 
 	        app.UseMiddleware<HealthCheckMiddleware>();
+            app.UseResponseCompression();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseAuthentication();
@@ -62,6 +66,30 @@ namespace Studio404.Web
         }
 
         #region Config Services
+
+        private void ConfigCompression(IServiceCollection services)
+        {
+            services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.MimeTypes = new[]
+                {
+                    // Default
+                    "text/plain",
+                    "text/css",
+                    "application/javascript",
+                    "text/html",
+                    // "application/xml",
+                    // "text/xml",
+                    // "application/json",
+                    // "text/json",
+
+                    // Custom
+                    "image/svg+xml"
+                };
+            });
+        }
 
         private void ConfigDb(IServiceCollection services)
         {

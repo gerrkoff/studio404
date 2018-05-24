@@ -55,7 +55,7 @@ const Labels = {
     loginPopup_login_title: 'Вход',
     loginPopup_register: 'Зарегистрироваться',
     loginPopup_register_title: 'Регистрация',
-    loginPopup_toogleRegister: 'Зарегистрироваться',
+    loginPopup_toogleRegister: 'В первый раз?',
     phone_confirm: 'Указать телефон',
     phone_change: 'Изменить телефон',
     phone_confirm_code: 'Подтвердить',
@@ -99,7 +99,9 @@ const Labels = {
     booking_defaultInfo: 'Выберите часы, в которые вы хотите репетировать',
     booking_hoursInvalid: 'Часы выбраны некорректно – они должны идти подряд, без пропусков',
     booking_book: 'Забронировать',
-    booking_hoursCost: 'Стоимость'
+    booking_hoursCost: 'Стоимость',
+    close: 'Закрыть',
+    about: 'Контакты'
 }
 
 export default Labels

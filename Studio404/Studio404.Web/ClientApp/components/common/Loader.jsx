@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
+import { muiTheme } from '../../modules/MaterialTheme';
 
 class Loader extends Component {
     render() {
+        const style = {
+            fontSize: this.props.size ? this.props.size + "px" : "15px",
+            color: muiTheme.palette.primary1Color
+        }
         return (
-            <CircularProgress size={this.props.size ? this.props.size : 20} thickness={2} />
+            <i
+                style={style}
+                className="fa fa-circle-o-notch fa-spin">
+            </i>
         );
     }
 }

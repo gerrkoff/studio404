@@ -25,8 +25,8 @@ ReactDOM.render(
         <Router>
             <AppMaterial>
                 <Switch>
-                    <Route path="/" exact component={Home} />
-                    <Route path="/booking" component={Booking} />
+                    <Route path="/" exact component={Booking} />
+                    <Route path="/about" component={Home} />
                     <Route path="/my" component={User} />
                     <Route path="/extlogin" component={ExternalLogin} />
                     <Route path="*" component={NotFound} />

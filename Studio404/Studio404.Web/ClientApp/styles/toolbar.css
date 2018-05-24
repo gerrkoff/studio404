@@ -1,9 +1,10 @@
-.brand {
+.button {
     cursor: pointer;
 }
 
 .user {
     cursor: pointer;
+    display: inline-block;
 }
 
 .signOut {

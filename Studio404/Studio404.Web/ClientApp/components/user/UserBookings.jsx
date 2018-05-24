@@ -47,9 +47,13 @@ class UserBookings extends Component {
     }
 
     renderTable() {
+        const tableStyle = {
+            minWidth: '700px',
+            overflow: 'visible'
+        }
         return (
             <div>
-                <Table>
+                <Table headerStyle={tableStyle} bodyStyle={tableStyle}>
                     <TableHeader
                         displaySelectAll={false}
                         adjustForCheckbox={false}>

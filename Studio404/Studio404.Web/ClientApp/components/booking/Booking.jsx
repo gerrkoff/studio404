@@ -42,7 +42,7 @@ class Booking extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (this.props.chosenDate !== prevProps.chosenDate)
-            console.log($(`#${this.timeBookingContainerId}`))
+            $(`#${this.timeBookingContainerId}`).goTo()
     }
 
     render() {
@@ -75,27 +75,25 @@ class Booking extends Component {
     renderTimeBooking() {
         return (
             <div className={ css.timeContainer } id={this.timeBookingContainerId}>
-                <div className={ css.timePageContainer }>
-                    <Paper zDepth={1}>
-                        <TimeBooking
-                            chosenDate={this.props.chosenDate}
-                            dayHoursIsLoading={this.props.dayHoursIsLoading}
-                            dayHours={this.props.dayHours}
-                            dayHoursError={this.props.dayHoursError}
-                            bookingHours={this.props.bookingHours}
-                            bookingHoursError={this.props.bookingHoursError}
-                            bookingIsValid={this.props.bookingIsValid}
-                            loadDayHours={this.props.loadDayHours}
-                            updateHours={(hours) => this.props.updateHours(this.props.chosenDate, hours)}
-                            saveBooking={this.saveBooking}
-                            userLoggedIn={this.props.userLoggedIn}
-                            phoneConfirmed={this.props.phoneConfirmed}
-                            hoursCostIsLoading={this.props.hoursCostIsLoading}
-                            hoursCost={this.props.hoursCost}
-                            hoursCostError={this.props.hoursCostError}
-                        />
-                    </Paper>
-                </div>
+                <Paper zDepth={1}>
+                    <TimeBooking
+                        chosenDate={this.props.chosenDate}
+                        dayHoursIsLoading={this.props.dayHoursIsLoading}
+                        dayHours={this.props.dayHours}
+                        dayHoursError={this.props.dayHoursError}
+                        bookingHours={this.props.bookingHours}
+                        bookingHoursError={this.props.bookingHoursError}
+                        bookingIsValid={this.props.bookingIsValid}
+                        loadDayHours={this.props.loadDayHours}
+                        updateHours={(hours) => this.props.updateHours(this.props.chosenDate, hours)}
+                        saveBooking={this.saveBooking}
+                        userLoggedIn={this.props.userLoggedIn}
+                        phoneConfirmed={this.props.phoneConfirmed}
+                        hoursCostIsLoading={this.props.hoursCostIsLoading}
+                        hoursCost={this.props.hoursCost}
+                        hoursCostError={this.props.hoursCostError}
+                    />
+                </Paper>
             </div>
         );
     }

@@ -1,32 +1,29 @@
 .timeContainer {
-	text-align: center;
+	margin-top: 10px;
+	width: 700px;
+	max-width: 100%;
+	margin-right: auto;
+	margin-left: auto;
 }
 
-.timePageContainer {
-	display: inline-block;
-	margin-top: 10px;
+.timeFormDateLabel {
+	margin-bottom: 0px;
 }
 
 .timeForm {
-	width: 800px;
 	text-align: left;
 }
 
 .timeFormElement {
-	padding: 10px;
+	padding: 15px 15px 0px 15px;
 }
 
-.timeFormDateLabel {
-	padding-left: 10px;
+.timeFormInfo {
+	margin-bottom: 0px;
 }
 
 .hourSelectBlock {
-	padding: 0 20px 20px 20px;
-	position: relative;
-}
-
-.hourSelectContainer {
-	display: inline-block;
+	padding-left: 15px;
 }
 
 .hoursCostLoader {
@@ -34,15 +31,8 @@
 	padding-left: 5px;
 }
 
-.hourSelectLoader {
-	display: inline-block;
-	position: relative;
-	padding: 10px;
-	top: -10px;
-}
-
 .timeFormSubmitContainer {
-	padding: 20px;
+	padding: 10px 20px 20px 20px;
 	text-align: right;
 }
 
@@ -57,20 +47,15 @@
 .weekLabel {
 	padding: 10px;
 	display: inline-block;
-	width: 350px;
 }
 
 .helpText {
-	padding: 10px 0px 0px 20px;
+	padding: 10px 15px 0px 15px;
 	white-space: pre-line;
 }
 
 .rightAligned {
 	text-align: right;
-}
-
-.helpCloseButton {
-	padding: 10px;
 }
 
 .weekWorkloadPageCommon {

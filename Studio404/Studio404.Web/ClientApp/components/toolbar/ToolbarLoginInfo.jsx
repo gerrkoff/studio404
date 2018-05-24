@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'reactstrap';
 import FlatButton from 'material-ui/FlatButton';
 import {withRouter} from "react-router-dom";
 import {Toolbar as MuiToolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
@@ -20,10 +21,7 @@ class ToolbarLoginInfo extends Component {
 
         const userLoggedIn = (
             <div>
-                <ToolbarTitle
-                    text={username}
-                    onClick={() => this.props.history.push("/my")}
-                    className={ css.user } />
+                <NavLink className={ css.user } onClick={() => this.props.history.push("/my")}>{username}</NavLink>
                 <FaIconButton
                     onClick={this.props.logoff}
                     icon="sign-out"
@@ -37,7 +35,7 @@ class ToolbarLoginInfo extends Component {
             <div>
                 {this.props.userLoggedIn === true
                     ? userLoggedIn
-                    : <LoginPopupContainer updateUser={this.props.loadCurrentUser}/>
+                    : <LoginPopupContainer updateUser={this.props.loadCurrentUser} toolbarLoginBtn={true}/>
                 }
             </div>
         );

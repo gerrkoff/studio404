@@ -5,6 +5,7 @@ import DateService from "../../modules/DateService";
 import TimeBooking from "./TimeBooking";
 import BookingDayChooser from "../../components/booking/BookingDayChooser";
 import css from "../../styles/booking.css";
+import $ from 'jQuery'
 
 class Booking extends Component {
 
@@ -16,6 +17,7 @@ class Booking extends Component {
         this.saveBooking = this.saveBooking.bind(this);
 
         this.props.loadWeekWorkload(this.props.weekStartDate);
+        this.timeBookingContainerId = 'timeBookingContainer'
     }
 
     previousWeek() {
@@ -36,6 +38,11 @@ class Booking extends Component {
 
     saveBooking(date, hours) {
         this.props.saveBooking(date, hours, this.props.weekStartDate);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.chosenDate !== prevProps.chosenDate)
+            console.log($(`#${this.timeBookingContainerId}`))
     }
 
     render() {
@@ -67,7 +74,7 @@ class Booking extends Component {
 
     renderTimeBooking() {
         return (
-            <div className={ css.timeContainer }>
+            <div className={ css.timeContainer } id={this.timeBookingContainerId}>
                 <div className={ css.timePageContainer }>
                     <Paper zDepth={1}>
                         <TimeBooking

@@ -9,6 +9,7 @@ import Labels from "../../modules/Labels";
 import ConfirmPhonePopupContainer from "../../containers/ConfirmPhonePopupContainer";
 import LoginPopupContainer from "../../containers/LoginPopupContainer";
 import css from "../../styles/booking.css";
+import { muiTheme } from '../../modules/MaterialTheme';
 
 class TimeBooking extends Component {
     constructor(props) {
@@ -22,7 +23,11 @@ class TimeBooking extends Component {
                 <Row>
                     <Col md="6">
                         <div className={css.timeFormElement}>
-                            <h5 className={css.timeFormDateLabel}>{DateService.toDateString(this.props.chosenDate)}</h5>
+                            <h5 className={css.timeFormDateLabel}
+                                style={{color: muiTheme.palette.primary1Color}}>
+
+                                {DateService.toDateString(this.props.chosenDate)}
+                            </h5>
                         </div>
                         <div className={css.hourSelectBlock}>
                             <div>

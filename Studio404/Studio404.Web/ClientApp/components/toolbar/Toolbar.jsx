@@ -10,11 +10,13 @@ import {
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem } from 'reactstrap';
+    DropdownItem,
+    Container } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import Labels from '../../modules/Labels';
 import ToolbarLoginInfoContainer from '../../containers/ToolbarLoginInfoContainer';
 import css from '../../styles/toolbar.css';
+import { muiTheme } from '../../modules/MaterialTheme';
 
 class Toolbar extends Component {
     constructor(props) {
@@ -33,20 +35,30 @@ class Toolbar extends Component {
     }
     render() {
         return (
-        <div>
-            <Navbar color="light" light expand="md">
-            <NavbarBrand onClick={() => this.props.history.push("/")} className={css.button}>Studio 404</NavbarBrand>
-            <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} navbar>
-                <Nav className="ml-auto" navbar>
-                    <NavItem>
-                        <NavLink onClick={() => this.props.history.push("/about")} className={css.button}>{Labels.about}</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <ToolbarLoginInfoContainer />
-                    </NavItem>
-                </Nav>
-            </Collapse>
+        <div style={divStyle}>
+            <Navbar color="light" light expand="sm">
+                <Container>
+                    <NavbarBrand onClick={() => this.props.history.push("/")}
+                                className={css.button} 
+                                style={{color: muiTheme.palette.primary3Color}}>
+                        Studio 404
+                    </NavbarBrand>
+                    <NavbarToggler onClick={this.toggle} />
+                    <Collapse isOpen={this.state.isOpen} navbar>
+                        <Nav className="ml-auto" navbar>
+                            <NavItem>
+                                <NavLink onClick={() => this.props.history.push("/about")} 
+                                        className={css.button}
+                                        style={{color: muiTheme.palette.accent1Color}}>
+                                    {Labels.about}
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <ToolbarLoginInfoContainer />
+                            </NavItem>
+                        </Nav>
+                    </Collapse>
+                </Container>
             </Navbar>
         </div>
         );

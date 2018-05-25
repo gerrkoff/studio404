@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { NavLink } from 'reactstrap';
-import FlatButton from 'material-ui/FlatButton';
 import {withRouter} from "react-router-dom";
-import {Toolbar as MuiToolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import LoginPopupContainer from "../../containers/LoginPopupContainer";
 import FaIconButton from "../common/FaIconButton";
 import css from "../../styles/toolbar.css";
+import { muiTheme } from '../../modules/MaterialTheme';
 
 class ToolbarLoginInfo extends Component {
 
@@ -21,7 +20,11 @@ class ToolbarLoginInfo extends Component {
 
         const userLoggedIn = (
             <div>
-                <NavLink className={ css.user } onClick={() => this.props.history.push("/my")}>{username}</NavLink>
+                <NavLink className={ css.user } 
+                         onClick={() => this.props.history.push("/my")}
+                         style={{color: muiTheme.palette.accent1Color}}>
+                    {username}
+                </NavLink>
                 <FaIconButton
                     onClick={this.props.logoff}
                     icon="sign-out"

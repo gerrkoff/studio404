@@ -41,7 +41,7 @@ class Booking extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.chosenDate !== prevProps.chosenDate)
+        if (this.props.chosenDate !== prevProps.chosenDate && this.props.chosenDate)
             $(`#${this.timeBookingContainerId}`).goTo()
     }
 

@@ -45,7 +45,7 @@ class Toolbar extends Component {
                 <Container>
                     <NavbarBrand onClick={() => this.props.history.push("/")}
                                 className={css.button} 
-                                style={{color: muiTheme.palette.primary3Color}}>
+                                style={{color: muiTheme.palette.alternateTextColor}}>
                         Studio 404
                     </NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />

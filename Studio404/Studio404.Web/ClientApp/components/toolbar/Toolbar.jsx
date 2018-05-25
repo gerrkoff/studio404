@@ -35,8 +35,13 @@ class Toolbar extends Component {
     }
     render() {
         return (
-        <div style={divStyle}>
-            <Navbar color="light" light expand="sm">
+        <div className='navbar navbar-expand-sm navbar-light bg-light'
+            ref={(el) => {
+                if (el) {
+                    el.style.setProperty('background-color', muiTheme.palette.primary1Color, 'important');
+                }
+            }}>
+            {/*<Navbar color="light" light expand="sm">*/}
                 <Container>
                     <NavbarBrand onClick={() => this.props.history.push("/")}
                                 className={css.button} 
@@ -59,7 +64,7 @@ class Toolbar extends Component {
                         </Nav>
                     </Collapse>
                 </Container>
-            </Navbar>
+            {/*</Navbar>*/}
         </div>
         );
     }

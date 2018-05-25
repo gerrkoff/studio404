@@ -9,6 +9,7 @@ import LoginForm from "../../components/login/LoginForm";
 import RegisterForm from "../../components/login/RegisterForm";
 import Labels from "../../modules/Labels";
 import css from "../../styles/popup.css";
+import { muiTheme } from '../../modules/MaterialTheme';
 
 class LoginPopup extends Component {
 
@@ -44,7 +45,7 @@ class LoginPopup extends Component {
             <div>
                 {
                     this.props.toolbarLoginBtn
-                        ? <NavLink className={ css.toolbarLogin } onClick={this.props.openPopup}>{Labels.loginPopup_login}</NavLink>
+                        ? <NavLink className={ css.toolbarLogin } onClick={this.props.openPopup} style={{color: muiTheme.palette.accent1Color}}>{Labels.loginPopup_login}</NavLink>
                         : <FlatButton label={Labels.loginPopup_login} secondary={true} onClick={this.props.openPopup} />
                 }
                 <Dialog

@@ -24,7 +24,7 @@ class TimeBooking extends Component {
                     <Col md="6">
                         <div className={css.timeFormElement}>
                             <h5 className={css.timeFormDateLabel}
-                                style={{color: muiTheme.palette.primary3Color}}>
+                                style={{color: muiTheme.palette.primary2Color}}>
 
                                 {DateService.toDateString(this.props.chosenDate)}
                             </h5>

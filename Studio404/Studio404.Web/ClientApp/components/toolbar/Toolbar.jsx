@@ -54,7 +54,7 @@ class Toolbar extends Component {
                             <NavItem>
                                 <NavLink onClick={() => this.props.history.push("/about")} 
                                         className={css.button}
-                                        style={{color: muiTheme.palette.accent1Color}}>
+                                        style={{color: muiTheme.palette.alternateTextColor}}>
                                     {Labels.about}
                                 </NavLink>
                             </NavItem>

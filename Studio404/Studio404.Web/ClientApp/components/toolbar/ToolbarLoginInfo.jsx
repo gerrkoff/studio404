@@ -22,7 +22,7 @@ class ToolbarLoginInfo extends Component {
             <div>
                 <NavLink className={ css.user } 
                          onClick={() => this.props.history.push("/my")}
-                         style={{color: muiTheme.palette.accent1Color}}>
+                         style={{color: muiTheme.palette.alternateTextColor}}>
                     {username}
                 </NavLink>
                 <FaIconButton

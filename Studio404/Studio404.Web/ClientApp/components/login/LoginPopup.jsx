@@ -45,7 +45,7 @@ class LoginPopup extends Component {
             <div>
                 {
                     this.props.toolbarLoginBtn
-                        ? <NavLink className={ css.toolbarLogin } onClick={this.props.openPopup} style={{color: muiTheme.palette.accent1Color}}>{Labels.loginPopup_login}</NavLink>
+                        ? <NavLink className={ css.toolbarLogin } onClick={this.props.openPopup} style={{color: muiTheme.palette.alternateTextColor}}>{Labels.loginPopup_login}</NavLink>
                         : <FlatButton label={Labels.loginPopup_login} secondary={true} onClick={this.props.openPopup} />
                 }
                 <Dialog

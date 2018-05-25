@@ -67,8 +67,8 @@
 }
 
 .weekWorkloadPageCommon {
-	min-height: 125px;
-	width: 125px;
+	min-height: 135px;
+	width: 135px;
 	margin: 10px;
 	text-align: center;
 	display: inline-block;
@@ -85,7 +85,7 @@
 }
 
 .weekWorkloadContainer {
-	font-size: 11px;
+	font-size: 12px;
 }
 
 .weekWorkloadItem {

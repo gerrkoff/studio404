@@ -58,7 +58,7 @@ class LoginPopup extends Component {
                     autoScrollBodyContent={true}>
                     
                     <Row>
-                        <Col md="8">
+                        <Col md="8" sm="8">
                         {this.props.registration === true
                             ? <RegisterForm updateRegisterInfo={this.props.updateRegisterInfo} registerInfo={this.props.registerInfo} />
                             : <LoginForm updateLoginInfo={this.props.updateLoginInfo} loginInfo={this.props.loginInfo} />
@@ -70,7 +70,7 @@ class LoginPopup extends Component {
                             toggled={this.props.registration}
                             onToggle={(event, isChecked) => this.props.toggleRegistration(isChecked)} />
                         </Col>
-                        <Col md="4">
+                        <Col md="4" sm="4">
                             {/* <br /><FlatButton label="VKontakte" secondary={true} onClick={() => this.externalLogin("Vkontakte")} /> */}
                             <br /><FlatButton label="Facebook" secondary={true} onClick={() => this.externalLogin("Facebook")} />
                             <br /><FlatButton label="Twitter" secondary={true} onClick={() => this.externalLogin("Twitter")} />

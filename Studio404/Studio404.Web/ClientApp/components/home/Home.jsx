@@ -27,6 +27,18 @@ class Home extends Component {
                 <br/>
                 <Row>
                     <Col md="12">
+                        <Paper className={ css.main } zDepth={1}>
+                            <Row>
+                                <Col md="12">
+                                    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Af4f7411f8e61f974863e86465b174241d4f4cbe9e07d8af8c1204659987f37d0&amp;source=constructor" width="100%" height="250px" frameborder="0"></iframe>
+                                </Col>
+                            </Row>
+                        </Paper>
+                    </Col>
+                </Row>
+                <br/>
+                <Row>
+                    <Col md="12">
                         <Paper zDepth={1} className={ css.footer }>
                             {this.props.info.infoLoaded
                                 ? <span>version: {this.props.info.version}</span>

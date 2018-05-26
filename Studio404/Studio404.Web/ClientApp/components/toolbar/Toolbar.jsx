@@ -35,7 +35,7 @@ class Toolbar extends Component {
     }
     render() {
         return (
-        <div className='navbar navbar-expand-sm navbar-light bg-light'
+        <div className='navbar navbar-expand-sm bg-dark navbar-dark'
             ref={(el) => {
                 if (el) {
                     el.style.setProperty('background-color', muiTheme.palette.primary1Color, 'important');

@@ -3,8 +3,18 @@
     text-align: center;
 }
 
-.main {
+.block {
     margin-top: 8px;
+}
+
+.main {
+    compose: block;
+    height: 250px;
+}
+
+.map {
+    composes: block;
+    height: 250px;
 }
 
 .footer {

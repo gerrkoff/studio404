@@ -8,8 +8,8 @@
 }
 
 .main {
-    compose: block;
-    height: 250px;
+    composes: block;
+    height: 300px;
 }
 
 .map {

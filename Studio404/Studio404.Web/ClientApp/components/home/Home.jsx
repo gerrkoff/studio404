@@ -21,7 +21,6 @@ class Home extends Component {
                         </Paper>
                     </Col>
                 </Row>
-                <br/>
                 <Row>
                     <Col md="12">
                         <Paper className={ css.map } zDepth={1}>
@@ -29,7 +28,6 @@ class Home extends Component {
                         </Paper>
                     </Col>
                 </Row>
-                <br/>
                 <Row>
                     <Col md="12">
                         <Paper zDepth={1} className={ css.footer }>

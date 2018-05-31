@@ -1,4 +1,4 @@
-# studio404 
+# Studio 404
 [![GitHub last commit](https://img.shields.io/github/last-commit/gerrkoff/studio404.svg)](https://github.com/gerrkoff/studio404/)
 [![Build Status](http://devstage.ru:6699/buildStatus/icon?job=studio404)](https://github.com/gerrkoff/studio404/)
 [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/gerrkoff/studio404.svg)](https://github.com/gerrkoff/studio404/)

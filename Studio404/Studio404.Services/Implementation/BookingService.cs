@@ -44,10 +44,15 @@ namespace Studio404.Services.Implementation
             DateTime weekEndDate = weekStartDate.AddDays(6);
             
             var bookings = _bookingRepository.GetAll()
-                .Where(x => x.Date >= weekStartDate &&
-                            x.Date <= weekEndDate &&
-                            x.Status != BookingStatusEnum.Canceled)
-                .Select(x => new {x.Date, x.From, x.To})
+                .Where(x =>
+                        (
+                            (x.From >= weekStartDate && x.From <= weekEndDate) ||
+                            (x.To >= weekStartDate && x.To <= weekEndDate)
+                        )
+                        && x.Status != BookingStatusEnum.Canceled
+                        && x.Status != BookingStatusEnum.Special
+                  )
+                .Select(x => new {x.From, x.To})
                 .ToList();
             
             var list = new List<DayWorkloadDto>();
@@ -58,9 +63,10 @@ namespace Studio404.Services.Implementation
                     Date = i,
                     FreeHours = Enumerable
                         .Range(scheduleStart, scheduleEnd - scheduleStart + 1)
+                        .Select(x => i.AddHours(x))
                         .Where(x => bookings
-                            .Where(y => y.Date == i)
                             .All(y => x < y.From || x > y.To))
+                        .Select(x => x.Hour)
                         .ToArray()
                 };
                 list.Add(dayWorkload);
@@ -72,19 +78,23 @@ namespace Studio404.Services.Implementation
         {            
             int scheduleStart = _studioSettings.ScheduleStart;
             int scheduleEnd = _studioSettings.ScheduleEnd;
-            date = date.Date;
+            var dateStart = date.Date;
+            var dateEnd = dateStart.AddDays(1);
             
             var bookings = _bookingRepository.GetAll()
-                .Where(x => x.Date == date &&
-                            x.Status != BookingStatusEnum.Canceled)
+                .Where(x => x.From <= dateEnd &&
+                            x.To >= dateStart &&
+                            x.Status != BookingStatusEnum.Canceled &&
+                            x.Status != BookingStatusEnum.Special)
                 .Select(x => new {x.From, x.To})
                 .ToList();
 
             List<DayHourDto> list = Enumerable
                 .Range(scheduleStart, scheduleEnd - scheduleStart + 1)
+                .Select(x => dateStart.AddHours(x))
                 .Select(x => new DayHourDto
                 {
-                    Hour = x,
+                    Hour = x.Hour,
                     Available = bookings.All(y => x < y.From || x > y.To)
                 })
                 .ToList();
@@ -94,31 +104,29 @@ namespace Studio404.Services.Implementation
         public void MakeBooking(MakeBookingInfoDto makeBookingInfo, CurrentUser user)
         {
             // ReSharper disable PossibleInvalidOperationException
-            DateTime date = makeBookingInfo.Date.Value.Date;
-            int from = makeBookingInfo.From.Value;
-            int to = makeBookingInfo.To.Value;
+            DateTime from = makeBookingInfo.Date.Value.Date.AddHours(makeBookingInfo.From.Value);
+            DateTime to = makeBookingInfo.Date.Value.Date.AddHours(makeBookingInfo.To.Value + 1);
             // ReSharper restore PossibleInvalidOperationException
 
             if (!user.PhoneConfirmed)
                 throw new ServiceException("User does not have such permissions");
             
-            if(date < _dateService.NowUtc.Date)
+            if (from < _dateService.NowUtc.Date)
                 throw new ServiceException("Booking is invalid for this action");
             
-            if (_bookingRepository.GetAll().Any(x => x.Date == date &&
-                                                     x.To >= from &&
+            if (_bookingRepository.GetAll().Any(x => x.To >= from &&
                                                      x.From <= to &&
-                                                     x.Status != BookingStatusEnum.Canceled))
+                                                     x.Status != BookingStatusEnum.Canceled &&
+                                                     x.Status != BookingStatusEnum.Special))
                 throw new ServiceException("Booking is invalid for this action");
             
             _bookingRepository.Save(new BookingEntity
-            {   
-                Date = date,
+            {
                 From = from,
                 To = to,
                 Status = BookingStatusEnum.Unpaid,
                 Guid = Guid.NewGuid(),
-                Cost = _costEvaluationService.EvaluateBookingCost(date, from, to),
+                Cost = _costEvaluationService.EvaluateBookingCost(from, to),
                 UserId = user.UserId
             });
         }

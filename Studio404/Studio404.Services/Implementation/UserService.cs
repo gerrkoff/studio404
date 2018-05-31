@@ -22,8 +22,7 @@ namespace Studio404.Services.Implementation
         {
             return _bookingRepository.GetAll()
                 .Where(x => x.UserId == user.UserId)
-                .OrderBy(x => x.Date)
-                .ThenBy(x => x.From)
+                .OrderBy(x => x.From)
                 .ProjectTo<BookingSimpleDto>()
                 .ToList();
         }

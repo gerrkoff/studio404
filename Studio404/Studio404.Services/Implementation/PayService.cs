@@ -19,14 +19,16 @@ namespace Studio404.Services.Implementation
         private readonly INotificationService _notificationService;
         private readonly ILogger<PayService> _logger;
         private readonly PayServiceSettings _payServiceSettings;
+        private readonly IDateService _dateService;
 
         public PayService(IRepository<BookingEntity> bookingRepository, INotificationService notificationService,
-            ILogger<PayService> logger, IOptions<PayServiceSettings> payServiceSettings)
+                          ILogger<PayService> logger, IOptions<PayServiceSettings> payServiceSettings, IDateService dateService)
         {
             _bookingRepository = bookingRepository;
             _notificationService = notificationService;
             _logger = logger;
             _payServiceSettings = payServiceSettings.Value;
+            _dateService = dateService;
         }
 
         public void ConfirmBooking(Guid guid)
@@ -47,7 +49,7 @@ namespace Studio404.Services.Implementation
         public PrepareBookingPaymentDto PrepareBookingPaymnent(BookingEntity booking)
         {
             string paymentInfo =
-                $"Rehearsal on {booking.Date.ToShortDateString()}, {ToTime(booking.From)} - {ToTime(booking.To + 1)}";
+                $"Rehearsal from {_dateService.ToShortDateTime(booking.From)} to {_dateService.ToShortDateTime(booking.To)}";
             
             var data = new PrepareBookingPaymentDto
             {

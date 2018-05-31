@@ -31,7 +31,7 @@ namespace Studio404.Services.Tests
                     .Returns(new List<BookingEntity> { new BookingEntity(), bookEntity, new BookingEntity() }.AsQueryable());
             var notificationMock = new Mock<INotificationService>();
             var settings = new Mock<IOptions<PayServiceSettings>>();
-            var service = new PayService(repoMock.Object, notificationMock.Object, null, settings.Object);
+            var service = new PayService(repoMock.Object, notificationMock.Object, null, settings.Object, new DateService());
 
             service.ConfirmBooking(guid);
 
@@ -51,7 +51,7 @@ namespace Studio404.Services.Tests
             repoMock.Setup(x => x.GetAll())
                     .Returns(new List<BookingEntity>().AsQueryable());
             var settings = new Mock<IOptions<PayServiceSettings>>();
-            var service = new PayService(repoMock.Object, null, null, settings.Object);
+            var service = new PayService(repoMock.Object, null, null, settings.Object, new DateService());
 
             service.ConfirmBooking(guid);
         }
@@ -69,7 +69,7 @@ namespace Studio404.Services.Tests
             {
                 YandexId = "yandexid"
             });
-            var service = new PayService(null, null, null, settings.Object);
+            var service = new PayService(null, null, null, settings.Object, new DateService());
 
             var result = service.PrepareBookingPaymnent(bookingEntity);
 

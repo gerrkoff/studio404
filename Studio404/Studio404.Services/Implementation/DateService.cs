@@ -16,5 +16,15 @@ namespace Studio404.Services.Implementation
         {
             return date.ToString("dd MMMM yyyy", currentCulture);
         }
+
+        public string ToShortTime(DateTime date)
+        {
+            return date.ToString("hh:mm", currentCulture);
+        }
+
+        public string ToShortDateTime(DateTime date)
+        {
+            return date.ToString("dd MMMM yyyy hh:mm", currentCulture);
+        }
     }
 }

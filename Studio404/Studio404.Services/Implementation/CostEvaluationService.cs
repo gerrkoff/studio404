@@ -14,9 +14,10 @@ namespace Studio404.Services.Implementation
             _studioSettings = studioSettings.Value;
         }
         
-        public double EvaluateBookingCost(DateTime date, int from, int to)
+        public double EvaluateBookingCost(DateTime from, DateTime to)
         {
-            return (to - from + 1) * _studioSettings.HourCost;
+            TimeSpan diff = to - from;
+            return diff.TotalHours * _studioSettings.HourCost;
         }
     }
 }

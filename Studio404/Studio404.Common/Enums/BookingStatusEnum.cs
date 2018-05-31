@@ -2,6 +2,6 @@
 {
     public enum BookingStatusEnum
     {
-        None, Unpaid, Paid, Canceled
+        None, Unpaid, Paid, Canceled, Special
     }
 }

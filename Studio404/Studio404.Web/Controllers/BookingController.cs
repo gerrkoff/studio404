@@ -80,7 +80,9 @@ namespace Studio404.Web.Controllers
 		public double Cost(MakeBookingInfoDto makeBookingInfo)
 		{
 			Validate();
-			return _costEvaluationService.EvaluateBookingCost(makeBookingInfo.Date.Value, makeBookingInfo.From.Value, makeBookingInfo.To.Value);
+            var from = makeBookingInfo.Date.Value.Date.AddHours(makeBookingInfo.From.Value);
+            var to = makeBookingInfo.Date.Value.Date.AddHours(makeBookingInfo.To.Value + 1);
+			return _costEvaluationService.EvaluateBookingCost(from, to);
 		}
 	}
 }

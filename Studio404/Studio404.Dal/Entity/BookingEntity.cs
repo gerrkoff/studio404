@@ -7,9 +7,8 @@ namespace Studio404.Dal.Entity
 {
     public class BookingEntity : BaseEntity
     {
-        public DateTime Date { get; set; }
-        public int From { get; set; }
-        public int To { get; set; }
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
         
         public BookingStatusEnum Status { get; set; }
         public double Cost { get; set; }

@@ -21,9 +21,8 @@ namespace Studio404.Services.Implementation
             var now = _dateService.NowUtc.AddMinutes(shiftMinutes);
             return _bookingRepository.GetAll()
                 .Any(x => x.Code == code &&
-                          x.Date == now.Date &&
-                          x.From <= now.Hour &&
-                          x.To >= now.Hour);
+                          x.From <= now &&
+                          x.To >= now);
         }
     }
 }

@@ -53,7 +53,11 @@ namespace Studio404.Services.Implementation
             }
             
             string phone = user.PhoneNumber;
-            string text = $"Студия открыта для вас {_dateService.ToShortDate(booking.Date)} с {booking.From}:00 до {booking.To + 1}:00. {booking.Code}.";
+            string text;
+            if (booking.From.Date == booking.To.Date)
+                text = $"Студия открыта для вас {_dateService.ToShortDate(booking.From)} с {_dateService.ToShortTime(booking.From)} до {_dateService.ToShortTime(booking.To)}. {booking.Code}.";
+            else 
+                text = $"Студия открыта для вас с {_dateService.ToShortDateTime(booking.From)} до {_dateService.ToShortDateTime(booking.To)}. {booking.Code}.";
             try
             {
                 return await _smsService.SendAsync(phone, text);

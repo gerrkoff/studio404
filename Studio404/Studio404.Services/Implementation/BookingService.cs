@@ -41,22 +41,14 @@ namespace Studio404.Services.Implementation
             int scheduleStart = _studioSettings.ScheduleStart;
             int scheduleEnd = _studioSettings.ScheduleEnd;
             weekStartDate = weekStartDate.Date;
-            DateTime weekEndDate = weekStartDate.AddDays(6);
+            DateTime weekEndDate = weekStartDate.AddDays(7);
             
-            var bookings = _bookingRepository.GetAll()
-                .Where(x =>
-                        (
-                            (x.From >= weekStartDate && x.From <= weekEndDate) ||
-                            (x.To >= weekStartDate && x.To <= weekEndDate)
-                        )
-                        && x.Status != BookingStatusEnum.Canceled
-                        && x.Status != BookingStatusEnum.Special
-                  )
-                .Select(x => new {x.From, x.To})
+            var bookings = GetBookingsForPeriod(weekStartDate, weekEndDate)
+				.Select(x => new {x.From, x.To})
                 .ToList();
             
             var list = new List<DayWorkloadDto>();
-            for (DateTime i = weekStartDate; i <= weekEndDate; i = i.AddDays(1))
+            for (DateTime i = weekStartDate; i < weekEndDate; i = i.AddDays(1))
             {
                 var dayWorkload = new DayWorkloadDto
                 {
@@ -65,7 +57,7 @@ namespace Studio404.Services.Implementation
                         .Range(scheduleStart, scheduleEnd - scheduleStart + 1)
                         .Select(x => i.AddHours(x))
                         .Where(x => bookings
-                            .All(y => x < y.From || x > y.To))
+                            .All(y => x < y.From || x >= y.To))
                         .Select(x => x.Hour)
                         .ToArray()
                 };
@@ -81,11 +73,7 @@ namespace Studio404.Services.Implementation
             var dateStart = date.Date;
             var dateEnd = dateStart.AddDays(1);
             
-            var bookings = _bookingRepository.GetAll()
-                .Where(x => x.From <= dateEnd &&
-                            x.To >= dateStart &&
-                            x.Status != BookingStatusEnum.Canceled &&
-                            x.Status != BookingStatusEnum.Special)
+            var bookings = GetBookingsForPeriod(dateStart, dateEnd)
                 .Select(x => new {x.From, x.To})
                 .ToList();
 
@@ -95,7 +83,7 @@ namespace Studio404.Services.Implementation
                 .Select(x => new DayHourDto
                 {
                     Hour = x.Hour,
-                    Available = bookings.All(y => x < y.From || x > y.To)
+                    Available = bookings.All(y => x < y.From || x >= y.To)
                 })
                 .ToList();
             return list;
@@ -170,5 +158,14 @@ namespace Studio404.Services.Implementation
             if (!bookingCheck(booking))
                 throw new ServiceException("Booking is invalid for this action");
         }
+
+		private IQueryable<BookingEntity> GetBookingsForPeriod(DateTime from, DateTime to)
+		{
+			return _bookingRepository.GetAll()
+				.Where(x => x.From < to &&
+							x.To > from &&
+							x.Status != BookingStatusEnum.Canceled &&
+							x.Status != BookingStatusEnum.Special);
+		}
     }
 }

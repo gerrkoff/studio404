@@ -102,10 +102,7 @@ namespace Studio404.Services.Implementation
             if (from < _dateService.NowUtc.Date)
                 throw new ServiceException("Booking is invalid for this action");
             
-            if (_bookingRepository.GetAll().Any(x => x.To >= from &&
-                                                     x.From <= to &&
-                                                     x.Status != BookingStatusEnum.Canceled &&
-                                                     x.Status != BookingStatusEnum.Special))
+            if (GetBookingsForPeriod(from, to).Any())
                 throw new ServiceException("Booking is invalid for this action");
             
             _bookingRepository.Save(new BookingEntity

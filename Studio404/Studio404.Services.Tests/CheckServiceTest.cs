@@ -7,6 +7,7 @@ using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using System.Collections.Generic;
 using System.Linq;
+using Studio404.Common.Enums;
 
 namespace Studio404.Services.Tests
 {
@@ -121,10 +122,23 @@ namespace Studio404.Services.Tests
             Assert.IsTrue(result);
         }
 
-        private IDateService CreateDateService()
+		[TestMethod]
+		public void SpecialCheck()
+		{
+			IDateService date = CreateDateService();
+			IRepository<BookingEntity> repo = CreateRepo(
+				new BookingEntity { From = DateTimeHour(9), To = DateTimeHour(11), Code = "1", Status = BookingStatusEnum.Paid },
+				new BookingEntity { From = DateTimeHour(-30), To = DateTimeHour(30), Code = "2", Status = BookingStatusEnum.Special });
+			var check = new CheckService(repo, date);
+			
+			Assert.IsTrue(check.Check(0, "1"));
+			Assert.IsTrue(check.Check(0, "2"));
+		}
+
+		private IDateService CreateDateService()
         {
             var date = new Mock<IDateService>();
-            date.Setup(x => x.NowUtc).Returns(new DateTime().AddHours(10));
+            date.Setup(x => x.NowUtc).Returns(DateTime.Today.AddHours(10));
             return date.Object;
         }
 
@@ -137,7 +151,7 @@ namespace Studio404.Services.Tests
 
         private DateTime DateTimeHour(int hour) 
         {
-            return new DateTime().AddHours(hour);
+            return DateTime.Today.AddHours(hour);
         }
     }
 }

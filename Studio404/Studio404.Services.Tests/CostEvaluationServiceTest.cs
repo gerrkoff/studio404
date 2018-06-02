@@ -82,7 +82,7 @@ namespace Studio404.Services.Tests
         }
         
         [TestMethod]
-        public void SpecialCosts_Workday()
+        public void SpecialCosts_WorkdaySimple()
         {
             var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
             {
@@ -103,6 +103,151 @@ namespace Studio404.Services.Tests
             double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(18));
 
             Assert.AreEqual(400, result);
+        }
+        
+        [TestMethod]
+        public void SpecialCosts_MixDays()
+        {
+            var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
+            {
+                HourCost = 1000,
+                SpecialCosts = new[]
+                {
+                    new StudioSettings.SpecialCost
+                    {
+                        HourStart = 12,
+                        HourEnd = 14,
+                        DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday,
+                        HourCost = 250
+                    },
+                    new StudioSettings.SpecialCost
+                    {
+                        HourStart = 17,
+                        HourEnd = 20,
+                        DayType = DiscountDayTypeEnum.Workday,
+                        HourCost = 500
+                    },
+                    new StudioSettings.SpecialCost
+                    {
+                        HourStart = 15,
+                        HourEnd = 19,
+                        DayType = DiscountDayTypeEnum.Weekend,
+                        HourCost = 750
+                    }
+                }
+            }));
+
+            var date = new DateTime(2018, 6, 8);
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(23).AddDays(1));
+
+            // 2000
+            // 750
+            // 2000
+            // 2000
+            // 15000
+            // 750
+            // 3750
+            // 3000
+            Assert.AreEqual(29250, result);
+        }
+        
+        [TestMethod]
+        public void SpecialCosts_StartBetweenIntervals()
+        {
+            var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
+            {
+                HourCost = 1000,
+                SpecialCosts = new[]
+                {
+                    new StudioSettings.SpecialCost
+                    {
+                        HourStart = 12,
+                        HourEnd = 14,
+                        DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday,
+                        HourCost = 250
+                    },
+                    new StudioSettings.SpecialCost
+                    {
+                        HourStart = 17,
+                        HourEnd = 20,
+                        DayType = DiscountDayTypeEnum.Workday,
+                        HourCost = 500
+                    }
+                }
+            }));
+
+            var date = new DateTime(2018, 6, 8);
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(16), date.AddHours(20));
+
+            // 1000
+            // 1500
+            Assert.AreEqual(2500, result);
+        }
+        
+        [TestMethod]
+        public void SpecialCosts_StartEndBetweenIntervals()
+        {
+            var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
+            {
+                HourCost = 1000,
+                SpecialCosts = new[]
+                {
+                    new StudioSettings.SpecialCost
+                    {
+                        HourStart = 12,
+                        HourEnd = 14,
+                        DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday,
+                        HourCost = 250
+                    },
+                    new StudioSettings.SpecialCost
+                    {
+                        HourStart = 17,
+                        HourEnd = 20,
+                        DayType = DiscountDayTypeEnum.Workday,
+                        HourCost = 500
+                    }
+                }
+            }));
+
+            var date = new DateTime(2018, 6, 8);
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(16), date.AddHours(17));
+
+            Assert.AreEqual(1000, result);
+        }
+        
+        [TestMethod]
+        public void SpecialCosts_TwoIntervalsSameTime()
+        {
+            var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
+            {
+                HourCost = 1000,
+                SpecialCosts = new[]
+                {
+                    new StudioSettings.SpecialCost
+                    {
+                        HourStart = 12,
+                        HourEnd = 16,
+                        DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday,
+                        HourCost = 500
+                    },
+                    new StudioSettings.SpecialCost
+                    {
+                        HourStart = 13,
+                        HourEnd = 18,
+                        DayType = DiscountDayTypeEnum.Workday,
+                        HourCost = 250
+                    }
+                }
+            }));
+
+            var date = new DateTime(2018, 6, 8);
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(20));
+
+            // 2000
+            // 2500
+            // 500
+            // 1000
+            Assert.AreEqual(6000, result);
         }
 
         private IOptions<StudioSettings> StudioSettingsOptions(StudioSettings settings)

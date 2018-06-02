@@ -43,8 +43,7 @@ namespace Studio404.Services.Implementation
                         To = interval.From.Date.AddHours(x.HourEnd + 1),
                         x.HourCost
                     })
-                    .OrderBy(x => x.From)
-                    .ToArray();
+                    .OrderBy(x => x.From);
 
                 DateTime intervalStart = interval.From;
                 foreach (var specialCost in specialCosts)
@@ -52,6 +51,13 @@ namespace Studio404.Services.Implementation
                     if (intervalStart >= specialCost.To)
                         continue;
 
+                    if (interval.To <= specialCost.From)
+                    {
+                        intervalCosts.Add(CreateIntervalCost(intervalStart, interval.To, _studioSettings.HourCost));
+                        intervalStart = interval.To;
+                        break;
+                    }
+                    
                     if (intervalStart < specialCost.From)
                     {
                         intervalCosts.Add(CreateIntervalCost(intervalStart, specialCost.From,
@@ -59,8 +65,17 @@ namespace Studio404.Services.Implementation
                         intervalStart = specialCost.From;
                     }
 
-                    intervalCosts.Add(CreateIntervalCost(intervalStart, specialCost.To, specialCost.HourCost));
-                    intervalStart = specialCost.To;
+                    if (interval.To <= specialCost.To)
+                    {
+                        intervalCosts.Add(CreateIntervalCost(intervalStart, interval.To, specialCost.HourCost));
+                        intervalStart = interval.To;
+                        break;
+                    }
+                    else
+                    {
+                        intervalCosts.Add(CreateIntervalCost(intervalStart, specialCost.To, specialCost.HourCost));
+                        intervalStart = specialCost.To;
+                    }
                 }
 
                 if (intervalStart < interval.To)

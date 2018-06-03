@@ -15,7 +15,7 @@ const HourCostService = {
         let totalCost = 0
         hourCostIntervals.forEach(x => {
             let datePrefix = withinOneDay ? '' : DateService.toDateString(x.from) + ' '
-            intervalCosts.push(`${datePrefix}${DateService.toTimeString(x.from)} - ${DateService.toTimeString(x.to, true)} | ${x.cost}₽`)
+            intervalCosts.push(`${datePrefix}${DateService.toTimeString(x.from)} - ${DateService.toTimeString(x.to, true)} = ${x.cost}₽`)
             totalCost += x.cost
         })
 

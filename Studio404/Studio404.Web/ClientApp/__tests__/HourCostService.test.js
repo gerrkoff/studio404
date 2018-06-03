@@ -26,9 +26,9 @@ test('simple intervals', () => {
     ])
     expect(result.totalCost).toBe('500₽')
     expect(result.intervalCosts.length).toBe(3)
-    expect(result.intervalCosts[0]).toBe('[date] [time] - [time] | 100₽')
-    expect(result.intervalCosts[1]).toBe('[date] [time] - [time] | 250₽')
-    expect(result.intervalCosts[2]).toBe('[date] [time] - [time] | 150₽')
+    expect(result.intervalCosts[0]).toBe('[date] [time] - [time] = 100₽')
+    expect(result.intervalCosts[1]).toBe('[date] [time] - [time] = 250₽')
+    expect(result.intervalCosts[2]).toBe('[date] [time] - [time] = 150₽')
 })
 
 test('intervals within one day', () => {
@@ -45,6 +45,6 @@ test('intervals within one day', () => {
         }
     ])
     expect(result.intervalCosts.length).toBe(2)
-    expect(result.intervalCosts[0]).toBe('[time] - [time] | 100₽')
-    expect(result.intervalCosts[1]).toBe('[time] - [time] | 250₽')
+    expect(result.intervalCosts[0]).toBe('[time] - [time] = 100₽')
+    expect(result.intervalCosts[1]).toBe('[time] - [time] = 250₽')
 })

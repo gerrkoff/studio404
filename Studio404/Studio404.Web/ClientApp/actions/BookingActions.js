@@ -85,10 +85,10 @@ const Booking = {
         }
     },
 
-    hoursCostLoadedSuccess: (hoursCost) => {
+    hoursCostLoadedSuccess: (hoursCostIntervals) => {
         return {
             type: 'HOURS_COST_LOADED_SUCCESS',
-            hoursCost
+            hoursCostIntervals
         }
     },
 

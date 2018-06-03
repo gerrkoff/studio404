@@ -77,12 +77,12 @@ namespace Studio404.Web.Controllers
         }
 		
 		[HttpPost]
-		public double Cost(MakeBookingInfoDto makeBookingInfo)
+        public IEnumerable<IntervalCostDto> Cost(MakeBookingInfoDto makeBookingInfo)
 		{
 			Validate();
             var from = makeBookingInfo.Date.Value.Date.AddHours(makeBookingInfo.From.Value);
             var to = makeBookingInfo.Date.Value.Date.AddHours(makeBookingInfo.To.Value + 1);
-			return _costEvaluationService.EvaluateBookingCost(from, to);
+            return _costEvaluationService.EvaluateIntervalCosts(from, to);
 		}
 	}
 }

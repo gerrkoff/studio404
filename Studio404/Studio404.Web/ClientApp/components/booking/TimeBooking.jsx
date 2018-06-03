@@ -10,6 +10,7 @@ import ConfirmPhonePopupContainer from "../../containers/ConfirmPhonePopupContai
 import LoginPopupContainer from "../../containers/LoginPopupContainer";
 import css from "../../styles/booking.css";
 import { muiTheme } from '../../modules/MaterialTheme';
+import FaIconButton from "../common/FaIconButton";
 
 class TimeBooking extends Component {
     constructor(props) {
@@ -99,8 +100,16 @@ class TimeBooking extends Component {
                     <Loader />
                 </div>
             )
-        else if (!this.props.hoursCostError)
-            cost = <span>{this.props.hoursCost}₽</span>
+        else if (!this.props.hoursCostError) {
+            cost = (
+                <span>
+                    <span>{this.props.hoursCost}₽</span>
+                    {this.props.hoursCostIntervals && this.props.hoursCostIntervals.length > 1
+                        && <FaIconButton icon="question-circle" size="sm" className={css.costHelp} />
+                    }
+                </span>
+            )
+        }
         
         return (
             <div>

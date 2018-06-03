@@ -91,6 +91,7 @@ class Booking extends Component {
                         phoneConfirmed={this.props.phoneConfirmed}
                         hoursCostIsLoading={this.props.hoursCostIsLoading}
                         hoursCost={this.props.hoursCost}
+                        hoursCostIntervals={this.props.hoursCostIntervals}
                         hoursCostError={this.props.hoursCostError}
                     />
                 </Paper>

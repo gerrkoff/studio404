@@ -1,3 +1,5 @@
+import DateService from './DateService'
+
 const HourCostService = {
     adjustHourCostIntervals (hourCostIntervals) {
         return {

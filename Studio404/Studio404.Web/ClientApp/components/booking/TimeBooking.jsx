@@ -103,7 +103,7 @@ class TimeBooking extends Component {
         else if (!this.props.hoursCostError) {
             cost = (
                 <span>
-                    <span>{this.props.hoursCost}₽</span>
+                    <span>{this.props.hoursCost}</span>
                     {this.props.hoursCostIntervals && this.props.hoursCostIntervals.length > 1
                         && <FaIconButton icon="question-circle" size="sm" className={css.costHelp} />
                     }

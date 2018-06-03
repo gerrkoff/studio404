@@ -23,13 +23,24 @@ const DateService = {
     },
 
     toDateString (date) {
+        date = convertToDateIfString(date)
+
         var options = {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
         }
-
+        
         return date.toLocaleString('ru', options)
+    },
+
+    toTimeString (date, midnightAs24h) {
+        date = convertToDateIfString(date)
+        let time = date.toTimeString().substr(0, 5)
+        if (time === '00:00' && midnightAs24h)
+            return '24:00'
+        else
+            return time
     },
 
     convertHourToLabel (hour) {
@@ -72,5 +83,11 @@ const DateService = {
 
 const today = new Date()
 today.setHours(0, 0, 0, 0)
+
+function convertToDateIfString(date) {
+    return typeof date === 'string'
+        ? new Date(date)
+        : date
+}
 
 export default DateService

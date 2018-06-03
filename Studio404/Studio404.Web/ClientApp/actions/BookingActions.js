@@ -3,6 +3,7 @@ import { show } from './MessageActions'
 import DateService from '../modules/DateService'
 import Labels from '../modules/Labels'
 import { ShowBookingHelp } from '../modules/Storage'
+import HourCostService from '../modules/HourCostService'
 
 const Booking = {
     changeWeekStartDate: (date) => {
@@ -88,7 +89,7 @@ const Booking = {
     hoursCostLoadedSuccess: (hoursCostIntervals) => {
         return {
             type: 'HOURS_COST_LOADED_SUCCESS',
-            hoursCostIntervals
+            hoursCostIntervals: HourCostService.adjustHourCostIntervals(hoursCostIntervals)
         }
     },
 

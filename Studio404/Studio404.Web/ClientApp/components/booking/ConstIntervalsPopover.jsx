@@ -31,7 +31,7 @@ class ConstIntervalsPopover extends Component {
     render() {
         return (
             <span>
-                <FaIconButton icon="question-circle" size="sm" className={css.costHelp} onClick={this.open} />
+                <FaIconButton icon="question-circle" className={css.costHelp} onClick={this.open} color={'clr_secondary'} />
                 <Popover open={this.state.open} anchorEl={this.state.anchorEl} handleRequestClose={this.handleRequestClose}>
                     <ul className={css.costHelpList}>
                         {this.props.intervals.map(interval =>

@@ -88,7 +88,7 @@ today.setHours(0, 0, 0, 0)
 
 function convertToDateIfString (date) {
     return typeof date === 'string'
-        ? new Date(date)
+        ? new Date(date.substr(0, 19))
         : date
 }
 

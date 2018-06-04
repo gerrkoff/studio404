@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import Labels from '../../modules/Labels'
 import css from '../../styles/popup.css'
@@ -12,11 +11,13 @@ class ChangePassPopup extends Component {
             <FlatButton
                 label={Labels.cancel}
                 primary={true}
+                key='cancel'
                 onClick={this.props.closeChangePassPopup}
             />,
             <FlatButton
                 label={Labels.changePass_button}
                 primary={true}
+                key='change'
                 onClick={() => this.props.changePassword(this.props.info)}
                 disabled={!this.props.info.isValid}
             />

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'reactstrap'
-import Paper from 'material-ui/Paper'
 import FaIconButton from '../common/FaIconButton'
 import WeekWorkload from './WeekWorkload'
 import LoaderContent from '../common/LoaderContent'

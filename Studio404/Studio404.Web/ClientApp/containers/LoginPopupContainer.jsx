@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import LoginPopup from '../components/login/LoginPopup'
 import { login, openLoginPopup, closeLoginPopup, register, toggleRegistration, updateLoginInfo, updateRegisterInfo } from '../actions/LoginPopupActions'

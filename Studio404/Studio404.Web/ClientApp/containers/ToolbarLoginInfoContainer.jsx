@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ToolbarLoginInfo from '../components/toolbar/ToolbarLoginInfo'
 import { loadCurrentUser, logoff } from '../actions/AccountActions'

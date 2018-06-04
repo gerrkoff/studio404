@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ExternalLogin from '../components/externalLogin/ExternalLogin'
 import { externalLoginProcess } from '../actions/ExternalLoginActions'

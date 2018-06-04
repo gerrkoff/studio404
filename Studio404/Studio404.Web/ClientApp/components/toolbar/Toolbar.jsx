@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
 import {
     Collapse,
-    Navbar,
     NavbarToggler,
     NavbarBrand,
     Nav,
     NavItem,
     NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
     Container } from 'reactstrap'
 import { withRouter } from 'react-router-dom'
 import Labels from '../../modules/Labels'

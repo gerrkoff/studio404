@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Paper from 'material-ui/Paper'
-import { Col } from 'reactstrap'
 import WeekWorkloadItem from './WeekWorkloadItem'
 import DateService from '../../modules/DateService'
 import css from '../../styles/booking.css'

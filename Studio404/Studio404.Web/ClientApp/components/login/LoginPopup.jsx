@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Row, Col } from 'reactstrap'
+import { Row, Col, NavLink } from 'reactstrap'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import Toggle from 'material-ui/Toggle'
-import { NavLink } from 'reactstrap'
 import LoginForm from '../../components/login/LoginForm'
 import RegisterForm from '../../components/login/RegisterForm'
 import Labels from '../../modules/Labels'
@@ -23,10 +22,12 @@ class LoginPopup extends Component {
                 label={Labels.cancel}
                 primary={true}
                 onClick={this.props.closePopup}
+                key='cancel'
             />,
             <FlatButton
                 label={this.props.registration === true ? Labels.loginPopup_register : Labels.loginPopup_login}
                 primary={true}
+                key='enter'
                 onClick={
                     this.props.registration === true
                         ? () => this.props.register(this.props.registerInfo)

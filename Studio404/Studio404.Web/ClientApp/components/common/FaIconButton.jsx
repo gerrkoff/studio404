@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import FontIcon from 'material-ui/FontIcon'
-import {grey900, grey600, grey500, grey200} from 'material-ui/styles/colors'
+import { grey900, grey200 } from 'material-ui/styles/colors'
 import { muiTheme } from '../../modules/MaterialTheme'
 import { fade } from 'material-ui/utils/colorManipulator'
-
+/*
 const mainColor = grey900
 const hoverColor = grey600
 const mainColorAlt = grey500
 const hoverColorAlt = grey600
+*/
 const disabledColor = grey200
 
 class FaIconButton extends Component {

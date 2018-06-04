@@ -10,7 +10,6 @@
         "indent": ["error", 4, { "SwitchCase": 1 }],
         "brace-style": ["error", "stroustrup", { "allowSingleLine": false }],
         "no-extend-native": ["error", { "exceptions": ["Array"] }],
-        "react/prop-types": [0],
-        "react/react-in-jsx-scope": "off"
+        "react/prop-types": [0]
     }
 }

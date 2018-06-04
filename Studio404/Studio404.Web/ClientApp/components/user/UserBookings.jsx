@@ -4,8 +4,7 @@ import {
     TableBody,
     TableHeader,
     TableHeaderColumn,
-    TableRow,
-    TableRowColumn
+    TableRow
 } from 'material-ui/Table'
 import UserBookingItem from '../../components/user/UserBookingItem'
 import DateService from '../../modules/DateService'

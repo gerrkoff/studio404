@@ -22,6 +22,7 @@ class ConfirmPhonePopup extends Component {
                 label={Labels.cancel}
                 primary={true}
                 onClick={this.props.closePopup}
+                key='cancel'
             />
         ]
 

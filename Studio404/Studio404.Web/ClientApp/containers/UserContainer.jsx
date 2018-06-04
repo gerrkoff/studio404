@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import User from '../components/user/User'
 

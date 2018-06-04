@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ChangePassPopup from '../components/changePass/ChangePassPopup'
 import { openChangePassPopup, closeChangePassPopup, updateChangePassInfo, changePassword } from '../actions/ChangePassPopupActions'

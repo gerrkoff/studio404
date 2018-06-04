@@ -9,11 +9,13 @@ class ConfirmDialog extends Component {
             <FlatButton
                 label={Labels.cancel}
                 primary={true}
+                key='cancel'
                 onClick={this.props.hide}
             />,
             <FlatButton
                 label={this.props.actionText}
                 primary={true}
+                key='confirm'
                 onClick={() => {
                     this.props.action()
                     this.props.hide()

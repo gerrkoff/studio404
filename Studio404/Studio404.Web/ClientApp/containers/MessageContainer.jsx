@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Message from '../components/common/Message'
 import { hide } from '../actions/MessageActions'

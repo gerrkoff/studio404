@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Home from '../components/home/Home'
 import { loadInfo } from '../actions/InfoActions'

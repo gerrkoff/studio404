@@ -7,7 +7,9 @@ class AppMaterial extends Component {
     render () {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
-                <App children={this.props.children}/>
+                <App>
+                    {this.props.children}
+                </App>
             </MuiThemeProvider>
         )
     }

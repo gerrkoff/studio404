@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Booking from '../components/booking/Booking'
 import { changeWeekStartDate, loadWeekWorkload, chooseDay, loadDayHours, updateHours, saveBooking, toggleHelp } from '../actions/BookingActions'

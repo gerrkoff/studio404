@@ -28,9 +28,8 @@ class ToolbarLoginInfo extends Component {
                 <FaIconButton
                     onClick={this.props.logoff}
                     icon="sign-out"
-                    size="sm"
                     className={ css.signOut }
-                    alt={true} />
+                    color={'clr_secondary'} />
             </div>
         );
 

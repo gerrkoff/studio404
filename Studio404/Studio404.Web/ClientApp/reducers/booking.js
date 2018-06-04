@@ -17,7 +17,8 @@ const initialState = {
     bookingIsValid: false,
     showHelp: showBookingHelp === null || showBookingHelp === 'true',
     hoursCostIsLoading: false,
-    hoursCost: 0,
+    hoursCost: '',
+    hoursCostIntervals: [],
     hoursCostError: false
 }
 
@@ -100,7 +101,8 @@ const booking = (state = initialState, action) => {
             return {
                 ...state,
                 hoursCostIsLoading: false,
-                hoursCost: action.hoursCost
+                hoursCost: action.hoursCostIntervals.totalCost,
+                hoursCostIntervals: action.hoursCostIntervals.intervalCosts
             }
 
         case 'HOURS_COST_LOADED_ERROR':

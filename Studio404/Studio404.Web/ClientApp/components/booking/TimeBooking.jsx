@@ -10,11 +10,12 @@ import ConfirmPhonePopupContainer from "../../containers/ConfirmPhonePopupContai
 import LoginPopupContainer from "../../containers/LoginPopupContainer";
 import css from "../../styles/booking.css";
 import { muiTheme } from '../../modules/MaterialTheme';
+import ConstIntervalsPopover from './ConstIntervalsPopover';
 
 class TimeBooking extends Component {
     constructor(props) {
-        super(props);
-        this.props.loadDayHours(this.props.chosenDate);
+        super(props)
+        this.props.loadDayHours(this.props.chosenDate)
     }
 
     render() {
@@ -99,8 +100,16 @@ class TimeBooking extends Component {
                     <Loader />
                 </div>
             )
-        else if (!this.props.hoursCostError)
-            cost = <span>{this.props.hoursCost}₽</span>
+        else if (!this.props.hoursCostError) {
+            cost = (
+                <span>
+                    <span>{this.props.hoursCost}</span>
+                    {this.props.hoursCostIntervals && this.props.hoursCostIntervals.length > 1
+                        && <ConstIntervalsPopover className={css.costHelp} intervals={this.props.hoursCostIntervals} />
+                    }
+                </span>
+            )
+        }
         
         return (
             <div>

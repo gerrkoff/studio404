@@ -8,6 +8,12 @@ if ($LastExitCode -eq 1)
 	exit 1
 }
 
+npm run test
+if ($LastExitCode -eq 1)
+{
+	exit 1
+}
+
 npm run build_p
 if ($LastExitCode -eq 1)
 {

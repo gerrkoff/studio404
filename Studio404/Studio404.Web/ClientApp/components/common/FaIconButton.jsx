@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import FontIcon from 'material-ui/FontIcon';
 import {grey900, grey600, grey500, grey200} from 'material-ui/styles/colors';
+import { muiTheme } from '../../modules/MaterialTheme'
+import { fade } from 'material-ui/utils/colorManipulator'
 
 const mainColor = grey900;
 const hoverColor = grey600;
@@ -11,26 +13,47 @@ const disabledColor = grey200;
 class FaIconButton extends Component {
 
     constructor(props) {
-        super(props);
+        super(props)
 
-        let altColor = this.props.alt === true;
-        let disabled = this.props.disabled === true;
-        this.colors = {
-            main: disabled ? disabledColor
-                        : !altColor ? mainColor : mainColorAlt,
-            hover: disabled ? disabledColor
-                        : !altColor ? hoverColor : hoverColorAlt
-        };
+        this.colors = this.generateColor(this.props)
+        this.styles = {
+            cursor: 'pointer',
+            fontSize: '17px'
+        }
+        
+        this.additionalClass = this.props.className ? " " + this.props.className : "";
+    }
 
-        this.styles = this.props.style ? this.props.style : {};
-        this.styles.cursor = "pointer";
-        switch (this.props.size) {
-            case "sm":
-                this.styles.fontSize = "17px";
-                break;
+    generateColor(props) {
+        let colors = {
+            main: disabledColor,
+            hover: disabledColor
         }
 
-        this.additionalClass = this.props.className ? " " + this.props.className : "";
+        if (props.disabled) 
+            return colors
+
+        let color = !props.color || props.color === ''
+            ? 'clr_primary'
+            : props.color
+
+        switch(color) {
+            case 'clr_primary':
+                colors.main = muiTheme.palette.primary1Color
+                break
+            case 'clr_secondary':
+                colors.main = muiTheme.palette.accent1Color
+                break
+            case 'clr_black':
+                colors.main = grey900
+                break
+            default:
+                colors.main = color
+        }
+
+        colors.hover = fade(colors.main, 0.75)
+
+        return colors
     }
 
     render() {

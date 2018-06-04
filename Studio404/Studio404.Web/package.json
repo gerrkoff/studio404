@@ -5,13 +5,15 @@
     "watch": "webpack --watch -d --config webpack.dev.js",
     "build_d": "webpack -d --config webpack.dev.js",
     "build_p": "webpack --config webpack.prod.js",
-    "start": "webpack-dev-server --open --content-base wwwroot/ --config webpack.dev.js"
+    "start": "webpack-dev-server --open --content-base wwwroot/ --config webpack.dev.js",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "~4.1.1",
     "font-awesome": "~4.7.0",
+    "jest": "^23.1.0",
     "jquery": "~3.3.1",
     "material-ui": "~0.20.1",
     "query-string": "~6.1.0",

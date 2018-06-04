@@ -21,21 +21,22 @@ class UserBookingItem extends Component {
                 <TableRowColumn className={ css.bookingTableCell }>{EnumService.bookingStatus(this.props.status)}</TableRowColumn>
                 <TableRowColumn className={ css.bookingTableCell }>
                     <FaIconButton
-                        size="sm"
                         icon="credit-card"
                         disabled={this.props.status !== 1}
-                        onClick={() => this.props.pay(this.props.id)} />
+                        onClick={() => this.props.pay(this.props.id)}
+                        color={'clr_black'} />
                     <FaIconButton
-                        size="sm"
                         icon="envelope-o"
                         disabled={this.props.status !== 2}
                         onClick={() => this.props.resend(this.props.id)} 
-                        className={ css.actionPadding } />
+                        className={ css.actionPadding }
+                        color={'clr_black'} />
                     <FaIconButton
                         icon="times"
                         disabled={this.props.status === 3 || this.props.status === 2}
                         onClick={() => this.props.cancel(this.props.id)}
-                        className={ css.actionCancel } />
+                        className={ css.actionCancel }
+                        color={'clr_black'} />
                 </TableRowColumn>
             </TableRow>
         );

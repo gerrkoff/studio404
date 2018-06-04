@@ -24,13 +24,13 @@ class BookingDayChooser extends Component {
                 <Row>
                     <Col md="12" className={css.weekChooser}>
                         <div className={ css.weekChooseButton }>
-                            <FaIconButton icon="arrow-left" size="sm" onClick={this.props.previousWeek} alt={true}/>
+                            <FaIconButton icon="arrow-left" onClick={this.props.previousWeek}/>
                         </div>
                         <span className={ css.weekLabel }>
                             {this.props.weekLabel}
                         </span>
                         <div className={ css.weekChooseButton }>
-                            <FaIconButton icon="arrow-right" size="sm" onClick={this.props.nextWeek} alt={true}/>
+                            <FaIconButton icon="arrow-right" onClick={this.props.nextWeek}/>
                         </div>
                     </Col>
                 </Row>

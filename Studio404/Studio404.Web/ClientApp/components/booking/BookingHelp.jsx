@@ -3,7 +3,6 @@ import { Row, Col } from 'reactstrap';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import Labels from "../../modules/Labels";
-import FaIconButton from "../common/FaIconButton";
 import css from "../../styles/booking.css";
 
 class BookingHelp extends Component {

@@ -1,11 +1,16 @@
 {
-    "extends": "standard",
+    "extends": [
+        "standard",
+        "plugin:react/recommended"
+    ],
     "env": {
         "browser": true
     },
     "rules": {
         "indent": ["error", 4, { "SwitchCase": 1 }],
         "brace-style": ["error", "stroustrup", { "allowSingleLine": false }],
-        "no-extend-native": ["error", { "exceptions": ["Array"] }]
+        "no-extend-native": ["error", { "exceptions": ["Array"] }],
+        "react/prop-types": [0],
+        "react/react-in-jsx-scope": "off"
     }
 }

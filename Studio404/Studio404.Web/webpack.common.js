@@ -1,12 +1,12 @@
-﻿var path = require('path');
-var webpack = require('webpack');
-var CleanWebpackPlugin = require('clean-webpack-plugin'); 
+﻿var path = require('path')
+var webpack = require('webpack')
+var CleanWebpackPlugin = require('clean-webpack-plugin')
  
 module.exports = {
-    entry: "./ClientApp/index.jsx",
+    entry: './ClientApp/index.jsx',
     output:{
         path: path.resolve(__dirname, 'wwwroot'),
-        filename: "app.js"
+        filename: 'app.js'
     },
     resolve:{
         extensions: ['.js', '.jsx']
@@ -14,17 +14,17 @@ module.exports = {
     module:{
         rules:[
             {
-                enforce: "pre",
-                test: /\.js$/,
+                enforce: 'pre',
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: "eslint-loader",
+                loader: 'eslint-loader',
             },
             {
                 test: /\.jsx?$/,
                 exclude: /(node_modules)/,
-                loader: "babel-loader",
+                loader: 'babel-loader',
                 options:{
-                    presets:["env", "react"],
+                    presets:['env', 'react'],
                     plugins: ['transform-object-rest-spread']
                 }
             },
@@ -40,23 +40,23 @@ module.exports = {
             },
             {
                 test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url-loader?limit=10000&mimetype=application/font-woff"
+                loader: 'url-loader?limit=10000&mimetype=application/font-woff'
             },
             {
                 test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url-loader?limit=10000&mimetype=application/font-woff"
+                loader: 'url-loader?limit=10000&mimetype=application/font-woff'
             },
             {
                 test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url-loader?limit=10000&mimetype=application/octet-stream"
+                loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
             },
             {
                 test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "file-loader"
+                loader: 'file-loader'
             },
             {
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url-loader?limit=10000&mimetype=image/svg+xml"
+                loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
             }
         ]
     },
@@ -65,7 +65,7 @@ module.exports = {
             exclude:  ['index.html', 'electric-guitar.png']
         }),
         function () {
-            this.plugin("done", function (stats) {
+            this.plugin('done', function (stats) {
                 if (stats.compilation.errors && stats.compilation.errors.length && process.argv.indexOf('--watch') == -1) {
                     console.log(stats.compilation.errors);
                     process.exit(1);

@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import Labels from "../../modules/Labels";
+import React, { Component } from 'react'
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
+import Labels from '../../modules/Labels'
 
 class ConfirmDialog extends Component {
-
-    render() {
+    render () {
         const actions = [
             <FlatButton
                 label={Labels.cancel}
@@ -16,11 +15,11 @@ class ConfirmDialog extends Component {
                 label={this.props.actionText}
                 primary={true}
                 onClick={() => {
-                    this.props.action();
-                    this.props.hide();
+                    this.props.action()
+                    this.props.hide()
                 }}
-            />,
-        ];
+            />
+        ]
 
         return (
             <Dialog
@@ -28,11 +27,11 @@ class ConfirmDialog extends Component {
                 modal={false}
                 open={this.props.open}
                 onRequestClose={this.props.hide} >
-                
+
                 {this.props.text}
             </Dialog>
-        );
+        )
     }
 }
 
-export default ConfirmDialog;
+export default ConfirmDialog

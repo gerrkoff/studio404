@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import Toolbar from "../../components/toolbar/Toolbar";
-import Message from "../../containers/MessageContainer";
-import ConfirmDialog from "../../containers/ConfirmDialogContainer";
-import css from "../../styles/app.css";
+import React, { Component } from 'react'
+import { Container, Row, Col } from 'reactstrap'
+import Toolbar from '../../components/toolbar/Toolbar'
+import Message from '../../containers/MessageContainer'
+import ConfirmDialog from '../../containers/ConfirmDialogContainer'
+import css from '../../styles/app.css'
 
 class App extends Component {
-    render() {
+    render () {
         return (
             <div>
                 <Toolbar />
@@ -20,8 +20,8 @@ class App extends Component {
                     <ConfirmDialog />
                 </Container>
             </div>
-        );
+        )
     }
 }
 
-export default App;
+export default App

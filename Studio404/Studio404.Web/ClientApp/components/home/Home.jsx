@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
-import Paper from 'material-ui/Paper';
-import css from '../../styles/home.css';
-import { muiTheme } from '../../modules/MaterialTheme';
+import React, { Component } from 'react'
+import { Row, Col } from 'reactstrap'
+import Paper from 'material-ui/Paper'
+import css from '../../styles/home.css'
+import { muiTheme } from '../../modules/MaterialTheme'
 
 class Home extends Component {
-
-    constructor(props) {
-        super(props);
-        this.props.loadInfo();
+    constructor (props) {
+        super(props)
+        this.props.loadInfo()
     }
 
-    render() {
+    render () {
         return (
             <div>
                 <Row>
@@ -39,8 +38,8 @@ class Home extends Component {
                     </Col>
                 </Row>
             </div>
-        );
+        )
     }
 }
 
-export default Home;
+export default Home

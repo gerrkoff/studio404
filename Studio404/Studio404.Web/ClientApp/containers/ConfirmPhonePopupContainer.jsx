@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import ConfirmPhonePopup from "../components/phone/ConfirmPhonePopup";
-import { openConfirmPhonePopup, closeConfirmPhonePopup, sendPhoneConfirmation, confirmPhone, updatePhone, updateCode, reenterPhone } from "../actions/ConfirmPhonePopupActions";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import ConfirmPhonePopup from '../components/phone/ConfirmPhonePopup'
+import { openConfirmPhonePopup, closeConfirmPhonePopup, sendPhoneConfirmation, confirmPhone, updatePhone, updateCode, reenterPhone } from '../actions/ConfirmPhonePopupActions'
 
 const mapStateToProps = (state) => {
     return {
@@ -25,6 +25,6 @@ const mapDispatchToProps = (dispatch) => {
 const ConfirmPhonePopupContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(ConfirmPhonePopup);
+)(ConfirmPhonePopup)
 
 export default ConfirmPhonePopupContainer

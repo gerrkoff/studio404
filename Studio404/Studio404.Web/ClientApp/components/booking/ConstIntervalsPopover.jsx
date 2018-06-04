@@ -4,7 +4,7 @@ import FaIconButton from '../common/FaIconButton'
 import css from '../../styles/booking.css'
 
 class ConstIntervalsPopover extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props)
         this.state = {
             open: false
@@ -13,22 +13,22 @@ class ConstIntervalsPopover extends Component {
         this.handleRequestClose = this.handleRequestClose.bind(this)
     }
 
-    open(event) {
+    open (event) {
         // This prevents ghost click.
         event.preventDefault()
         this.setState({
             open: true,
-            anchorEl: event.currentTarget,
+            anchorEl: event.currentTarget
         })
     }
-    
-    handleRequestClose() {
+
+    handleRequestClose () {
         this.setState({
             open: false
         })
     }
-    
-    render() {
+
+    render () {
         return (
             <span>
                 <FaIconButton icon="question-circle" className={css.costHelp} onClick={this.open} color={'clr_secondary'} />
@@ -38,10 +38,10 @@ class ConstIntervalsPopover extends Component {
                             <li key={interval}>{interval}</li>
                         )}
                     </ul>
-                    </Popover>
+                </Popover>
             </span>
-        );
+        )
     }
 }
 
-export default ConstIntervalsPopover;
+export default ConstIntervalsPopover

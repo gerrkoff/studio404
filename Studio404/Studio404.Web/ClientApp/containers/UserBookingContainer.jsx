@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import UserBookings from "../components/user/UserBookings";
-import { loadBookings, cancelBooking, resendBookingCode, payBooking } from "../actions/UserBookingsActions";
-import { show } from "../actions/ConfirmDialogActions";
-import Labels from "../modules/Labels";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import UserBookings from '../components/user/UserBookings'
+import { loadBookings, cancelBooking, resendBookingCode, payBooking } from '../actions/UserBookingsActions'
+import { show } from '../actions/ConfirmDialogActions'
+import Labels from '../modules/Labels'
 
 const mapStateToProps = (state) => {
     return {
@@ -32,6 +32,6 @@ const mapDispatchToProps = (dispatch) => {
 const UserBookingContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(UserBookings);
+)(UserBookings)
 
 export default UserBookingContainer

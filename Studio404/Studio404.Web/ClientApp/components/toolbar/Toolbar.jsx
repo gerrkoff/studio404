@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
     Collapse,
     Navbar,
@@ -11,50 +11,50 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    Container } from 'reactstrap';
-import { withRouter } from 'react-router-dom';
-import Labels from '../../modules/Labels';
-import ToolbarLoginInfoContainer from '../../containers/ToolbarLoginInfoContainer';
-import css from '../../styles/toolbar.css';
-import { muiTheme } from '../../modules/MaterialTheme';
+    Container } from 'reactstrap'
+import { withRouter } from 'react-router-dom'
+import Labels from '../../modules/Labels'
+import ToolbarLoginInfoContainer from '../../containers/ToolbarLoginInfoContainer'
+import css from '../../styles/toolbar.css'
+import { muiTheme } from '../../modules/MaterialTheme'
 
 class Toolbar extends Component {
-    constructor(props) {
-        super(props);
+    constructor (props) {
+        super(props)
 
-        this.toggle = this.toggle.bind(this);
+        this.toggle = this.toggle.bind(this)
         this.state = {
             isOpen: false
-        };
+        }
     }
 
-    toggle() {
+    toggle () {
         this.setState({
             isOpen: !this.state.isOpen
-        });
+        })
     }
-    render() {
+    render () {
         return (
-        <div className='navbar navbar-expand-sm bg-dark navbar-dark'
-            ref={(el) => {
-                if (el) {
-                    el.style.setProperty('background-color', muiTheme.palette.primary1Color, 'important');
-                }
-            }}>
-            {/*<Navbar color="light" light expand="sm">*/}
+            <div className='navbar navbar-expand-sm bg-dark navbar-dark'
+                ref={(el) => {
+                    if (el) {
+                        el.style.setProperty('background-color', muiTheme.palette.primary1Color, 'important')
+                    }
+                }}>
+                {/* <Navbar color="light" light expand="sm"> */}
                 <Container>
-                    <NavbarBrand onClick={() => this.props.history.push("/")}
-                                className={css.button} 
-                                style={{color: muiTheme.palette.alternateTextColor, fontWeight: 'bold'}}>
+                    <NavbarBrand onClick={() => this.props.history.push('/')}
+                        className={css.button}
+                        style={{color: muiTheme.palette.alternateTextColor, fontWeight: 'bold'}}>
                         Studio 404
                     </NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink onClick={() => this.props.history.push("/about")} 
-                                        className={css.button}
-                                        style={{color: muiTheme.palette.alternateTextColor}}>
+                                <NavLink onClick={() => this.props.history.push('/about')}
+                                    className={css.button}
+                                    style={{color: muiTheme.palette.alternateTextColor}}>
                                     {Labels.about}
                                 </NavLink>
                             </NavItem>
@@ -64,10 +64,10 @@ class Toolbar extends Component {
                         </Nav>
                     </Collapse>
                 </Container>
-            {/*</Navbar>*/}
-        </div>
-        );
+                {/* </Navbar> */}
+            </div>
+        )
     }
 }
 
-export default withRouter(Toolbar);
+export default withRouter(Toolbar)

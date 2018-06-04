@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import RefreshIndicator from 'material-ui/RefreshIndicator';
+import React, { Component } from 'react'
+import RefreshIndicator from 'material-ui/RefreshIndicator'
 
 class LoaderContent extends Component {
-    render() {
+    render () {
         return (
             <RefreshIndicator
                 size={40}
@@ -11,11 +11,11 @@ class LoaderContent extends Component {
                 status="loading"
                 style={{
                     display: 'inline-block',
-                    position: 'relative',
+                    position: 'relative'
                 }}
             />
-        );
+        )
     }
 }
 
-export default LoaderContent;
+export default LoaderContent

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Message from "../components/common/Message";
-import { hide } from "../actions/MessageActions";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import Message from '../components/common/Message'
+import { hide } from '../actions/MessageActions'
 
 const mapStateToProps = (state) => {
     return {
@@ -18,6 +18,6 @@ const mapDispatchToProps = (dispatch) => {
 const MessageContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Message);
+)(Message)
 
 export default MessageContainer

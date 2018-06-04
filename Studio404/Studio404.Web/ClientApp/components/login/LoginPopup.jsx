@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { Row, Col } from 'reactstrap';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import Toggle from 'material-ui/Toggle';
-import { NavLink } from 'reactstrap';
-import LoginForm from "../../components/login/LoginForm";
-import RegisterForm from "../../components/login/RegisterForm";
-import Labels from "../../modules/Labels";
-import css from "../../styles/popup.css";
-import { muiTheme } from '../../modules/MaterialTheme';
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import { Row, Col } from 'reactstrap'
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
+import Toggle from 'material-ui/Toggle'
+import { NavLink } from 'reactstrap'
+import LoginForm from '../../components/login/LoginForm'
+import RegisterForm from '../../components/login/RegisterForm'
+import Labels from '../../modules/Labels'
+import css from '../../styles/popup.css'
+import { muiTheme } from '../../modules/MaterialTheme'
 
 class LoginPopup extends Component {
-
-    constructor(props) {
-        super(props);
-        this.externalLogin = this.externalLogin.bind(this);
+    constructor (props) {
+        super(props)
+        this.externalLogin = this.externalLogin.bind(this)
     }
 
-    render() {
+    render () {
         const actions = [
             <FlatButton
                 label={Labels.cancel}
@@ -39,7 +38,7 @@ class LoginPopup extends Component {
                         : !this.props.loginInfo.isValid
                 }
             />
-        ];
+        ]
 
         return (
             <div>
@@ -56,37 +55,37 @@ class LoginPopup extends Component {
                     onRequestClose={this.props.closePopup}
                     contentClassName={ css.popup }
                     autoScrollBodyContent={true}>
-                    
+
                     <Row>
                         <Col md="8" sm="8">
-                        {this.props.registration === true
-                            ? <RegisterForm updateRegisterInfo={this.props.updateRegisterInfo} registerInfo={this.props.registerInfo} />
-                            : <LoginForm updateLoginInfo={this.props.updateLoginInfo} loginInfo={this.props.loginInfo} />
-                        }
-                        <br />
-                        <Toggle
-                            label={Labels.loginPopup_toogleRegister}
-                            labelPosition="right"
-                            toggled={this.props.registration}
-                            onToggle={(event, isChecked) => this.props.toggleRegistration(isChecked)} />
+                            {this.props.registration === true
+                                ? <RegisterForm updateRegisterInfo={this.props.updateRegisterInfo} registerInfo={this.props.registerInfo} />
+                                : <LoginForm updateLoginInfo={this.props.updateLoginInfo} loginInfo={this.props.loginInfo} />
+                            }
+                            <br />
+                            <Toggle
+                                label={Labels.loginPopup_toogleRegister}
+                                labelPosition="right"
+                                toggled={this.props.registration}
+                                onToggle={(event, isChecked) => this.props.toggleRegistration(isChecked)} />
                         </Col>
                         <Col md="4" sm="4">
                             {/* <br /><FlatButton label="VKontakte" secondary={true} onClick={() => this.externalLogin("Vkontakte")} /> */}
-                            <br /><FlatButton label="Facebook" secondary={true} onClick={() => this.externalLogin("Facebook")} />
-                            <br /><FlatButton label="Twitter" secondary={true} onClick={() => this.externalLogin("Twitter")} />
-                            <br /><FlatButton label="Google" secondary={true} onClick={() => this.externalLogin("Google")} />                        
+                            <br /><FlatButton label="Facebook" secondary={true} onClick={() => this.externalLogin('Facebook')} />
+                            <br /><FlatButton label="Twitter" secondary={true} onClick={() => this.externalLogin('Twitter')} />
+                            <br /><FlatButton label="Google" secondary={true} onClick={() => this.externalLogin('Google')} />
                         </Col>
                     </Row>
                 </Dialog>
             </div>
-        );
+        )
     }
 
-    externalLogin(provider) {
-        let returnUrl = encodeURI(this.props.history.location.pathname);
-        let redirectUrl = `/externallogin/${provider}?returnUrl=${returnUrl}`;
-        location.replace(redirectUrl);
+    externalLogin (provider) {
+        let returnUrl = encodeURI(this.props.history.location.pathname)
+        let redirectUrl = `/externallogin/${provider}?returnUrl=${returnUrl}`
+        location.replace(redirectUrl)
     }
 }
 
-export default withRouter(LoginPopup);
+export default withRouter(LoginPopup)

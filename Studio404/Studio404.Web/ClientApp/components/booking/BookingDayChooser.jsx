@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
-import Paper from 'material-ui/Paper';
-import FaIconButton from "../common/FaIconButton";
-import WeekWorkload from "./WeekWorkload";
-import LoaderContent from "../common/LoaderContent";
-import ErrorLabel from "../common/ErrorLabel";
-import BookingHelp from "./BookingHelp";
-import Labels from "../../modules/Labels";
-import css from "../../styles/booking.css";
+import React, { Component } from 'react'
+import { Row, Col } from 'reactstrap'
+import Paper from 'material-ui/Paper'
+import FaIconButton from '../common/FaIconButton'
+import WeekWorkload from './WeekWorkload'
+import LoaderContent from '../common/LoaderContent'
+import ErrorLabel from '../common/ErrorLabel'
+import BookingHelp from './BookingHelp'
+import Labels from '../../modules/Labels'
+import css from '../../styles/booking.css'
 
 class BookingDayChooser extends Component {
-    render() {
+    render () {
         return (
             <div>
                 <Row>
                     <Col md="12">
-                        <BookingHelp 
+                        <BookingHelp
                             showHelp={this.props.showHelp}
                             toggleHelp={this.props.toggleHelp} />
                     </Col>
@@ -38,7 +38,7 @@ class BookingDayChooser extends Component {
                     <Col md="12">
                         <div className={css.center}>
                             {this.props.weekWorkloadIsLoading === true
-                                ? <LoaderContent />                                
+                                ? <LoaderContent />
                                 : this.props.weekWorkloadError === true
                                     ? <ErrorLabel text={Labels.errorLoadCommon} />
                                     : <WeekWorkload workload={this.props.weekWorkload} chooseDay={this.props.chooseDay} />
@@ -47,8 +47,8 @@ class BookingDayChooser extends Component {
                     </Col>
                 </Row>
             </div>
-        );
+        )
     }
 }
 
-export default BookingDayChooser;
+export default BookingDayChooser

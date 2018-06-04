@@ -1,24 +1,24 @@
-﻿import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
-import RaisedButton from 'material-ui/RaisedButton';
-import DateService from "../../modules/DateService";
-import HourSelector from "../../components/booking/HourSelector";
-import Loader from "../../components/common/Loader";
-import ErrorLabel from "../common/ErrorLabel";
-import Labels from "../../modules/Labels";
-import ConfirmPhonePopupContainer from "../../containers/ConfirmPhonePopupContainer";
-import LoginPopupContainer from "../../containers/LoginPopupContainer";
-import css from "../../styles/booking.css";
-import { muiTheme } from '../../modules/MaterialTheme';
-import ConstIntervalsPopover from './ConstIntervalsPopover';
+import React, { Component } from 'react'
+import { Row, Col } from 'reactstrap'
+import RaisedButton from 'material-ui/RaisedButton'
+import DateService from '../../modules/DateService'
+import HourSelector from '../../components/booking/HourSelector'
+import Loader from '../../components/common/Loader'
+import ErrorLabel from '../common/ErrorLabel'
+import Labels from '../../modules/Labels'
+import ConfirmPhonePopupContainer from '../../containers/ConfirmPhonePopupContainer'
+import LoginPopupContainer from '../../containers/LoginPopupContainer'
+import css from '../../styles/booking.css'
+import { muiTheme } from '../../modules/MaterialTheme'
+import ConstIntervalsPopover from './ConstIntervalsPopover'
 
 class TimeBooking extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props)
         this.props.loadDayHours(this.props.chosenDate)
     }
 
-    render() {
+    render () {
         return (
             <div className={ css.timeForm }>
                 <Row>
@@ -57,67 +57,72 @@ class TimeBooking extends Component {
                     </Col>
                 </Row>
             </div>
-        );
+        )
     }
 
-    renderInfo() {
-        if (!this.props.userLoggedIn)
+    renderInfo () {
+        if (!this.props.userLoggedIn) {
             return (
                 <div>
                     <p className={css.timeFormInfo}>{Labels.booking_userNotLoggedIn}</p>
                     <LoginPopupContainer />
                 </div>
-            );
+            )
+        }
 
-        if (!this.props.phoneConfirmed)
+        if (!this.props.phoneConfirmed) {
             return (
                 <div>
                     <p className={css.timeFormInfo}>{Labels.booking_phoneNotConfirmed}</p>
                     <ConfirmPhonePopupContainer />
                 </div>
-            );
+            )
+        }
 
-        if (this.props.bookingHours.length === 0)
-            return <p className={css.timeFormInfo}>{Labels.booking_defaultInfo}</p>;
+        if (this.props.bookingHours.length === 0) {
+            return <p className={css.timeFormInfo}>{Labels.booking_defaultInfo}</p>
+        }
 
-        if (!this.props.bookingIsValid)
-            return <p className={css.timeFormInfo}>{Labels.booking_hoursInvalid}</p>;
+        if (!this.props.bookingIsValid) {
+            return <p className={css.timeFormInfo}>{Labels.booking_hoursInvalid}</p>
+        }
 
         return (
             <div>
                 <p className={css.timeFormInfo}>{Labels.booking_choiceInfo(this.props.bookingHours[0], this.props.bookingHours[this.props.bookingHours.length - 1])}</p>
                 {this.renderCostInfo()}
             </div>
-        );
+        )
     }
 
-    renderCostInfo() {
-        let cost = <span />;
+    renderCostInfo () {
+        let cost = <span />
 
-        if (this.props.hoursCostIsLoading)
+        if (this.props.hoursCostIsLoading) {
             cost = (
                 <div className={css.hoursCostLoader}>
                     <Loader />
                 </div>
             )
+        }
         else if (!this.props.hoursCostError) {
             cost = (
                 <span>
                     <span>{this.props.hoursCost}</span>
-                    {this.props.hoursCostIntervals && this.props.hoursCostIntervals.length > 1
-                        && <ConstIntervalsPopover className={css.costHelp} intervals={this.props.hoursCostIntervals} />
+                    {this.props.hoursCostIntervals && this.props.hoursCostIntervals.length > 1 &&
+                        <ConstIntervalsPopover className={css.costHelp} intervals={this.props.hoursCostIntervals} />
                     }
                 </span>
             )
         }
-        
+
         return (
             <div>
                 <span>{Labels.booking_hoursCost}: </span>
                 {cost}
             </div>
-        );
+        )
     }
 }
 
-export default TimeBooking;
+export default TimeBooking

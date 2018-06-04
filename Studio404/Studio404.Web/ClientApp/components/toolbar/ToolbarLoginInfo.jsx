@@ -1,28 +1,27 @@
-import React, { Component } from 'react';
-import { NavLink } from 'reactstrap';
-import {withRouter} from "react-router-dom";
-import LoginPopupContainer from "../../containers/LoginPopupContainer";
-import FaIconButton from "../common/FaIconButton";
-import css from "../../styles/toolbar.css";
-import { muiTheme } from '../../modules/MaterialTheme';
+import React, { Component } from 'react'
+import { NavLink } from 'reactstrap'
+import {withRouter} from 'react-router-dom'
+import LoginPopupContainer from '../../containers/LoginPopupContainer'
+import FaIconButton from '../common/FaIconButton'
+import css from '../../styles/toolbar.css'
+import { muiTheme } from '../../modules/MaterialTheme'
 
 class ToolbarLoginInfo extends Component {
-
-    constructor(props) {
-        super(props);
-        this.props.loadCurrentUser();
+    constructor (props) {
+        super(props)
+        this.props.loadCurrentUser()
     }
 
-    render() {
+    render () {
         const username = this.props.username && this.props.username.length > 30
-            ? this.props.username.substring(0, 30) + "..."
-            : this.props.username;
+            ? this.props.username.substring(0, 30) + '...'
+            : this.props.username
 
         const userLoggedIn = (
             <div>
-                <NavLink className={ css.user } 
-                         onClick={() => this.props.history.push("/my")}
-                         style={{color: muiTheme.palette.alternateTextColor}}>
+                <NavLink className={ css.user }
+                    onClick={() => this.props.history.push('/my')}
+                    style={{color: muiTheme.palette.alternateTextColor}}>
                     {username}
                 </NavLink>
                 <FaIconButton
@@ -31,7 +30,7 @@ class ToolbarLoginInfo extends Component {
                     className={ css.signOut }
                     color={'clr_secondary'} />
             </div>
-        );
+        )
 
         return (
             <div>
@@ -40,8 +39,8 @@ class ToolbarLoginInfo extends Component {
                     : <LoginPopupContainer updateUser={this.props.loadCurrentUser} toolbarLoginBtn={true}/>
                 }
             </div>
-        );
+        )
     }
 }
 
-export default withRouter(ToolbarLoginInfo);
+export default withRouter(ToolbarLoginInfo)

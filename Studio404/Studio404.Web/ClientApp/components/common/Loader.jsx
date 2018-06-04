@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { muiTheme } from '../../modules/MaterialTheme';
+import React, { Component } from 'react'
+import { muiTheme } from '../../modules/MaterialTheme'
 
 class Loader extends Component {
-    render() {
+    render () {
         const style = {
-            fontSize: this.props.size ? this.props.size + "px" : "15px",
+            fontSize: this.props.size ? this.props.size + 'px' : '15px',
             color: muiTheme.palette.primary1Color
         }
         return (
@@ -12,8 +12,8 @@ class Loader extends Component {
                 style={style}
                 className="fa fa-circle-o-notch fa-spin">
             </i>
-        );
+        )
     }
 }
 
-export default Loader;
+export default Loader

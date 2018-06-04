@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import LoginPopup from "../components/login/LoginPopup";
-import { login, openLoginPopup, closeLoginPopup, register, toggleRegistration, updateLoginInfo, updateRegisterInfo } from "../actions/LoginPopupActions";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import LoginPopup from '../components/login/LoginPopup'
+import { login, openLoginPopup, closeLoginPopup, register, toggleRegistration, updateLoginInfo, updateRegisterInfo } from '../actions/LoginPopupActions'
 
 const mapStateToProps = (state) => {
     return {
@@ -24,6 +24,6 @@ const mapDispatchToProps = (dispatch) => {
 const LoginPopupContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(LoginPopup);
+)(LoginPopup)
 
 export default LoginPopupContainer

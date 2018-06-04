@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
-import UserTitle from "../../components/user/UserTitle";
-import ConfirmPhonePopupContainer from "../../containers/ConfirmPhonePopupContainer";
-import ChangePassPopupContainer from "../../containers/ChangePassPopupContainer";
-import Labels from "../../modules/Labels";
-import css from "../../styles/userProfile.css";
+import React, { Component } from 'react'
+import { Row, Col } from 'reactstrap'
+import UserTitle from '../../components/user/UserTitle'
+import ConfirmPhonePopupContainer from '../../containers/ConfirmPhonePopupContainer'
+import ChangePassPopupContainer from '../../containers/ChangePassPopupContainer'
+import Labels from '../../modules/Labels'
+import css from '../../styles/userProfile.css'
 
 class UserSettings extends Component {
-    render() {
+    render () {
         return (
             <div>
                 <UserTitle title={Labels.settings} />
@@ -29,8 +29,8 @@ class UserSettings extends Component {
                     </Col>
                 </Row>
             </div>
-        );
+        )
     }
 }
 
-export default UserSettings;
+export default UserSettings

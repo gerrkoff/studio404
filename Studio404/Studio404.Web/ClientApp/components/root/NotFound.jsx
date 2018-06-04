@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Row } from 'reactstrap';
+import React, { Component } from 'react'
+import { Row } from 'reactstrap'
 
 class Home extends Component {
-    render() {
+    render () {
         return (
             <Row>
                 <h3>Not Found</h3>
             </Row>
-        );
+        )
     }
 }
 
-export default Home;
+export default Home

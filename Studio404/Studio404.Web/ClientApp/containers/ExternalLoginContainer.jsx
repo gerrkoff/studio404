@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import ExternalLogin from "../components/externalLogin/ExternalLogin";
-import { externalLoginProcess } from "../actions/ExternalLoginActions";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import ExternalLogin from '../components/externalLogin/ExternalLogin'
+import { externalLoginProcess } from '../actions/ExternalLoginActions'
 
 const mapStateToProps = (state) => {
     return {
@@ -18,6 +18,6 @@ const mapDispatchToProps = (dispatch) => {
 const ExternalLoginContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(ExternalLogin);
+)(ExternalLogin)
 
 export default ExternalLoginContainer

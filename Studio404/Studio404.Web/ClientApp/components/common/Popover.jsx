@@ -1,8 +1,8 @@
-import React from 'react';
-import PopoverUi from 'material-ui/Popover';
+import React from 'react'
+import PopoverUi from 'material-ui/Popover'
 
 export default class Popover extends React.Component {
-    render() {
+    render () {
         return (
             <PopoverUi
                 open={this.props.open}

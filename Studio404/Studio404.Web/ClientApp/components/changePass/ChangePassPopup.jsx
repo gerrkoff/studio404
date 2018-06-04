@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import Labels from "../../modules/Labels";
-import css from "../../styles/popup.css";
+import React, { Component } from 'react'
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
+import Labels from '../../modules/Labels'
+import css from '../../styles/popup.css'
 
 class ChangePassPopup extends Component {
-
-    render() {
+    render () {
         const actions = [
             <FlatButton
                 label={Labels.cancel}
@@ -21,7 +20,7 @@ class ChangePassPopup extends Component {
                 onClick={() => this.props.changePassword(this.props.info)}
                 disabled={!this.props.info.isValid}
             />
-        ];
+        ]
 
         return (
             <div>
@@ -41,7 +40,7 @@ class ChangePassPopup extends Component {
                         type="password"
                         errorText={this.props.info.currentPasswordError}
                         value={this.props.info.currentPassword}
-                        onChange={(e) => this.props.updateChangePassInfo("currentPassword", e.target.value)} />
+                        onChange={(e) => this.props.updateChangePassInfo('currentPassword', e.target.value)} />
                     <br />
                     <TextField
                         hintText={Labels.changePass_newPassEnter}
@@ -49,7 +48,7 @@ class ChangePassPopup extends Component {
                         type="password"
                         errorText={this.props.info.newPasswordError}
                         value={this.props.info.newPassword}
-                        onChange={(e) => this.props.updateChangePassInfo("newPassword", e.target.value)} />
+                        onChange={(e) => this.props.updateChangePassInfo('newPassword', e.target.value)} />
                     <br />
                     <TextField
                         hintText={Labels.changePass_newPassConfirmEnter}
@@ -57,11 +56,11 @@ class ChangePassPopup extends Component {
                         type="password"
                         errorText={this.props.info.newPasswordConfirmError}
                         value={this.props.info.newPasswordConfirm}
-                        onChange={(e) => this.props.updateChangePassInfo("newPasswordConfirm", e.target.value)} />
+                        onChange={(e) => this.props.updateChangePassInfo('newPasswordConfirm', e.target.value)} />
                 </Dialog>
             </div>
-        );
+        )
     }
 }
 
-export default ChangePassPopup;
+export default ChangePassPopup

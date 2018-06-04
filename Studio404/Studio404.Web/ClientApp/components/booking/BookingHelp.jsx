@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
-import Paper from 'material-ui/Paper';
-import FlatButton from 'material-ui/FlatButton';
-import Labels from "../../modules/Labels";
-import css from "../../styles/booking.css";
+import React, { Component } from 'react'
+import { Row, Col } from 'reactstrap'
+import Paper from 'material-ui/Paper'
+import FlatButton from 'material-ui/FlatButton'
+import Labels from '../../modules/Labels'
+import css from '../../styles/booking.css'
 
 class BookingHelp extends Component {
-    render() {
+    render () {
         return (
             <div>
                 {this.props.showHelp
@@ -35,8 +35,8 @@ class BookingHelp extends Component {
                     )
                 }
             </div>
-        );
+        )
     }
 }
 
-export default BookingHelp;
+export default BookingHelp

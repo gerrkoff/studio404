@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Home from '../components/home/Home';
-import { loadInfo } from '../actions/InfoActions';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import Home from '../components/home/Home'
+import { loadInfo } from '../actions/InfoActions'
 
 const mapStateToProps = (state) => {
     return {
@@ -18,6 +18,6 @@ const mapDispatchToProps = (dispatch) => {
 const HomeContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Home);
+)(Home)
 
 export default HomeContainer

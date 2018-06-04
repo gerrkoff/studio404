@@ -1,31 +1,29 @@
-import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
-import Dialog from 'material-ui/Dialog';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
-import Loader from "../../components/common/Loader";
-import ErrorLabel from "../common/ErrorLabel";
-import Labels from "../../modules/Labels";
-import cssPopup from "../../styles/popup.css";
-import css from "../../styles/popupPhone.css";
+import React, { Component } from 'react'
+import { Row, Col } from 'reactstrap'
+import Dialog from 'material-ui/Dialog'
+import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
+import TextField from 'material-ui/TextField'
+import Loader from '../../components/common/Loader'
+import ErrorLabel from '../common/ErrorLabel'
+import Labels from '../../modules/Labels'
+import cssPopup from '../../styles/popup.css'
+import css from '../../styles/popupPhone.css'
 
 class ConfirmPhonePopup extends Component {
-
-    constructor(props) {
-        super(props);
-        this.renderPart = this.renderPart.bind(this);
+    constructor (props) {
+        super(props)
+        this.renderPart = this.renderPart.bind(this)
     }
-    
 
-    render() {
+    render () {
         const actions = [
             <FlatButton
                 label={Labels.cancel}
                 primary={true}
                 onClick={this.props.closePopup}
             />
-        ];
+        ]
 
         return (
             <div>
@@ -71,10 +69,10 @@ class ConfirmPhonePopup extends Component {
                     }
                 </Dialog>
             </div>
-        );
+        )
     }
 
-    renderPart(label, fieldHint, fieldLabel, fieldError, fieldValid, value, updateValueFunc, btnLabel, btnFunc, flagLoading, flagError, errorText, flagCodePart) {
+    renderPart (label, fieldHint, fieldLabel, fieldError, fieldValid, value, updateValueFunc, btnLabel, btnFunc, flagLoading, flagError, errorText, flagCodePart) {
         return (
             <div>
                 <Row>
@@ -116,8 +114,8 @@ class ConfirmPhonePopup extends Component {
                     </Col>
                 </Row>
             </div>
-        );
+        )
     }
 }
 
-export default ConfirmPhonePopup;
+export default ConfirmPhonePopup

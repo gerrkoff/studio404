@@ -1,18 +1,18 @@
-﻿import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
     Table,
     TableBody,
     TableHeader,
     TableHeaderColumn,
     TableRow,
-    TableRowColumn,
-} from 'material-ui/Table';
-import FaIconButton from "../common/FaIconButton";
-import EnumService from "../../modules/EnumService";
-import css from "../../styles/userProfile.css";
+    TableRowColumn
+} from 'material-ui/Table'
+import FaIconButton from '../common/FaIconButton'
+import EnumService from '../../modules/EnumService'
+import css from '../../styles/userProfile.css'
 
 class UserBookingItem extends Component {
-    render() {
+    render () {
         return (
             <TableRow>
                 <TableRowColumn className={ css.bookingTableCell }>{this.props.date}</TableRowColumn>
@@ -28,7 +28,7 @@ class UserBookingItem extends Component {
                     <FaIconButton
                         icon="envelope-o"
                         disabled={this.props.status !== 2}
-                        onClick={() => this.props.resend(this.props.id)} 
+                        onClick={() => this.props.resend(this.props.id)}
                         className={ css.actionPadding }
                         color={'clr_black'} />
                     <FaIconButton
@@ -39,8 +39,8 @@ class UserBookingItem extends Component {
                         color={'clr_black'} />
                 </TableRowColumn>
             </TableRow>
-        );
+        )
     }
 }
 
-export default UserBookingItem;
+export default UserBookingItem

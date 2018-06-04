@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import ToolbarLoginInfo from "../components/toolbar/ToolbarLoginInfo";
-import { loadCurrentUser, logoff } from "../actions/AccountActions";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import ToolbarLoginInfo from '../components/toolbar/ToolbarLoginInfo'
+import { loadCurrentUser, logoff } from '../actions/AccountActions'
 
 const mapStateToProps = (state) => {
     return {
@@ -19,6 +19,6 @@ const mapDispatchToProps = (dispatch) => {
 const ToolbarLoginInfoContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(ToolbarLoginInfo);
+)(ToolbarLoginInfo)
 
 export default ToolbarLoginInfoContainer

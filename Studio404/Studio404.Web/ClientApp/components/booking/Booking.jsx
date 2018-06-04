@@ -1,51 +1,51 @@
-import React, { Component } from 'react';
-import { Row, Col } from 'reactstrap';
-import Paper from 'material-ui/Paper';
-import DateService from "../../modules/DateService";
-import TimeBooking from "./TimeBooking";
-import BookingDayChooser from "../../components/booking/BookingDayChooser";
-import css from "../../styles/booking.css";
+import React, { Component } from 'react'
+import { Row, Col } from 'reactstrap'
+import Paper from 'material-ui/Paper'
+import DateService from '../../modules/DateService'
+import TimeBooking from './TimeBooking'
+import BookingDayChooser from '../../components/booking/BookingDayChooser'
+import css from '../../styles/booking.css'
 import $ from 'jQuery'
 
 class Booking extends Component {
+    constructor (props) {
+        super(props)
+        this.previousWeek = this.previousWeek.bind(this)
+        this.nextWeek = this.nextWeek.bind(this)
+        this.getWeekLabel = this.getWeekLabel.bind(this)
+        this.saveBooking = this.saveBooking.bind(this)
 
-    constructor(props) {
-        super(props);
-        this.previousWeek = this.previousWeek.bind(this);
-        this.nextWeek = this.nextWeek.bind(this);
-        this.getWeekLabel = this.getWeekLabel.bind(this);
-        this.saveBooking = this.saveBooking.bind(this);
-
-        this.props.loadWeekWorkload(this.props.weekStartDate);
+        this.props.loadWeekWorkload(this.props.weekStartDate)
         this.timeBookingContainerId = 'timeBookingContainer'
     }
 
-    previousWeek() {
-        let newWeekStartDate = DateService.addDaysToDate(this.props.weekStartDate, -7);
-        this.props.changeWeekStartDate(newWeekStartDate);
+    previousWeek () {
+        let newWeekStartDate = DateService.addDaysToDate(this.props.weekStartDate, -7)
+        this.props.changeWeekStartDate(newWeekStartDate)
     }
 
-    nextWeek() {
-        let newWeekStartDate = DateService.addDaysToDate(this.props.weekStartDate, 7);
-        this.props.changeWeekStartDate(newWeekStartDate);
+    nextWeek () {
+        let newWeekStartDate = DateService.addDaysToDate(this.props.weekStartDate, 7)
+        this.props.changeWeekStartDate(newWeekStartDate)
     }
 
-    getWeekLabel() {
-        let weekEndDate = DateService.addDaysToDate(this.props.weekStartDate, 6);
-        let weekLabel = `${DateService.toDateString(this.props.weekStartDate)} – ${DateService.toDateString(weekEndDate)}`;
-        return weekLabel;
+    getWeekLabel () {
+        let weekEndDate = DateService.addDaysToDate(this.props.weekStartDate, 6)
+        let weekLabel = `${DateService.toDateString(this.props.weekStartDate)} – ${DateService.toDateString(weekEndDate)}`
+        return weekLabel
     }
 
-    saveBooking(date, hours) {
-        this.props.saveBooking(date, hours, this.props.weekStartDate);
+    saveBooking (date, hours) {
+        this.props.saveBooking(date, hours, this.props.weekStartDate)
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.chosenDate !== prevProps.chosenDate && this.props.chosenDate)
+    componentDidUpdate (prevProps, prevState) {
+        if (this.props.chosenDate !== prevProps.chosenDate && this.props.chosenDate) {
             $(`#${this.timeBookingContainerId}`).goTo()
+        }
     }
 
-    render() {
+    render () {
         return (
             <div>
                 <Row>
@@ -69,10 +69,10 @@ class Booking extends Component {
                     </Col>
                 </Row>
             </div>
-        );
+        )
     }
 
-    renderTimeBooking() {
+    renderTimeBooking () {
         return (
             <div className={ css.timeContainer } id={this.timeBookingContainerId}>
                 <Paper zDepth={1}>
@@ -96,10 +96,8 @@ class Booking extends Component {
                     />
                 </Paper>
             </div>
-        );
+        )
     }
 }
 
-export default Booking;
-
-
+export default Booking

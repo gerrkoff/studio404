@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import ConfirmDialog from "../components/common/ConfirmDialog";
-import { hide } from "../actions/ConfirmDialogActions";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import ConfirmDialog from '../components/common/ConfirmDialog'
+import { hide } from '../actions/ConfirmDialogActions'
 
 const mapStateToProps = (state) => {
     return {
@@ -18,6 +18,6 @@ const mapDispatchToProps = (dispatch) => {
 const ConfirmDialogContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(ConfirmDialog);
+)(ConfirmDialog)
 
 export default ConfirmDialogContainer

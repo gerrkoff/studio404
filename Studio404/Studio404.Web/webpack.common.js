@@ -15,22 +15,14 @@ module.exports = {
         rules:[
             {
                 enforce: 'pre',
-                test: /\.jsx?$/,
+                test: /\.js?$/,
                 exclude: /node_modules/,
                 loader: 'eslint-loader',
             },
             {
                 test: /\.jsx?$/,
                 exclude: /(node_modules)/,
-<<<<<<< HEAD
-                loader: 'babel-loader',
-                options:{
-                    presets:['env', 'react'],
-                    plugins: ['transform-object-rest-spread']
-                }
-=======
                 loader: "babel-loader"
->>>>>>> b795a59f37c16f5f3641f007898ce1e4c161ae3d
             },
             {
                 test: /\.css$/,

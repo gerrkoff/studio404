@@ -51,7 +51,7 @@ class FaIconButton extends Component {
                 colors.main = color
         }
 
-        colors.hover = fade(colors.main, 0.75)
+        colors.hover = fade(colors.main, 0.6)
 
         return colors
     }

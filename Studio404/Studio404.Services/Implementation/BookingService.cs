@@ -91,10 +91,8 @@ namespace Studio404.Services.Implementation
 
         public void MakeBooking(MakeBookingInfoDto makeBookingInfo, CurrentUser user)
         {
-            // ReSharper disable PossibleInvalidOperationException
-            DateTime from = makeBookingInfo.Date.Value.Date.AddHours(makeBookingInfo.From.Value);
-            DateTime to = makeBookingInfo.Date.Value.Date.AddHours(makeBookingInfo.To.Value + 1);
-            // ReSharper restore PossibleInvalidOperationException
+            DateTime from = makeBookingInfo.GetFromDateTime();
+            DateTime to = makeBookingInfo.GetToDateTime();
 
             if (!user.PhoneConfirmed)
                 throw new ServiceException("User does not have such permissions");

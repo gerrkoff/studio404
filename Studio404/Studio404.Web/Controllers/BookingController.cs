@@ -80,8 +80,8 @@ namespace Studio404.Web.Controllers
         public IEnumerable<IntervalCostDto> Cost(MakeBookingInfoDto makeBookingInfo)
 		{
 			Validate();
-            var from = makeBookingInfo.Date.Value.Date.AddHours(makeBookingInfo.From.Value);
-            var to = makeBookingInfo.Date.Value.Date.AddHours(makeBookingInfo.To.Value + 1);
+		    DateTime from = makeBookingInfo.GetFromDateTime();
+		    DateTime to = makeBookingInfo.GetToDateTime();
             return _costEvaluationService.EvaluateIntervalCosts(from, to);
 		}
 	}

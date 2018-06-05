@@ -26,5 +26,11 @@ namespace Studio404.Services.Implementation
         {
             return date.ToString("dd MMMM yyyy hh:mm", currentCulture);
         }
+
+        public DateTime CreateUnspecifiedDateTime(DateTime date, int hours = 0, int minutes = 0, int seconds = 0)
+        {
+            return DateTime.SpecifyKind(date.Date.AddHours(hours).AddMinutes(minutes).AddSeconds(seconds),
+                DateTimeKind.Unspecified);
+        }
     }
 }

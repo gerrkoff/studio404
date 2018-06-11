@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <VersionPrefix>0.9.18</VersionPrefix>
@@ -19,7 +19,7 @@
     <ProjectReference Include="..\Studio404.Services\Studio404.Services.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AspNet.Security.OAuth.Vkontakte" Version="2.0.0-rc2-final" />
+    <PackageReference Include="AspNet.Security.OAuth.Vkontakte" Version="2.0.0-rtm-0612" />
     <PackageReference Include="AutoMapper" Version="6.2.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />

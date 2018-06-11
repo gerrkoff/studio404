@@ -71,7 +71,7 @@ class LoginPopup extends Component {
                                 onToggle={(event, isChecked) => this.props.toggleRegistration(isChecked)} />
                         </Col>
                         <Col md="4" sm="4">
-                            {/* <br /><FlatButton label="VKontakte" secondary={true} onClick={() => this.externalLogin("Vkontakte")} /> */}
+                            <br /><FlatButton label="VKontakte" secondary={true} onClick={() => this.externalLogin('Vkontakte')} />
                             <br /><FlatButton label="Facebook" secondary={true} onClick={() => this.externalLogin('Facebook')} />
                             <br /><FlatButton label="Twitter" secondary={true} onClick={() => this.externalLogin('Twitter')} />
                             <br /><FlatButton label="Google" secondary={true} onClick={() => this.externalLogin('Google')} />

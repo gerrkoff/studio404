@@ -4,7 +4,7 @@
 #include <Keypad.h>
 
 // _______________________________________________________________
-char server[] = "studio404.azurewebsites.net";
+char server[] = "studio404.devstage.ru";
 String action = "/api/check/240/";
 String masterCode = "1111";
 const unsigned long postingInterval = 10L * 1000L;
@@ -14,8 +14,10 @@ const unsigned long postingInterval = 10L * 1000L;
 const byte pinLed = A2;
 const byte pinGreen = A1;
 const byte pinRed = A0;
+const byte pinOpen = A3;
 const int durationShort = 500;
 const int durationLong = 1000;
+const int durationOpen = 5000;
 const int pause = 500;
 const int connectionAttemptLimit = 3;
 // _______________________________________________________________
@@ -74,6 +76,7 @@ void setup() {
   pinMode(pinGreen, OUTPUT);
   pinMode(pinRed, OUTPUT);
   pinMode(pinLed, OUTPUT);
+  pinMode(pinOpen, OUTPUT);
   Serial.println("ETHERNET INITIALIZING...");
   if (Ethernet.begin(mac) == 0) {
     Serial.println("... failed to configure Ethernet using DHCP");
@@ -109,7 +112,11 @@ void loop() {
 
 void resultSuccess() {
   Serial.println("===SUCCESS===");
-  pinBlink(pinGreen, 1, false);
+  digitalWrite(pinGreen, HIGH);
+  digitalWrite(pinOpen, HIGH);
+  delay(durationOpen);
+  digitalWrite(pinGreen, LOW);
+  digitalWrite(pinOpen, LOW);
 }
 
 

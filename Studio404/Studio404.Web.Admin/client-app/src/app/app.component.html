@@ -1,9 +1,13 @@
-<nz-layout class="layout">
+<nz-layout class="layout container">
   <nz-header>
+    <app-header></app-header>
   </nz-header>
-  <nz-content class="content">
+  <nz-content class="content container">
+    <app-content></app-content>
   </nz-content>
-  <nz-footer></nz-footer>
+  <nz-footer>
+    <app-footer></app-footer>
+  </nz-footer>
 </nz-layout>
 
 <router-outlet></router-outlet>

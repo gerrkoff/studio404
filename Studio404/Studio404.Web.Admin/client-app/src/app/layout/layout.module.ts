@@ -12,6 +12,8 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
 import { MenuComponent } from './content/menu/menu.component';
+import { HomeComponent } from './content/home/home.component';
+import { NotFoundComponent } from './content/not-found/not-found.component';
 
 registerLocaleData(en);
 
@@ -23,7 +25,7 @@ registerLocaleData(en);
     HttpClientModule,
     NgZorroAntdModule,
   ],
-  declarations: [FooterComponent, HeaderComponent, ContentComponent, MenuComponent],
+  declarations: [FooterComponent, HeaderComponent, ContentComponent, MenuComponent, HomeComponent, NotFoundComponent],
   exports: [FooterComponent, HeaderComponent, ContentComponent]
 })
 export class LayoutModule { }

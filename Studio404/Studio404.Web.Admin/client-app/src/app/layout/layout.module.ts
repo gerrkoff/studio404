@@ -14,12 +14,14 @@ import { ContentComponent } from './content/content.component';
 import { MenuComponent } from './content/menu/menu.component';
 import { HomeComponent } from './content/home/home.component';
 import { NotFoundComponent } from './content/not-found/not-found.component';
+import { RouterModule } from '@angular/router';
 
 registerLocaleData(en);
 
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,

@@ -11,6 +11,7 @@ import en from '@angular/common/locales/en';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
+import { MenuComponent } from './content/menu/menu.component';
 
 registerLocaleData(en);
 
@@ -22,7 +23,7 @@ registerLocaleData(en);
     HttpClientModule,
     NgZorroAntdModule,
   ],
-  declarations: [FooterComponent, HeaderComponent, ContentComponent],
+  declarations: [FooterComponent, HeaderComponent, ContentComponent, MenuComponent],
   exports: [FooterComponent, HeaderComponent, ContentComponent]
 })
 export class LayoutModule { }

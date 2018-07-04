@@ -2,10 +2,16 @@
   <li nz-submenu>
     <span title><i class="anticon anticon-credit-card"></i> Prices</span>
     <ul>
-      <li nz-menu-item>Promo codes</li>
-      <li nz-menu-item>Hour costs</li>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="promo-codes">Promo codes</a></li>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="hour-costs">Hour costs</a></li>
     </ul>
   </li>
-  <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="www"><i class="anticon anticon-schedule"></i> Bookings</a></li>
-  <li nz-menu-item><i class="anticon anticon-team"></i> Users</li>
+  <li nz-submenu>
+    <span title><i class="anticon anticon-schedule"></i> Bookings</span>
+    <ul>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="user-bookings">User bookings</a></li>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="special-codes">Special codes</a></li>
+    </ul>
+  </li>
+  <li nz-menu-item routerLinkActive="ant-menu-item-selected"><a routerLink="users"><i class="anticon anticon-team"></i> Users</a></li>
 </ul>

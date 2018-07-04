@@ -1,10 +1,28 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 
-const Users: User[] = [
-  { Id: '0f63719c-5c7a-4a2c-ae44-3ffb9af8c60c', PhoneNumber: '', UserName: 'bc6c0c01-c833-4825-a438-c6101203955f', DisplayName: 'Piotr Petrov', IsAdmin: false },
-  { Id: 'c4d30639-a3a1-4ce0-bdf0-8a43ec613c42', PhoneNumber: '89271111111', UserName: 'Ivan_Ivanov', DisplayName: 'Ivan_Ivanov', IsAdmin: true },
-  { Id: '50dd13f9-4c7f-47a9-b2ba-9698a77519d6', PhoneNumber: '', UserName: 'Alex', DisplayName: 'Alex', IsAdmin: false }
+const users: User[] = [
+  { id: '1', phoneNumber: '', userName: 'bc6c0c01-c833-4825-a438-c6101203955f', displayName: 'Piotr Petrov', isAdmin: false },
+  { id: '2', phoneNumber: '89271111111', userName: 'Ivan_Ivanov', displayName: 'Ivan_Ivanov', isAdmin: true },
+  { id: '3', phoneNumber: '', userName: 'Alex', displayName: 'Alex', isAdmin: false },
+  { id: '4', phoneNumber: '', userName: 'bc6c0c01-c833-4825-a438-c6101203955f', displayName: 'Piotr Petrov', isAdmin: false },
+  { id: '5', phoneNumber: '89271111111', userName: 'Ivan_Ivanov', displayName: 'Ivan_Ivanov', isAdmin: true },
+  { id: '6', phoneNumber: '', userName: 'Alex', displayName: 'Alex', isAdmin: false },
+  { id: '7', phoneNumber: '', userName: 'bc6c0c01-c833-4825-a438-c6101203955f', displayName: 'Piotr Petrov', isAdmin: false },
+  { id: '8', phoneNumber: '89271111111', userName: 'Ivan_Ivanov', displayName: 'Ivan_Ivanov', isAdmin: true },
+  { id: '9', phoneNumber: '', userName: 'Alex', displayName: 'Alex', isAdmin: false },
+  { id: '10', phoneNumber: '', userName: 'bc6c0c01-c833-4825-a438-c6101203955f', displayName: 'Piotr Petrov', isAdmin: false },
+  { id: '11', phoneNumber: '89271111111', userName: 'Ivan_Ivanov', displayName: 'Ivan_Ivanov', isAdmin: true },
+  { id: '12', phoneNumber: '', userName: 'Alex', displayName: 'Alex', isAdmin: false },
+  { id: '13', phoneNumber: '', userName: 'bc6c0c01-c833-4825-a438-c6101203955f', displayName: 'Piotr Petrov', isAdmin: false },
+  { id: '14', phoneNumber: '89271111111', userName: 'Ivan_Ivanov', displayName: 'Ivan_Ivanov', isAdmin: true },
+  { id: '15', phoneNumber: '', userName: 'Alex', displayName: 'Alex', isAdmin: false },
+  { id: '16', phoneNumber: '', userName: 'bc6c0c01-c833-4825-a438-c6101203955f', displayName: 'Piotr Petrov', isAdmin: false },
+  { id: '17', phoneNumber: '89271111111', userName: 'Ivan_Ivanov', displayName: 'Ivan_Ivanov', isAdmin: true },
+  { id: '18', phoneNumber: '', userName: 'Alex', displayName: 'Alex', isAdmin: false },
+  { id: '19', phoneNumber: '', userName: 'bc6c0c01-c833-4825-a438-c6101203955f', displayName: 'Piotr Petrov', isAdmin: false },
+  { id: '20', phoneNumber: '89271111111', userName: 'Ivan_Ivanov', displayName: 'Ivan_Ivanov', isAdmin: true },
+  { id: '21', phoneNumber: '', userName: 'Alex', displayName: 'Alex', isAdmin: false }
 ];
 
 @Injectable({
@@ -13,10 +31,10 @@ const Users: User[] = [
 export class UsersService {
 
   getUsers(): Promise<User[]> {
-    return Promise.resolve(Users);
+    return new Promise(resolve => setTimeout(() => resolve(users), 1000));
   }
 
-  updateAdminRole(userId: string, isAdmin: boolean): void {
-    Users.find(x => x.Id === userId).IsAdmin = isAdmin;
+  updateAdminRole(userId: string, isAdmin: boolean): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, 1000));
   }
 }

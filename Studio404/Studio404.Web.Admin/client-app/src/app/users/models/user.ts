@@ -1,10 +1,10 @@
 export class User {
     constructor (
-        public Id: string,
-        public PhoneNumber: string,
-        public UserName: string,
-        public DisplayName: string,
-        public IsAdmin: boolean
+        public id: string,
+        public phoneNumber: string,
+        public userName: string,
+        public displayName: string,
+        public isAdmin: boolean
     ) {
     }
 }

@@ -1,3 +1,22 @@
-<p>
-  users works!
-</p>
+<nz-table #basicTable nzSize="middle" [nzData]="displayData">
+  <thead (nzSortChange)="onSort($event)" nzSingleSort>
+    <tr>
+      <th nzShowSort nzSortKey="isAdmin">Is Admin</th>
+      <th nzShowSort nzSortKey="displayName">Display Name</th>
+      <th nzShowSort nzSortKey="phoneNumber">Phone</th>
+      <th>Username</th>
+      <th>Id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>
+        <nz-switch [(ngModel)]="data.isAdmin" [nzControl]="true" (click)="onUpdateAdminRole(data.id, !data.isAdmin)" [nzLoading]="loading"></nz-switch>
+      </td>
+      <td>{{data.displayName}}</td>
+      <td>{{data.phoneNumber}}</td>
+      <td>{{data.userName}}</td>
+      <td>{{data.id}}</td>
+    </tr>
+  </tbody>
+</nz-table>

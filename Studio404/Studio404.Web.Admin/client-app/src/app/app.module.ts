@@ -11,6 +11,9 @@ import en from '@angular/common/locales/en';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
+import { BookingsModule } from './bookings/bookings.module';
+import { PricesModule } from './prices/prices.module';
+import { UsersModule } from './users/users.module';
 
 registerLocaleData(en);
 
@@ -25,7 +28,10 @@ registerLocaleData(en);
     FormsModule,
     HttpClientModule,
     NgZorroAntdModule,
-    LayoutModule
+    LayoutModule,
+    BookingsModule,
+    PricesModule,
+    UsersModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

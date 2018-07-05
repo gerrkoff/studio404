@@ -21,8 +21,6 @@ export class UsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sortName = null;
-    this.sortValue = null;
     this.searchValue = '';
     this.displayData = [];
     this.loadUsers();
@@ -53,6 +51,9 @@ export class UsersComponent implements OnInit {
   }
 
   onSearch(): void {
+    if (!this.users)
+      return;
+      
     const data = this.users.filter(x => x.displayName.toLocaleLowerCase().indexOf(this.searchValue.toLocaleLowerCase()) !== -1);
     if (this.sortName) {
       this.displayData = data.sort((a, b) => (this.sortValue === 'ascend') ? (a[ this.sortName ] > b[ this.sortName ] ? 1 : -1) : (b[ this.sortName ] > a[ this.sortName ] ? 1 : -1));

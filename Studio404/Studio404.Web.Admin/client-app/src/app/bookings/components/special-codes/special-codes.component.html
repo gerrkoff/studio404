@@ -1,0 +1,18 @@
+<nz-table #basicTable nzSize="middle" [nzData]="displayData">
+  <thead (nzSortChange)="onSort($event)" nzSingleSort>
+    <tr>
+      <th nzShowSort nzSortKey="from">From</th>
+      <th>To</th>
+      <th>Code</th>
+      <th>Id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{data.from | date : 'short'}}</td>
+      <td>{{data.to | date : 'short'}}</td>
+      <td>{{data.code}}</td>
+      <td>{{data.id}}</td>
+    </tr>
+  </tbody>
+</nz-table>

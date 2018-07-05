@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BookingsService } from '../../services/bookings.service';
+import { BookingSimple } from '../../models/booking-simple';
 
 @Component({
   selector: 'app-special-codes',
@@ -7,9 +9,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SpecialCodesComponent implements OnInit {
 
-  constructor() { }
+  bookings: BookingSimple[];
+  displayData: BookingSimple[];
+  sortName: string;
+  sortValue: string;
+
+  constructor(
+    private bookingsService: BookingsService
+  ) { }
 
   ngOnInit() {
+    this.displayData = [];
+    this.loadBookings();
   }
 
+  private async loadBookings(): Promise<void> {
+    this.bookings = await this.bookingsService.getSpecialBookings();
+    this.onSort({key: 'from', value: 'descend'});
+  }
+
+  onSort(sort: { key: string, value: string }): void {
+    this.sortName = sort.key;
+    this.sortValue = sort.value;
+
+    if (!this.bookings)
+      return;
+
+    const data = [...this.bookings];
+    if (this.sortName) {
+      this.displayData = data.sort((a, b) => (this.sortValue === 'ascend') ? (a[ this.sortName ] > b[ this.sortName ] ? 1 : -1) : (b[ this.sortName ] > a[ this.sortName ] ? 1 : -1));
+    } else {
+      this.displayData = data;
+    }
+  }
 }

@@ -9,8 +9,7 @@ import { BookingSimple } from '../../models/booking-simple';
 })
 export class SpecialCodesComponent implements OnInit {
 
-  bookings: BookingSimple[];
-  displayData: BookingSimple[];
+  data: BookingSimple[];
   editCache: any;
 
   constructor(
@@ -18,14 +17,13 @@ export class SpecialCodesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.displayData = [];
     this.editCache = {};
+    this.data = [];
     this.loadBookings();
   }
 
   private async loadBookings(): Promise<void> {
-    this.bookings = await this.bookingsService.getSpecialBookings();
-    this.displayData = [...this.bookings];
+    this.data = await this.bookingsService.getSpecialBookings();
     this.updateEditCache();
   }
 
@@ -38,14 +36,12 @@ export class SpecialCodesComponent implements OnInit {
   }
 
   onSaveEdit(id: number): void {
-    const index = this.bookings.findIndex(x => x.id === id);
-    this.bookings[index] = {...this.editCache[id].data};    
-    this.displayData = [...this.bookings];
+    Object.assign(this.data.find(x => x.id === id), this.editCache[id].data);
     this.editCache[id].edit = false;
   }
 
   private updateEditCache(): void {
-    this.bookings.forEach(x => 
+    this.data.forEach(x => 
         this.editCache[x.id] = {
           edit: false,
           data: {...x}

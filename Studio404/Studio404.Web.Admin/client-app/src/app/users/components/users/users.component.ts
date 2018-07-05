@@ -11,7 +11,7 @@ import { UserDisplay } from '../../models/user-display';
 export class UsersComponent implements OnInit {
 
   users: User[];
-  displayData: UserDisplay[];
+  data: UserDisplay[];
   sortName: string;
   sortValue: string;
   searchValue: string;
@@ -22,7 +22,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.searchValue = '';
-    this.displayData = [];
+    this.data = [];
     this.loadUsers();
   }
 
@@ -41,7 +41,7 @@ export class UsersComponent implements OnInit {
 
   private async loadUsers(): Promise<void> {
     this.users = await this.usersService.getUsers();
-    this.displayData = [...this.users];
+    this.data = [...this.users];
   }
 
   onSort(sort: { key: string, value: string }): void {
@@ -56,9 +56,9 @@ export class UsersComponent implements OnInit {
       
     const data = this.users.filter(x => x.displayName.toLocaleLowerCase().indexOf(this.searchValue.toLocaleLowerCase()) !== -1);
     if (this.sortName) {
-      this.displayData = data.sort((a, b) => (this.sortValue === 'ascend') ? (a[ this.sortName ] > b[ this.sortName ] ? 1 : -1) : (b[ this.sortName ] > a[ this.sortName ] ? 1 : -1));
+      this.data = data.sort((a, b) => (this.sortValue === 'ascend') ? (a[ this.sortName ] > b[ this.sortName ] ? 1 : -1) : (b[ this.sortName ] > a[ this.sortName ] ? 1 : -1));
     } else {
-      this.displayData = data;
+      this.data = data;
     }
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../services/users.service';
 import { User } from '../models/user';
+import { UserDisplay } from '../models/user-display';
 
 @Component({
   selector: 'app-users',
@@ -10,7 +11,7 @@ import { User } from '../models/user';
 export class UsersComponent implements OnInit {
 
   users: User[];
-  displayData: User[];
+  displayData: UserDisplay[];
   sortName: string;
   sortValue: string;
 
@@ -21,22 +22,21 @@ export class UsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loading = false;
     this.sortName = null;
     this.sortValue = null;
     this.displayData = [];
     this.loadUsers();
   }
 
-  async onUpdateAdminRole(userId: string, isAdmin: boolean): Promise<void> {
-    if (!this.loading) {
-      this.loading = true;
+  async onUpdateAdminRole(user: UserDisplay, isAdmin: boolean): Promise<void> {
+    if (!user.isLoading) {
+      user.isLoading = true;
       try {
-        await this.usersService.updateAdminRole(userId, isAdmin);
-        this.users.find(x => x.id === userId).isAdmin = isAdmin;
+        await this.usersService.updateAdminRole(user.id, isAdmin);
+        this.users.find(x => x.id === user.id).isAdmin = isAdmin;
       }
       finally {
-        this.loading = false;
+        user.isLoading = false;
       }
     }
   }

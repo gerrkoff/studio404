@@ -11,7 +11,7 @@
   <tbody>
     <tr *ngFor="let data of basicTable.data">
       <td>
-        <nz-switch [(ngModel)]="data.isAdmin" [nzControl]="true" (click)="onUpdateAdminRole(data.id, !data.isAdmin)" [nzLoading]="loading"></nz-switch>
+        <nz-switch [ngModel]="data.isAdmin" [nzControl]="true" (click)="onUpdateAdminRole(data, !data.isAdmin)" [nzLoading]="data.isLoading"></nz-switch>
       </td>
       <td>{{data.displayName}}</td>
       <td>{{data.phoneNumber}}</td>

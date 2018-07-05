@@ -2,7 +2,15 @@
   <thead (nzSortChange)="onSort($event)" nzSingleSort>
     <tr>
       <th nzShowSort nzSortKey="isAdmin">Is Admin</th>
-      <th nzShowSort nzSortKey="displayName">Display Name</th>
+      <th nzShowSort nzSortKey="displayName">Display Name
+        <nz-dropdown nzTrigger="click" [nzClickHide]="false">
+          <i class="anticon anticon anticon-search ant-table-filter-icon" nz-dropdown></i>
+          <div class="custom-filter-dropdown">
+            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" class="search-input">
+            <button nz-button [nzType]="'primary'" (click)="onSearch()">Search</button>
+          </div>
+        </nz-dropdown>
+      </th>
       <th nzShowSort nzSortKey="phoneNumber">Phone</th>
       <th>Username</th>
       <th>Id</th>

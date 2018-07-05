@@ -24,7 +24,7 @@ export class SpecialCodesComponent implements OnInit {
 
   private async loadBookings(): Promise<void> {
     this.data = await this.bookingsService.getSpecialBookings();
-    this.updateEditCache();
+    this.updateRows();
   }
 
   onStartEdit(id: number): void {
@@ -47,7 +47,7 @@ export class SpecialCodesComponent implements OnInit {
     }
   }
 
-  private updateEditCache(): void {
+  private updateRows(): void {
     this.data.forEach(x => 
         this.rows[x.id] = {
           isEditting: false,

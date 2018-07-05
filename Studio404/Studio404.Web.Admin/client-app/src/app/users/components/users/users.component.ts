@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../services/users.service';
-import { User } from '../models/user';
-import { UserDisplay } from '../models/user-display';
+import { UsersService } from '../../services/users.service';
+import { User } from '../../models/user';
+import { UserDisplay } from '../../models/user-display';
 
 @Component({
   selector: 'app-users',
@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.sortName = null;
     this.sortValue = null;
-    this.searchValue = null;
+    this.searchValue = '';
     this.displayData = [];
     this.loadUsers();
   }

@@ -8,7 +8,7 @@ import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 
-import { UsersComponent } from './users/users.component';
+import { UsersComponent } from './components/users/users.component';
 
 registerLocaleData(en);
 

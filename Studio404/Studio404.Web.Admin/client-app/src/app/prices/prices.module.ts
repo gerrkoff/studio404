@@ -8,8 +8,8 @@ import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 
-import { UserBookingsComponent } from './user-bookings/user-bookings.component';
-import { SpecialCodesComponent } from './special-codes/special-codes.component';
+import { UserBookingsComponent } from './components/user-bookings/user-bookings.component';
+import { SpecialCodesComponent } from './components/special-codes/special-codes.component';
 
 registerLocaleData(en);
 

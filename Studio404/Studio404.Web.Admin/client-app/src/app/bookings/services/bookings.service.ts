@@ -34,4 +34,8 @@ export class BookingsService {
   getUserBookings(): Promise<BookingUser[]> {
     return new Promise(resolve => setTimeout(() => resolve(bookings.filter(x => x.status !== BookingStatusEnum.Special)), 1000));
   }
+
+  saveSpecialBooking(booking: BookingSimple): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, 1000));
+  }
 }

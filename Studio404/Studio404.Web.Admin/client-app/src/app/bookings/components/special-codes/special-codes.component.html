@@ -14,8 +14,8 @@
         <ng-container *ngIf="!editCache[data.id].edit">
           {{data.from | date : 'short'}}
         </ng-container>
-        <ng-container *ngIf="editCache[data.id].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.id].data.from">
+        <ng-container *ngIf="editCache[data.id].edit">          
+          <nz-date-picker [(ngModel)]="editCache[data.id].data.from" nzShowTime></nz-date-picker>
         </ng-container>
       </td>
       <td>
@@ -23,7 +23,7 @@
           {{data.to | date : 'short'}}
         </ng-container>
         <ng-container *ngIf="editCache[data.id].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.id].data.to">
+            <nz-date-picker [(ngModel)]="editCache[data.id].data.to" nzShowTime></nz-date-picker>
         </ng-container>
       </td>
       <td>

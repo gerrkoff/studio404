@@ -35,9 +35,14 @@ export class SpecialCodesComponent implements OnInit {
     this.editCache[id].edit = false;
   }
 
-  onSaveEdit(id: number): void {
-    Object.assign(this.data.find(x => x.id === id), this.editCache[id].data);
-    this.editCache[id].edit = false;
+  async onSaveEdit(id: number): Promise<void> {
+    try {
+      await this.bookingsService.saveSpecialBooking(this.editCache[id].data);
+      Object.assign(this.data.find(x => x.id === id), this.editCache[id].data);
+      this.editCache[id].edit = false;
+    }
+    finally {
+    }
   }
 
   private updateEditCache(): void {

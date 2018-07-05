@@ -1,6 +1,6 @@
 export class BookingSimple {
-    public Id: number;
-    public From: Date;
-    public To: Date;
-    public Code: string;
+    public id: number;
+    public from: Date;
+    public to: Date;
+    public code: string;
 }

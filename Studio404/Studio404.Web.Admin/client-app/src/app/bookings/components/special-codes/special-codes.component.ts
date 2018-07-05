@@ -10,14 +10,14 @@ import { BookingSimple } from '../../models/booking-simple';
 export class SpecialCodesComponent implements OnInit {
 
   data: BookingSimple[];
-  editCache: any;
+  rows: any;
 
   constructor(
     private bookingsService: BookingsService
   ) { }
 
   ngOnInit() {
-    this.editCache = {};
+    this.rows = {};
     this.data = [];
     this.loadBookings();
   }
@@ -28,29 +28,29 @@ export class SpecialCodesComponent implements OnInit {
   }
 
   onStartEdit(id: number): void {
-    this.editCache[id].edit = true;
+    this.rows[id].isEditting = true;
   }
 
   onCancelEdit(id: number): void {
-    this.editCache[id].edit = false;
+    this.rows[id].isEditting = false;
   }
 
   async onSaveEdit(id: number): Promise<void> {
-    this.editCache[id].isProcessing = true;
+    this.rows[id].isProcessing = true;
     try {
-      await this.bookingsService.saveSpecialBooking(this.editCache[id].data);
-      Object.assign(this.data.find(x => x.id === id), this.editCache[id].data);
-      this.editCache[id].edit = false;
+      await this.bookingsService.saveSpecialBooking(this.rows[id].data);
+      Object.assign(this.data.find(x => x.id === id), this.rows[id].data);
+      this.rows[id].isEditting = false;
     }
     finally {
-      this.editCache[id].isProcessing = false;
+      this.rows[id].isProcessing = false;
     }
   }
 
   private updateEditCache(): void {
     this.data.forEach(x => 
-        this.editCache[x.id] = {
-          edit: false,
+        this.rows[x.id] = {
+          isEditting: false,
           isProcessing: false,
           data: {...x}
         }

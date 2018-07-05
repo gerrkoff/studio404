@@ -1,37 +1,37 @@
 <nz-table #table nzSize="middle" [nzData]="data">
   <thead>
     <tr>
-      <th>From</th>
-      <th>To</th>
-      <th>Code</th>
-      <th>Id</th>
-      <th>Actions</th>
+      <th nzWidth="20%" class="center">From</th>
+      <th nzWidth="20%" class="center">To</th>
+      <th nzWidth="10%" class="center">Code</th>
+      <th nzWidth="10%" class="center">Id</th>
+      <th nzWidth="20%" class="center">Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of table.data">
       <td>
-        <ng-container *ngIf="!editCache[data.id].edit">
+        <ng-container *ngIf="!rows[data.id].isEditting">
           {{data.from | date : 'short'}}
         </ng-container>
-        <ng-container *ngIf="editCache[data.id].edit">          
-          <nz-date-picker [(ngModel)]="editCache[data.id].data.from" nzShowTime></nz-date-picker>
+        <ng-container *ngIf="rows[data.id].isEditting">          
+          <nz-date-picker [(ngModel)]="rows[data.id].data.from" nzShowTime></nz-date-picker>
         </ng-container>
       </td>
       <td>
-        <ng-container *ngIf="!editCache[data.id].edit">
+        <ng-container *ngIf="!rows[data.id].isEditting">
           {{data.to | date : 'short'}}
         </ng-container>
-        <ng-container *ngIf="editCache[data.id].edit">
-            <nz-date-picker [(ngModel)]="editCache[data.id].data.to" nzShowTime></nz-date-picker>
+        <ng-container *ngIf="rows[data.id].isEditting">
+            <nz-date-picker [(ngModel)]="rows[data.id].data.to" nzShowTime></nz-date-picker>
         </ng-container>
       </td>
       <td>
-        <ng-container *ngIf="!editCache[data.id].edit">
+        <ng-container *ngIf="!rows[data.id].isEditting">
           {{data.code}}
         </ng-container>
-        <ng-container *ngIf="editCache[data.id].edit">
-          <input type="text" nz-input [(ngModel)]="editCache[data.id].data.code">
+        <ng-container *ngIf="rows[data.id].isEditting">
+          <input type="text" nz-input [(ngModel)]="rows[data.id].data.code">
         </ng-container>
       </td>
       <td>
@@ -39,17 +39,17 @@
       </td>
       <td>
         <div class="editable-row-operations">
-          <ng-container *ngIf="!editCache[data.id].edit">
+          <ng-container *ngIf="!rows[data.id].isEditting">
             <button nz-button nzType="default"
                     (click)="onStartEdit(data.id)"
                     nzSize="small">
                 Edit
             </button>
           </ng-container>
-          <ng-container *ngIf="editCache[data.id].edit">            
+          <ng-container *ngIf="rows[data.id].isEditting">            
             <button nz-button nzType="primary"
                     (click)="onSaveEdit(data.id)"
-                    [nzLoading]="editCache[data.id].isProcessing"
+                    [nzLoading]="rows[data.id].isProcessing"
                     nzSize="small">
                 Save
             </button>
@@ -57,7 +57,7 @@
               <button nz-button nzType="danger"
                       nzSize="small"
                       nz-popconfirm
-                      [disabled]="editCache[data.id].isProcessing">
+                      [disabled]="rows[data.id].isProcessing">
                 Cancel
               </button>
             </nz-popconfirm>

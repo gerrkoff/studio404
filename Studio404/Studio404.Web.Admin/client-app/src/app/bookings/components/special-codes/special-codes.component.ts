@@ -11,8 +11,7 @@ export class SpecialCodesComponent implements OnInit {
 
   bookings: BookingSimple[];
   displayData: BookingSimple[];
-  sortName: string;
-  sortValue: string;
+  editCache: any;
 
   constructor(
     private bookingsService: BookingsService
@@ -20,26 +19,38 @@ export class SpecialCodesComponent implements OnInit {
 
   ngOnInit() {
     this.displayData = [];
+    this.editCache = {};
     this.loadBookings();
   }
 
   private async loadBookings(): Promise<void> {
     this.bookings = await this.bookingsService.getSpecialBookings();
-    this.onSort({key: 'from', value: 'descend'});
+    this.displayData = [...this.bookings];
+    this.updateEditCache();
   }
 
-  onSort(sort: { key: string, value: string }): void {
-    this.sortName = sort.key;
-    this.sortValue = sort.value;
-
-    if (!this.bookings)
-      return;
-
-    const data = [...this.bookings];
-    if (this.sortName) {
-      this.displayData = data.sort((a, b) => (this.sortValue === 'ascend') ? (a[ this.sortName ] > b[ this.sortName ] ? 1 : -1) : (b[ this.sortName ] > a[ this.sortName ] ? 1 : -1));
-    } else {
-      this.displayData = data;
-    }
+  onStartEdit(id: number): void {
+    this.editCache[id].edit = true;
   }
+
+  onCancelEdit(id: number): void {
+    this.editCache[id].edit = false;
+  }
+
+  onSaveEdit(id: number): void {
+    const index = this.bookings.findIndex(x => x.id === id);
+    this.bookings[index] = {...this.editCache[id].data};    
+    this.displayData = [...this.bookings];
+    this.editCache[id].edit = false;
+  }
+
+  private updateEditCache(): void {
+    this.bookings.forEach(x => 
+        this.editCache[x.id] = {
+          edit: false,
+          data: {...x}
+        }
+    );
+  }
+
 }

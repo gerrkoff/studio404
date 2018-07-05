@@ -1,18 +1,55 @@
-<nz-table #basicTable nzSize="middle" [nzData]="displayData">
-  <thead (nzSortChange)="onSort($event)" nzSingleSort>
+<nz-table #table nzSize="middle" [nzData]="displayData">
+  <thead>
     <tr>
-      <th nzShowSort nzSortKey="from">From</th>
+      <th>From</th>
       <th>To</th>
       <th>Code</th>
       <th>Id</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of basicTable.data">
-      <td>{{data.from | date : 'short'}}</td>
-      <td>{{data.to | date : 'short'}}</td>
-      <td>{{data.code}}</td>
-      <td>{{data.id}}</td>
+    <tr *ngFor="let data of table.data">
+      <td>
+        <ng-container *ngIf="!editCache[data.id].edit">
+          {{data.from | date : 'short'}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.id].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.id].data.from">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.id].edit">
+          {{data.to | date : 'short'}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.id].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.id].data.to">
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!editCache[data.id].edit">
+          {{data.code}}
+        </ng-container>
+        <ng-container *ngIf="editCache[data.id].edit">
+          <input type="text" nz-input [(ngModel)]="editCache[data.id].data.code">
+        </ng-container>
+      </td>
+      <td>
+        {{data.id}}
+      </td>
+      <td>
+        <div class="editable-row-operations">
+          <ng-container *ngIf="!editCache[data.id].edit">
+            <a (click)="onStartEdit(data.id)">Edit</a>
+          </ng-container>
+          <ng-container *ngIf="editCache[data.id].edit">
+            <a (click)="onSaveEdit(data.id)">Save</a>
+            <nz-popconfirm [nzTitle]="'Sure to cancel?'" (nzOnConfirm)="onCancelEdit(data.id)">
+              <a nz-popconfirm>Cancel</a>
+            </nz-popconfirm>
+          </ng-container>
+        </div>
+      </td>
     </tr>
   </tbody>
 </nz-table>

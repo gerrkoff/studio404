@@ -40,12 +40,26 @@
       <td>
         <div class="editable-row-operations">
           <ng-container *ngIf="!editCache[data.id].edit">
-            <a (click)="onStartEdit(data.id)">Edit</a>
+            <button nz-button nzType="default"
+                    (click)="onStartEdit(data.id)"
+                    nzSize="small">
+                Edit
+            </button>
           </ng-container>
-          <ng-container *ngIf="editCache[data.id].edit">
-            <a (click)="onSaveEdit(data.id)">Save</a>
+          <ng-container *ngIf="editCache[data.id].edit">            
+            <button nz-button nzType="primary"
+                    (click)="onSaveEdit(data.id)"
+                    [nzLoading]="editCache[data.id].isProcessing"
+                    nzSize="small">
+                Save
+            </button>
             <nz-popconfirm [nzTitle]="'Sure to cancel?'" (nzOnConfirm)="onCancelEdit(data.id)">
-              <a nz-popconfirm>Cancel</a>
+              <button nz-button nzType="danger"
+                      nzSize="small"
+                      nz-popconfirm
+                      [disabled]="editCache[data.id].isProcessing">
+                Cancel
+              </button>
             </nz-popconfirm>
           </ng-container>
         </div>

@@ -36,12 +36,14 @@ export class SpecialCodesComponent implements OnInit {
   }
 
   async onSaveEdit(id: number): Promise<void> {
+    this.editCache[id].isProcessing = true;
     try {
       await this.bookingsService.saveSpecialBooking(this.editCache[id].data);
       Object.assign(this.data.find(x => x.id === id), this.editCache[id].data);
       this.editCache[id].edit = false;
     }
     finally {
+      this.editCache[id].isProcessing = false;
     }
   }
 
@@ -49,6 +51,7 @@ export class SpecialCodesComponent implements OnInit {
     this.data.forEach(x => 
         this.editCache[x.id] = {
           edit: false,
+          isProcessing: false,
           data: {...x}
         }
     );

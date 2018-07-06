@@ -45,7 +45,41 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
         );
     }
 
+    onSort(sort: { key: string, value: string }): void {
+        this.table.sortName = sort.key;
+        this.table.sortValue = sort.value;
+        this.onSearch();
+    }
+
+    onSearch(): void {
+        if (!this.loadedItems)
+          return;
+          
+        const filteredItems = this.loadedItems.filter(x => x[this.itemSearchFieldName].toLocaleLowerCase().indexOf(this.table.searchValue.toLocaleLowerCase()) !== -1);
+        if (this.table.sortName) {
+          this.showedItems = filteredItems.sort((a, b) => (this.table.sortValue === 'ascend') ? (a[this.table.sortName] > b[this.table.sortName] ? 1 : -1) : (b[this.table.sortName] > a[this.table.sortName] ? 1 : -1));
+        } else {
+          this.showedItems = filteredItems;
+        }
+    }
+
+    protected async rowProcessingWrapper (
+        rowId: string | number,
+        rowProcessFunc: () => Promise<void>
+    ): Promise<void> {
+        if (!this.table.rows[rowId].isProcessing) {
+            this.table.rows[rowId].isProcessing = true;
+            try {
+                await rowProcessFunc();
+            }
+            finally {
+                this.table.rows[rowId].isProcessing = false;
+            }
+        }
+    }
+
     // to be overrided by children if necessary
     init(): void {}
     abstract async loadItemsCore(): Promise<T[]>;
+    abstract itemSearchFieldName: string;
 }

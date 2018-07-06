@@ -13,6 +13,8 @@ import { TableComponent } from '../../../common/components/table.component';
   ]
 })
 export class SpecialCodesComponent extends TableComponent<BookingSimple> {
+  
+  itemSearchFieldName: string = '';
 
   constructor(
     private bookingsService: BookingsService

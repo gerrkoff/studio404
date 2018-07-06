@@ -25,7 +25,7 @@
       <td>
         <nz-switch [ngModel]="item.isAdmin"
                    [nzControl]="true"
-                   (click)="onUpdateAdminRole(item, !item.isAdmin)"
+                   (click)="onUpdateAdminRole(item.id, !item.isAdmin)"
                    [nzLoading]="table.rows[item.id].isProcessing">
         </nz-switch>
       </td>

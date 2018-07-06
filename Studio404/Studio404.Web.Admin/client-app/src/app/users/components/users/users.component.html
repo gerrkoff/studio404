@@ -1,4 +1,4 @@
-<nz-table #nztable nzSize="middle" [nzData]="data" [nzLoading]="table.isLoading">
+<nz-table #nztable nzSize="middle" [nzData]="showedItems" [nzLoading]="table.isLoading">
   <thead (nzSortChange)="onSort($event)" nzSingleSort>
     <tr>
       <th nzShowSort nzSortKey="isAdmin">Is Admin</th>
@@ -17,18 +17,18 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of nztable.data">
+    <tr *ngFor="let item of nztable.data">
       <td>
-        <nz-switch [ngModel]="data.isAdmin"
+        <nz-switch [ngModel]="item.isAdmin"
                    [nzControl]="true"
-                   (click)="onUpdateAdminRole(data, !data.isAdmin)"
-                   [nzLoading]="table.rows[data.id].isProcessing">
+                   (click)="onUpdateAdminRole(item, !item.isAdmin)"
+                   [nzLoading]="table.rows[item.id].isProcessing">
         </nz-switch>
       </td>
-      <td>{{data.displayName}}</td>
-      <td>{{data.phoneNumber}}</td>
-      <td>{{data.userName}}</td>
-      <td>{{data.id}}</td>
+      <td>{{item.displayName}}</td>
+      <td>{{item.phoneNumber}}</td>
+      <td>{{item.userName}}</td>
+      <td>{{item.id}}</td>
     </tr>
   </tbody>
 </nz-table>

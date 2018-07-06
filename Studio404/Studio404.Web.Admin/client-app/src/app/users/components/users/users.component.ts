@@ -11,8 +11,8 @@ import { Table } from '../../../common/models/table';
 })
 export class UsersComponent implements OnInit {
 
-  users: User[];
-  data: User[];
+  loadedItems: User[];
+  showedItems: User[];
   table: Table<User>;
 
   constructor(
@@ -25,7 +25,7 @@ export class UsersComponent implements OnInit {
       isLoading: false,
       searchValue: ''
     };
-    this.data = [];
+    this.showedItems = [];
     this.loadUsers();
   }
 
@@ -34,7 +34,7 @@ export class UsersComponent implements OnInit {
       this.table.rows[user.id].isProcessing = true;
       try {
         await this.usersService.updateAdminRole(user.id, isAdmin);
-        this.users.find(x => x.id === user.id).isAdmin = isAdmin;
+        this.loadedItems.find(x => x.id === user.id).isAdmin = isAdmin;
       }
       finally {
         this.table.rows[user.id].isProcessing = false;
@@ -46,8 +46,8 @@ export class UsersComponent implements OnInit {
     if (!this.table.isLoading) {
       this.table.isLoading = true;
       try {
-        this.users = await this.usersService.getUsers();
-        this.data = [...this.users];
+        this.loadedItems = await this.usersService.getUsers();
+        this.showedItems = [...this.loadedItems];
         this.updateRows();
       }
       finally {
@@ -63,19 +63,19 @@ export class UsersComponent implements OnInit {
   }
 
   onSearch(): void {
-    if (!this.users)
+    if (!this.loadedItems)
       return;
       
-    const data = this.users.filter(x => x.displayName.toLocaleLowerCase().indexOf(this.table.searchValue.toLocaleLowerCase()) !== -1);
+    const filteredItems = this.loadedItems.filter(x => x.displayName.toLocaleLowerCase().indexOf(this.table.searchValue.toLocaleLowerCase()) !== -1);
     if (this.table.sortName) {
-      this.data = data.sort((a, b) => (this.table.sortValue === 'ascend') ? (a[this.table.sortName] > b[this.table.sortName] ? 1 : -1) : (b[this.table.sortName] > a[this.table.sortName] ? 1 : -1));
+      this.showedItems = filteredItems.sort((a, b) => (this.table.sortValue === 'ascend') ? (a[this.table.sortName] > b[this.table.sortName] ? 1 : -1) : (b[this.table.sortName] > a[this.table.sortName] ? 1 : -1));
     } else {
-      this.data = data;
+      this.showedItems = filteredItems;
     }
   }
 
   private updateRows(): void {
-    this.users.forEach(x => 
+    this.loadedItems.forEach(x => 
         this.table.rows[x.id] = {
           isProcessing: false,
           data: {...x}

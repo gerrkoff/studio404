@@ -1,4 +1,4 @@
-import { IEntity } from "../../common/models/entity";
+import { IEntity } from '../../common/models/entity';
 
 export class User implements IEntity {
     public id: string;

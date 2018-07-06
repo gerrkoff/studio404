@@ -13,8 +13,8 @@ import { TableComponent } from '../../../common/components/table.component';
   ]
 })
 export class SpecialCodesComponent extends TableComponent<BookingSimple> {
-  
-  itemSearchFieldName: string = '';
+
+  itemSearchFieldName = '';
 
   constructor(
     private bookingsService: BookingsService
@@ -27,7 +27,7 @@ export class SpecialCodesComponent extends TableComponent<BookingSimple> {
   }
 
   onSaveEdit(id: number): void {
-    this.rowEdittingWrapper(id, () => 
+    this.rowEdittingWrapper(id, () =>
       this.bookingsService.saveSpecialBooking(this.table.rows[id].data)
     );
   }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Table } from "../models/table";
+import { Table } from '../models/table';
 import { IEntity } from '../models/entity';
 
 export abstract class TableComponent<T extends IEntity> implements OnInit {
+
+    abstract itemSearchFieldName: string;
 
     loadedItems: T[];
     showedItems: T[];
@@ -62,7 +64,7 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
     }
 
     private updateRows(): void {
-        this.loadedItems.forEach(x => 
+        this.loadedItems.forEach(x =>
             this.table.rows[x.id] = {
               isEditting: false,
               isProcessing: false,
@@ -78,12 +80,18 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
     }
 
     onSearch(): void {
-        if (!this.loadedItems)
-          return;
-          
-        const filteredItems = this.loadedItems.filter(x => x[this.itemSearchFieldName].toLocaleLowerCase().indexOf(this.table.searchValue.toLocaleLowerCase()) !== -1);
+        if (!this.loadedItems) {
+            return;
+        }
+
+        const filteredItems = this.loadedItems
+            .filter(x => x[this.itemSearchFieldName].toLocaleLowerCase().indexOf(this.table.searchValue.toLocaleLowerCase()) !== -1);
+
         if (this.table.sortName) {
-          this.showedItems = filteredItems.sort((a, b) => (this.table.sortValue === 'ascend') ? (a[this.table.sortName] > b[this.table.sortName] ? 1 : -1) : (b[this.table.sortName] > a[this.table.sortName] ? 1 : -1));
+          this.showedItems = filteredItems
+            .sort((a, b) => (this.table.sortValue === 'ascend')
+                ? (a[this.table.sortName] > b[this.table.sortName] ? 1 : -1)
+                : (b[this.table.sortName] > a[this.table.sortName] ? 1 : -1));
         } else {
           this.showedItems = filteredItems;
         }
@@ -92,7 +100,7 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
     onStartEdit(id: number): void {
         this.table.rows[id].isEditting = true;
     }
-    
+
     onCancelEdit(id: number): void {
         this.table.rows[id].isEditting = false;
     }
@@ -100,5 +108,4 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
     // to be overrided by children if necessary
     init(): void {}
     abstract async loadItemsCore(): Promise<T[]>;
-    abstract itemSearchFieldName: string;
 }

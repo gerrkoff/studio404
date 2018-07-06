@@ -1,5 +1,5 @@
-import { BookingSimple } from "./booking-simple";
-import { BookingStatusEnum } from "./booking-status-enum";
+import { BookingSimple } from './booking-simple';
+import { BookingStatusEnum } from './booking-status-enum';
 
 export class BookingUser extends BookingSimple {
     public status: BookingStatusEnum;

@@ -19,8 +19,7 @@ export class SpecialCodesComponent implements OnInit {
 
   ngOnInit() {
     this.table = {
-      isLoading: false,
-      rows: {}
+      isLoading: false
     };
     this.data = [];
     this.loadBookings();

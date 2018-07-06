@@ -1,4 +1,4 @@
-<nz-table #table nzSize="middle" [nzData]="data">
+<nz-table #nztable nzSize="middle" [nzData]="data">
   <thead (nzSortChange)="onSort($event)" nzSingleSort>
     <tr>
       <th nzShowSort nzSortKey="isAdmin">Is Admin</th>
@@ -6,7 +6,7 @@
         <nz-dropdown nzTrigger="click" [nzClickHide]="false">
           <i class="anticon anticon anticon-search ant-table-filter-icon" nz-dropdown></i>
           <div class="custom-filter-dropdown">
-            <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" class="search-input">
+            <input type="text" nz-input placeholder="Search name" [(ngModel)]="table.searchValue" class="search-input">
             <button nz-button [nzType]="'primary'" (click)="onSearch()">Search</button>
           </div>
         </nz-dropdown>
@@ -17,7 +17,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of table.data">
+    <tr *ngFor="let data of nztable.data">
       <td>
         <nz-switch [ngModel]="data.isAdmin" [nzControl]="true" (click)="onUpdateAdminRole(data, !data.isAdmin)" [nzLoading]="data.isLoading"></nz-switch>
       </td>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { User } from '../../models/user';
 import { UserDisplay } from '../../models/user-display';
+import { Table } from '../../../common/models/table';
 
 @Component({
   selector: 'app-users',
@@ -12,16 +13,17 @@ export class UsersComponent implements OnInit {
 
   users: User[];
   data: UserDisplay[];
-  sortName: string;
-  sortValue: string;
-  searchValue: string;
+  table: Table<User>;
 
   constructor(
     private usersService: UsersService
   ) { }
 
   ngOnInit() {
-    this.searchValue = '';
+    this.table = {
+      isLoading: false,
+      searchValue: ''
+    };
     this.data = [];
     this.loadUsers();
   }
@@ -45,8 +47,8 @@ export class UsersComponent implements OnInit {
   }
 
   onSort(sort: { key: string, value: string }): void {
-    this.sortName = sort.key;
-    this.sortValue = sort.value;
+    this.table.sortName = sort.key;
+    this.table.sortValue = sort.value;
     this.onSearch();
   }
 
@@ -54,9 +56,9 @@ export class UsersComponent implements OnInit {
     if (!this.users)
       return;
       
-    const data = this.users.filter(x => x.displayName.toLocaleLowerCase().indexOf(this.searchValue.toLocaleLowerCase()) !== -1);
-    if (this.sortName) {
-      this.data = data.sort((a, b) => (this.sortValue === 'ascend') ? (a[ this.sortName ] > b[ this.sortName ] ? 1 : -1) : (b[ this.sortName ] > a[ this.sortName ] ? 1 : -1));
+    const data = this.users.filter(x => x.displayName.toLocaleLowerCase().indexOf(this.table.searchValue.toLocaleLowerCase()) !== -1);
+    if (this.table.sortName) {
+      this.data = data.sort((a, b) => (this.table.sortValue === 'ascend') ? (a[this.table.sortName] > b[this.table.sortName] ? 1 : -1) : (b[this.table.sortName] > a[this.table.sortName] ? 1 : -1));
     } else {
       this.data = data;
     }

@@ -1,6 +1,9 @@
 export class Table<T> {
-    public rows: Rows<T>;
-    public isLoading: boolean;
+    public rows?: Rows<T>;
+    public isLoading?: boolean;
+    public sortName?: string;
+    public sortValue?: string;
+    public searchValue?: string;
 }
 
 export class Rows<T> {
@@ -9,6 +12,6 @@ export class Rows<T> {
 
 export class Row<T> {
     public data: T;
-    public isEditting: boolean;
-    public isProcessing: boolean;
+    public isEditting?: boolean;
+    public isProcessing?: boolean;
 }

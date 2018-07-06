@@ -10,7 +10,8 @@ import { Table } from '../../../common/models/table';
 })
 export class SpecialCodesComponent implements OnInit {
 
-  data: BookingSimple[];
+  loadedItems: BookingSimple[];
+  showedItems: BookingSimple[];
   table: Table<BookingSimple>;
 
   constructor(
@@ -22,7 +23,7 @@ export class SpecialCodesComponent implements OnInit {
       rows: {},
       isLoading: false
     };
-    this.data = [];
+    this.showedItems = [];
     this.loadBookings();
   }
 
@@ -30,7 +31,8 @@ export class SpecialCodesComponent implements OnInit {
     if (!this.table.isLoading) {
       this.table.isLoading = true;
       try {
-        this.data = await this.bookingsService.getSpecialBookings();
+        this.loadedItems = await this.bookingsService.getSpecialBookings();
+        this.showedItems = [...this.loadedItems];
         this.updateRows();
       }
       finally {
@@ -52,7 +54,7 @@ export class SpecialCodesComponent implements OnInit {
       this.table.rows[id].isProcessing = true;
       try {
         await this.bookingsService.saveSpecialBooking(this.table.rows[id].data);
-        Object.assign(this.data.find(x => x.id === id), this.table.rows[id].data);
+        Object.assign(this.loadedItems.find(x => x.id === id), this.table.rows[id].data);
         this.table.rows[id].isEditting = false;
       }
       finally {
@@ -62,7 +64,7 @@ export class SpecialCodesComponent implements OnInit {
   }
 
   private updateRows(): void {
-    this.data.forEach(x => 
+    this.loadedItems.forEach(x => 
         this.table.rows[x.id] = {
           isEditting: false,
           isProcessing: false,

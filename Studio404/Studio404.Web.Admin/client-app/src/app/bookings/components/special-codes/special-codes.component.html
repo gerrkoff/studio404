@@ -1,4 +1,4 @@
-<nz-table #nztable nzSize="middle" [nzData]="data" [nzLoading]="table.isLoading">
+<nz-table #nztable nzSize="middle" [nzData]="showedItems" [nzLoading]="table.isLoading">
   <thead>
     <tr>
       <th nzWidth="20%" class="center">From</th>
@@ -9,55 +9,55 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of nztable.data">
+    <tr *ngFor="let item of nztable.data">
       <td>
-        <ng-container *ngIf="!table.rows[data.id].isEditting">
-          {{data.from | date : 'short'}}
+        <ng-container *ngIf="!table.rows[item.id].isEditting">
+          {{item.from | date : 'short'}}
         </ng-container>
-        <ng-container *ngIf="table.rows[data.id].isEditting">          
-          <nz-date-picker [(ngModel)]="table.rows[data.id].data.from" nzShowTime [disabled]="table.rows[data.id].isProcessing" nzSize="small"></nz-date-picker>
+        <ng-container *ngIf="table.rows[item.id].isEditting">          
+          <nz-date-picker [(ngModel)]="table.rows[item.id].data.from" nzShowTime [disabled]="table.rows[item.id].isProcessing" nzSize="small"></nz-date-picker>
         </ng-container>
       </td>
       <td>
-        <ng-container *ngIf="!table.rows[data.id].isEditting">
-          {{data.to | date : 'short'}}
+        <ng-container *ngIf="!table.rows[item.id].isEditting">
+          {{item.to | date : 'short'}}
         </ng-container>
-        <ng-container *ngIf="table.rows[data.id].isEditting">
-          <nz-date-picker [(ngModel)]="table.rows[data.id].data.to" nzShowTime [disabled]="table.rows[data.id].isProcessing" nzSize="small"></nz-date-picker>
-        </ng-container>
-      </td>
-      <td>
-        <ng-container *ngIf="!table.rows[data.id].isEditting">
-          {{data.code}}
-        </ng-container>
-        <ng-container *ngIf="table.rows[data.id].isEditting">
-          <input type="text" nz-input [(ngModel)]="table.rows[data.id].data.code" [disabled]="table.rows[data.id].isProcessing" nzSize="small" />
+        <ng-container *ngIf="table.rows[item.id].isEditting">
+          <nz-date-picker [(ngModel)]="table.rows[item.id].data.to" nzShowTime [disabled]="table.rows[item.id].isProcessing" nzSize="small"></nz-date-picker>
         </ng-container>
       </td>
       <td>
-        {{data.id}}
+        <ng-container *ngIf="!table.rows[item.id].isEditting">
+          {{item.code}}
+        </ng-container>
+        <ng-container *ngIf="table.rows[item.id].isEditting">
+          <input type="text" nz-input [(ngModel)]="table.rows[item.id].data.code" [disabled]="table.rows[item.id].isProcessing" nzSize="small" />
+        </ng-container>
+      </td>
+      <td>
+        {{item.id}}
       </td>
       <td>
         <div class="editable-row-operations">
-          <ng-container *ngIf="!table.rows[data.id].isEditting">
+          <ng-container *ngIf="!table.rows[item.id].isEditting">
             <button nz-button nzType="default"
-                    (click)="onStartEdit(data.id)"
+                    (click)="onStartEdit(item.id)"
                     nzSize="small">
                 Edit
             </button>
           </ng-container>
-          <ng-container *ngIf="table.rows[data.id].isEditting">            
+          <ng-container *ngIf="table.rows[item.id].isEditting">            
             <button nz-button nzType="primary"
-                    (click)="onSaveEdit(data.id)"
-                    [nzLoading]="table.rows[data.id].isProcessing"
+                    (click)="onSaveEdit(item.id)"
+                    [nzLoading]="table.rows[item.id].isProcessing"
                     nzSize="small">
                 Save
             </button>
-            <nz-popconfirm [nzTitle]="'Sure to cancel?'" (nzOnConfirm)="onCancelEdit(data.id)">
+            <nz-popconfirm [nzTitle]="'Sure to cancel?'" (nzOnConfirm)="onCancelEdit(item.id)">
               <button nz-button nzType="danger"
                       nzSize="small"
                       nz-popconfirm
-                      [disabled]="table.rows[data.id].isProcessing">
+                      [disabled]="table.rows[item.id].isProcessing">
                 Cancel
               </button>
             </nz-popconfirm>

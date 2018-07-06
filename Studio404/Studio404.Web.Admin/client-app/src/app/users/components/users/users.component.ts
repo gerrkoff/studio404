@@ -12,7 +12,7 @@ import { Table } from '../../../common/models/table';
 export class UsersComponent implements OnInit {
 
   users: User[];
-  data: UserDisplay[];
+  data: User[];
   table: Table<User>;
 
   constructor(
@@ -21,6 +21,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.table = {
+      rows: {},
       isLoading: false,
       searchValue: ''
     };
@@ -28,15 +29,15 @@ export class UsersComponent implements OnInit {
     this.loadUsers();
   }
 
-  async onUpdateAdminRole(user: UserDisplay, isAdmin: boolean): Promise<void> {
-    if (!user.isLoading) {
-      user.isLoading = true;
+  async onUpdateAdminRole(user: User, isAdmin: boolean): Promise<void> {
+    if (!this.table.rows[user.id].isProcessing) {
+      this.table.rows[user.id].isProcessing = true;
       try {
         await this.usersService.updateAdminRole(user.id, isAdmin);
         this.users.find(x => x.id === user.id).isAdmin = isAdmin;
       }
       finally {
-        user.isLoading = false;
+        this.table.rows[user.id].isProcessing = false;
       }
     }
   }

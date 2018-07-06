@@ -1,5 +1,5 @@
 export class Table<T> {
-    public rows?: Rows<T>;
+    public rows: Rows<T>;
     public isLoading?: boolean;
     public sortName?: string;
     public sortValue?: string;

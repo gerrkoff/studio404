@@ -19,7 +19,11 @@
   <tbody>
     <tr *ngFor="let data of nztable.data">
       <td>
-        <nz-switch [ngModel]="data.isAdmin" [nzControl]="true" (click)="onUpdateAdminRole(data, !data.isAdmin)" [nzLoading]="data.isLoading"></nz-switch>
+        <nz-switch [ngModel]="data.isAdmin"
+                   [nzControl]="true"
+                   (click)="onUpdateAdminRole(data, !data.isAdmin)"
+                   [nzLoading]="table.rows[data.id].isProcessing">
+        </nz-switch>
       </td>
       <td>{{data.displayName}}</td>
       <td>{{data.phoneNumber}}</td>

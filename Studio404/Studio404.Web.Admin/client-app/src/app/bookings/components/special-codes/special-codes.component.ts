@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingsService } from '../../services/bookings.service';
 import { BookingSimple } from '../../models/booking-simple';
+import { Table } from '../../../common/models/table';
 
 @Component({
   selector: 'app-special-codes',
@@ -10,58 +11,59 @@ import { BookingSimple } from '../../models/booking-simple';
 export class SpecialCodesComponent implements OnInit {
 
   data: BookingSimple[];
-  rows: any;
+  table: Table<BookingSimple>;
 
   constructor(
     private bookingsService: BookingsService
   ) { }
 
   ngOnInit() {
-    this.rows = {
-      isLoading: false
+    this.table = {
+      isLoading: false,
+      rows: {}
     };
     this.data = [];
     this.loadBookings();
   }
 
   private async loadBookings(): Promise<void> {
-    if (!this.rows.isLoading) {
-      this.rows.isLoading = true;
+    if (!this.table.isLoading) {
+      this.table.isLoading = true;
       try {
         this.data = await this.bookingsService.getSpecialBookings();
         this.updateRows();
       }
       finally {
-        this.rows.isLoading = false;
+        this.table.isLoading = false;
       }
     }
   }
 
   onStartEdit(id: number): void {
-    this.rows[id].isEditting = true;
+    this.table.rows[id].isEditting = true;
   }
 
   onCancelEdit(id: number): void {
-    this.rows[id].isEditting = false;
+    this.table.rows[id].isEditting = false;
   }
 
   async onSaveEdit(id: number): Promise<void> {
-    if (!this.rows[id].isProcessing) {
-      this.rows[id].isProcessing = true;
+    if (!this.table.rows[id].isProcessing) {
+      this.table.rows[id].isProcessing = true;
       try {
-        await this.bookingsService.saveSpecialBooking(this.rows[id].data);
-        Object.assign(this.data.find(x => x.id === id), this.rows[id].data);
-        this.rows[id].isEditting = false;
+        await this.bookingsService.saveSpecialBooking(this.table.rows[id].data);
+        Object.assign(this.data.find(x => x.id === id), this.table.rows[id].data);
+        this.table.rows[id].isEditting = false;
       }
       finally {
-        this.rows[id].isProcessing = false;
+        this.table.rows[id].isProcessing = false;
       }
     }
   }
 
   private updateRows(): void {
     this.data.forEach(x => 
-        this.rows[x.id] = {
+        this.table.rows[x.id] = {
           isEditting: false,
           isProcessing: false,
           data: {...x}

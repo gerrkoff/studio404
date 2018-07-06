@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-login": "ng serve login-app",
     "watch": "ng build -op dist -w",
-    "build": "ng build",
-    "prod": "ng build --prod",
+    "build": "ng build && ng build login-app",
+    "prod": "ng build --prod && ng build login-app --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

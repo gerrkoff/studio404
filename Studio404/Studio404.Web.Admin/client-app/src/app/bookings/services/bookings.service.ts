@@ -28,7 +28,7 @@ const bookings: BookingUser[] = [
 export class BookingsService {
 
   getSpecialBookings(): Promise<BookingSimple[]> {
-    return new Promise(resolve => setTimeout(() => resolve(bookings.filter(x => x.status === BookingStatusEnum.Special)), 1000));
+    return new Promise(resolve => setTimeout(() => resolve(bookings.filter(x => x.status === BookingStatusEnum.Special)), 3000));
   }
 
   getUserBookings(): Promise<BookingUser[]> {

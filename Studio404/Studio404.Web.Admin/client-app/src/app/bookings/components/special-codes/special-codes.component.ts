@@ -17,14 +17,24 @@ export class SpecialCodesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.rows = {};
+    this.rows = {
+      isLoading: false
+    };
     this.data = [];
     this.loadBookings();
   }
 
   private async loadBookings(): Promise<void> {
-    this.data = await this.bookingsService.getSpecialBookings();
-    this.updateRows();
+    if (!this.rows.isLoading) {
+      this.rows.isLoading = true;
+      try {
+        this.data = await this.bookingsService.getSpecialBookings();
+        this.updateRows();
+      }
+      finally {
+        this.rows.isLoading = false;
+      }
+    }
   }
 
   onStartEdit(id: number): void {
@@ -36,14 +46,16 @@ export class SpecialCodesComponent implements OnInit {
   }
 
   async onSaveEdit(id: number): Promise<void> {
-    this.rows[id].isProcessing = true;
-    try {
-      await this.bookingsService.saveSpecialBooking(this.rows[id].data);
-      Object.assign(this.data.find(x => x.id === id), this.rows[id].data);
-      this.rows[id].isEditting = false;
-    }
-    finally {
-      this.rows[id].isProcessing = false;
+    if (!this.rows[id].isProcessing) {
+      this.rows[id].isProcessing = true;
+      try {
+        await this.bookingsService.saveSpecialBooking(this.rows[id].data);
+        Object.assign(this.data.find(x => x.id === id), this.rows[id].data);
+        this.rows[id].isEditting = false;
+      }
+      finally {
+        this.rows[id].isProcessing = false;
+      }
     }
   }
 

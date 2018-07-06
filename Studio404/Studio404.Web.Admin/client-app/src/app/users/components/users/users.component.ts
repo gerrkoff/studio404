@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { User } from '../../models/user';
-import { UserDisplay } from '../../models/user-display';
 import { Table } from '../../../common/models/table';
+import { TableComponent } from '../../../common/components/table.component';
 
 @Component({
   selector: 'app-users',
@@ -12,24 +12,16 @@ import { Table } from '../../../common/models/table';
     '../../../common/styles/table.css'
   ]
 })
-export class UsersComponent implements OnInit {
-
-  loadedItems: User[];
-  showedItems: User[];
-  table: Table<User>;
+export class UsersComponent extends TableComponent<User> {
 
   constructor(
     private usersService: UsersService
-  ) { }
+  ) {
+    super();
+  }
 
-  ngOnInit() {
-    this.table = {
-      rows: {},
-      isLoading: false,
-      searchValue: ''
-    };
-    this.showedItems = [];
-    this.loadUsers();
+  loadItemsCore(): Promise<User[]> {
+    return this.usersService.getUsers();
   }
 
   async onUpdateAdminRole(user: User, isAdmin: boolean): Promise<void> {
@@ -41,20 +33,6 @@ export class UsersComponent implements OnInit {
       }
       finally {
         this.table.rows[user.id].isProcessing = false;
-      }
-    }
-  }
-
-  private async loadUsers(): Promise<void> {
-    if (!this.table.isLoading) {
-      this.table.isLoading = true;
-      try {
-        this.loadedItems = await this.usersService.getUsers();
-        this.showedItems = [...this.loadedItems];
-        this.updateRows();
-      }
-      finally {
-        this.table.isLoading = false;
       }
     }
   }
@@ -75,14 +53,5 @@ export class UsersComponent implements OnInit {
     } else {
       this.showedItems = filteredItems;
     }
-  }
-
-  private updateRows(): void {
-    this.loadedItems.forEach(x => 
-        this.table.rows[x.id] = {
-          isProcessing: false,
-          data: {...x}
-        }
-    );
   }
 }

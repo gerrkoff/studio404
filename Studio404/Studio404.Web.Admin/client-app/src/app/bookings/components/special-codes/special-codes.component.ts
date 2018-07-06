@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookingsService } from '../../services/bookings.service';
 import { BookingSimple } from '../../models/booking-simple';
 import { Table } from '../../../common/models/table';
+import { TableComponent } from '../../../common/components/table.component';
 
 @Component({
   selector: 'app-special-codes',
@@ -11,37 +12,16 @@ import { Table } from '../../../common/models/table';
     '../../../common/styles/table.css'
   ]
 })
-export class SpecialCodesComponent implements OnInit {
-
-  loadedItems: BookingSimple[];
-  showedItems: BookingSimple[];
-  table: Table<BookingSimple>;
+export class SpecialCodesComponent extends TableComponent<BookingSimple> {
 
   constructor(
     private bookingsService: BookingsService
-  ) { }
-
-  ngOnInit() {
-    this.table = {
-      rows: {},
-      isLoading: false
-    };
-    this.showedItems = [];
-    this.loadBookings();
+  ) {
+    super();
   }
 
-  private async loadBookings(): Promise<void> {
-    if (!this.table.isLoading) {
-      this.table.isLoading = true;
-      try {
-        this.loadedItems = await this.bookingsService.getSpecialBookings();
-        this.showedItems = [...this.loadedItems];
-        this.updateRows();
-      }
-      finally {
-        this.table.isLoading = false;
-      }
-    }
+  loadItemsCore(): Promise<BookingSimple[]> {
+    return this.bookingsService.getSpecialBookings();
   }
 
   onStartEdit(id: number): void {
@@ -64,15 +44,5 @@ export class SpecialCodesComponent implements OnInit {
         this.table.rows[id].isProcessing = false;
       }
     }
-  }
-
-  private updateRows(): void {
-    this.loadedItems.forEach(x => 
-        this.table.rows[x.id] = {
-          isEditting: false,
-          isProcessing: false,
-          data: {...x}
-        }
-    );
   }
 }

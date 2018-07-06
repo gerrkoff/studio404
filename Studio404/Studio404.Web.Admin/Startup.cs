@@ -34,6 +34,8 @@ namespace Studio404.Web.Admin
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }

@@ -183,7 +183,9 @@
             "main": "src/main-login.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": [],
+            "assets": [
+              "src/favicon.ico"
+            ],
             "styles": [
               "node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css"
             ],

@@ -42,8 +42,17 @@ export class UsersComponent implements OnInit {
   }
 
   private async loadUsers(): Promise<void> {
-    this.users = await this.usersService.getUsers();
-    this.data = [...this.users];
+    if (!this.table.isLoading) {
+      this.table.isLoading = true;
+      try {
+        this.users = await this.usersService.getUsers();
+        this.data = [...this.users];
+        this.updateRows();
+      }
+      finally {
+        this.table.isLoading = false;
+      }
+    }
   }
 
   onSort(sort: { key: string, value: string }): void {
@@ -62,5 +71,14 @@ export class UsersComponent implements OnInit {
     } else {
       this.data = data;
     }
+  }
+
+  private updateRows(): void {
+    this.users.forEach(x => 
+        this.table.rows[x.id] = {
+          isProcessing: false,
+          data: {...x}
+        }
+    );
   }
 }

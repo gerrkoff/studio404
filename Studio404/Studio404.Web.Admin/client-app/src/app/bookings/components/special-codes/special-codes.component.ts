@@ -69,5 +69,4 @@ export class SpecialCodesComponent implements OnInit {
         }
     );
   }
-
 }

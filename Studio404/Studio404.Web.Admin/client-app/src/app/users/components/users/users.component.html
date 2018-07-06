@@ -1,4 +1,4 @@
-<nz-table #nztable nzSize="middle" [nzData]="data">
+<nz-table #nztable nzSize="middle" [nzData]="data" [nzLoading]="table.isLoading">
   <thead (nzSortChange)="onSort($event)" nzSingleSort>
     <tr>
       <th nzShowSort nzSortKey="isAdmin">Is Admin</th>

@@ -35,6 +35,32 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
         }
     }
 
+    protected async rowProcessingWrapper (
+        id: string | number,
+        rowProcessFunc: () => Promise<void>
+    ): Promise<void> {
+        if (!this.table.rows[id].isProcessing) {
+            this.table.rows[id].isProcessing = true;
+            try {
+                await rowProcessFunc();
+            }
+            finally {
+                this.table.rows[id].isProcessing = false;
+            }
+        }
+    }
+
+    protected async rowEdittingWrapper (
+        id: string | number,
+        rowEditFunc: () => Promise<void>
+    ): Promise<void> {
+        return this.rowProcessingWrapper(id, async() => {
+            await rowEditFunc();
+            Object.assign(this.loadedItems.find(x => x.id === id), this.table.rows[id].data);
+            this.table.rows[id].isEditting = false;
+        });
+    }
+
     private updateRows(): void {
         this.loadedItems.forEach(x => 
             this.table.rows[x.id] = {
@@ -63,19 +89,12 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
         }
     }
 
-    protected async rowProcessingWrapper (
-        rowId: string | number,
-        rowProcessFunc: () => Promise<void>
-    ): Promise<void> {
-        if (!this.table.rows[rowId].isProcessing) {
-            this.table.rows[rowId].isProcessing = true;
-            try {
-                await rowProcessFunc();
-            }
-            finally {
-                this.table.rows[rowId].isProcessing = false;
-            }
-        }
+    onStartEdit(id: number): void {
+        this.table.rows[id].isEditting = true;
+    }
+    
+    onCancelEdit(id: number): void {
+        this.table.rows[id].isEditting = false;
     }
 
     // to be overrided by children if necessary

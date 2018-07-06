@@ -26,25 +26,9 @@ export class SpecialCodesComponent extends TableComponent<BookingSimple> {
     return this.bookingsService.getSpecialBookings();
   }
 
-  onStartEdit(id: number): void {
-    this.table.rows[id].isEditting = true;
-  }
-
-  onCancelEdit(id: number): void {
-    this.table.rows[id].isEditting = false;
-  }
-
-  async onSaveEdit(id: number): Promise<void> {
-    if (!this.table.rows[id].isProcessing) {
-      this.table.rows[id].isProcessing = true;
-      try {
-        await this.bookingsService.saveSpecialBooking(this.table.rows[id].data);
-        Object.assign(this.loadedItems.find(x => x.id === id), this.table.rows[id].data);
-        this.table.rows[id].isEditting = false;
-      }
-      finally {
-        this.table.rows[id].isProcessing = false;
-      }
-    }
+  onSaveEdit(id: number): void {
+    this.rowEdittingWrapper(id, () => 
+      this.bookingsService.saveSpecialBooking(this.table.rows[id].data)
+    );
   }
 }

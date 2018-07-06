@@ -53,14 +53,12 @@
                     nzSize="small">
                 Save
             </button>
-            <nz-popconfirm [nzTitle]="'Sure to cancel?'" (nzOnConfirm)="onCancelEdit(item.id)">
-              <button nz-button nzType="danger"
-                      nzSize="small"
-                      nz-popconfirm
-                      [disabled]="table.rows[item.id].isProcessing">
+            <button nz-button nzType="danger"
+                    (click)="onCancelEdit(item.id)"
+                    [disabled]="table.rows[item.id].isProcessing"        
+                    nzSize="small">
                 Cancel
-              </button>
-            </nz-popconfirm>
+            </button>
           </ng-container>
         </div>
       </td>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingsService } from '../../services/bookings.service';
 import { BookingSimple } from '../../models/booking-simple';
-import { Table } from '../../../common/models/table';
 import { TableComponent } from '../../../common/components/table.component';
 
 @Component({

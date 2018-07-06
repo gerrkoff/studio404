@@ -1,8 +1,7 @@
 <nz-table #nztable nzSize="middle" [nzData]="showedItems" [nzLoading]="table.isLoading">
   <thead (nzSortChange)="onSort($event)" nzSingleSort>
     <tr>
-      <th nzShowSort nzSortKey="isAdmin">Is Admin</th>
-      <th nzShowSort nzSortKey="displayName">Display Name
+      <th nzWidth="25%" nzShowSort nzSortKey="displayName" class="center">Display Name
         <nz-dropdown nzTrigger="click" [nzClickHide]="false">
           <i class="anticon anticon anticon-search ant-table-filter-icon" nz-dropdown></i>
           <div class="custom-filter-dropdown">
@@ -11,13 +10,18 @@
           </div>
         </nz-dropdown>
       </th>
-      <th nzShowSort nzSortKey="phoneNumber">Phone</th>
-      <th>Username</th>
-      <th>Id</th>
+      <th nzWidth="20%" nzShowSort nzSortKey="phoneNumber" class="center">Phone</th>
+      <th nzWidth="25%" class="center">Username</th>
+      <th nzWidth="10%" class="center">Id</th>
+      <th nzWidth="20%" nzShowSort nzSortKey="isAdmin" class="center">Is Admin</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let item of nztable.data">
+      <td>{{item.displayName}}</td>
+      <td>{{item.phoneNumber}}</td>
+      <td>{{item.userName}}</td>
+      <td>{{item.id}}</td>
       <td>
         <nz-switch [ngModel]="item.isAdmin"
                    [nzControl]="true"
@@ -25,10 +29,6 @@
                    [nzLoading]="table.rows[item.id].isProcessing">
         </nz-switch>
       </td>
-      <td>{{item.displayName}}</td>
-      <td>{{item.phoneNumber}}</td>
-      <td>{{item.userName}}</td>
-      <td>{{item.id}}</td>
     </tr>
   </tbody>
 </nz-table>

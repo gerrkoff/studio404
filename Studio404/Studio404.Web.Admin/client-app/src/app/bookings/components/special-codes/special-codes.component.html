@@ -15,7 +15,7 @@
           {{data.from | date : 'short'}}
         </ng-container>
         <ng-container *ngIf="rows[data.id].isEditting">          
-          <nz-date-picker [(ngModel)]="rows[data.id].data.from" nzShowTime [disabled]="rows[data.id].isProcessing"></nz-date-picker>
+          <nz-date-picker [(ngModel)]="rows[data.id].data.from" nzShowTime [disabled]="rows[data.id].isProcessing" nzSize="small"></nz-date-picker>
         </ng-container>
       </td>
       <td>
@@ -23,7 +23,7 @@
           {{data.to | date : 'short'}}
         </ng-container>
         <ng-container *ngIf="rows[data.id].isEditting">
-          <nz-date-picker [(ngModel)]="rows[data.id].data.to" nzShowTime [disabled]="rows[data.id].isProcessing"></nz-date-picker>
+          <nz-date-picker [(ngModel)]="rows[data.id].data.to" nzShowTime [disabled]="rows[data.id].isProcessing" nzSize="small"></nz-date-picker>
         </ng-container>
       </td>
       <td>
@@ -31,7 +31,7 @@
           {{data.code}}
         </ng-container>
         <ng-container *ngIf="rows[data.id].isEditting">
-          <input type="text" nz-input [(ngModel)]="rows[data.id].data.code" [disabled]="rows[data.id].isProcessing" />
+          <input type="text" nz-input [(ngModel)]="rows[data.id].data.code" [disabled]="rows[data.id].isProcessing" nzSize="small" />
         </ng-container>
       </td>
       <td>

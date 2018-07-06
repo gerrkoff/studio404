@@ -6,7 +6,10 @@ import { Table } from '../../../common/models/table';
 @Component({
   selector: 'app-special-codes',
   templateUrl: './special-codes.component.html',
-  styleUrls: ['./special-codes.component.css']
+  styleUrls: [
+    './special-codes.component.css',
+    '../../../common/styles/table.css'
+  ]
 })
 export class SpecialCodesComponent implements OnInit {
 

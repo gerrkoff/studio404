@@ -7,7 +7,10 @@ import { Table } from '../../../common/models/table';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: [
+    './users.component.css',
+    '../../../common/styles/table.css'
+  ]
 })
 export class UsersComponent implements OnInit {
 

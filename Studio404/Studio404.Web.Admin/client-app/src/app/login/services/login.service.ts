@@ -15,21 +15,22 @@ export class LoginService {
 
   login(loginInfo: LoginInfo): Promise<LoginResultEnum> {
     let loginResult: LoginResult;
-    if (loginInfo.username.indexOf('err') > -1)
+    if (loginInfo.username.indexOf('err') > -1) {
       loginResult = {
         loginResult: LoginResultEnum.WrongUsernamePassword,
         token: null
-      }
-    else if (loginInfo.username.indexOf('unk') > -1)
+      };
+    } else if (loginInfo.username.indexOf('unk') > -1) {
       loginResult = {
         loginResult: LoginResultEnum.Unknown,
         token: null
-      }
-    else
+      };
+    } else {
       loginResult = {
         loginResult: LoginResultEnum.Success,
         token: 'token'
-      }
+      };
+    }
 
     if (loginResult.loginResult === LoginResultEnum.Success) {
       this.storageService.TokenSave(loginResult.token);

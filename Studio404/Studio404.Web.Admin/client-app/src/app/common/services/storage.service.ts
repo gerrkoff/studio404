@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-const tokenKey: string = 'accessToken';
+const tokenKey = 'accessToken';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,9 @@ export class StorageService {
 
   TokenLoad(): void {
     localStorage.getItem(tokenKey);
-  } 
+  }
 
   TokenClear(): void {
-    localStorage.removeItem(tokenKey)
+    localStorage.removeItem(tokenKey);
   }
 }

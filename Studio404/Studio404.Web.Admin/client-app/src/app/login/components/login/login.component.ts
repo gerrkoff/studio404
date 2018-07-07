@@ -34,13 +34,14 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmitForm(): void {
-    for (const i in this.validateForm.controls) {
+    for (const i of Object.keys(this.validateForm.controls)) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    
-    if (!this.validateForm.invalid)
+
+    if (!this.validateForm.invalid) {
       this.login(this.validateForm.controls.username.value, this.validateForm.controls.password.value);
+    }
   }
 
   private async login(username: string, password: string): Promise<void> {
@@ -48,8 +49,9 @@ export class LoginComponent implements OnInit {
     this.loginResult = null;
     try {
       this.loginResult = await this.loginService.login({username, password});
-      if (this.loginResult === LoginResultEnum.Success)
-        location.replace("/");
+      if (this.loginResult === LoginResultEnum.Success) {
+        location.replace('/');
+      }
     }
     finally {
       this.isProcessing = false;

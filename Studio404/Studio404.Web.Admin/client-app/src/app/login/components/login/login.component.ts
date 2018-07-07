@@ -48,6 +48,8 @@ export class LoginComponent implements OnInit {
     this.loginResult = null;
     try {
       this.loginResult = await this.loginService.login({username, password});
+      if (this.loginResult === LoginResultEnum.Success)
+        location.replace("/");
     }
     finally {
       this.isProcessing = false;

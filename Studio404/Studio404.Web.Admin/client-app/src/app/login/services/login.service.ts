@@ -10,12 +10,12 @@ export class LoginService {
 
   login(loginInfo: LoginInfo): Promise<LoginResultEnum> {
     let loginResult: LoginResult;
-    if (loginInfo.username.indexOf('err'))
+    if (loginInfo.username.indexOf('err') > -1)
       loginResult = {
         loginResult: LoginResultEnum.WrongUsernamePassword,
         token: null
       }
-    else if (loginInfo.username.indexOf('unk'))
+    else if (loginInfo.username.indexOf('unk') > -1)
       loginResult = {
         loginResult: LoginResultEnum.Unknown,
         token: null

@@ -3,9 +3,9 @@
     <nz-form-item>
       <nz-form-control>
         <nz-input-group nzPrefixIcon="anticon anticon-user">
-          <input type="text" nz-input formControlName="userName" placeholder="Username">
+          <input type="text" nz-input formControlName="username" placeholder="Username">
         </nz-input-group>
-        <nz-form-explain *ngIf="validateForm.get('userName').dirty && validateForm.get('userName').errors">Please input your username!</nz-form-explain>
+        <nz-form-explain *ngIf="validateForm.get('username').dirty && validateForm.get('username').errors">Please input your username!</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -13,12 +13,15 @@
         <nz-input-group nzPrefixIcon="anticon anticon-lock">
           <input type="password" nz-input formControlName="password" placeholder="Password">
         </nz-input-group>
-        <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">Please input your Password!</nz-form-explain>
+        <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">Please input your password!</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-control>
-        <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
+        <button nz-button class="login-form-button" [nzType]="'primary'" [nzLoading]="isProcessing">Log in</button>
+        <nz-form-explain *ngIf="loginResult !== null && loginResult !== LoginResutEnum.Success" class="error-login-result">
+          {{ loginResult === LoginResutEnum.WrongUsernamePassword && 'Wrong username or password!' || 'Unknown result' }}
+        </nz-form-explain>
       </nz-form-control>
     </nz-form-item>
   </form>

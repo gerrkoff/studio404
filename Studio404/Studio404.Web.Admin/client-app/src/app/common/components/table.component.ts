@@ -62,8 +62,8 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
         rowUpdateFunc: () => Promise<T>
     ): Promise<void> {
         return this.rowProcessingWrapper(id, async() => {
-            let newData = await rowUpdateFunc();
-            let oldData = this.loadedItems.find(x => x.id === id);
+            const newData = await rowUpdateFunc();
+            const oldData = this.loadedItems.find(x => x.id === id);
             Object.assign(oldData, newData);
             if (newData.id !== id) {
                 delete this.table.rows[id];
@@ -80,12 +80,12 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
 
     private updateRows(): void {
         this.loadedItems.forEach(x => {
-            if(!this.table.rows[x.id]) {
+            if (!this.table.rows[x.id]) {
                 this.table.rows[x.id] = {
                     isEditting: false,
                     isProcessing: false,
                     data: Object.assign({}, x)
-                }
+                };
             }
         });
     }
@@ -123,7 +123,7 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
     }
 
     onAddRow(): void {
-        let newItem = this.createNewItem();
+        const newItem = this.createNewItem();
         newItem.id = this.newItemIndex--;
         this.loadedItems.push(newItem);
         this.showedItems = [newItem, ...this.showedItems];

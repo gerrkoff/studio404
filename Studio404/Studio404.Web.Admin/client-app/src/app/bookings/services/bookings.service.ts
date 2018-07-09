@@ -52,15 +52,15 @@ export class BookingsService {
   }
 
   saveSpecialBooking(booking: BookingSimple): Promise<BookingSimple> {
-    let lastId = bookings[bookings.length-1].id;
-    let newItem = Object.assign(new BookingUser(), {...booking, id: lastId + 1, status: BookingStatusEnum.Special});
+    const lastId = bookings[bookings.length - 1].id;
+    const newItem = Object.assign(new BookingUser(), {...booking, id: lastId + 1, status: BookingStatusEnum.Special});
     bookings.push(newItem);
 
     return new Promise(resolve => setTimeout(() => resolve(newItem), 5000));
   }
 
   deleteBooking(id: number): Promise<void> {
-    let index = bookings.findIndex(x => x.id === id);
+    const index = bookings.findIndex(x => x.id === id);
     if (index > -1) {
       bookings.splice(index, 1);
     }

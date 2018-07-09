@@ -46,9 +46,18 @@
           <ng-container *ngIf="!table.rows[item.id].isEditting">
             <button nz-button nzType="default"
                     (click)="onStartEdit(item.id)"
+                    [disabled]="table.rows[item.id].isProcessing"
                     nzSize="small">
                 Edit
             </button>
+            <nz-popconfirm [nzTitle]="'Sure to delete?'" (nzOnConfirm)="onDeleteRow(item.id)">
+              <button nz-button nzType="default"
+                      [nzLoading]="table.rows[item.id].isProcessing"
+                      nzSize="small"
+                      nz-popconfirm>
+                Delete
+              </button>
+            </nz-popconfirm>
           </ng-container>
           <ng-container *ngIf="table.rows[item.id].isEditting">            
             <button nz-button nzType="primary"
@@ -59,7 +68,7 @@
             </button>
             <button nz-button nzType="danger"
                     (click)="onCancelEdit(item.id)"
-                    [disabled]="table.rows[item.id].isProcessing"        
+                    [disabled]="table.rows[item.id].isProcessing"
                     nzSize="small">
                 Cancel
             </button>

@@ -58,4 +58,13 @@ export class BookingsService {
 
     return new Promise(resolve => setTimeout(() => resolve(newItem), 5000));
   }
+
+  deleteBooking(id: number): Promise<void> {
+    let index = bookings.findIndex(x => x.id === id);
+    if (index > -1) {
+      bookings.splice(index, 1);
+    }
+
+    return new Promise(resolve => setTimeout(resolve, 5000));
+  }
 }

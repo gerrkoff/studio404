@@ -35,8 +35,20 @@ export class SpecialCodesComponent extends TableComponent<BookingSimple> {
   }
 
   onSaveEdit(id: number): void {
-    this.rowEdittingWrapper(id, () =>
+    this.rowUpdatingWrapper(id, () =>
       this.bookingsService.saveSpecialBooking(this.table.rows[id].data)
     );
+  }
+
+  onDeleteRow(id: number): void {
+    if (id < 0) {
+      this.deleteRow(id);
+      return;
+    }
+
+    this.rowProcessingWrapper(id, async () => {
+      await this.bookingsService.deleteBooking(id);
+      this.deleteRow(id);
+    });
   }
 }

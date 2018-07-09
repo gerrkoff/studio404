@@ -57,12 +57,12 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
         }
     }
 
-    protected async rowEdittingWrapper (
+    protected async rowUpdatingWrapper (
         id: string | number,
-        rowEditFunc: () => Promise<T>
+        rowUpdateFunc: () => Promise<T>
     ): Promise<void> {
         return this.rowProcessingWrapper(id, async() => {
-            let newData = await rowEditFunc();
+            let newData = await rowUpdateFunc();
             let oldData = this.loadedItems.find(x => x.id === id);
             Object.assign(oldData, newData);
             if (newData.id !== id) {
@@ -70,6 +70,12 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
                 this.updateRows();
             }
         });
+    }
+
+    protected deleteRow(id: number): void {
+        this.loadedItems = this.loadedItems.filter(x => x.id !== id);
+        this.showedItems = this.showedItems.filter(x => x.id !== id);
+        delete this.table.rows[id];
     }
 
     private updateRows(): void {

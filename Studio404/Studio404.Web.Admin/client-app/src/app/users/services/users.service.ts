@@ -31,10 +31,12 @@ const users: User[] = [
 export class UsersService {
 
   getUsers(): Promise<User[]> {
-    return new Promise(resolve => setTimeout(() => resolve(users), 3000));
+    return new Promise(resolve => setTimeout(() => resolve([...users]), 3000));
   }
 
   updateAdminRole(userId: string, isAdmin: boolean): Promise<void> {
+    users.find(x => x.id === userId).isAdmin = isAdmin;
+
     return new Promise(resolve => setTimeout(resolve, 1000));
   }
 }

@@ -4,7 +4,10 @@
       <th nzWidth="20%" class="center">From</th>
       <th nzWidth="20%" class="center">To</th>
       <th nzWidth="10%" class="center">Code</th>
-      <th nzWidth="10%" class="center">Id</th>
+      <th nzWidth="10%" class="center">
+        Id
+        <i class="anticon anticon-reload header-custom-action" (click)="onRefreshData()"></i>
+      </th>
       <th nzWidth="20%" class="center">
         Actions
         <i class="anticon anticon-plus-circle-o header-custom-action" (click)="onAddRow()"></i>

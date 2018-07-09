@@ -131,6 +131,11 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
         this.table.rows[newItem.id].isEditting = true;
     }
 
+    async onRefreshData(): Promise<void> {
+        await this.loadItems();
+        this.onSearch();
+    }
+
     // to be overrided by children if necessary
     init(): void {}
 

@@ -52,8 +52,8 @@ export class BookingsService {
   }
 
   saveSpecialBooking(booking: BookingSimple): Promise<BookingSimple> {
-    let lastId = bookings[bookings.length].id;
-    let newItem = Object.assign(new BookingUser(), {id: lastId + 1, ...booking});
+    let lastId = bookings[bookings.length-1].id;
+    let newItem = Object.assign(new BookingUser(), {...booking, id: lastId + 1, status: BookingStatusEnum.Special});
     bookings.push(newItem);
 
     return new Promise(resolve => setTimeout(() => resolve(newItem), 5000));

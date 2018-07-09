@@ -50,19 +50,25 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
                 await rowProcessFunc();
             }
             finally {
-                this.table.rows[id].isProcessing = false;
+                if (this.table.rows[id]) {
+                    this.table.rows[id].isProcessing = false;
+                }
             }
         }
     }
 
     protected async rowEdittingWrapper (
         id: string | number,
-        rowEditFunc: () => Promise<void>
+        rowEditFunc: () => Promise<T>
     ): Promise<void> {
         return this.rowProcessingWrapper(id, async() => {
-            await rowEditFunc();
-            Object.assign(this.loadedItems.find(x => x.id === id), this.table.rows[id].data);
-            this.table.rows[id].isEditting = false;
+            let newData = await rowEditFunc();
+            let oldData = this.loadedItems.find(x => x.id === id);
+            Object.assign(oldData, newData);
+            if (newData.id !== id) {
+                delete this.table.rows[id];
+                this.updateRows();
+            }
         });
     }
 

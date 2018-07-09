@@ -17,3 +17,8 @@
 .center, td {
     text-align: center;
 }
+
+.header-custom-action {
+    padding-left: 5px;
+    cursor: pointer;
+}

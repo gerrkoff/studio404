@@ -25,6 +25,15 @@ export class SpecialCodesComponent extends TableComponent<BookingSimple> {
     return this.bookingsService.getSpecialBookings();
   }
 
+  createNewItem(): BookingSimple {
+    return {
+      code: '0000',
+      from: new Date(),
+      to: new Date(),
+      id: 0
+    };
+  }
+
   onSaveEdit(id: number): void {
     this.rowEdittingWrapper(id, () =>
       this.bookingsService.saveSpecialBooking(this.table.rows[id].data)

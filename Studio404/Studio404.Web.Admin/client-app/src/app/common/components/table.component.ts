@@ -10,6 +10,8 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
     showedItems: T[];
     table: Table<T>;
 
+    private newItemIndex: number;
+
     ngOnInit() {
         this.table = {
           rows: {},
@@ -18,6 +20,7 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
           sortName: null,
           sortValue: null
         };
+        this.newItemIndex = -1;
         this.showedItems = [];
         this.init();
         this.loadItems();
@@ -64,13 +67,15 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
     }
 
     private updateRows(): void {
-        this.loadedItems.forEach(x =>
-            this.table.rows[x.id] = {
-              isEditting: false,
-              isProcessing: false,
-              data: Object.assign({}, x)
+        this.loadedItems.forEach(x => {
+            if(!this.table.rows[x.id]) {
+                this.table.rows[x.id] = {
+                    isEditting: false,
+                    isProcessing: false,
+                    data: Object.assign({}, x)
+                }
             }
-        );
+        });
     }
 
     onSort(sort: { key: string, value: string }): void {
@@ -105,7 +110,21 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
         this.table.rows[id].isEditting = false;
     }
 
+    onAddRow(): void {
+        let newItem = this.createNewItem();
+        newItem.id = this.newItemIndex--;
+        this.loadedItems.push(newItem);
+        this.showedItems = [newItem, ...this.showedItems];
+        this.updateRows();
+        this.table.rows[newItem.id].isEditting = true;
+    }
+
     // to be overrided by children if necessary
     init(): void {}
+
+    createNewItem(): any {
+        return {};
+    }
+
     abstract async loadItemsCore(): Promise<T[]>;
 }

@@ -1,3 +1,53 @@
-<p>
-  user-bookings works!
-</p>
+<nz-table #nztable nzSize="middle" [nzData]="showedItems" [nzLoading]="table.isLoading">
+  <thead (nzSortChange)="onSort($event)" nzSingleSort>
+    <tr>
+      <th nzWidth="13%" class="center" nzShowSort nzSortKey="from">From</th>
+      <th nzWidth="13%" class="center">To</th>
+      <th nzWidth="5%" class="center">Code</th>
+      <th nzWidth="5%" class="center" nzShowSort nzSortKey="cost">Cost</th>
+      <th nzWidth="10%" class="center" nzShowSort nzSortKey="status">Status</th>
+      <th nzWidth="10%" class="center" nzShowSort nzSortKey="userPhone">Phone</th>
+      <th nzWidth="15%" class="center" nzShowSort nzSortKey="userDisplayName">
+        Display Name
+        <nz-dropdown nzTrigger="click" [nzClickHide]="false">
+          <i class="anticon anticon anticon-search ant-table-filter-icon" nz-dropdown></i>
+          <div class="custom-filter-dropdown">
+            <input type="text" nz-input placeholder="Search name" [(ngModel)]="table.searchValue" class="search-input">
+            <button nz-button [nzType]="'primary'" (click)="onSearch()">Search</button>
+          </div>
+        </nz-dropdown>
+      </th>
+      <th nzWidth="15%" class="center">Username</th>
+      <th nzWidth="5%" class="center">
+        Id
+        <i class="anticon anticon-reload header-custom-action" (click)="onRefreshData()"></i>
+      </th>
+      <th nzWidth="9%" class="center">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of nztable.data">
+      <td>{{item.from | date : 'short'}}</td>
+      <td>{{item.to | date : 'short'}}</td>
+      <td>{{item.code}}</td>
+      <td>{{item.cost}}₽</td>
+      <td>{{item.status}}</td>
+      <td>{{item.userPhone}}</td>
+      <td>{{item.userDisplayName}}</td>
+      <td>{{item.userId}}</td>
+      <td>{{item.id}}</td>
+      <td>
+        <div class="editable-row-operations">
+          <nz-popconfirm [nzTitle]="'Sure to cancel?'" (nzOnConfirm)="onCancelRow(item.id)">
+            <button nz-button nzType="default"
+                    [nzLoading]="table.rows[item.id].isProcessing"
+                    nzSize="small"
+                    nz-popconfirm>
+              Cancel
+            </button>
+          </nz-popconfirm>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

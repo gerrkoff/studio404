@@ -31,16 +31,17 @@
       <td>{{item.to | date : 'short'}}</td>
       <td>{{item.code}}</td>
       <td>{{item.cost}}₽</td>
-      <td>{{item.status}}</td>
+      <td>{{BookingStatusEnum[item.status]}}</td>
       <td>{{item.userPhone}}</td>
       <td>{{item.userDisplayName}}</td>
       <td>{{item.userId}}</td>
       <td>{{item.id}}</td>
       <td>
         <div class="editable-row-operations">
-          <nz-popconfirm [nzTitle]="'Sure to cancel?'" (nzOnConfirm)="onCancelRow(item.id)">
+          <nz-popconfirm [nzTitle]="'Sure to cancel?'" (nzOnConfirm)="onCancelBooking(item.id)">
             <button nz-button nzType="default"
                     [nzLoading]="table.rows[item.id].isProcessing"
+                    [disabled]="item.status === BookingStatusEnum.Canceled"
                     nzSize="small"
                     nz-popconfirm>
               Cancel

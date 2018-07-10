@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TableComponent } from '../../../common/components/table.component';
 import { BookingUser } from '../../models/booking-user';
 import { BookingsService } from '../../services/bookings.service';
+import { BookingStatusEnum } from '../../models/booking-status-enum';
 
 @Component({
   selector: 'app-user-bookings',
@@ -14,6 +15,7 @@ import { BookingsService } from '../../services/bookings.service';
 export class UserBookingsComponent extends TableComponent<BookingUser> {
   
   itemSearchFieldName = 'userDisplayName';
+  BookingStatusEnum = BookingStatusEnum;
 
   constructor(
     private bookingsService: BookingsService
@@ -23,5 +25,12 @@ export class UserBookingsComponent extends TableComponent<BookingUser> {
 
   loadItemsCore(): Promise<BookingUser[]> {
     return this.bookingsService.getUserBookings();
+  }
+
+  onCancelBooking(id: number): void {
+    this.rowProcessingWrapper(id, async () => {
+      await this.bookingsService.cancelBooking(id);
+      this.loadedItems.find(x => x.id === id).status = BookingStatusEnum.Canceled;
+    });
   }
 }

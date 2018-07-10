@@ -67,4 +67,9 @@ export class BookingsService {
 
     return new Promise(resolve => setTimeout(resolve, 5000));
   }
+
+  cancelBooking(id: number): Promise<void> {
+    bookings.find(x => x.id === id).status = BookingStatusEnum.Canceled;
+    return new Promise(resolve => setTimeout(resolve, 5000));
+  }
 }

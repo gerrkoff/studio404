@@ -38,25 +38,38 @@ const bookings: BookingUser[] = [
   status: BookingStatusEnum.Special, userId: '', userDisplayName: '', userPhone: ''}
 ];
 
+function DataCopy(): BookingUser[] {
+  return bookings.map(x => ({...x}));
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class BookingsService {
 
   getSpecialBookings(): Promise<BookingSimple[]> {
-    return new Promise(resolve => setTimeout(() => resolve(bookings.filter(x => x.status === BookingStatusEnum.Special)), 3000));
+    return new Promise(resolve => setTimeout(() => resolve(DataCopy().filter(x => x.status === BookingStatusEnum.Special)), 3000));
   }
 
   getUserBookings(): Promise<BookingUser[]> {
-    return new Promise(resolve => setTimeout(() => resolve(bookings.filter(x => x.status !== BookingStatusEnum.Special)), 1000));
+    return new Promise(resolve => setTimeout(() => resolve(DataCopy().filter(x => x.status !== BookingStatusEnum.Special)), 1000));
   }
 
   saveSpecialBooking(booking: BookingSimple): Promise<BookingSimple> {
-    const lastId = bookings[bookings.length - 1].id;
-    const newItem = Object.assign(new BookingUser(), {...booking, id: lastId + 1, status: BookingStatusEnum.Special});
-    bookings.push(newItem);
+    const newItem = Object.assign(new BookingUser(), {...booking, status: BookingStatusEnum.Special});
 
-    return new Promise(resolve => setTimeout(() => resolve(newItem), 5000));
+    if (newItem.id < 0) {
+      const lastId = bookings[bookings.length - 1].id;
+      newItem.id = lastId + 1;
+      bookings.push(newItem);
+    }
+    else {      
+      const oldItem = bookings.find(x => x.id === newItem.id);
+      Object.assign(oldItem, newItem);
+    }
+    const newItemCopy = {...newItem};
+
+    return new Promise(resolve => setTimeout(() => resolve(newItemCopy), 5000));
   }
 
   deleteBooking(id: number): Promise<void> {

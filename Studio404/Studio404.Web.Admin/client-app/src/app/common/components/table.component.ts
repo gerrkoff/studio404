@@ -69,6 +69,9 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
                 delete this.table.rows[id];
                 this.updateRows();
             }
+            else {
+                this.table.rows[id].isEditting = false;
+            }
         });
     }
 

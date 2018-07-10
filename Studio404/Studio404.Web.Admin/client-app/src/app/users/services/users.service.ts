@@ -25,13 +25,17 @@ const users: User[] = [
   { id: '21', phoneNumber: '', userName: 'Alex', displayName: 'Alex', isAdmin: false }
 ];
 
+function DataCopy(): User[] {
+  return users.map(x => ({...x}));
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
   getUsers(): Promise<User[]> {
-    return new Promise(resolve => setTimeout(() => resolve([...users]), 3000));
+    return new Promise(resolve => setTimeout(() => resolve(DataCopy()), 3000));
   }
 
   updateAdminRole(userId: string, isAdmin: boolean): Promise<void> {

@@ -23,8 +23,9 @@ export class UserBookingsComponent extends TableComponent<BookingUser> {
     super();
   }
 
-  loadItemsCore(): Promise<BookingUser[]> {
-    return this.bookingsService.getUserBookings();
+  async loadItemsCore(): Promise<BookingUser[]> {
+    let data = await this.bookingsService.getUserBookings();
+    return this.sort(data, 'from', false);
   }
 
   onCancelBooking(id: number): void {

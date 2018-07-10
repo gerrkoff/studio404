@@ -93,6 +93,13 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
         });
     }
 
+    protected sort(array: T[], sortName: string, sortDirection: boolean): T[] {
+        return array
+                .sort((a, b) => sortDirection
+                    ? (a[sortName] > b[sortName] ? 1 : -1)
+                    : (b[sortName] > a[sortName] ? 1 : -1));
+    }
+
     onSort(sort: { key: string, value: string }): void {
         this.table.sortName = sort.key;
         this.table.sortValue = sort.value;
@@ -110,10 +117,7 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
             : [...this.loadedItems];
 
         if (this.table.sortName) {
-          this.showedItems = filteredItems
-            .sort((a, b) => (this.table.sortValue === 'ascend')
-                ? (a[this.table.sortName] > b[this.table.sortName] ? 1 : -1)
-                : (b[this.table.sortName] > a[this.table.sortName] ? 1 : -1));
+          this.showedItems = this.sort(filteredItems, this.table.sortName, this.table.sortValue === 'ascend');
         } else {
           this.showedItems = filteredItems;
         }

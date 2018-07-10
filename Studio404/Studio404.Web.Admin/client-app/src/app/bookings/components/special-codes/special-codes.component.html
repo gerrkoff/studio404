@@ -1,7 +1,7 @@
 <nz-table #nztable nzSize="middle" [nzData]="showedItems" [nzLoading]="table.isLoading">
-  <thead>
+  <thead (nzSortChange)="onSort($event)" nzSingleSort>
     <tr>
-      <th nzWidth="20%" class="center">From</th>
+      <th nzWidth="20%" class="center" nzShowSort nzSortKey="from">From</th>
       <th nzWidth="20%" class="center">To</th>
       <th nzWidth="10%" class="center">Code</th>
       <th nzWidth="10%" class="center">

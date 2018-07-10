@@ -21,8 +21,9 @@ export class UsersComponent extends TableComponent<User> {
     super();
   }
 
-  loadItemsCore(): Promise<User[]> {
-    return this.usersService.getUsers();
+  async loadItemsCore(): Promise<User[]> {
+    let data = await this.usersService.getUsers();
+    return this.sort(data, 'displayName', true);
   }
 
   onUpdateAdminRole(id: string, isAdmin: boolean): void {

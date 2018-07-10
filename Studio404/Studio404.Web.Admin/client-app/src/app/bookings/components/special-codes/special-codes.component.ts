@@ -21,8 +21,9 @@ export class SpecialCodesComponent extends TableComponent<BookingSimple> {
     super();
   }
 
-  loadItemsCore(): Promise<BookingSimple[]> {
-    return this.bookingsService.getSpecialBookings();
+  async loadItemsCore(): Promise<BookingSimple[]> {
+    let data = await this.bookingsService.getSpecialBookings();
+    return this.sort(data, 'from', false);
   }
 
   createNewItem(): BookingSimple {

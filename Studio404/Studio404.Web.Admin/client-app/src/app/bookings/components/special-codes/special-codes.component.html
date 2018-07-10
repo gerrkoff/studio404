@@ -41,8 +41,7 @@
         </ng-container>
       </td>
       <td>
-        <nz-tag [nzColor]="'blue'" *ngIf="item.id < 0" class="ant-single-tag">New</nz-tag>
-        <span *ngIf="item.id >= 0">{{item.id}}</span>
+        <app-id-tag [value]="item.id"></app-id-tag>
       </td>
       <td>
         <div class="editable-row-operations">

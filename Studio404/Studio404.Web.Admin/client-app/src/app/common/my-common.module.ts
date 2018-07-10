@@ -8,9 +8,7 @@ import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 
-import { UserBookingsComponent } from './components/user-bookings/user-bookings.component';
-import { SpecialCodesComponent } from './components/special-codes/special-codes.component';
-import { MyCommonModule } from '../common/my-common.module';
+import { IdTagComponent } from './components/id-tag/id-tag.component';
 
 registerLocaleData(en);
 
@@ -21,9 +19,8 @@ registerLocaleData(en);
     FormsModule,
     HttpClientModule,
     NgZorroAntdModule,
-    MyCommonModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
-  declarations: [UserBookingsComponent, SpecialCodesComponent]
+  declarations: [IdTagComponent],
+  exports: [IdTagComponent]
 })
-export class BookingsModule { }
+export class MyCommonModule { }

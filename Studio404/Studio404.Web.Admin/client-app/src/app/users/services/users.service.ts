@@ -41,6 +41,6 @@ export class UsersService {
   updateAdminRole(userId: string, isAdmin: boolean): Promise<void> {
     users.find(x => x.id === userId).isAdmin = isAdmin;
 
-    return new Promise(resolve => setTimeout(resolve, 1000));
+    return new Promise(resolve => setTimeout(resolve, 3000));
   }
 }

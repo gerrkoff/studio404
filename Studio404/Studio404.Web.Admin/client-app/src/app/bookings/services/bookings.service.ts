@@ -54,7 +54,7 @@ export class BookingsService {
   }
 
   getUserBookings(): Promise<BookingUser[]> {
-    return new Promise(resolve => setTimeout(() => resolve(DataCopy().filter(x => x.status !== BookingStatusEnum.Special)), 1000));
+    return new Promise(resolve => setTimeout(() => resolve(DataCopy().filter(x => x.status !== BookingStatusEnum.Special)), 3000));
   }
 
   saveSpecialBooking(booking: BookingSimple): Promise<BookingSimple> {
@@ -71,7 +71,7 @@ export class BookingsService {
     }
     const newItemCopy = {...newItem};
 
-    return new Promise(resolve => setTimeout(() => resolve(newItemCopy), 5000));
+    return new Promise(resolve => setTimeout(() => resolve(newItemCopy), 3000));
   }
 
   deleteBooking(id: number): Promise<void> {
@@ -80,11 +80,11 @@ export class BookingsService {
       bookings.splice(index, 1);
     }
 
-    return new Promise(resolve => setTimeout(resolve, 5000));
+    return new Promise(resolve => setTimeout(resolve, 3000));
   }
 
   cancelBooking(id: number): Promise<void> {
     bookings.find(x => x.id === id).status = BookingStatusEnum.Canceled;
-    return new Promise(resolve => setTimeout(resolve, 5000));
+    return new Promise(resolve => setTimeout(resolve, 3000));
   }
 }

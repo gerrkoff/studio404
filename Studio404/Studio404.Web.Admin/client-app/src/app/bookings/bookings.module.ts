@@ -8,9 +8,10 @@ import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 
+import { MyCommonModule } from '../common/my-common.module';
 import { UserBookingsComponent } from './components/user-bookings/user-bookings.component';
 import { SpecialCodesComponent } from './components/special-codes/special-codes.component';
-import { MyCommonModule } from '../common/my-common.module';
+import { BookingStatusTagComponent } from './components/booking-status-tag/booking-status-tag.component';
 
 registerLocaleData(en);
 
@@ -24,6 +25,6 @@ registerLocaleData(en);
     MyCommonModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
-  declarations: [UserBookingsComponent, SpecialCodesComponent]
+  declarations: [UserBookingsComponent, SpecialCodesComponent, BookingStatusTagComponent]
 })
 export class BookingsModule { }

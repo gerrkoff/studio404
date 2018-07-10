@@ -35,7 +35,9 @@ const bookings: BookingUser[] = [
   {id: 15, code: '1223', cost: 0, from: new Date('2018-01-04T00:00:00'), to: new Date('2018-01-04T16:00:00'),
    status: BookingStatusEnum.Special, userId: '', userDisplayName: '', userPhone: ''},
   {id: 16, code: '1223', cost: 0, from: new Date('2018-01-04T16:00:00'), to: new Date('2018-01-05T23:59:00'),
-  status: BookingStatusEnum.Special, userId: '', userDisplayName: '', userPhone: ''}
+  status: BookingStatusEnum.Special, userId: '', userDisplayName: '', userPhone: ''},
+  {id: 17, code: '1223', cost: 0, from: new Date('2018-01-04T16:00:00'), to: new Date('2018-01-05T23:59:00'),
+  status: BookingStatusEnum.None, userId: '', userDisplayName: '', userPhone: ''}
 ];
 
 function DataCopy(): BookingUser[] {

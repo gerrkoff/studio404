@@ -1,0 +1,5 @@
+<nz-tag [nzColor]="'black'" *ngIf="value === BookingStatusEnum.None" class="ant-single-tag">{{BookingStatusEnum[value]}}</nz-tag>
+<nz-tag [nzColor]="'orange'" *ngIf="value === BookingStatusEnum.Unpaid" class="ant-single-tag">{{BookingStatusEnum[value]}}</nz-tag>
+<nz-tag [nzColor]="'green'" *ngIf="value === BookingStatusEnum.Paid" class="ant-single-tag">{{BookingStatusEnum[value]}}</nz-tag>
+<nz-tag [nzColor]="'red'" *ngIf="value === BookingStatusEnum.Canceled" class="ant-single-tag">{{BookingStatusEnum[value]}}</nz-tag>
+<nz-tag [nzColor]="'cyan'" *ngIf="value === BookingStatusEnum.Special" class="ant-single-tag">{{BookingStatusEnum[value]}}</nz-tag>

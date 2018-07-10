@@ -31,7 +31,7 @@
       <td>{{item.to | date : 'short'}}</td>
       <td>{{item.code}}</td>
       <td>{{item.cost}}₽</td>
-      <td>{{BookingStatusEnum[item.status]}}</td>
+      <td><app-booking-status-tag [value]="item.status"></app-booking-status-tag></td>
       <td>{{item.userPhone}}</td>
       <td>{{item.userDisplayName}}</td>
       <td>{{item.userId}}</td>

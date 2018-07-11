@@ -35,7 +35,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../wwwroot",
+            "outputPath": "./wwwroot",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -178,7 +178,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../wwwroot/login",
+            "outputPath": "./wwwroot/login",
             "index": "src/index-login.html",
             "main": "src/main-login.ts",
             "polyfills": "src/polyfills.ts",

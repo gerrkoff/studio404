@@ -1,11 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Net.Http.Headers;
 
-namespace Studio404.Web.Admin.Middleware
+namespace Studio404.Web.Middleware
 {
     public class WhiteListMiddleware
     {

@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Studio404.Web.Admin.Middleware;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Dal.Context;
 using Studio404.Dal.Entity;
 using Studio404.Web.Extensions;
 using Studio404.Web.Filters;
+using Studio404.Web.Middleware;
 
 namespace Studio404.Web.Admin
 {
@@ -65,7 +65,8 @@ namespace Studio404.Web.Admin
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
+            app.UseMiddleware<HealthCheckMiddleware>();
             app.UseAuthentication();
             app.UseMiddleware<WhiteListMiddleware>(new WhiteListOptions
             {

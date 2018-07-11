@@ -48,8 +48,6 @@ namespace Studio404.Web.Admin
             {
                 options.AddPolicy(AuthorizedUsersPolicyName, policy => policy.RequireAuthenticatedUser());
             });
-            
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddMvc();
         }

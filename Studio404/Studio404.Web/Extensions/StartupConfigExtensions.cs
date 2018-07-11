@@ -190,24 +190,32 @@ namespace Studio404.Web.Extensions
 
 			#region SmsService
 
-			SmsServiceSettings smsSettings = configuration.GetSection("SmsServiceSettings").Get<SmsServiceSettings>();
-			switch (smsSettings.Provider)
-			{
-				case "mock":
-					services.AddScoped<ISmsService, SmsServiceMock>();
-					break;
-                case "twilio":
-                    services.AddScoped<ISmsService, SmsServiceTwilio>();
-                    break;
-				case "smsru":
-					services.AddScoped<ISmsService, SmsServiceSmsRu>();
-					break;
-				default:
-				    throw new ArgumentException("Argument value must be in ('mock', 'twilio', 'smsru')",
-				        nameof(smsSettings.Provider));
-			}
+			SmsServiceSettings smsSettings = configuration.GetSection("SmsServiceSettings")?.Get<SmsServiceSettings>();
 
-			#endregion
+	        if (smsSettings == null)
+	        {
+		        services.AddScoped<ISmsService, SmsServiceMock>();
+	        }
+	        else
+	        {
+		        switch (smsSettings.Provider)
+		        {
+			        case "mock":
+				        services.AddScoped<ISmsService, SmsServiceMock>();
+				        break;
+			        case "twilio":
+				        services.AddScoped<ISmsService, SmsServiceTwilio>();
+				        break;
+			        case "smsru":
+				        services.AddScoped<ISmsService, SmsServiceSmsRu>();
+				        break;
+			        default:
+				        throw new ArgumentException("Argument value must be in ('mock', 'twilio', 'smsru')",
+					        nameof(smsSettings.Provider));
+		        }
+	        }
+
+	        #endregion
 
 	        return services;
         }

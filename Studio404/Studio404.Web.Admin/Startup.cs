@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Studio404.Web.Admin.Middleware;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Studio404.Dal.Context;
+using Studio404.Dal.Entity;
+using Studio404.Web.Extensions;
 
 namespace Studio404.Web.Admin
 {
@@ -29,18 +28,29 @@ namespace Studio404.Web.Admin
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = new PathString(LoginPath);
-                });
+            services
+                .ConfigDiServices(Configuration)
+                .ConfigDb(Configuration);
             
+            services.AddIdentity<UserEntity, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.LoginPath = LoginPath;
+                options.SlidingExpiration = true;
+            });
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(AuthorizedUsersPolicyName, policy => policy.RequireAuthenticatedUser());
             });
             
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddMvc();
         }
 
@@ -51,7 +61,7 @@ namespace Studio404.Web.Admin
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseMiddleware<WhiteListMiddleware>(new WhiteListOptions()
             {
                 PathStartsWith = LoginPath,

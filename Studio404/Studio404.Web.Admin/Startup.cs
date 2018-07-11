@@ -54,6 +54,7 @@ namespace Studio404.Web.Admin
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(JsonExceptionFilter));
+                options.Filters.Add(typeof(ActionLoggingFilter));
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
         }

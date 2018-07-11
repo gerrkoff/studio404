@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Studio404.Web.Admin.Middleware;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Studio404.Dal.Context;
 using Studio404.Dal.Entity;
 using Studio404.Web.Extensions;
@@ -47,10 +48,13 @@ namespace Studio404.Web.Admin
             {
                 options.AddPolicy(AuthorizedUsersPolicyName, policy => policy.RequireAuthenticatedUser());
             });
+            
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
 
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(JsonExceptionFilter));
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
         }
 
@@ -63,11 +67,12 @@ namespace Studio404.Web.Admin
             }
             
             app.UseAuthentication();
-            app.UseMiddleware<WhiteListMiddleware>(new WhiteListOptions()
+            app.UseMiddleware<WhiteListMiddleware>(new WhiteListOptions
             {
                 PathStartsWith = LoginPath,
                 PolicyName = AuthorizedUsersPolicyName
             });
+            app.UseMiddleware<AntiforgeryMiddleware>("XSRF-TOKEN");
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();

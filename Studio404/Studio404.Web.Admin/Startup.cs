@@ -62,6 +62,7 @@ namespace Studio404.Web.Admin
                 app.UseDeveloperExceptionPage();
             }
             
+            app.UseAuthentication();
             app.UseMiddleware<WhiteListMiddleware>(new WhiteListOptions()
             {
                 PathStartsWith = LoginPath,
@@ -69,7 +70,6 @@ namespace Studio404.Web.Admin
             });
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.UseAuthentication();
             app.UseMvc();
         }
     }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { LoginInfo } from '../models/login-info';
 import { LoginResultEnum } from '../models/login-result-enum';
 import { LoginResult } from '../models/login-result';
-import { StorageService } from '../../common/services/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,32 +10,16 @@ import { StorageService } from '../../common/services/storage.service';
 export class LoginService {
 
   constructor (
-    private storageService: StorageService
+    private http: HttpClient
   ) {}
 
-  login(loginInfo: LoginInfo): Promise<LoginResultEnum> {
-    let loginResult: LoginResult;
-    if (loginInfo.username.indexOf('err') > -1) {
-      loginResult = {
-        loginResult: LoginResultEnum.WrongUsernamePassword,
-        token: null
-      };
-    } else if (loginInfo.username.indexOf('unk') > -1) {
-      loginResult = {
-        loginResult: LoginResultEnum.Unknown,
-        token: null
-      };
-    } else {
-      loginResult = {
-        loginResult: LoginResultEnum.Success,
-        token: 'token'
-      };
+  async login(loginInfo: LoginInfo): Promise<LoginResultEnum> {
+    try {
+      return await this.http.post<LoginResultEnum>('/login', loginInfo).toPromise();
     }
-
-    if (loginResult.loginResult === LoginResultEnum.Success) {
-      this.storageService.TokenSave(loginResult.token);
+    catch (exception) {
+      console.error(exception);
+      return LoginResultEnum.Unknown;
     }
-
-    return new Promise(resolve => setTimeout(() => resolve(loginResult.loginResult), 3000));
   }
 }

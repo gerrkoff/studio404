@@ -24,7 +24,7 @@ namespace Studio404.Web.Admin.Controllers
         }
 
         [HttpPost]
-        public Task<LoginResultEnum> Post(LoginInfoDto loginInfo)
+        public Task<LoginResultEnum> Post([FromBody] LoginInfoDto loginInfo)
         {
             Validate();
             return _accountService.LoginCookie(loginInfo);

@@ -4,12 +4,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Studio404.Web.Admin.Middleware;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Studio404.Dal.Context;
 using Studio404.Dal.Entity;
 using Studio404.Web.Extensions;
+using Studio404.Web.Filters;
 
 namespace Studio404.Web.Admin
 {
@@ -49,7 +48,10 @@ namespace Studio404.Web.Admin
                 options.AddPolicy(AuthorizedUsersPolicyName, policy => policy.RequireAuthenticatedUser());
             });
 
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(JsonExceptionFilter));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

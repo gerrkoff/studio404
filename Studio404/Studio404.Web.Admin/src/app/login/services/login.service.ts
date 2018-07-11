@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoginInfo } from '../models/login-info';
 import { LoginResultEnum } from '../models/login-result-enum';
-import { LoginResult } from '../models/login-result';
 
 @Injectable({
   providedIn: 'root'

@@ -11,5 +11,8 @@ namespace Studio404.Services.Interface
         Task<SendPhoneConfirmationResultEnum> SendPhoneConfirmation(CurrentUser user, string phone);
         Task<ConfirmPhoneResultDto> ConfirmPhone(CurrentUser user, string phone, string code);
         Task<ChangePassResultEnum> ChangePassword(CurrentUser user, ChangePassInfoDto changePassInfo);
+        
+        Task<LoginResultEnum> LoginCookie(LoginInfoDto loginInfo);
+        Task LogoutCookie();
     }
 }

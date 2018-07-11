@@ -10,15 +10,18 @@ namespace Studio404.Services.Implementation
 {
     public class AccountService : IAccountService
     {
-        private readonly UserManager<UserEntity> _userManager;        
+        private readonly UserManager<UserEntity> _userManager;
+        private readonly SignInManager<UserEntity> _signInManager;
         private readonly INotificationService _notificationService;
         private readonly ITokenService _tokenService;
 
-        public AccountService(UserManager<UserEntity> userManager, INotificationService notificationService, ITokenService tokenService)
+        public AccountService(UserManager<UserEntity> userManager, INotificationService notificationService,
+            ITokenService tokenService, SignInManager<UserEntity> signInManager)
         {
             _userManager = userManager;
             _notificationService = notificationService;
             _tokenService = tokenService;
+            _signInManager = signInManager;
         }
 
         public async Task<RegisterResultDto> Register(RegisterInfoDto registerInfo)
@@ -118,6 +121,23 @@ namespace Studio404.Services.Implementation
                 return ChangePassResultEnum.WrongCurrentPassword;
             else
                 return ChangePassResultEnum.Unknown;
+        }
+
+        public async Task<LoginResultEnum> LoginCookie(LoginInfoDto loginInfo)
+        {
+            SignInResult result =
+                await _signInManager.PasswordSignInAsync(loginInfo.Username, loginInfo.Password, false, false);
+
+            if (result == SignInResult.Failed)
+                return LoginResultEnum.WrongUsernamePassword;
+            if (result == SignInResult.Success)
+                return LoginResultEnum.Success;
+            return LoginResultEnum.Unknown;
+        }
+
+        public Task LogoutCookie()
+        {
+            return _signInManager.SignOutAsync();
         }
     }
 }

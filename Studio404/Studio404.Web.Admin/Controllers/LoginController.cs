@@ -4,10 +4,12 @@ using Studio404.Common.Enums;
 using Studio404.Dto.Account;
 using Studio404.Services.Interface;
 using Studio404.Web.Controllers.Base;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Studio404.Web.Admin.Controllers
 {
     [Route("[controller]")]
+	[AllowAnonymous]
     public class LoginController : BaseController
     {
         private readonly IAccountService _accountService;

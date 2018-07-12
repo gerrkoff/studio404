@@ -10,6 +10,9 @@ using Studio404.Dal.Entity;
 using Studio404.Web.Extensions;
 using Studio404.Web.Filters;
 using Studio404.Web.Middleware;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Studio404.Dal;
 
 namespace Studio404.Web.Admin
 {
@@ -47,7 +50,7 @@ namespace Studio404.Web.Admin
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(AuthorizedUsersPolicyName, policy => policy.RequireAuthenticatedUser());
+                options.AddPolicy(AuthorizedUsersPolicyName, policy => policy.RequireRole(Roles.ADMINISTRATOR_ROLE_NAME));
             });
             
             services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");
@@ -57,7 +60,8 @@ namespace Studio404.Web.Admin
                 options.Filters.Add(typeof(JsonExceptionFilter));
                 options.Filters.Add(typeof(ActionLoggingFilter));
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            });
+				options.Filters.Add(new AuthorizeFilter(AuthorizedUsersPolicyName));
+			});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

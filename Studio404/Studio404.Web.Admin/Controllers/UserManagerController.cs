@@ -25,5 +25,11 @@ namespace Studio404.Web.Admin.Controllers
         {
 			return _userManagerService.GetUsersAsync();
         }
-    }
+
+		[HttpPost]
+		public Task Post([FromBody] UpdateUserRoleInfoDto updateUserRoleInfo)
+		{
+			return _userManagerService.UpdateUserRoleAsync(updateUserRoleInfo);
+		}
+	}
 }

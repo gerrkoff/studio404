@@ -9,6 +9,8 @@ using Studio404.Dto.UserManager;
 using Studio404.Services.Interface;
 using Studio404.Dal.Repository;
 using AutoMapper.QueryableExtensions;
+using Studio404.Common.Exceptions;
+using System;
 
 namespace Studio404.Services.Implementation
 {
@@ -35,6 +37,32 @@ namespace Studio404.Services.Implementation
 			}
 			
 			return users;
+		}
+
+		public async Task UpdateUserRoleAsync(UpdateUserRoleInfoDto updateUserRoleInfo)
+		{
+			UserEntity user = await _userManager.FindByIdAsync(updateUserRoleInfo.UserId);
+
+			if (user == null)
+				throw new ServiceException("No user found");
+
+			try
+			{
+				IdentityResult result = await (updateUserRoleInfo.IsAdmin
+				? _userManager.AddToRoleAsync(user, ROLE_ADMINISTRATOR)
+				: _userManager.RemoveFromRoleAsync(user, ROLE_ADMINISTRATOR));
+			}
+			catch (Exception e)
+			{
+
+			}
+			/*
+			if (!result.Succeeded)
+			{
+				string errors = result.Errors.Select(x => x.Description).Aggregate((s1, s2) => s1 + "; " + s2);
+				throw new ServiceException($"Failed updating role. Errors: {errors}");
+			}
+			*/
 		}
 	}
 }

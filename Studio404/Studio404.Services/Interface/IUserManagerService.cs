@@ -10,5 +10,6 @@ namespace Studio404.Services.Interface
     public interface IUserManagerService
 	{
 		Task<IEnumerable<UserDto>> GetUsersAsync();
-    }
+		Task UpdateUserRoleAsync(UpdateUserRoleInfoDto updateUserRoleInfo);
+	}
 }

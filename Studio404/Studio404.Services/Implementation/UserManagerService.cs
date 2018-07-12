@@ -11,13 +11,12 @@ using Studio404.Dal.Repository;
 using AutoMapper.QueryableExtensions;
 using Studio404.Common.Exceptions;
 using System;
+using Studio404.Dal;
 
 namespace Studio404.Services.Implementation
 {
     public class UserManagerService : IUserManagerService
     {
-		private const string ROLE_ADMINISTRATOR = "Administrator";
-
 		private readonly UserManager<UserEntity> _userManager;
 
         public UserManagerService(UserManager<UserEntity> userManager)
@@ -28,7 +27,7 @@ namespace Studio404.Services.Implementation
 		public async Task<IEnumerable<UserDto>> GetUsersAsync()
 		{
 			IList<UserDto> users = _userManager.Users.ProjectTo<UserDto>().ToList();
-			IList<string> admins = (await _userManager.GetUsersInRoleAsync(ROLE_ADMINISTRATOR))
+			IList<string> admins = (await _userManager.GetUsersInRoleAsync(Roles.ADMINISTRATOR_ROLE_NAME))
 				.Select(x => x.Id).ToList();
 
 			foreach (UserDto user in users)
@@ -47,8 +46,8 @@ namespace Studio404.Services.Implementation
 				throw new ServiceException("No user found");
 
 			IdentityResult result = await (updateUserRoleInfo.IsAdmin
-				? _userManager.AddToRoleAsync(user, ROLE_ADMINISTRATOR)
-				: _userManager.RemoveFromRoleAsync(user, ROLE_ADMINISTRATOR));
+				? _userManager.AddToRoleAsync(user, Roles.ADMINISTRATOR_ROLE_NAME)
+				: _userManager.RemoveFromRoleAsync(user, Roles.ADMINISTRATOR_ROLE_NAME));
 			
 			if (!result.Succeeded)
 			{

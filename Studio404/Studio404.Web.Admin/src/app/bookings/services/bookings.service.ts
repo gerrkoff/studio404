@@ -64,8 +64,7 @@ export class BookingsService {
       const lastId = bookings[bookings.length - 1].id;
       newItem.id = lastId + 1;
       bookings.push(newItem);
-    }
-    else {      
+    } else {
       const oldItem = bookings.find(x => x.id === newItem.id);
       Object.assign(oldItem, newItem);
     }

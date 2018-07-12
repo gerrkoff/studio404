@@ -22,7 +22,7 @@ export class UsersComponent extends TableComponent<User> {
   }
 
   async loadItemsCore(): Promise<User[]> {
-    let data = await this.usersService.getUsers();
+    const data = await this.usersService.getUsers();
     return this.sort(data, 'displayName', true);
   }
 

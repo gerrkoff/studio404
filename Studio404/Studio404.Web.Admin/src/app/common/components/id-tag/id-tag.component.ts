@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class IdTagComponent implements OnInit {
 
-  @Input() value: number = -1;
+  @Input() value = -1;
 
   constructor() { }
 

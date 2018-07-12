@@ -15,8 +15,7 @@ export class LoginService {
   async login(loginInfo: LoginInfo): Promise<LoginResultEnum> {
     try {
       return await this.http.post<LoginResultEnum>('/login', loginInfo).toPromise();
-    }
-    catch (exception) {
+    } catch (exception) {
       console.error(exception);
       return LoginResultEnum.Unknown;
     }

@@ -22,7 +22,7 @@ export class SpecialCodesComponent extends TableComponent<BookingSimple> {
   }
 
   async loadItemsCore(): Promise<BookingSimple[]> {
-    let data = await this.bookingsService.getSpecialBookings();
+    const data = await this.bookingsService.getSpecialBookings();
     return this.sort(data, 'from', false);
   }
 

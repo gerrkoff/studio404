@@ -13,7 +13,7 @@ import { BookingStatusEnum } from '../../models/booking-status-enum';
   ]
 })
 export class UserBookingsComponent extends TableComponent<BookingUser> {
-  
+
   itemSearchFieldName = 'userDisplayName';
   BookingStatusEnum = BookingStatusEnum;
 
@@ -24,7 +24,7 @@ export class UserBookingsComponent extends TableComponent<BookingUser> {
   }
 
   async loadItemsCore(): Promise<BookingUser[]> {
-    let data = await this.bookingsService.getUserBookings();
+    const data = await this.bookingsService.getUserBookings();
     return this.sort(data, 'from', false);
   }
 

@@ -11,7 +11,7 @@ export class BookingStatusTagComponent implements OnInit {
   @Input() value: number = BookingStatusEnum.None;
 
   BookingStatusEnum = BookingStatusEnum;
-  
+
   constructor() { }
 
   ngOnInit() {

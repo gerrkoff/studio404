@@ -16,7 +16,7 @@ namespace Studio404.Services.Implementation
 {
     public class UserManagerService : IUserManagerService
     {
-		private const string ROLE_ADMINISTRATOR = "administrator";
+		private const string ROLE_ADMINISTRATOR = "Administrator";
 
 		private readonly UserManager<UserEntity> _userManager;
 
@@ -46,23 +46,15 @@ namespace Studio404.Services.Implementation
 			if (user == null)
 				throw new ServiceException("No user found");
 
-			try
-			{
-				IdentityResult result = await (updateUserRoleInfo.IsAdmin
+			IdentityResult result = await (updateUserRoleInfo.IsAdmin
 				? _userManager.AddToRoleAsync(user, ROLE_ADMINISTRATOR)
 				: _userManager.RemoveFromRoleAsync(user, ROLE_ADMINISTRATOR));
-			}
-			catch (Exception e)
-			{
-
-			}
-			/*
+			
 			if (!result.Succeeded)
 			{
 				string errors = result.Errors.Select(x => x.Description).Aggregate((s1, s2) => s1 + "; " + s2);
 				throw new ServiceException($"Failed updating role. Errors: {errors}");
 			}
-			*/
 		}
 	}
 }

@@ -187,6 +187,7 @@ namespace Studio404.Web.Extensions
             services.AddScoped<ICostEvaluationService, CostEvaluationService>();
             services.AddScoped<ITokenService, TokenService>();
 			services.AddScoped<IExternalService, ExternalService>();
+			services.AddScoped<IUserManagerService, UserManagerService>();
 
 			#region SmsService
 

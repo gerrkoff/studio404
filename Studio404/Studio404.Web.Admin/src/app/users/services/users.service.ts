@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 
 const users: User[] = [
@@ -34,8 +35,12 @@ function DataCopy(): User[] {
 })
 export class UsersService {
 
+  constructor (
+    private http: HttpClient
+  ) {}
+
   getUsers(): Promise<User[]> {
-    return new Promise(resolve => setTimeout(() => resolve(DataCopy()), 3000));
+    return this.http.get<User[]>('/api/usermanager').toPromise();
   }
 
   updateAdminRole(userId: string, isAdmin: boolean): Promise<void> {

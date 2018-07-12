@@ -7,7 +7,7 @@ using Studio404.Web.Controllers.Base;
 
 namespace Studio404.Web.Admin.Controllers
 {
-    [Route("/[controller]")]
+    [Route("[controller]")]
     public class LoginController : BaseController
     {
         private readonly IAccountService _accountService;

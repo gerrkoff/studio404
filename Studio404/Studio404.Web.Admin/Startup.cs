@@ -30,7 +30,8 @@ namespace Studio404.Web.Admin
         {
             services
                 .ConfigDiServices(Configuration)
-                .ConfigDb(Configuration);
+                .ConfigDb(Configuration)
+				.ConfigAutoMapper();
             
             services.AddIdentity<UserEntity, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>()

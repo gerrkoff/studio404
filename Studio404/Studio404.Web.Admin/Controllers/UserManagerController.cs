@@ -21,9 +21,9 @@ namespace Studio404.Web.Admin.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<UserDto> Get()
+        public Task<IEnumerable<UserDto>> Get()
         {
-			return _userManagerService.GetUsers();
+			return _userManagerService.GetUsersAsync();
         }
     }
 }

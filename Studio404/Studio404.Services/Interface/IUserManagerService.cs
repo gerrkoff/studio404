@@ -9,6 +9,6 @@ namespace Studio404.Services.Interface
 {
     public interface IUserManagerService
 	{
-		IEnumerable<UserDto> GetUsers();
+		Task<IEnumerable<UserDto>> GetUsersAsync();
     }
 }

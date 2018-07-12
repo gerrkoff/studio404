@@ -7,21 +7,34 @@ using Studio404.Dal.Entity;
 using Studio404.Dto.Account;
 using Studio404.Dto.UserManager;
 using Studio404.Services.Interface;
+using Studio404.Dal.Repository;
+using AutoMapper.QueryableExtensions;
 
 namespace Studio404.Services.Implementation
 {
     public class UserManagerService : IUserManagerService
     {
-        private readonly UserManager<UserEntity> _userManager;
+		private const string ROLE_ADMINISTRATOR = "administrator";
+
+		private readonly UserManager<UserEntity> _userManager;
 
         public UserManagerService(UserManager<UserEntity> userManager)
         {
             _userManager = userManager;
         }
 
-		public IEnumerable<UserDto> GetUsers()
+		public async Task<IEnumerable<UserDto>> GetUsersAsync()
 		{
-			throw new System.NotImplementedException();
+			IList<UserDto> users = _userManager.Users.ProjectTo<UserDto>().ToList();
+			IList<string> admins = (await _userManager.GetUsersInRoleAsync(ROLE_ADMINISTRATOR))
+				.Select(x => x.Id).ToList();
+
+			foreach (UserDto user in users)
+			{
+				user.IsAdmin = admins.Contains(user.Id);
+			}
+			
+			return users;
 		}
 	}
 }

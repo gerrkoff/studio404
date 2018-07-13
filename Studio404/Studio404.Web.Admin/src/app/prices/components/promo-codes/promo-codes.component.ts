@@ -13,7 +13,7 @@ import { PromoCode } from '../../models/promo-code';
 })
 export class PromoCodesComponent extends TableComponent<PromoCode> {
 
-  itemSearchFieldName = '';
+  itemSearchFieldName = 'code';
 
   constructor(
     private promoCodesService: PromoCodesService

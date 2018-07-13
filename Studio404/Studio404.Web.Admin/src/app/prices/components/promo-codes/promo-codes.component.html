@@ -1,12 +1,21 @@
 <nz-table #nztable nzSize="middle" [nzData]="showedItems" [nzLoading]="table.isLoading">
   <thead (nzSortChange)="onSort($event)" nzSingleSort>
     <tr>
-      <th nzWidth="15%" class="center">Code</th>
-      <th nzWidth="15%" class="center">Description</th>
-      <th nzWidth="15%" class="center" nzShowSort nzSortKey="discount">Discount</th>
+      <th nzWidth="10%" class="center">
+        Code
+        <nz-dropdown nzTrigger="click" [nzClickHide]="false">
+          <i class="anticon anticon anticon-search ant-table-filter-icon" nz-dropdown></i>
+          <div class="custom-filter-dropdown">
+            <input type="text" nz-input placeholder="Search name" [(ngModel)]="table.searchValue" class="search-input">
+            <button nz-button [nzType]="'primary'" (click)="onSearch()">Search</button>
+          </div>
+        </nz-dropdown>
+      </th>
+      <th nzWidth="30%" class="center">Description</th>
+      <th nzWidth="10%" class="center" nzShowSort nzSortKey="discount">Discount</th>
       <th nzWidth="15%" class="center" nzShowSort nzSortKey="from">From</th>
       <th nzWidth="15%" class="center">To</th>
-      <th nzWidth="15%" class="center">
+      <th nzWidth="10%" class="center">
         Id
         <i class="anticon anticon-reload header-custom-action" (click)="onRefreshData()"></i>
       </th>
@@ -36,10 +45,10 @@
       </td>
       <td>
         <ng-container *ngIf="!table.rows[item.id].isEditting">
-          {{item.discount}}
+          {{item.discount}}%
         </ng-container>
-        <ng-container *ngIf="table.rows[item.id].isEditting">
-          <input type="text" nz-input [(ngModel)]="table.rows[item.id].data.discount" [disabled]="table.rows[item.id].isProcessing" nzSize="small" />
+        <ng-container *ngIf="table.rows[item.id].isEditting">          
+          <nz-input-number [(ngModel)]="table.rows[item.id].data.discount" nzMin="0" nzMax="100" nzStep="1" nzPlaceHolder="%" nzSize="small" class="percentage"></nz-input-number>
         </ng-container>
       </td>
       <td>

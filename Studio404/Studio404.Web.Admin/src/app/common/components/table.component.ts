@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Table } from '../models/table';
+import { Table, FieldInvalid } from '../models/table';
 import { IEntity } from '../models/entity';
 
 export abstract class TableComponent<T extends IEntity> implements OnInit {
@@ -86,6 +86,7 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
                 this.table.rows[x.id] = {
                     isEditting: false,
                     isProcessing: false,
+                    fieldInvalid: new FieldInvalid(),
                     data: Object.assign({}, x)
                 };
             }

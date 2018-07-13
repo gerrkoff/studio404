@@ -36,6 +36,10 @@ export class SpecialCodesComponent extends TableComponent<BookingSimple> {
   }
 
   onSaveEdit(id: number): void {
+    if (!this.validate(id)) {
+      return;
+    }
+
     this.rowUpdatingWrapper(id, () =>
       this.bookingsService.saveSpecialBooking(this.table.rows[id].data)
     );
@@ -51,5 +55,11 @@ export class SpecialCodesComponent extends TableComponent<BookingSimple> {
       await this.bookingsService.deleteBooking(id);
       this.deleteRow(id);
     });
+  }
+
+  private validate(id: number): boolean {
+    const row = this.table.rows[id];
+    row.fieldInvalid['code'] = row.data.code.length === 0;
+    return !row.fieldInvalid['code'];
   }
 }

@@ -10,6 +10,7 @@ import en from '@angular/common/locales/en';
 
 import { PromoCodesComponent } from './components/promo-codes/promo-codes.component';
 import { HourCostsComponent } from './components/hour-costs/hour-costs.component';
+import { MyCommonModule } from '../common/my-common.module';
 
 registerLocaleData(en);
 
@@ -20,6 +21,7 @@ registerLocaleData(en);
     FormsModule,
     HttpClientModule,
     NgZorroAntdModule,
+    MyCommonModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   declarations: [PromoCodesComponent, HourCostsComponent]

@@ -1,3 +1,100 @@
-<p>
-  promo-codes works!
-</p>
+<nz-table #nztable nzSize="middle" [nzData]="showedItems" [nzLoading]="table.isLoading">
+  <thead (nzSortChange)="onSort($event)" nzSingleSort>
+    <tr>
+      <th nzWidth="15%" class="center">Code</th>
+      <th nzWidth="15%" class="center">Description</th>
+      <th nzWidth="15%" class="center" nzShowSort nzSortKey="discount">Discount</th>
+      <th nzWidth="15%" class="center" nzShowSort nzSortKey="from">From</th>
+      <th nzWidth="15%" class="center">To</th>
+      <th nzWidth="15%" class="center">
+        Id
+        <i class="anticon anticon-reload header-custom-action" (click)="onRefreshData()"></i>
+      </th>
+      <th nzWidth="10%" class="center">
+        Actions
+        <i class="anticon anticon-plus-circle-o header-custom-action" (click)="onAddRow()"></i>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of nztable.data">
+      <td>
+        <ng-container *ngIf="!table.rows[item.id].isEditting">
+          {{item.code}}
+        </ng-container>
+        <ng-container *ngIf="table.rows[item.id].isEditting">
+          <input type="text" nz-input [(ngModel)]="table.rows[item.id].data.code" [disabled]="table.rows[item.id].isProcessing" nzSize="small" />
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!table.rows[item.id].isEditting">
+          {{item.description}}
+        </ng-container>
+        <ng-container *ngIf="table.rows[item.id].isEditting">
+          <input type="text" nz-input [(ngModel)]="table.rows[item.id].data.description" [disabled]="table.rows[item.id].isProcessing" nzSize="small" />
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!table.rows[item.id].isEditting">
+          {{item.discount}}
+        </ng-container>
+        <ng-container *ngIf="table.rows[item.id].isEditting">
+          <input type="text" nz-input [(ngModel)]="table.rows[item.id].data.discount" [disabled]="table.rows[item.id].isProcessing" nzSize="small" />
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!table.rows[item.id].isEditting">
+          {{item.from | date : 'short'}}
+        </ng-container>
+        <ng-container *ngIf="table.rows[item.id].isEditting">          
+          <nz-date-picker [(ngModel)]="table.rows[item.id].data.from" nzShowTime [disabled]="table.rows[item.id].isProcessing" nzSize="small"></nz-date-picker>
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!table.rows[item.id].isEditting">
+          {{item.to | date : 'short'}}
+        </ng-container>
+        <ng-container *ngIf="table.rows[item.id].isEditting">
+          <nz-date-picker [(ngModel)]="table.rows[item.id].data.to" nzShowTime [disabled]="table.rows[item.id].isProcessing" nzSize="small"></nz-date-picker>
+        </ng-container>
+      </td>      
+      <td>
+        <app-id-tag [value]="item.id"></app-id-tag>
+      </td>
+      <td>
+        <div class="editable-row-operations">
+          <ng-container *ngIf="!table.rows[item.id].isEditting">
+            <button nz-button nzType="default"
+                    (click)="onStartEdit(item.id)"
+                    [disabled]="table.rows[item.id].isProcessing"
+                    nzSize="small">
+                Edit
+            </button>
+            <nz-popconfirm [nzTitle]="'Sure to delete?'" (nzOnConfirm)="onDeleteRow(item.id)">
+              <button nz-button nzType="default"
+                      [nzLoading]="table.rows[item.id].isProcessing"
+                      nzSize="small"
+                      nz-popconfirm>
+                Delete
+              </button>
+            </nz-popconfirm>
+          </ng-container>
+          <ng-container *ngIf="table.rows[item.id].isEditting">            
+            <button nz-button nzType="primary"
+                    (click)="onSaveEdit(item.id)"
+                    [nzLoading]="table.rows[item.id].isProcessing"
+                    nzSize="small">
+                Save
+            </button>
+            <button nz-button nzType="danger"
+                    (click)="onCancelEdit(item.id)"
+                    [disabled]="table.rows[item.id].isProcessing"
+                    nzSize="small">
+                Cancel
+            </button>
+          </ng-container>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

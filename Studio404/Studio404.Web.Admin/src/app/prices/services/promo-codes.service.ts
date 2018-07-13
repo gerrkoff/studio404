@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { PromoCode } from '../models/promo-code';
 
 const data: PromoCode[] = [
-  {id: 1, code: 'abcd', description: 'Some text here not so short', discount: 10, activate: true,
+  {id: 1, code: 'abcd', description: 'Some text here not so short', discount: 10,
   from: new Date('2018-01-01T10:30:00'), to: new Date('2018-01-01T12:30:00')},
-  {id: 2, code: 'qwerty', description: 'Some text here not so short', discount: 5, activate: false,
+  {id: 2, code: 'qwerty', description: 'Some text here not so short', discount: 5,
   from: new Date('2018-01-01T10:30:00'), to: new Date('2018-01-01T12:30:00')},
-  {id: 3, code: 'something', description: 'Some text here not so short', discount: 50, activate: true,
+  {id: 3, code: 'something', description: 'Some text here not so short', discount: 50,
   from: new Date('2018-01-01T10:30:00'), to: new Date('2018-01-01T12:30:00')},
-  {id: 4, code: '112233', description: 'Some text here not so short', discount: 10, activate: false,
+  {id: 4, code: '112233', description: 'Some text here not so short', discount: 10,
   from: new Date('2018-01-01T10:30:00'), to: new Date('2018-01-01T12:30:00')},
-  {id: 5, code: 'asdzx', description: 'Some text here not so short', discount: 15, activate: true,
+  {id: 5, code: 'asdzx', description: 'Some text here not so short', discount: 15,
   from: new Date('2018-01-01T10:30:00'), to: new Date('2018-01-01T12:30:00')}
 ];
 
@@ -28,7 +28,7 @@ export class PromoCodesService {
   }
 
   savePromoCode(booking: PromoCode): Promise<PromoCode> {
-    const newItem = Object.assign(new PromoCode(), {...booking, activate: true});
+    const newItem = Object.assign(new PromoCode(), {...booking});
 
     if (newItem.id < 0) {
       const lastId = data[data.length - 1].id;
@@ -43,7 +43,7 @@ export class PromoCodesService {
     return new Promise(resolve => setTimeout(() => resolve(newItemCopy), 3000));
   }
 
-  deactivatePromoCode(id: number): Promise<void> {
+  deletePromoCode(id: number): Promise<void> {
     const index = data.findIndex(x => x.id === id);
     if (index > -1) {
       data.splice(index, 1);

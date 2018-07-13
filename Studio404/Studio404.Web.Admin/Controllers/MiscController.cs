@@ -15,7 +15,7 @@ namespace Studio404.Web.Admin.Controllers
 			{
                 Version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()
                     .InformationalVersion,
-				UserDisplayName = "Test Test"
+				UserDisplayName = HttpContext.User?.Identity?.Name
             };
         }
     }

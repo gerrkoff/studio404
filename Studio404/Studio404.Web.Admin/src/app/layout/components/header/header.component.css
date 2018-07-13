@@ -1,5 +1,33 @@
+:host {
+    color: #fff;
+}
+
 .brand {
     font-weight: bold;
     color: #fff;
     text-decoration: none;
+}
+
+.user {
+    padding-right: 10px;
+}
+
+.brand-container {
+    float: left;
+}
+
+.user-container {
+    text-align: right;
+}
+
+.clickable {
+    cursor: pointer;
+    font-size: 12px;
+    transition-property: color;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
+
+.clickable:hover {
+    color: #40a9ff;
 }

@@ -1,3 +1,9 @@
-<a routerLink="" class="brand">
-  Studio 404 Admin
-</a>
+<div class="brand-container">
+  <a routerLink="" class="brand">
+    Studio 404 Admin
+  </a>
+</div>
+<div class="user-container">
+  <span class="user">{{userDisplayName}}</span>
+  <i class="anticon anticon-logout clickable" (click)="onLogout()"></i>
+</div>

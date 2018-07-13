@@ -43,4 +43,7 @@ export class PromoCodesComponent extends TableComponent<PromoCode> {
       this.deleteRow(id);
     });
   }
+
+  formatterPercent = value => `${value}%`;
+  parserPercent = value => value.replace('%', '');
 }

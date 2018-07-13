@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MiscService } from '../../../common/services/misc.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,9 +10,16 @@ export class FooterComponent implements OnInit {
 
   version: string;
 
-  constructor() { }
+  constructor(
+    private miscService: MiscService
+  ) { }
 
   ngOnInit() {
-    this.version = '0.0.1';
+    this.getInfo();
+  }
+
+  private async getInfo(): Promise<void> {
+    const data = await this.miscService.getMiscInfo();
+    this.version = data.version;
   }
 }

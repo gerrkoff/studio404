@@ -26,6 +26,17 @@ export class PromoCodesComponent extends TableComponent<PromoCode> {
     return this.sort(data, 'from', false);
   }
 
+  createNewItem(): PromoCode {
+    return {
+      code: '',
+      description: '',
+      discount: 0,
+      from: new Date(),
+      to: new Date(),
+      id: 0
+    };
+  }
+
   onSaveEdit(id: number): void {
     this.rowUpdatingWrapper(id, () =>
       this.promoCodesService.savePromoCode(this.table.rows[id].data)

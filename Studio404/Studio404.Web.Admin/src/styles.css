@@ -3,3 +3,13 @@
     margin-right: 0px;
     cursor: default;
 }
+
+.animated {
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
+
+input.has-error {
+    border-color: #f5222d;
+}

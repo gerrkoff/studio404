@@ -14,4 +14,9 @@ export class Row<T> {
     public data: T;
     public isEditting?: boolean;
     public isProcessing?: boolean;
+    public fieldInvalid?: FieldInvalid;
+}
+
+export class FieldInvalid {
+    [id: string]: boolean;
 }

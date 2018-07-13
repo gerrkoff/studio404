@@ -38,6 +38,10 @@ export class PromoCodesComponent extends TableComponent<PromoCode> {
   }
 
   onSaveEdit(id: number): void {
+    if (!this.validate(id)) {
+      return;
+    }
+    
     this.rowUpdatingWrapper(id, () =>
       this.promoCodesService.savePromoCode(this.table.rows[id].data)
     );
@@ -57,4 +61,10 @@ export class PromoCodesComponent extends TableComponent<PromoCode> {
 
   formatterPercent = value => `${value}%`;
   parserPercent = value => value.replace('%', '');
+
+  private validate(id: number): boolean {
+    const row = this.table.rows[id];
+    row.fieldInvalid['code'] = row.data.code.length === 0;
+    return !row.fieldInvalid['code'];
+  }
 }

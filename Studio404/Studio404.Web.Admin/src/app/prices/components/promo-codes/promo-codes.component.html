@@ -32,7 +32,12 @@
           {{item.code}}
         </ng-container>
         <ng-container *ngIf="table.rows[item.id].isEditting">
-          <input type="text" nz-input [(ngModel)]="table.rows[item.id].data.code" [disabled]="table.rows[item.id].isProcessing" nzSize="small" />
+          <input type="text" nz-input
+                  [(ngModel)]="table.rows[item.id].data.code"
+                  [disabled]="table.rows[item.id].isProcessing"
+                  class="animated"
+                  [ngClass]="{'has-error':table.rows[item.id].fieldInvalid['code']}"
+                  nzSize="small"/>
         </ng-container>
       </td>
       <td>

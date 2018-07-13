@@ -23,9 +23,6 @@
 .clickable {
     cursor: pointer;
     font-size: 12px;
-    transition-property: color;
-    transition-duration: 0.3s;
-    transition-timing-function: ease;
 }
 
 .clickable:hover {

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Dto.Misc;
 using Studio404.Web.Controllers.Base;
+using System.Security.Claims;
 
 namespace Studio404.Web.Admin.Controllers
 {
@@ -11,12 +12,12 @@ namespace Studio404.Web.Admin.Controllers
         [HttpGet]
         public MiscInfoAdminDto Get()
         {
-            return new MiscInfoAdminDto
+			return new MiscInfoAdminDto
 			{
-                Version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-                    .InformationalVersion,
-				UserDisplayName = HttpContext.User?.Identity?.Name
-            };
+				Version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+					.InformationalVersion,
+				UserDisplayName = ((ClaimsIdentity)HttpContext.User.Identity).FindFirst(ClaimTypes.GivenName).Value
+			};
         }
     }
 }

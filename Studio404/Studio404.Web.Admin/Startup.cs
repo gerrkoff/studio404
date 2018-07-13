@@ -35,10 +35,11 @@ namespace Studio404.Web.Admin
                 .ConfigDiServices(Configuration)
                 .ConfigDb(Configuration)
 				.ConfigAutoMapper();
-            
-            services.AddIdentity<UserEntity, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>()
-                .AddDefaultTokenProviders();
+
+			services.AddIdentity<UserEntity, IdentityRole>()
+				.AddEntityFrameworkStores<ApplicationContext>()
+				.AddDefaultTokenProviders()
+				.AddClaimsPrincipalFactory<AdminUserClaimsPrincipalFactory>();
 
             services.ConfigureApplicationCookie(options =>
             {

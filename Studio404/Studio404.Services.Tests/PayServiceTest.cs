@@ -26,7 +26,7 @@ namespace Studio404.Services.Tests
             {
                 Guid = guid
             };
-            var repoMock = new Mock<IRepository<BookingEntity>>();
+            var repoMock = new Mock<IRepositoryNonDeletable<BookingEntity>>();
             repoMock.Setup(x => x.GetAll())
                     .Returns(new List<BookingEntity> { new BookingEntity(), bookEntity, new BookingEntity() }.AsQueryable());
             var notificationMock = new Mock<INotificationService>();
@@ -47,7 +47,7 @@ namespace Studio404.Services.Tests
         {
             var guid = Guid.NewGuid();
 
-            var repoMock = new Mock<IRepository<BookingEntity>>();
+            var repoMock = new Mock<IRepositoryNonDeletable<BookingEntity>>();
             repoMock.Setup(x => x.GetAll())
                     .Returns(new List<BookingEntity>().AsQueryable());
             var settings = new Mock<IOptions<PayServiceSettings>>();

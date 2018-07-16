@@ -7,10 +7,10 @@ namespace Studio404.Services.Implementation
 {
     public class CheckService : ICheckService
     {
-        private readonly IRepository<BookingEntity> _bookingRepository;
+        private readonly IRepositoryNonDeletable<BookingEntity> _bookingRepository;
         private readonly IDateService _dateService;
 
-        public CheckService(IRepository<BookingEntity> bookingRepository, IDateService dateService)
+        public CheckService(IRepositoryNonDeletable<BookingEntity> bookingRepository, IDateService dateService)
         {
             _bookingRepository = bookingRepository;
             _dateService = dateService;

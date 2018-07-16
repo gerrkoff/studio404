@@ -11,9 +11,9 @@ namespace Studio404.Services.Implementation
 {
     public class UserService : IUserService
     {
-        private readonly IRepository<BookingEntity> _bookingRepository;
+        private readonly IRepositoryNonDeletable<BookingEntity> _bookingRepository;
 
-        public UserService(IRepository<BookingEntity> bookingRepository)
+        public UserService(IRepositoryNonDeletable<BookingEntity> bookingRepository)
         {
             _bookingRepository = bookingRepository;
         }

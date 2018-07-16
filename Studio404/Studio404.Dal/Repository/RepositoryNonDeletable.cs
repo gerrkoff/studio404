@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace Studio404.Dal.Repository
 {
-    public class Repository<T> : IRepository<T> where T : BaseEntity
+    public class RepositoryNonDeletable<T> : IRepositoryNonDeletable<T> where T : BaseEntity
     {
         private readonly DbContext _context;
 
-        public Repository(DbContext context)
+        public RepositoryNonDeletable(DbContext context)
         {
             _context = context;
         }

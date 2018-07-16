@@ -15,13 +15,13 @@ namespace Studio404.Services.Implementation
 {
     public class PayService : IPayService
     {
-        private readonly IRepository<BookingEntity> _bookingRepository;
+        private readonly IRepositoryNonDeletable<BookingEntity> _bookingRepository;
         private readonly INotificationService _notificationService;
         private readonly ILogger<PayService> _logger;
         private readonly PayServiceSettings _payServiceSettings;
         private readonly IDateService _dateService;
 
-        public PayService(IRepository<BookingEntity> bookingRepository, INotificationService notificationService,
+        public PayService(IRepositoryNonDeletable<BookingEntity> bookingRepository, INotificationService notificationService,
                           ILogger<PayService> logger, IOptions<PayServiceSettings> payServiceSettings, IDateService dateService)
         {
             _bookingRepository = bookingRepository;

@@ -140,7 +140,7 @@ namespace Studio404.Services.Tests
 		{
 			BookingEntity saveOutput = null;
 
-			var repo = new Mock<IRepository<BookingEntity>>();
+			var repo = new Mock<IRepositoryNonDeletable<BookingEntity>>();
 			repo.Setup(x => x.GetAll()).Returns((new List<BookingEntity>()).AsQueryable());
 			repo.Setup(x => x.Save(It.IsAny<BookingEntity>())).Callback<BookingEntity>(x => saveOutput = x);
 
@@ -176,9 +176,9 @@ namespace Studio404.Services.Tests
 			bookingService.MakeBooking(bookingInfo, new CurrentUser { Phone = "1" });
 		}
 
-		private IRepository<BookingEntity> CreateRepo(params BookingEntity[] bookings)
+		private IRepositoryNonDeletable<BookingEntity> CreateRepo(params BookingEntity[] bookings)
 		{
-			var repo = new Mock<IRepository<BookingEntity>>();
+			var repo = new Mock<IRepositoryNonDeletable<BookingEntity>>();
 			repo.Setup(x => x.GetAll()).Returns((new List<BookingEntity>(bookings)).AsQueryable());			
 			return repo.Object;
 		}

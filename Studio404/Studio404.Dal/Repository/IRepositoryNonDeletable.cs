@@ -5,7 +5,7 @@ using Studio404.Dal.Entity.Base;
 
 namespace Studio404.Dal.Repository
 {
-    public interface IRepository<T> where T : BaseEntity
+    public interface IRepositoryNonDeletable<T> where T : BaseEntity
     {
         IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes);
         void Save(T entity);

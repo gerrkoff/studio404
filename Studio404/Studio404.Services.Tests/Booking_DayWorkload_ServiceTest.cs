@@ -123,9 +123,9 @@ namespace Studio404.Services.Tests
 			Assert.IsTrue(result.All(x => !x.Available));
 		}
 
-		private IRepository<BookingEntity> CreateRepo(params BookingEntity[] bookings)
+		private IRepositoryNonDeletable<BookingEntity> CreateRepo(params BookingEntity[] bookings)
 		{
-			var repo = new Mock<IRepository<BookingEntity>>();
+			var repo = new Mock<IRepositoryNonDeletable<BookingEntity>>();
 			repo.Setup(x => x.GetAll()).Returns((new List<BookingEntity>(bookings)).AsQueryable());
 			return repo.Object;
 		}

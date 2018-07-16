@@ -1,49 +1,30 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { HourCost } from '../models/hour-cost';
-import { DiscountDayTypeEnum } from '../models/discount-day-type-enum';
-
-const data: HourCost[] = [
-  {id: 1, start: 10, end: 23, dayType: DiscountDayTypeEnum.All, cost: 250, isGeneral: true},
-  {id: 2, start: 10, end: 17, dayType: DiscountDayTypeEnum.Workday, cost: 150, isGeneral: false},
-  {id: 3, start: 10, end: 13, dayType: DiscountDayTypeEnum.Weekend, cost: 100, isGeneral: false},
-  {id: 4, start: 22, end: 23, dayType: DiscountDayTypeEnum.All, cost: 200, isGeneral: false}
-];
-
-function DataCopy(): HourCost[] {
-  return data.map(x => ({...x}));
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class HourCostsService {
 
+  private URL = '/api/hourcosts';
+
+  constructor (
+    private http: HttpClient
+  ) {}
+
   getHourCosts(): Promise<HourCost[]> {
-    return new Promise(resolve => setTimeout(() => resolve(DataCopy()), 3000));
+    return this.http.get<HourCost[]>(this.URL).toPromise();
   }
 
   saveHourCost(hourCost: HourCost): Promise<HourCost> {
-    const newItem = Object.assign(new HourCost(), {...hourCost});
-
-    if (newItem.id < 0) {
-      const lastId = data[data.length - 1].id;
-      newItem.id = lastId + 1;
-      data.push(newItem);
-    } else {
-      const oldItem = data.find(x => x.id === newItem.id);
-      Object.assign(oldItem, newItem);
-    }
-    const newItemCopy = {...newItem};
-
-    return new Promise(resolve => setTimeout(() => resolve(newItemCopy), 3000));
+    return this.http.post<HourCost>(this.URL, hourCost).toPromise();
   }
 
   deleteHourCost(id: number): Promise<void> {
-    const index = data.findIndex(x => x.id === id);
-    if (index > -1) {
-      data.splice(index, 1);
-    }
+    let params = new HttpParams();
+    params = params.append('id', id.toString());
 
-    return new Promise(resolve => setTimeout(resolve, 3000));
+    return this.http.delete<void>(this.URL, {params: params}).toPromise();
   }
 }

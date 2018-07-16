@@ -22,7 +22,11 @@
           {{item.start}}
         </ng-container>
         <ng-container *ngIf="table.rows[item.id].isEditting">
-          <input type="text" nz-input [(ngModel)]="table.rows[item.id].data.start" [disabled]="table.rows[item.id].isProcessing" nzSize="small" />
+            <nz-input-number [(ngModel)]="table.rows[item.id].data.start"
+                            [disabled]="table.rows[item.id].isProcessing"
+                            nzMin="0" nzMax="23" nzStep="1"
+                            nzSize="small" class="hour">
+            </nz-input-number>
         </ng-container>
       </td>
       <td>
@@ -30,27 +34,41 @@
           {{item.end}}
         </ng-container>
         <ng-container *ngIf="table.rows[item.id].isEditting">
-          <input type="text" nz-input [(ngModel)]="table.rows[item.id].data.end" [disabled]="table.rows[item.id].isProcessing" nzSize="small" />
+            <nz-input-number [(ngModel)]="table.rows[item.id].data.end"
+                            [disabled]="table.rows[item.id].isProcessing"
+                            nzMin="0" nzMax="23" nzStep="1"
+                            nzSize="small" class="hour">
+            </nz-input-number>
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!table.rows[item.id].isEditting || item.isGeneral">
+          {{DiscountDayTypeEnum[item.dayType]}}
+        </ng-container>
+        <ng-container *ngIf="table.rows[item.id].isEditting && !item.isGeneral">
+          <nz-select [(ngModel)]="table.rows[item.id].data.dayType"
+                    [disabled]="table.rows[item.id].isProcessing"          
+                    nzSize="small" class="daytype-select">
+            <nz-option *ngFor="let option of discountDayTypes" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+          </nz-select>
         </ng-container>
       </td>
       <td>
         <ng-container *ngIf="!table.rows[item.id].isEditting">
-          {{item.dayType}}
+          {{item.cost}}₽
         </ng-container>
         <ng-container *ngIf="table.rows[item.id].isEditting">
-          <input type="text" nz-input [(ngModel)]="table.rows[item.id].data.dayType" [disabled]="table.rows[item.id].isProcessing" nzSize="small" />
+          <nz-input-number [(ngModel)]="table.rows[item.id].data.cost"
+                          [disabled]="table.rows[item.id].isProcessing"
+                          nzMin="0" nzStep="25"
+                          [nzFormatter]="formatterMoney" [nzParser]="parserMoney"          
+                          nzSize="small" class="cost">
+          </nz-input-number>
         </ng-container>
       </td>
       <td>
-        <ng-container *ngIf="!table.rows[item.id].isEditting">
-          {{item.cost}}
-        </ng-container>
-        <ng-container *ngIf="table.rows[item.id].isEditting">
-          <input type="text" nz-input [(ngModel)]="table.rows[item.id].data.cost" [disabled]="table.rows[item.id].isProcessing" nzSize="small" />
-        </ng-container>
-      </td>
-      <td>
-        <app-id-tag [value]="item.id"></app-id-tag>
+        <app-id-tag [value]="item.id" *ngIf="!item.isGeneral"></app-id-tag>
+        <nz-tag nzColor="red" *ngIf="item.isGeneral" class="ant-single-tag">General</nz-tag>
       </td>
       <td>
         <div class="editable-row-operations">
@@ -61,7 +79,7 @@
                     nzSize="small">
                 Edit
             </button>
-            <nz-popconfirm [nzTitle]="'Sure to delete?'" (nzOnConfirm)="onDeleteRow(item.id)">
+            <nz-popconfirm [nzTitle]="'Sure to delete?'" (nzOnConfirm)="onDeleteRow(item.id)" *ngIf="!item.isGeneral">
               <button nz-button nzType="default"
                       [nzLoading]="table.rows[item.id].isProcessing"
                       nzSize="small"

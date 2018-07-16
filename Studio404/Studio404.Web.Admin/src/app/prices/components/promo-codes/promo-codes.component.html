@@ -54,10 +54,11 @@
         </ng-container>
         <ng-container *ngIf="table.rows[item.id].isEditting">          
           <nz-input-number [(ngModel)]="table.rows[item.id].data.discount"
+                          [disabled]="table.rows[item.id].isProcessing"
                           nzMin="0" nzMax="100" nzStep="1"
                           [nzFormatter]="formatterPercent" [nzParser]="parserPercent"
                           nzSize="small" class="percentage">
-            </nz-input-number>
+          </nz-input-number>
         </ng-container>
       </td>
       <td>

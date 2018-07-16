@@ -1,0 +1,12 @@
+.daytype-select {
+    width: 100%;
+    max-width: 150px;
+}
+
+.cost {
+    max-width: 75px;
+}
+
+.hour {
+    max-width: 50px;
+}

@@ -12,14 +12,31 @@ import { DiscountDayTypeEnum } from '../../models/discount-day-type-enum';
     '../../../common/styles/table.css'
   ]
 })
-export class HourCostsComponent extends TableEditableComponent<HourCost> {
+export class HourCostsComponent extends TableEditableComponent<HourCost> implements OnInit {
   
   protected itemSearchFieldName = '';
+  discountDayTypes: {value: number, label: string}[];
+  DiscountDayTypeEnum = DiscountDayTypeEnum;
 
   constructor(
     private hourCostsService: HourCostsService
   ) {
     super();
+  }
+
+  formatterMoney = value => `${value}₽`;
+  parserMoney = value => value.replace('₽', '');
+
+  ngOnInit() {
+    super.ngOnInit();
+
+    this.discountDayTypes = [];
+    for (let item in DiscountDayTypeEnum) {
+      let itemNum = Number(item);
+      if (!isNaN(itemNum) && itemNum !== 0) {
+        this.discountDayTypes.push({value: itemNum, label: DiscountDayTypeEnum[itemNum]});
+      }
+    }
   }
 
   protected async loadItemsCore(): Promise<HourCost[]> {

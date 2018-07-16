@@ -11,5 +11,6 @@ namespace Studio404.Dal.Context
         }
         
         public DbSet<BookingEntity> Bookings { get; set; }
-    }
+		public DbSet<HourCostEntity> HourCosts { get; set; }
+	}
 }

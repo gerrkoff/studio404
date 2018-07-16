@@ -29,10 +29,10 @@ namespace Studio404.Web.Admin.Controllers
 			return _hourCostManagerService.SaveHourCostAsync(hourCostDto);
 		}
 
-		[HttpDelete]
-		public Task Delete([FromBody] int id)
+		[HttpDelete("{id}")]
+		public void Delete(int id)
 		{
-			return _hourCostManagerService.DeleteHourCostAsync(id);
+			_hourCostManagerService.DeleteHourCost(id);
 		}
 	}
 }

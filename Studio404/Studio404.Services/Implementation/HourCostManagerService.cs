@@ -18,9 +18,9 @@ namespace Studio404.Services.Implementation
 			_hourCostRepository = hourCostRepository;
 		}
 
-		public Task DeleteHourCostAsync(int id)
+		public void DeleteHourCost(int id)
 		{
-			throw new NotImplementedException();
+			_hourCostRepository.Delete(id);
 		}
 
 		public IEnumerable<HourCostDto> GetHourCosts()

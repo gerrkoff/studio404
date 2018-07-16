@@ -8,6 +8,6 @@ namespace Studio404.Services.Interface
 	{
 		IEnumerable<HourCostDto> GetHourCosts();
 		Task<HourCostDto> SaveHourCostAsync(HourCostDto hourCostDto);
-		Task DeleteHourCostAsync(int id);
+		void DeleteHourCost(int id);
 	}
 }

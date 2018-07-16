@@ -22,9 +22,6 @@ export class HourCostsService {
   }
 
   deleteHourCost(id: number): Promise<void> {
-    let params = new HttpParams();
-    params = params.append('id', id.toString());
-
-    return this.http.delete<void>(this.URL, {params: params}).toPromise();
+    return this.http.delete<void>(`${this.URL}/${id}`).toPromise();
   }
 }

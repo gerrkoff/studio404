@@ -46,13 +46,25 @@ export class HourCostsComponent extends TableEditableComponent<HourCost> impleme
 
   protected createNewItem(): HourCost {
     const defaultHourCost = this.loadedItems.find(x => x.isGeneral === true);
-    return {
-      cost: defaultHourCost.cost,
-      start: defaultHourCost.start,
-      end: defaultHourCost.end,
-      dayType: DiscountDayTypeEnum.All,
-      isGeneral: false,
-      id: 0
+    if (defaultHourCost) {
+      return {
+        cost: defaultHourCost.cost,
+        start: defaultHourCost.start,
+        end: defaultHourCost.end,
+        dayType: DiscountDayTypeEnum.All,
+        isGeneral: false,
+        id: 0
+      }
+    }
+    else {
+      return {
+        cost: 100,
+        start: 0,
+        end: 23,
+        dayType: DiscountDayTypeEnum.All,
+        isGeneral: false,
+        id: 0
+      }
     }
   }
   protected validate(id: number): boolean {

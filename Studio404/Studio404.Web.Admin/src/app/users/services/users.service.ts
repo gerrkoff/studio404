@@ -7,15 +7,17 @@ import { User } from '../models/user';
 })
 export class UsersService {
 
+  private URL = '/api/users';
+
   constructor (
     private http: HttpClient
   ) {}
 
   getUsers(): Promise<User[]> {
-    return this.http.get<User[]>('/api/usermanager').toPromise();
+    return this.http.get<User[]>(this.URL).toPromise();
   }
 
   updateAdminRole(userId: string, isAdmin: boolean): Promise<void> {
-    return this.http.post<void>('/api/usermanager', {userId, isAdmin}).toPromise();
+    return this.http.post<void>(this.URL, {userId, isAdmin}).toPromise();
   }
 }

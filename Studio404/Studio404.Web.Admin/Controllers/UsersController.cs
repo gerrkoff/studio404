@@ -11,11 +11,11 @@ using System.Collections.Generic;
 namespace Studio404.Web.Admin.Controllers
 {
     [Route("api/[controller]")]
-    public class UserManagerController : BaseController
+    public class UsersController : BaseController
     {
         private readonly IUserManagerService _userManagerService;
 
-        public UserManagerController(IUserManagerService userManagerService)
+        public UsersController(IUserManagerService userManagerService)
         {
 			_userManagerService = userManagerService;
         }

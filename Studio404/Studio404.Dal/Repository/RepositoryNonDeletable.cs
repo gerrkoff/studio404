@@ -10,16 +10,16 @@ namespace Studio404.Dal.Repository
 {
     public class RepositoryNonDeletable<T> : IRepositoryNonDeletable<T> where T : BaseEntity
     {
-        private readonly DbContext _context;
+        protected readonly DbContext _context;
 
         public RepositoryNonDeletable(DbContext context)
         {
             _context = context;
         }
 
-        private DbSet<T> Entities => _context.Set<T>();
+		protected DbSet<T> Entities => _context.Set<T>();
 
-        public IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes)
+        public virtual IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes)
         {
             if (includes == null || includes.Length == 0)
                 return Entities.AsQueryable();
@@ -33,7 +33,7 @@ namespace Studio404.Dal.Repository
             return query.AsQueryable();
         }
 
-        public void Save(T entity)
+        public virtual void Save(T entity)
         {
             if(entity.Id == 0)
             {
@@ -42,7 +42,7 @@ namespace Studio404.Dal.Repository
             _context.SaveChanges();
         }
 
-        public void SaveProperties(T entity, params Expression<Func<T, object>>[] properties)
+        public virtual void SaveProperties(T entity, params Expression<Func<T, object>>[] properties)
         {
             if (entity.Id == 0)
             {
@@ -59,7 +59,7 @@ namespace Studio404.Dal.Repository
             _context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public virtual void Delete(int id)
         {
             var entity = Activator.CreateInstance<T>();
             entity.Id = id;
@@ -68,7 +68,7 @@ namespace Studio404.Dal.Repository
             _context.SaveChanges();
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
             return Entities.Find(id);
         }

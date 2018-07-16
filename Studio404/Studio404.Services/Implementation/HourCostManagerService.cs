@@ -11,9 +11,9 @@ namespace Studio404.Services.Implementation
 {
 	public class HourCostManagerService : IHourCostManagerService
 	{
-		private readonly IRepositoryNonDeletable<HourCostEntity> _hourCostRepository;
+		private readonly IRepository<HourCostEntity> _hourCostRepository;
 
-		public HourCostManagerService(IRepositoryNonDeletable<HourCostEntity> hourCostRepository)
+		public HourCostManagerService(IRepository<HourCostEntity> hourCostRepository)
 		{
 			_hourCostRepository = hourCostRepository;
 		}

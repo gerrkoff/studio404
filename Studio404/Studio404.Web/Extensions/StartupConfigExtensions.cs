@@ -177,7 +177,8 @@ namespace Studio404.Web.Extensions
 	    public static IServiceCollection ConfigDiServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped(typeof(IRepositoryNonDeletable<>), typeof(RepositoryNonDeletable<>));
-            services.AddScoped<IBookingService, BookingService>();
+			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+			services.AddScoped<IBookingService, BookingService>();
             services.AddScoped<ICheckService, CheckService>();
             services.AddScoped<IPayService, PayService>();
             services.AddScoped<IUserService, UserService>();

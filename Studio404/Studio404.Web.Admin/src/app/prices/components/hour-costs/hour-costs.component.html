@@ -25,6 +25,8 @@
             <nz-input-number [(ngModel)]="table.rows[item.id].data.start"
                             [disabled]="table.rows[item.id].isProcessing"
                             nzMin="0" nzMax="23" nzStep="1"
+                            class="animated"
+                            [ngClass]="{'has-error-custom':table.rows[item.id].fieldInvalid['start']}"
                             nzSize="small" class="hour">
             </nz-input-number>
         </ng-container>
@@ -37,6 +39,8 @@
             <nz-input-number [(ngModel)]="table.rows[item.id].data.end"
                             [disabled]="table.rows[item.id].isProcessing"
                             nzMin="0" nzMax="23" nzStep="1"
+                            class="animated"
+                            [ngClass]="{'has-error-custom':table.rows[item.id].fieldInvalid['end']}"
                             nzSize="small" class="hour">
             </nz-input-number>
         </ng-container>

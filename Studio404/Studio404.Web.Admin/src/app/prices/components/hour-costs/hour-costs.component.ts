@@ -68,6 +68,12 @@ export class HourCostsComponent extends TableEditableComponent<HourCost> impleme
     }
   }
   protected validate(id: number): boolean {
+    const row = this.table.rows[id];
+    if(row.data.start > row.data.end) {
+      row.fieldInvalid['start'] = true;
+      row.fieldInvalid['end'] = true;
+      return false;
+    }
     return true;
   }
   protected saveItem(id: number): Promise<HourCost> {

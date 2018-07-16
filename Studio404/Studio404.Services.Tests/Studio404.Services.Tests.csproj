@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Studio404.Automapper\Studio404.Automapper.csproj" />
     <ProjectReference Include="..\Studio404.Services\Studio404.Services.csproj" />
   </ItemGroup>
 

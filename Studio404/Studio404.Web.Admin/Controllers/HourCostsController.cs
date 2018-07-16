@@ -18,9 +18,9 @@ namespace Studio404.Web.Admin.Controllers
         }
 
         [HttpGet]
-        public Task<IEnumerable<HourCostDto>> Get()
+        public IEnumerable<HourCostDto> Get()
         {
-			return _hourCostManagerService.GetHourCostsAsync();
+			return _hourCostManagerService.GetHourCosts();
         }
 
 		[HttpPost]

@@ -6,7 +6,7 @@ namespace Studio404.Services.Interface
 {
 	public interface IHourCostManagerService
 	{
-		Task<IEnumerable<HourCostDto>> GetHourCostsAsync();
+		IEnumerable<HourCostDto> GetHourCosts();
 		Task<HourCostDto> SaveHourCostAsync(HourCostDto hourCostDto);
 		Task DeleteHourCostAsync(int id);
 	}

@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Studio404.Services.Interface;
 using Studio404.Web.Controllers.Base;
 using Studio404.Dto.UserManager;

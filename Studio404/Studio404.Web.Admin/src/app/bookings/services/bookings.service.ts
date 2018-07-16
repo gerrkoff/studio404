@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { BookingUser } from '../models/booking-user';
 import { BookingSimple } from '../models/booking-simple';
 import { BookingStatusEnum } from '../models/booking-status-enum';
@@ -49,12 +50,18 @@ function DataCopy(): BookingUser[] {
 })
 export class BookingsService {
 
+  private URLUser = '/api/bookings/user';
+
+  constructor (
+    private http: HttpClient
+  ) {}
+
   getSpecialBookings(): Promise<BookingSimple[]> {
     return new Promise(resolve => setTimeout(() => resolve(DataCopy().filter(x => x.status === BookingStatusEnum.Special)), 3000));
   }
 
   getUserBookings(): Promise<BookingUser[]> {
-    return new Promise(resolve => setTimeout(() => resolve(DataCopy().filter(x => x.status !== BookingStatusEnum.Special)), 3000));
+    return this.http.get<BookingUser[]>(this.URLUser).toPromise();
   }
 
   saveSpecialBooking(booking: BookingSimple): Promise<BookingSimple> {

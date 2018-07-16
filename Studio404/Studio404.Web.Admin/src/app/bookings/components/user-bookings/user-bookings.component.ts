@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TableComponent } from '../../../common/components/table.component';
+import { TableComponent } from '../../../common/components/table/table.component';
 import { BookingUser } from '../../models/booking-user';
 import { BookingsService } from '../../services/bookings.service';
 import { BookingStatusEnum } from '../../models/booking-status-enum';
@@ -14,7 +14,7 @@ import { BookingStatusEnum } from '../../models/booking-status-enum';
 })
 export class UserBookingsComponent extends TableComponent<BookingUser> {
 
-  itemSearchFieldName = 'userDisplayName';
+  protected itemSearchFieldName = 'userDisplayName';
   BookingStatusEnum = BookingStatusEnum;
 
   constructor(
@@ -23,7 +23,7 @@ export class UserBookingsComponent extends TableComponent<BookingUser> {
     super();
   }
 
-  async loadItemsCore(): Promise<BookingUser[]> {
+  protected async loadItemsCore(): Promise<BookingUser[]> {
     const data = await this.bookingsService.getUserBookings();
     return this.sort(data, 'from', false);
   }

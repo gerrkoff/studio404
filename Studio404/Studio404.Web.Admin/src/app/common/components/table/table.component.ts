@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Table, FieldInvalid } from '../models/table';
-import { IEntity } from '../models/entity';
+import { Table, FieldInvalid } from '../../models/table';
+import { IEntity } from '../../models/entity';
 
 export abstract class TableComponent<T extends IEntity> implements OnInit {
 
-    abstract itemSearchFieldName: string;
+    protected abstract itemSearchFieldName: string;
+    protected abstract async loadItemsCore(): Promise<T[]>;
 
     loadedItems: T[];
     showedItems: T[];
     table: Table<T>;
-
-    private newItemIndex: number;
 
     ngOnInit() {
         this.table = {
@@ -19,10 +18,8 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
           searchValue: '',
           sortName: null,
           sortValue: null
-        };
-        this.newItemIndex = -1;
+        };        
         this.showedItems = [];
-        this.init();
         this.loadItems();
     }
 
@@ -57,30 +54,7 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
         }
     }
 
-    protected async rowUpdatingWrapper (
-        id: string | number,
-        rowUpdateFunc: () => Promise<T>
-    ): Promise<void> {
-        return this.rowProcessingWrapper(id, async() => {
-            const newData = await rowUpdateFunc();
-            const oldData = this.loadedItems.find(x => x.id === id);
-            Object.assign(oldData, newData);
-            if (newData.id !== id) {
-                delete this.table.rows[id];
-                this.updateRows();
-            } else {
-                this.table.rows[id].isEditting = false;
-            }
-        });
-    }
-
-    protected deleteRow(id: number): void {
-        this.loadedItems = this.loadedItems.filter(x => x.id !== id);
-        this.showedItems = this.showedItems.filter(x => x.id !== id);
-        delete this.table.rows[id];
-    }
-
-    private updateRows(): void {
+    protected updateRows(): void {
         this.loadedItems.forEach(x => {
             if (!this.table.rows[x.id]) {
                 this.table.rows[x.id] = {
@@ -123,34 +97,8 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
         }
     }
 
-    onStartEdit(id: number): void {
-        this.table.rows[id].isEditting = true;
-    }
-
-    onCancelEdit(id: number): void {
-        this.table.rows[id].isEditting = false;
-    }
-
-    onAddRow(): void {
-        const newItem = this.createNewItem();
-        newItem.id = this.newItemIndex--;
-        this.loadedItems.push(newItem);
-        this.showedItems = [newItem, ...this.showedItems];
-        this.updateRows();
-        this.table.rows[newItem.id].isEditting = true;
-    }
-
     async onRefreshData(): Promise<void> {
         await this.loadItems();
         this.onSearch();
     }
-
-    // to be overrided by children if necessary
-    init(): void {}
-
-    createNewItem(): any {
-        return {};
-    }
-
-    abstract async loadItemsCore(): Promise<T[]>;
 }

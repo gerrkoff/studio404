@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { User } from '../../models/user';
-import { TableComponent } from '../../../common/components/table.component';
+import { TableComponent } from '../../../common/components/table/table.component';
 
 @Component({
   selector: 'app-users',
@@ -13,7 +13,7 @@ import { TableComponent } from '../../../common/components/table.component';
 })
 export class UsersComponent extends TableComponent<User> {
 
-  itemSearchFieldName = 'displayName';
+  protected itemSearchFieldName = 'displayName';
 
   constructor(
     private usersService: UsersService
@@ -21,7 +21,7 @@ export class UsersComponent extends TableComponent<User> {
     super();
   }
 
-  async loadItemsCore(): Promise<User[]> {
+  protected async loadItemsCore(): Promise<User[]> {
     const data = await this.usersService.getUsers();
     return this.sort(data, 'displayName', true);
   }

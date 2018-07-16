@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingsService } from '../../services/bookings.service';
 import { BookingSimple } from '../../models/booking-simple';
-import { TableComponent } from '../../../common/components/table.component';
+import { TableComponent } from '../../../common/components/table/table.component';
+import { TableEditableComponent } from '../../../common/components/table-editable/table-editable.component';
 
 @Component({
   selector: 'app-special-codes',
@@ -11,9 +12,9 @@ import { TableComponent } from '../../../common/components/table.component';
     '../../../common/styles/table.css'
   ]
 })
-export class SpecialCodesComponent extends TableComponent<BookingSimple> {
+export class SpecialCodesComponent extends TableEditableComponent<BookingSimple> {
 
-  itemSearchFieldName = '';
+  protected itemSearchFieldName = '';
 
   constructor(
     private bookingsService: BookingsService
@@ -21,12 +22,12 @@ export class SpecialCodesComponent extends TableComponent<BookingSimple> {
     super();
   }
 
-  async loadItemsCore(): Promise<BookingSimple[]> {
+  protected async loadItemsCore(): Promise<BookingSimple[]> {
     const data = await this.bookingsService.getSpecialBookings();
     return this.sort(data, 'from', false);
   }
 
-  createNewItem(): BookingSimple {
+  protected createNewItem(): BookingSimple {
     return {
       code: '0000',
       from: new Date(),
@@ -35,29 +36,14 @@ export class SpecialCodesComponent extends TableComponent<BookingSimple> {
     };
   }
 
-  onSaveEdit(id: number): void {
-    if (!this.validate(id)) {
-      return;
-    }
-
-    this.rowUpdatingWrapper(id, () =>
-      this.bookingsService.saveSpecialBooking(this.table.rows[id].data)
-    );
+  protected saveItem(id: number): Promise<BookingSimple> {
+    return this.bookingsService.saveSpecialBooking(this.table.rows[id].data)
+  }
+  protected deleteItem(id: number): Promise<void> {
+    return this.bookingsService.deleteBooking(id);
   }
 
-  onDeleteRow(id: number): void {
-    if (id < 0) {
-      this.deleteRow(id);
-      return;
-    }
-
-    this.rowProcessingWrapper(id, async () => {
-      await this.bookingsService.deleteBooking(id);
-      this.deleteRow(id);
-    });
-  }
-
-  private validate(id: number): boolean {
+  protected validate(id: number): boolean {
     const row = this.table.rows[id];
     row.fieldInvalid['code'] = row.data.code.length === 0;
     return !row.fieldInvalid['code'];

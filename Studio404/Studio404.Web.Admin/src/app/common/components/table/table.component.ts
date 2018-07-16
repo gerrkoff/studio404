@@ -4,12 +4,12 @@ import { IEntity } from '../../models/entity';
 
 export abstract class TableComponent<T extends IEntity> implements OnInit {
 
-    protected abstract itemSearchFieldName: string;
-    protected abstract async loadItemsCore(): Promise<T[]>;
-
     loadedItems: T[];
     showedItems: T[];
     table: Table<T>;
+
+    protected abstract itemSearchFieldName: string;
+    protected abstract async loadItemsCore(): Promise<T[]>;
 
     ngOnInit() {
         this.table = {
@@ -18,7 +18,7 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
           searchValue: '',
           sortName: null,
           sortValue: null
-        };        
+        };
         this.showedItems = [];
         this.loadItems();
     }

@@ -37,7 +37,7 @@ export class SpecialCodesComponent extends TableEditableComponent<BookingSimple>
   }
 
   protected saveItem(id: number): Promise<BookingSimple> {
-    return this.bookingsService.saveSpecialBooking(this.table.rows[id].data)
+    return this.bookingsService.saveSpecialBooking(this.table.rows[id].data);
   }
   protected deleteItem(id: number): Promise<void> {
     return this.bookingsService.deleteBooking(id);

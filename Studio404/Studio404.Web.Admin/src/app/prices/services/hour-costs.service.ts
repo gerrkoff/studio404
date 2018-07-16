@@ -16,7 +16,7 @@ function DataCopy(): HourCost[] {
 @Injectable({
   providedIn: 'root'
 })
-export class PromoCodesService {
+export class HourCostsService {
 
   getHourCosts(): Promise<HourCost[]> {
     return new Promise(resolve => setTimeout(() => resolve(DataCopy()), 3000));

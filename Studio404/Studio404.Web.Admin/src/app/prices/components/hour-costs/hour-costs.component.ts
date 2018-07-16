@@ -1,15 +1,50 @@
 import { Component, OnInit } from '@angular/core';
+import { HourCost } from '../../models/hour-cost';
+import { TableEditableComponent } from '../../../common/components/table-editable/table-editable.component';
+import { HourCostsService } from '../../services/hour-costs.service';
+import { DiscountDayTypeEnum } from '../../models/discount-day-type-enum';
 
 @Component({
   selector: 'app-hour-costs',
   templateUrl: './hour-costs.component.html',
-  styleUrls: ['./hour-costs.component.css']
+  styleUrls: [
+    './hour-costs.component.css',
+    '../../../common/styles/table.css'
+  ]
 })
-export class HourCostsComponent implements OnInit {
+export class HourCostsComponent extends TableEditableComponent<HourCost> {
+  
+  protected itemSearchFieldName = '';
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(
+    private hourCostsService: HourCostsService
+  ) {
+    super();
   }
 
+  protected async loadItemsCore(): Promise<HourCost[]> {
+    const data = await this.hourCostsService.getHourCosts();
+    return this.sort(data, 'from', false);
+  }
+
+  protected createNewItem(): HourCost {
+    const defaultHourCost = this.loadedItems.find(x => x.isGeneral === true);
+    return {
+      cost: defaultHourCost.cost,
+      start: defaultHourCost.start,
+      end: defaultHourCost.end,
+      dayType: DiscountDayTypeEnum.All,
+      isGeneral: false,
+      id: 0
+    }
+  }
+  protected validate(id: number): boolean {
+    return true;
+  }
+  protected saveItem(id: number): Promise<HourCost> {
+    return this.hourCostsService.saveHourCost(this.table.rows[id].data);
+  }
+  protected deleteItem(id: number): Promise<void> {
+    return this.hourCostsService.deleteHourCost(id);
+  }
 }

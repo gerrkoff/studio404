@@ -1,3 +1,91 @@
-<p>
-  hour-costs works!
-</p>
+<nz-table #nztable nzSize="middle" [nzData]="showedItems" [nzLoading]="table.isLoading">
+  <thead>
+    <tr>
+      <th nzWidth="15%" class="center">Hour Start</th>
+      <th nzWidth="15%" class="center">Hour End</th>
+      <th nzWidth="20%" class="center">Day Type</th>
+      <th nzWidth="20%" class="center">Cost</th>
+      <th nzWidth="10%" class="center">
+        Id
+        <i class="anticon anticon-reload header-custom-action" (click)="onRefreshData()"></i>
+      </th>
+      <th nzWidth="20%" class="center">
+        Actions
+        <i class="anticon anticon-plus-circle-o header-custom-action" (click)="onAddRow()"></i>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of nztable.data">
+      <td>
+        <ng-container *ngIf="!table.rows[item.id].isEditting">
+          {{item.start}}
+        </ng-container>
+        <ng-container *ngIf="table.rows[item.id].isEditting">
+          <input type="text" nz-input [(ngModel)]="table.rows[item.id].data.start" [disabled]="table.rows[item.id].isProcessing" nzSize="small" />
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!table.rows[item.id].isEditting">
+          {{item.end}}
+        </ng-container>
+        <ng-container *ngIf="table.rows[item.id].isEditting">
+          <input type="text" nz-input [(ngModel)]="table.rows[item.id].data.end" [disabled]="table.rows[item.id].isProcessing" nzSize="small" />
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!table.rows[item.id].isEditting">
+          {{item.dayType}}
+        </ng-container>
+        <ng-container *ngIf="table.rows[item.id].isEditting">
+          <input type="text" nz-input [(ngModel)]="table.rows[item.id].data.dayType" [disabled]="table.rows[item.id].isProcessing" nzSize="small" />
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngIf="!table.rows[item.id].isEditting">
+          {{item.cost}}
+        </ng-container>
+        <ng-container *ngIf="table.rows[item.id].isEditting">
+          <input type="text" nz-input [(ngModel)]="table.rows[item.id].data.cost" [disabled]="table.rows[item.id].isProcessing" nzSize="small" />
+        </ng-container>
+      </td>
+      <td>
+        <app-id-tag [value]="item.id"></app-id-tag>
+      </td>
+      <td>
+        <div class="editable-row-operations">
+          <ng-container *ngIf="!table.rows[item.id].isEditting">
+            <button nz-button nzType="default"
+                    (click)="onStartEdit(item.id)"
+                    [disabled]="table.rows[item.id].isProcessing"
+                    nzSize="small">
+                Edit
+            </button>
+            <nz-popconfirm [nzTitle]="'Sure to delete?'" (nzOnConfirm)="onDeleteRow(item.id)">
+              <button nz-button nzType="default"
+                      [nzLoading]="table.rows[item.id].isProcessing"
+                      nzSize="small"
+                      nz-popconfirm>
+                Delete
+              </button>
+            </nz-popconfirm>
+          </ng-container>
+          <ng-container *ngIf="table.rows[item.id].isEditting">            
+            <button nz-button nzType="primary"
+                    (click)="onSaveEdit(item.id)"
+                    [nzLoading]="table.rows[item.id].isProcessing"
+                    nzSize="small">
+                Save
+            </button>
+            <button nz-button nzType="danger"
+                    (click)="onCancelEdit(item.id)"
+                    [disabled]="table.rows[item.id].isProcessing"
+                    nzSize="small">
+                Cancel
+            </button>
+          </ng-container>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

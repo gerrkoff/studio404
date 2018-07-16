@@ -4,6 +4,7 @@ using Studio404.Services.Interface;
 using Studio404.Web.Controllers.Base;
 using Studio404.Dto.UserManager;
 using System.Collections.Generic;
+using Studio404.Common.Exceptions;
 
 namespace Studio404.Web.Admin.Controllers
 {
@@ -24,9 +25,14 @@ namespace Studio404.Web.Admin.Controllers
         }
 
 		[HttpPost]
-		public Task<HourCostDto> Post([FromBody] HourCostDto hourCostDto)
+		public HourCostDto Post([FromBody] HourCostUpdateDto hourCostDto)
 		{
-			return _hourCostManagerService.SaveHourCostAsync(hourCostDto);
+			Validate();
+
+			if (hourCostDto.Start > hourCostDto.End)
+				throw new ModelValidationException("Start should be less or equal to End");
+
+			return _hourCostManagerService.SaveHourCost(hourCostDto);
 		}
 
 		[HttpDelete("{id}")]

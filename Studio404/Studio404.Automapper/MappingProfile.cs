@@ -19,8 +19,10 @@ namespace Studio404.Automapper
 				.ForMember(x => x.Username, e => e.MapFrom(x => x.DisplayName))
 				.ForMember(x => x.UserLoggedIn, e => e.MapFrom(x => !string.IsNullOrEmpty(x.Username)))
                 .ForMember(x => x.Phone, e => e.MapFrom(x => "*" + x.Phone.Substring(x.Phone.Length - 4, 4)));
+
 			CreateMap<UserEntity, UserDto>();
 			CreateMap<HourCostEntity, HourCostDto>();
+			CreateMap<HourCostUpdateDto, HourCostEntity>();
 		}
     }
 }

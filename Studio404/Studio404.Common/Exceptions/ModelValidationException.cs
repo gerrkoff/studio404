@@ -12,6 +12,11 @@ namespace Studio404.Common.Exceptions
     public class ModelValidationException : Exception
     {
         public ICollection<ModelError> Errors { get; }
+
+		public ModelValidationException(string message) : base("Model validation exception")
+		{
+			Errors = new List<ModelError> { new ModelError(message) };
+		}
         
         public ModelValidationException(ModelStateDictionary modeState) : base("Model validation exception")
         {

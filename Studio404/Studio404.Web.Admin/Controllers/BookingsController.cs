@@ -17,9 +17,15 @@ namespace Studio404.Web.Admin.Controllers
         }
 
         [HttpGet("user")]
-        public IEnumerable<BookingUserDto> Get()
+        public IEnumerable<BookingUserDto> GetUser()
         {
 	        return _bookingManagerService.GetUserBookings();
         }
+		
+		[HttpDelete("user/{id}")]
+		public void DeleteUser(int id)
+		{
+			_bookingManagerService.CancelUserBooking(id);
+		}
 	}
 }

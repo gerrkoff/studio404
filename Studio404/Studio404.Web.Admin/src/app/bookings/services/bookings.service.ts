@@ -90,7 +90,6 @@ export class BookingsService {
   }
 
   cancelBooking(id: number): Promise<void> {
-    bookings.find(x => x.id === id).status = BookingStatusEnum.Canceled;
-    return new Promise(resolve => setTimeout(resolve, 3000));
+    return this.http.delete<void>(`${this.URLUser}/${id}`).toPromise();
   }
 }

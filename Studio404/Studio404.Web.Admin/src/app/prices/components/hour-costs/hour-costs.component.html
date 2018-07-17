@@ -65,7 +65,9 @@
           <nz-input-number [(ngModel)]="table.rows[item.id].data.cost"
                           [disabled]="table.rows[item.id].isProcessing"
                           nzMin="0" nzStep="25"
-                          [nzFormatter]="formatterMoney" [nzParser]="parserMoney"          
+                          [nzFormatter]="formatterMoney" [nzParser]="parserMoney"
+                          class="animated"
+                          [ngClass]="{'has-error-custom':table.rows[item.id].fieldInvalid['cost']}"
                           nzSize="small" class="cost">
           </nz-input-number>
         </ng-container>

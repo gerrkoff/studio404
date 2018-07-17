@@ -49,8 +49,10 @@ export class SpecialCodesComponent extends TableEditableComponent<BookingSimple>
   }
 
   protected validate(id: number): boolean {
-    const row = this.table.rows[id];    
-    
+    const row = this.table.rows[id];
+
+    row.fieldInvalid['from'] = false;
+    row.fieldInvalid['to'] = false;    
     row.fieldInvalid['code'] = row.data.code.length === 0;
 
     if(!row.data.from) {

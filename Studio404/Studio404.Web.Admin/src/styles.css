@@ -10,6 +10,7 @@
     transition-timing-function: ease;
 }
 
-.has-error-custom input, input.has-error-custom {
+.has-error-custom,
+.has-error-custom input {
     border-color: #f5222d;
 }

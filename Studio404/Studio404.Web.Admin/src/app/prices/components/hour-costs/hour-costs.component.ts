@@ -69,12 +69,29 @@ export class HourCostsComponent extends TableEditableComponent<HourCost> impleme
   }
   protected validate(id: number): boolean {
     const row = this.table.rows[id];
-    if(row.data.start > row.data.end) {
+
+    row.fieldInvalid['cost'] = false;
+    row.fieldInvalid['start'] = false;
+    row.fieldInvalid['end'] = false;
+
+    if(row.data.cost.toString() === '') {
+      row.fieldInvalid['cost'] = true;
+    }
+
+    if(row.data.start.toString() === '') {
+      row.fieldInvalid['start'] = true;
+    }
+
+    if(row.data.end.toString() === '') {
+      row.fieldInvalid['end'] = true;
+    }
+
+    if(row.data.start.toString() !== '' && row.data.end.toString() !== '' && row.data.start > row.data.end) {
       row.fieldInvalid['start'] = true;
       row.fieldInvalid['end'] = true;
-      return false;
     }
-    return true;
+
+    return !row.fieldInvalid['cost'] && !row.fieldInvalid['start'] && !row.fieldInvalid['end'];
   }
   protected saveItem(id: number): Promise<HourCost> {
     return this.hourCostsService.saveHourCost(this.table.rows[id].data);

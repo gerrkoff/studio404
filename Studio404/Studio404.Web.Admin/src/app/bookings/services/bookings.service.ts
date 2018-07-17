@@ -70,19 +70,7 @@ export class BookingsService {
   }
 
   saveSpecialBooking(booking: BookingSimple): Promise<BookingSimple> {
-    const newItem = Object.assign(new BookingUser(), {...booking, status: BookingStatusEnum.Special});
-
-    if (newItem.id < 0) {
-      const lastId = bookings[bookings.length - 1].id;
-      newItem.id = lastId + 1;
-      bookings.push(newItem);
-    } else {
-      const oldItem = bookings.find(x => x.id === newItem.id);
-      Object.assign(oldItem, newItem);
-    }
-    const newItemCopy = {...newItem};
-
-    return new Promise(resolve => setTimeout(() => resolve(newItemCopy), 3000));
+    return this.http.post<BookingSimple>(this.URLSpecial, booking).toPromise();
   }
 
   deleteBooking(id: number): Promise<void> {

@@ -9,5 +9,6 @@ namespace Studio404.Services.Interface
 		void CancelUserBooking(int id);
 
 		IEnumerable<BookingSpecialDto> GetSpecialBookings();
+		BookingSpecialDto SaveSpecialBooking(BookingSpecialSaveDto bookingSpecialDto);
 	}
 }

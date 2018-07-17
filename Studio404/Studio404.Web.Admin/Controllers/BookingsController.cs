@@ -3,6 +3,7 @@ using Studio404.Services.Interface;
 using Studio404.Web.Controllers.Base;
 using System.Collections.Generic;
 using Studio404.Dto.BookingManager;
+using Studio404.Common.Exceptions;
 
 namespace Studio404.Web.Admin.Controllers
 {
@@ -32,6 +33,17 @@ namespace Studio404.Web.Admin.Controllers
 		public IEnumerable<BookingSpecialDto> GetSpecial()
 		{
 			return _bookingManagerService.GetSpecialBookings();
+		}
+
+		[HttpPost("special")]
+		public BookingSpecialDto PostSpecial([FromBody] BookingSpecialSaveDto bookingSpecialDto)
+		{
+			Validate();
+
+			if (bookingSpecialDto.From > bookingSpecialDto.To)
+				throw new ModelValidationException("From should be less than To");
+
+			return _bookingManagerService.SaveSpecialBooking(bookingSpecialDto);
 		}
 	}
 }

@@ -49,5 +49,10 @@ namespace Studio404.Services.Implementation
 				.ProjectTo<BookingSpecialDto>()
 				.ToList();
 		}
+
+		public BookingSpecialDto SaveSpecialBooking(BookingSpecialSaveDto bookingSpecialDto)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

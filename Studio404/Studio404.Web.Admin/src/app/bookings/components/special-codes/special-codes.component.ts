@@ -32,10 +32,12 @@ export class SpecialCodesComponent extends TableEditableComponent<BookingSimple>
   }
 
   protected createNewItem(): BookingSimple {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     return {
       code: '0000',
-      from: new Date(),
-      to: new Date(),
+      from: today,
+      to: today,
       id: 0
     };
   }

@@ -7,6 +7,7 @@ using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using Studio404.Dto.BookingManager;
 using Studio404.Services.Interface;
+using AutoMapper;
 
 namespace Studio404.Services.Implementation
 {
@@ -52,7 +53,44 @@ namespace Studio404.Services.Implementation
 
 		public BookingSpecialDto SaveSpecialBooking(BookingSpecialSaveDto bookingSpecialDto)
 		{
-			throw new System.NotImplementedException();
+			BookingEntity entity = bookingSpecialDto.Id.Value <= 0
+				? InsertEntity(bookingSpecialDto)
+				: UpdateEntity(bookingSpecialDto);
+
+			_bookingRepository.Save(entity);
+
+			return Mapper.Map<BookingSpecialDto>(entity);
+		}
+
+		private BookingEntity UpdateEntity(BookingSpecialSaveDto bookingSpecialDto)
+		{
+			BookingEntity entity = _bookingRepository.GetById(bookingSpecialDto.Id.Value);
+
+			if (entity == null)
+				throw new ServiceException("Booking does not exist");
+
+			// TODO: uncomment this
+			/*
+			if (entity.IsDeleted)
+				throw new ServiceException("Hour Cost has been already deleted");
+			*/
+
+			if (entity.Status != BookingStatusEnum.Special)
+				throw new ServiceException("Booking should be special");
+
+			entity.From = bookingSpecialDto.From.Value;
+			entity.To = bookingSpecialDto.To.Value;
+			entity.Code = bookingSpecialDto.Code;
+
+			return entity;
+		}
+
+		private BookingEntity InsertEntity(BookingSpecialSaveDto bookingSpecialDto)
+		{
+			BookingEntity entity = Mapper.Map<BookingEntity>(bookingSpecialDto);
+			entity.Id = 0;
+			entity.Status = BookingStatusEnum.Special;
+			return entity;
 		}
 	}
 }

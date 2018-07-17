@@ -31,6 +31,7 @@ namespace Studio404.Automapper
 			CreateMap<HourCostEntity, HourCostDto>();
 			CreateMap<HourCostUpdateDto, HourCostEntity>();
 			CreateMap<BookingEntity, BookingSpecialDto>();
+			CreateMap<BookingSpecialSaveDto, BookingEntity>();
 		}
     }
 }

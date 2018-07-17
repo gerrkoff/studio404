@@ -16,7 +16,6 @@ namespace Studio404.Dal.Entity
         public Guid Guid { get; set; }
         public string Code { get; set; }
         
-        [Required]
         public string UserId { get; set; }
         public int StudioId { get; set; }
         

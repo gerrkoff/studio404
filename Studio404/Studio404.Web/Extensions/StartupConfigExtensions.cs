@@ -191,6 +191,7 @@ namespace Studio404.Web.Extensions
 			services.AddScoped<IUserManagerService, UserManagerService>();
 			services.AddScoped<IHourCostManagerService, HourCostManagerService>();
 	        services.AddScoped<IBookingManagerService, BookingManagerService>();
+			services.AddScoped<IPromoCodeManagerService, PromoCodeManagerService>();
 
 			#region SmsService
 

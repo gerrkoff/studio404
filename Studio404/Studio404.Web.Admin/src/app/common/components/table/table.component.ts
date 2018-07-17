@@ -90,7 +90,8 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
 
         const filteredItems = this.itemSearchFieldName
             ? this.loadedItems
-                .filter(x => x[this.itemSearchFieldName].toLocaleLowerCase().indexOf(this.table.searchValue.toLocaleLowerCase()) !== -1)
+                .filter(x => (x[this.itemSearchFieldName] || '')
+                                .toLocaleLowerCase().indexOf(this.table.searchValue.toLocaleLowerCase()) !== -1)
             : [...this.loadedItems];
 
         if (this.table.sortName) {

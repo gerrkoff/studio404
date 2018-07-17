@@ -1,11 +1,10 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using Studio404.Common.Enums;
 using Studio404.Dal.Entity.Base;
 
 namespace Studio404.Dal.Entity
 {
-    public class BookingEntity : BaseEntity
+	public class BookingEntity : DeletableEntity
     {
         public DateTime From { get; set; }
         public DateTime To { get; set; }

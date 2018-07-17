@@ -17,14 +17,14 @@ namespace Studio404.Services.Implementation
 {
     public class BookingService : IBookingService
     {
-        private readonly IRepositoryNonDeletable<BookingEntity> _bookingRepository;
+        private readonly IRepository<BookingEntity> _bookingRepository;
         private readonly StudioSettings _studioSettings;
         private readonly INotificationService _notificationService;
         private readonly ICostEvaluationService _costEvaluationService;
         private readonly IPayService _payService;
         private readonly IDateService _dateService;
 
-        public BookingService(IRepositoryNonDeletable<BookingEntity> bookingRepository, IOptions<StudioSettings> studioSettings,
+        public BookingService(IRepository<BookingEntity> bookingRepository, IOptions<StudioSettings> studioSettings,
             INotificationService notificationService, ICostEvaluationService costEvaluationService,
             IPayService payService, IDateService dateService)
         {

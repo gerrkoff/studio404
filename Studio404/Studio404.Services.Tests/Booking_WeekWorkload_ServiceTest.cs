@@ -165,9 +165,9 @@ namespace Studio404.Services.Tests
 			}
 		}
 
-		private IRepositoryNonDeletable<BookingEntity> CreateRepo(params BookingEntity[] bookings)
+		private IRepository<BookingEntity> CreateRepo(params BookingEntity[] bookings)
 		{
-			var repo = new Mock<IRepositoryNonDeletable<BookingEntity>>();
+			var repo = new Mock<IRepository<BookingEntity>>();
 			repo.Setup(x => x.GetAll()).Returns((new List<BookingEntity>(bookings)).AsQueryable());
 			return repo.Object;
 		}

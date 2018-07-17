@@ -56,14 +56,18 @@ export class BookingsService {
     private http: HttpClient
   ) {}
 
-  getSpecialBookings(): Promise<BookingSimple[]> {
-    return new Promise(resolve => setTimeout(() => resolve(DataCopy().filter(x => x.status === BookingStatusEnum.Special)), 3000));
-  }
-
   getUserBookings(): Promise<BookingUser[]> {
     return this.http.get<BookingUser[]>(this.URLUser).toPromise();
   }
 
+  cancelBooking(id: number): Promise<void> {
+    return this.http.delete<void>(`${this.URLUser}/${id}`).toPromise();
+  }
+
+  getSpecialBookings(): Promise<BookingSimple[]> {
+    return new Promise(resolve => setTimeout(() => resolve(DataCopy().filter(x => x.status === BookingStatusEnum.Special)), 3000));
+  }
+  
   saveSpecialBooking(booking: BookingSimple): Promise<BookingSimple> {
     const newItem = Object.assign(new BookingUser(), {...booking, status: BookingStatusEnum.Special});
 
@@ -87,9 +91,5 @@ export class BookingsService {
     }
 
     return new Promise(resolve => setTimeout(resolve, 3000));
-  }
-
-  cancelBooking(id: number): Promise<void> {
-    return this.http.delete<void>(`${this.URLUser}/${id}`).toPromise();
   }
 }

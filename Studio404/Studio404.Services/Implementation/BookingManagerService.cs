@@ -21,7 +21,10 @@ namespace Studio404.Services.Implementation
 
         public IEnumerable<BookingUserDto> GetUserBookings()
         {
-            return _bookingRepository.GetAll(x => x.User).ProjectTo<BookingUserDto>().ToList();
+            return _bookingRepository.GetAll(x => x.User)
+				.Where(x => x.Status != BookingStatusEnum.Special)
+				.ProjectTo<BookingUserDto>()
+				.ToList();
         }
 
         public void CancelUserBooking(int id)

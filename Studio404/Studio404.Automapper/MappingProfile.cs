@@ -30,6 +30,7 @@ namespace Studio404.Automapper
 			CreateMap<UserEntity, UserDto>();
 			CreateMap<HourCostEntity, HourCostDto>();
 			CreateMap<HourCostUpdateDto, HourCostEntity>();
+			CreateMap<BookingEntity, BookingSpecialDto>();
 		}
     }
 }

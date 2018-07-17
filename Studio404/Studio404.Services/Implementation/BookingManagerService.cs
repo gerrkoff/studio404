@@ -41,5 +41,13 @@ namespace Studio404.Services.Implementation
             
             _bookingRepository.Save(entity);
         }
-    }
+
+		public IEnumerable<BookingSpecialDto> GetSpecialBookings()
+		{
+			return _bookingRepository.GetAll()
+				.Where(x => x.Status == BookingStatusEnum.Special)
+				.ProjectTo<BookingSpecialDto>()
+				.ToList();
+		}
+	}
 }

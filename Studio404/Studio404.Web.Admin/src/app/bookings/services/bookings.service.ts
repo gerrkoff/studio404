@@ -51,6 +51,7 @@ function DataCopy(): BookingUser[] {
 export class BookingsService {
 
   private URLUser = '/api/bookings/user';
+  private URLSpecial = '/api/bookings/special';
 
   constructor (
     private http: HttpClient
@@ -65,9 +66,9 @@ export class BookingsService {
   }
 
   getSpecialBookings(): Promise<BookingSimple[]> {
-    return new Promise(resolve => setTimeout(() => resolve(DataCopy().filter(x => x.status === BookingStatusEnum.Special)), 3000));
+    return this.http.get<BookingSimple[]>(this.URLSpecial).toPromise();
   }
-  
+
   saveSpecialBooking(booking: BookingSimple): Promise<BookingSimple> {
     const newItem = Object.assign(new BookingUser(), {...booking, status: BookingStatusEnum.Special});
 

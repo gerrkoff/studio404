@@ -27,5 +27,11 @@ namespace Studio404.Web.Admin.Controllers
 		{
 			_bookingManagerService.CancelUserBooking(id);
 		}
+
+		[HttpGet("special")]
+		public IEnumerable<BookingSpecialDto> GetSpecial()
+		{
+			return _bookingManagerService.GetSpecialBookings();
+		}
 	}
 }

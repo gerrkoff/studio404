@@ -12,9 +12,10 @@ using System;
 namespace Studio404.Dal.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20180717094338_Adjust_BookingEntity_Deletable")]
+    partial class Adjust_BookingEntity_Deletable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

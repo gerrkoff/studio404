@@ -14,7 +14,7 @@ namespace Studio404.Dto.PromoCodeManager
 		[Required]
 		public DateTime? To { get; set; }
 
-		[Required]
+		[Required, Range(0, 100)]
 		public int? Discount { get; set; }
 
 		public string Description { get; set; }

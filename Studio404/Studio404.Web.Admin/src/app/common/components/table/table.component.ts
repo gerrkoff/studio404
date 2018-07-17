@@ -29,7 +29,7 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
             try {
                 this.loadedItems = await this.loadItemsCore();
                 this.showedItems = [...this.loadedItems];
-                this.updateRows();
+                this.updateRows(true);
             }
             finally {
                 this.table.isLoading = false;
@@ -54,7 +54,7 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
         }
     }
 
-    protected updateRows(): void {
+    protected updateRows(hardUpdate: boolean = false): void {
         this.loadedItems.forEach(x => {
             if (!this.table.rows[x.id]) {
                 this.table.rows[x.id] = {
@@ -63,6 +63,9 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
                     fieldInvalid: new FieldInvalid(),
                     data: Object.assign({}, x)
                 };
+            }
+            else if (hardUpdate) {
+                this.table.rows[x.id].data = Object.assign({}, x)
             }
         });
     }

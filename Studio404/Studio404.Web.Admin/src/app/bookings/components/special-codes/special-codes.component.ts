@@ -24,6 +24,10 @@ export class SpecialCodesComponent extends TableEditableComponent<BookingSimple>
 
   protected async loadItemsCore(): Promise<BookingSimple[]> {
     const data = await this.bookingsService.getSpecialBookings();
+    data.forEach(x => {
+      x.from = new Date(x.from);
+      x.to = new Date(x.to);
+    });
     return this.sort(data, 'from', false);
   }
 
@@ -44,8 +48,23 @@ export class SpecialCodesComponent extends TableEditableComponent<BookingSimple>
   }
 
   protected validate(id: number): boolean {
-    const row = this.table.rows[id];
+    const row = this.table.rows[id];    
+    
     row.fieldInvalid['code'] = row.data.code.length === 0;
-    return !row.fieldInvalid['code'];
+
+    if(!row.data.from) {
+      row.fieldInvalid['from'] = true;
+    }
+
+    if(!row.data.to) {
+      row.fieldInvalid['to'] = true;
+    }
+
+    if(row.data.to && row.data.from && row.data.from > row.data.to) {
+      row.fieldInvalid['from'] = true;
+      row.fieldInvalid['to'] = true;
+    }
+    
+    return !row.fieldInvalid['code'] && !row.fieldInvalid['from'] && !row.fieldInvalid['to'];
   }
 }

@@ -21,7 +21,13 @@
           {{item.from | date : 'short'}}
         </ng-container>
         <ng-container *ngIf="table.rows[item.id].isEditting">          
-          <nz-date-picker [(ngModel)]="table.rows[item.id].data.from" nzShowTime [disabled]="table.rows[item.id].isProcessing" nzSize="small"></nz-date-picker>
+          <nz-date-picker [(ngModel)]="table.rows[item.id].data.from"
+                          nzShowTime
+                          [disabled]="table.rows[item.id].isProcessing"
+                          class="animated"
+                          [ngClass]="{'has-error-custom':table.rows[item.id].fieldInvalid['from']}"
+                          nzSize="small">
+          </nz-date-picker>
         </ng-container>
       </td>
       <td>
@@ -29,7 +35,13 @@
           {{item.to | date : 'short'}}
         </ng-container>
         <ng-container *ngIf="table.rows[item.id].isEditting">
-          <nz-date-picker [(ngModel)]="table.rows[item.id].data.to" nzShowTime [disabled]="table.rows[item.id].isProcessing" nzSize="small"></nz-date-picker>
+          <nz-date-picker [(ngModel)]="table.rows[item.id].data.to"
+                          nzShowTime
+                          [disabled]="table.rows[item.id].isProcessing"
+                          class="animated"
+                          [ngClass]="{'has-error-custom':table.rows[item.id].fieldInvalid['to']}"
+                          nzSize="small">
+          </nz-date-picker>
         </ng-container>
       </td>
       <td>
@@ -41,7 +53,7 @@
                 [(ngModel)]="table.rows[item.id].data.code"
                 [disabled]="table.rows[item.id].isProcessing"
                 class="animated"
-                [ngClass]="{'has-error':table.rows[item.id].fieldInvalid['code']}"
+                [ngClass]="{'has-error-custom':table.rows[item.id].fieldInvalid['code']}"
                 nzSize="small" />
         </ng-container>
       </td>

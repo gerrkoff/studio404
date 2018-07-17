@@ -13,9 +13,9 @@ namespace Studio404.Services.Implementation
 {
     public class BookingManagerService : IBookingManagerService
     {
-        private readonly IRepositoryNonDeletable<BookingEntity> _bookingRepository;
+        private readonly IRepository<BookingEntity> _bookingRepository;
 
-        public BookingManagerService(IRepositoryNonDeletable<BookingEntity> bookingRepository)
+        public BookingManagerService(IRepository<BookingEntity> bookingRepository)
         {
             _bookingRepository = bookingRepository;
         }
@@ -66,17 +66,7 @@ namespace Studio404.Services.Implementation
 		{
 			BookingEntity entity = _bookingRepository.GetById(bookingSpecialDto.Id.Value);
 
-			if (entity == null)
-				throw new ServiceException("Booking does not exist");
-
-			// TODO: uncomment this
-			/*
-			if (entity.IsDeleted)
-				throw new ServiceException("Hour Cost has been already deleted");
-			*/
-
-			if (entity.Status != BookingStatusEnum.Special)
-				throw new ServiceException("Booking should be special");
+			ValidateSpecialBooking(entity);
 
 			entity.From = bookingSpecialDto.From.Value;
 			entity.To = bookingSpecialDto.To.Value;
@@ -91,6 +81,27 @@ namespace Studio404.Services.Implementation
 			entity.Id = 0;
 			entity.Status = BookingStatusEnum.Special;
 			return entity;
+		}
+
+		public void DeleteSpecialBooking(int id)
+		{
+			BookingEntity entity = _bookingRepository.GetById(id);
+
+			ValidateSpecialBooking(entity);
+
+			_bookingRepository.Delete(entity);
+		}
+
+		private void ValidateSpecialBooking(BookingEntity entity)
+		{
+			if (entity == null)
+				throw new ServiceException("Booking does not exist");
+
+			if (entity.IsDeleted)
+				throw new ServiceException("Booking has been already deleted");
+
+			if (entity.Status != BookingStatusEnum.Special)
+				throw new ServiceException("Booking should be special");
 		}
 	}
 }

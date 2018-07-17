@@ -45,5 +45,11 @@ namespace Studio404.Web.Admin.Controllers
 
 			return _bookingManagerService.SaveSpecialBooking(bookingSpecialDto);
 		}
+
+		[HttpDelete("special/{id}")]
+		public void DeleteSpecial(int id)
+		{
+			_bookingManagerService.DeleteSpecialBooking(id);
+		}
 	}
 }

@@ -14,19 +14,6 @@ namespace Studio404.Dal.Repository
 		{
 		}
 
-		public void DeleteHard(int id)
-		{
-			base.Delete(id);
-		}
-
-		public override void Delete(int id)
-		{
-			var entity = Activator.CreateInstance<T>();
-			entity.Id = id;
-			entity.IsDeleted = true;
-			SaveProperties(entity, x => x.IsDeleted);
-		}
-
 		public override IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes)
 		{
 			return base.GetAll(includes).Where(x => !x.IsDeleted);
@@ -35,6 +22,34 @@ namespace Studio404.Dal.Repository
 		public IQueryable<T> GetAllIncludeDeleted(params Expression<Func<T, object>>[] includes)
 		{
 			return base.GetAll(includes);
+		}
+
+		public void DeleteHard(int id)
+		{
+			base.Delete(id);
+		}
+
+		public void DeleteHard(T entity)
+		{
+			base.Delete(entity);
+		}
+
+		public override void Delete(int id)
+		{
+			var entity = Activator.CreateInstance<T>();
+			entity.Id = id;
+			DeleteCore(entity);
+		}
+
+		public override void Delete(T entity)
+		{
+			DeleteCore(entity);
+		}
+
+		private void DeleteCore(T entity)
+		{
+			entity.IsDeleted = true;
+			SaveProperties(entity, x => x.IsDeleted);
 		}
 	}
 }

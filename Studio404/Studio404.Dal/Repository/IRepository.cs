@@ -10,5 +10,6 @@ namespace Studio404.Dal.Repository
     {
         IQueryable<T> GetAllIncludeDeleted(params Expression<Func<T, object>>[] includes);
 		void DeleteHard(int id);
-    }
+		void DeleteHard(T entity);
+	}
 }

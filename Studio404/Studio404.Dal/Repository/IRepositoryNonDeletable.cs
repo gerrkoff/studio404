@@ -11,6 +11,7 @@ namespace Studio404.Dal.Repository
         void Save(T entity);
         void SaveProperties(T entity, params Expression<Func<T, object>>[] properties);
         void Delete(int id);
-        T GetById(int id);
+		void Delete(T entity);
+		T GetById(int id);
     }
 }

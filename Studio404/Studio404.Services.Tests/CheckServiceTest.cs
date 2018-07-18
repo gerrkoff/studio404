@@ -18,7 +18,7 @@ namespace Studio404.Services.Tests
         public void SimpleCheck()
         {
             IDateService date = CreateDateService();
-			IRepositoryNonDeletable<BookingEntity> repo = CreateRepo(new BookingEntity { From = DateTimeHour(9), To = DateTimeHour(11), Code = "1" });
+            var repo = CreateRepo(new BookingEntity { From = DateTimeHour(9), To = DateTimeHour(11), Code = "1", Status = BookingStatusEnum.Paid});
             var check = new CheckService(repo, date);
 
             bool result = check.Check(0, "1");
@@ -30,7 +30,7 @@ namespace Studio404.Services.Tests
         public void LowRangeCheck()
         {
             IDateService date = CreateDateService();
-			IRepositoryNonDeletable<BookingEntity> repo = CreateRepo(new BookingEntity { From = DateTimeHour(10), To = DateTimeHour(11), Code = "1" });
+            var repo = CreateRepo(new BookingEntity { From = DateTimeHour(10), To = DateTimeHour(11), Code = "1", Status = BookingStatusEnum.Paid });
             var check = new CheckService(repo, date);
 
             bool result = check.Check(0, "1");
@@ -42,7 +42,7 @@ namespace Studio404.Services.Tests
         public void HighRangeCheck()
         {
             IDateService date = CreateDateService();
-			IRepositoryNonDeletable<BookingEntity> repo = CreateRepo(new BookingEntity { From = DateTimeHour(9), To = DateTimeHour(10), Code = "1" });
+            var repo = CreateRepo(new BookingEntity { From = DateTimeHour(9), To = DateTimeHour(10), Code = "1", Status = BookingStatusEnum.Paid });
             var check = new CheckService(repo, date);
 
             bool result = check.Check(0, "1");
@@ -54,7 +54,7 @@ namespace Studio404.Services.Tests
         public void EqualOneHourCheck()
         {
             IDateService date = CreateDateService();
-			IRepositoryNonDeletable<BookingEntity> repo = CreateRepo(new BookingEntity { From = DateTimeHour(10), To = DateTimeHour(10), Code = "1" });
+            var repo = CreateRepo(new BookingEntity { From = DateTimeHour(10), To = DateTimeHour(10), Code = "1", Status = BookingStatusEnum.Paid });
             var check = new CheckService(repo, date);
 
             bool result = check.Check(0, "1");
@@ -66,7 +66,7 @@ namespace Studio404.Services.Tests
         public void WrongTimeCheck()
         {
             IDateService date = CreateDateService();
-			IRepositoryNonDeletable<BookingEntity> repo = CreateRepo(new BookingEntity { From = DateTimeHour(11), To = DateTimeHour(11), Code = "1" });
+            var repo = CreateRepo(new BookingEntity { From = DateTimeHour(11), To = DateTimeHour(11), Code = "1", Status = BookingStatusEnum.Paid });
             var check = new CheckService(repo, date);
 
             bool result = check.Check(0, "1");
@@ -78,7 +78,7 @@ namespace Studio404.Services.Tests
         public void WrongCodeCheck()
         {
             IDateService date = CreateDateService();
-			IRepositoryNonDeletable<BookingEntity> repo = CreateRepo(new BookingEntity { From = DateTimeHour(9), To = DateTimeHour(11), Code = "2" });
+            var repo = CreateRepo(new BookingEntity { From = DateTimeHour(9), To = DateTimeHour(11), Code = "2", Status = BookingStatusEnum.Paid });
             var check = new CheckService(repo, date);
 
             bool result = check.Check(0, "1");
@@ -90,7 +90,7 @@ namespace Studio404.Services.Tests
         public void ShiftCheck()
         {
             IDateService date = CreateDateService();
-			IRepositoryNonDeletable<BookingEntity> repo = CreateRepo(new BookingEntity { From = DateTimeHour(12), To = DateTimeHour(12), Code = "1" });
+            var repo = CreateRepo(new BookingEntity { From = DateTimeHour(12), To = DateTimeHour(12), Code = "1", Status = BookingStatusEnum.Paid });
             var check = new CheckService(repo, date);
 
             bool result = check.Check(120, "1");
@@ -102,7 +102,7 @@ namespace Studio404.Services.Tests
         public void ShiftRangeCheck()
         {
             IDateService date = CreateDateService();
-			IRepositoryNonDeletable<BookingEntity> repo = CreateRepo(new BookingEntity { From = DateTimeHour(13), To = DateTimeHour(15), Code = "1" });
+            var repo = CreateRepo(new BookingEntity { From = DateTimeHour(13), To = DateTimeHour(15), Code = "1", Status = BookingStatusEnum.Paid });
             var check = new CheckService(repo, date);
 
             bool result = check.Check(240, "1");
@@ -114,7 +114,7 @@ namespace Studio404.Services.Tests
         public void ShiftNegativeCheck()
         {
             IDateService date = CreateDateService();
-			IRepositoryNonDeletable<BookingEntity> repo = CreateRepo(new BookingEntity { From = DateTimeHour(6), To = DateTimeHour(6), Code = "1" });
+			var repo = CreateRepo(new BookingEntity { From = DateTimeHour(6), To = DateTimeHour(6), Code = "1", Status = BookingStatusEnum.Paid });
             var check = new CheckService(repo, date);
 
             bool result = check.Check(-240, "1");
@@ -126,7 +126,7 @@ namespace Studio404.Services.Tests
 		public void SpecialCheck()
 		{
 			IDateService date = CreateDateService();
-			IRepositoryNonDeletable<BookingEntity> repo = CreateRepo(
+			var repo = CreateRepo(
 				new BookingEntity { From = DateTimeHour(9), To = DateTimeHour(11), Code = "1", Status = BookingStatusEnum.Paid },
 				new BookingEntity { From = DateTimeHour(-30), To = DateTimeHour(30), Code = "2", Status = BookingStatusEnum.Special });
 			var check = new CheckService(repo, date);
@@ -134,6 +134,21 @@ namespace Studio404.Services.Tests
 			Assert.IsTrue(check.Check(0, "1"));
 			Assert.IsTrue(check.Check(0, "2"));
 		}
+        
+        [TestMethod]
+        public void CheckExcludingNonPaidAndNonSpecial()
+        {
+            IDateService date = CreateDateService();
+            IRepository<BookingEntity> repo = CreateRepo(
+                new BookingEntity { From = DateTimeHour(9), To = DateTimeHour(11), Code = "1", Status = BookingStatusEnum.None },
+                new BookingEntity { From = DateTimeHour(-30), To = DateTimeHour(30), Code = "2", Status = BookingStatusEnum.Unpaid },
+                new BookingEntity { From = DateTimeHour(-30), To = DateTimeHour(30), Code = "3", Status = BookingStatusEnum.Canceled });
+            var check = new CheckService(repo, date);
+
+            Assert.IsFalse(check.Check(0, "1"));
+            Assert.IsFalse(check.Check(0, "2"));
+            Assert.IsFalse(check.Check(0, "3"));
+        }
 
 		private IDateService CreateDateService()
         {
@@ -142,9 +157,9 @@ namespace Studio404.Services.Tests
             return date.Object;
         }
 
-        private IRepositoryNonDeletable<BookingEntity> CreateRepo(params BookingEntity[] bookings)
+        private IRepository<BookingEntity> CreateRepo(params BookingEntity[] bookings)
         {
-            var repo = new Mock<IRepositoryNonDeletable<BookingEntity>>();
+            var repo = new Mock<IRepository<BookingEntity>>();
             repo.Setup(x => x.GetAll()).Returns((new List<BookingEntity>(bookings)).AsQueryable());
             return repo.Object;
         }

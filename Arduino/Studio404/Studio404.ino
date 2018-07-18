@@ -122,13 +122,13 @@ void resultSuccess() {
 
 void resultFail() {
   Serial.println("===FAIL===");
-  pinBlink(pinRed, 1, false);
+  // pinBlink(pinRed, 1, false);
 }
 
 
 void resultUnknown() {
   Serial.println("===UNKNOWN===");
-  pinBlink(pinRed, 3, true);
+  // pinBlink(pinRed, 3, true);
 }
 
 

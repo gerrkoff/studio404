@@ -52,8 +52,8 @@ export class SpecialCodesComponent extends TableEditableComponent<BookingSimple>
     const row = this.table.rows[id];
 
     row.fieldInvalid['from'] = false;
-    row.fieldInvalid['to'] = false;    
-    row.fieldInvalid['code'] = row.data.code.length === 0;
+    row.fieldInvalid['to'] = false;
+    row.fieldInvalid['code'] = !(/^\d+$/.test(row.data.code));
 
     if(!row.data.from) {
       row.fieldInvalid['from'] = true;

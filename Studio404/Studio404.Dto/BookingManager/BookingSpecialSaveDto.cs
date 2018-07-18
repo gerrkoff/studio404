@@ -14,7 +14,7 @@ namespace Studio404.Dto.BookingManager
 		[Required]
         public DateTime? To { get; set; }
 
-		[Required]
+		[Required, RegularExpression("\\d+")]
         public string Code { get; set; }
     }
 }

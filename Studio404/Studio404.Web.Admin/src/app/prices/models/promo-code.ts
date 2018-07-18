@@ -1,4 +1,4 @@
-import { IEntity } from "../../common/models/entity";
+import { IEntity } from '../../common/models/entity';
 
 export class PromoCode implements IEntity {
     public code: string;

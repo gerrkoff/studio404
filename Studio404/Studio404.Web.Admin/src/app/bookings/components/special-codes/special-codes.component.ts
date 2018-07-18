@@ -55,19 +55,19 @@ export class SpecialCodesComponent extends TableEditableComponent<BookingSimple>
     row.fieldInvalid['to'] = false;
     row.fieldInvalid['code'] = !(/^\d+$/.test(row.data.code));
 
-    if(!row.data.from) {
+    if (!row.data.from) {
       row.fieldInvalid['from'] = true;
     }
 
-    if(!row.data.to) {
+    if (!row.data.to) {
       row.fieldInvalid['to'] = true;
     }
 
-    if(row.data.to && row.data.from && row.data.from > row.data.to) {
+    if (row.data.to && row.data.from && row.data.from > row.data.to) {
       row.fieldInvalid['from'] = true;
       row.fieldInvalid['to'] = true;
     }
-    
+
     return !row.fieldInvalid['code'] && !row.fieldInvalid['from'] && !row.fieldInvalid['to'];
   }
 }

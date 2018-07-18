@@ -42,7 +42,7 @@ export class UserBookingsComponent extends TableComponent<BookingUser> {
   }
 
   private copyTextToClipboard(text: string): void {
-    const textArea = document.createElement("textarea");
+    const textArea = document.createElement('textarea');
     textArea.style.position = 'fixed';
     textArea.style.top = '0';
     textArea.style.left = '0';
@@ -59,6 +59,6 @@ export class UserBookingsComponent extends TableComponent<BookingUser> {
     textArea.select();
     document.execCommand('copy');
     document.body.removeChild(textArea);
-    this.messageService.success('Successfully copied to clipboard')
+    this.messageService.success('Successfully copied to clipboard');
   }
 }

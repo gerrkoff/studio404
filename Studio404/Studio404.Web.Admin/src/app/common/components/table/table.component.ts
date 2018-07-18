@@ -63,9 +63,8 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
                     fieldInvalid: new FieldInvalid(),
                     data: Object.assign({}, x)
                 };
-            }
-            else if (hardUpdate) {
-                this.table.rows[x.id].data = Object.assign({}, x)
+            } else if (hardUpdate) {
+                this.table.rows[x.id].data = Object.assign({}, x);
             }
         });
     }

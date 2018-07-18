@@ -1,5 +1,5 @@
-import { DiscountDayTypeEnum } from "./discount-day-type-enum";
-import { IEntity } from "../../common/models/entity";
+import { DiscountDayTypeEnum } from './discount-day-type-enum';
+import { IEntity } from '../../common/models/entity';
 
 export class HourCost implements IEntity {
     id: number;

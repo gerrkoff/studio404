@@ -13,7 +13,7 @@ import { DiscountDayTypeEnum } from '../../models/discount-day-type-enum';
   ]
 })
 export class HourCostsComponent extends TableEditableComponent<HourCost> implements OnInit {
-  
+
   protected itemSearchFieldName = '';
   discountDayTypes: {value: number, label: string}[];
   DiscountDayTypeEnum = DiscountDayTypeEnum;
@@ -31,8 +31,8 @@ export class HourCostsComponent extends TableEditableComponent<HourCost> impleme
     super.ngOnInit();
 
     this.discountDayTypes = [];
-    for (let item in DiscountDayTypeEnum) {
-      let itemNum = Number(item);
+    for (const item of Object.keys(DiscountDayTypeEnum)) {
+      const itemNum = Number(item);
       if (!isNaN(itemNum) && itemNum !== 0) {
         this.discountDayTypes.push({value: itemNum, label: DiscountDayTypeEnum[itemNum]});
       }
@@ -54,9 +54,8 @@ export class HourCostsComponent extends TableEditableComponent<HourCost> impleme
         dayType: DiscountDayTypeEnum.All,
         isGeneral: false,
         id: 0
-      }
-    }
-    else {
+      };
+    } else {
       return {
         cost: 100,
         start: 0,
@@ -64,7 +63,7 @@ export class HourCostsComponent extends TableEditableComponent<HourCost> impleme
         dayType: DiscountDayTypeEnum.All,
         isGeneral: false,
         id: 0
-      }
+      };
     }
   }
   protected validate(id: number): boolean {
@@ -74,19 +73,19 @@ export class HourCostsComponent extends TableEditableComponent<HourCost> impleme
     row.fieldInvalid['start'] = false;
     row.fieldInvalid['end'] = false;
 
-    if(row.data.cost.toString() === '') {
+    if (row.data.cost.toString() === '') {
       row.fieldInvalid['cost'] = true;
     }
 
-    if(row.data.start.toString() === '') {
+    if (row.data.start.toString() === '') {
       row.fieldInvalid['start'] = true;
     }
 
-    if(row.data.end.toString() === '') {
+    if (row.data.end.toString() === '') {
       row.fieldInvalid['end'] = true;
     }
 
-    if(row.data.start.toString() !== '' && row.data.end.toString() !== '' && row.data.start > row.data.end) {
+    if (row.data.start.toString() !== '' && row.data.end.toString() !== '' && row.data.start > row.data.end) {
       row.fieldInvalid['start'] = true;
       row.fieldInvalid['end'] = true;
     }

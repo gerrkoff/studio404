@@ -10,6 +10,15 @@
     transition-timing-function: ease;
 }
 
+.clickable {
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.clickable:hover {
+    color: #40a9ff;
+}
+
 .has-error-custom,
 .has-error-custom input {
     border-color: #f5222d;

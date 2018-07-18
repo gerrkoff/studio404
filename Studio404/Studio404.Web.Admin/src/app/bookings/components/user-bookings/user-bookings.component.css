@@ -8,15 +8,6 @@
     max-width: 100px;
 }
 
-.clickable {
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.clickable:hover {
-    color: #40a9ff;
-}
-
 .copy-icon {
     padding-left: 5px;
 }

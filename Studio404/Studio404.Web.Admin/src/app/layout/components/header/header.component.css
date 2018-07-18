@@ -19,12 +19,3 @@
 .user-container {
     text-align: right;
 }
-
-.clickable {
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.clickable:hover {
-    color: #40a9ff;
-}

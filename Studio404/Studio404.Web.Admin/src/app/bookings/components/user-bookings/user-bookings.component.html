@@ -34,7 +34,12 @@
       <td><app-booking-status-tag [value]="item.status"></app-booking-status-tag></td>
       <td>{{item.userPhone}}</td>
       <td>{{item.userDisplayName}}</td>
-      <td>{{item.userId}}</td>
+      <td>
+        <div class="user-id-wrapper">
+          <div class="user-id">{{item.userId}}</div>
+        </div>
+        <i class="anticon anticon-copy clickable animated copy-icon" (click)="onCopy(item.userId)"></i>
+      </td>
       <td>{{item.id}}</td>
       <td>
         <div class="editable-row-operations">

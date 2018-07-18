@@ -1,0 +1,22 @@
+.user-id-wrapper {
+    display: inline-flex;
+}
+.user-id {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100px;
+}
+
+.clickable {
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.clickable:hover {
+    color: #40a9ff;
+}
+
+.copy-icon {
+    padding-left: 5px;
+}

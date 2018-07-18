@@ -20,4 +20,4 @@ if ($LastExitCode -eq 1)
 	exit 1
 }
 
-dotnet publish -c Release -o ../../Deploy/src
+dotnet publish -c Release -o ../../Deploy/src/studio404

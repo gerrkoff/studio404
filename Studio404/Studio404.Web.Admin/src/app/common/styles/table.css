@@ -21,4 +21,10 @@
 .header-custom-action {
     padding-left: 5px;
     cursor: pointer;
+    color: rgba(0,0,0,.45);
+    transition: all .3s;
+}
+
+.header-custom-action:hover {
+    color: rgba(0,0,0,.65);
 }

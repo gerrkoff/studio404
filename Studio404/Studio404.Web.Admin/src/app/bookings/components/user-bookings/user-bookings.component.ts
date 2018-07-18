@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd';
 import { TableComponent } from '../../../common/components/table/table.component';
 import { BookingUser } from '../../models/booking-user';
 import { BookingsService } from '../../services/bookings.service';
@@ -18,7 +19,8 @@ export class UserBookingsComponent extends TableComponent<BookingUser> {
   BookingStatusEnum = BookingStatusEnum;
 
   constructor(
-    private bookingsService: BookingsService
+    private bookingsService: BookingsService,
+    private messageService: NzMessageService
   ) {
     super();
   }
@@ -57,5 +59,6 @@ export class UserBookingsComponent extends TableComponent<BookingUser> {
     textArea.select();
     document.execCommand('copy');
     document.body.removeChild(textArea);
+    this.messageService.success('Successfully copied to clipboard')
   }
 }

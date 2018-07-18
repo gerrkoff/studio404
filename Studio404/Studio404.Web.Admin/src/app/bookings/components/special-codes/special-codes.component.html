@@ -1,14 +1,14 @@
 <nz-table #nztable nzSize="middle" [nzData]="showedItems" [nzLoading]="table.isLoading">
   <thead (nzSortChange)="onSort($event)" nzSingleSort>
     <tr>
-      <th nzWidth="20%" class="center" nzShowSort nzSortKey="from">From</th>
-      <th nzWidth="20%" class="center">To</th>
-      <th nzWidth="10%" class="center">Code</th>
-      <th nzWidth="10%" class="center">
+      <th nzWidth="25%" class="center" nzShowSort nzSortKey="from">From</th>
+      <th nzWidth="25%" class="center">To</th>
+      <th nzWidth="30%" class="center">Code</th>
+      <th nzWidth="7%" class="center">
         Id
         <i class="anticon anticon-reload header-custom-action" (click)="onRefreshData()"></i>
       </th>
-      <th nzWidth="20%" class="center">
+      <th nzWidth="13%" class="center">
         Actions
         <i class="anticon anticon-plus-circle-o header-custom-action" (click)="onAddRow()"></i>
       </th>
@@ -52,7 +52,7 @@
           <input type="text" nz-input
                 [(ngModel)]="table.rows[item.id].data.code"
                 [disabled]="table.rows[item.id].isProcessing"
-                class="animated"
+                class="animated code"
                 [ngClass]="{'has-error-custom':table.rows[item.id].fieldInvalid['code']}"
                 nzSize="small" />
         </ng-container>

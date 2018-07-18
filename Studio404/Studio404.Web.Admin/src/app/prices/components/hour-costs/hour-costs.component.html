@@ -1,15 +1,15 @@
 <nz-table #nztable nzSize="middle" [nzData]="showedItems" [nzLoading]="table.isLoading">
   <thead>
     <tr>
-      <th nzWidth="15%" class="center">Hour Start</th>
-      <th nzWidth="15%" class="center">Hour End</th>
+      <th nzWidth="20%" class="center">Hour Start</th>
+      <th nzWidth="20%" class="center">Hour End</th>
       <th nzWidth="20%" class="center">Day Type</th>
       <th nzWidth="20%" class="center">Cost</th>
-      <th nzWidth="10%" class="center">
+      <th nzWidth="7%" class="center">
         Id
         <i class="anticon anticon-reload header-custom-action" (click)="onRefreshData()"></i>
       </th>
-      <th nzWidth="20%" class="center">
+      <th nzWidth="13%" class="center">
         Actions
         <i class="anticon anticon-plus-circle-o header-custom-action" (click)="onAddRow()"></i>
       </th>

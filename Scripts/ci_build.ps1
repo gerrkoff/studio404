@@ -14,7 +14,7 @@ if ($LastExitCode -eq 1)
 	exit 1
 }
 
-npm run build_p
+npm run prod
 if ($LastExitCode -eq 1)
 {
 	exit 1

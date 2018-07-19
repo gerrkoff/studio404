@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "watch": "webpack --watch -d --config webpack.dev.js",
-    "build_d": "webpack -d --config webpack.dev.js",
-    "build_p": "webpack --config webpack.prod.js",
+    "build": "webpack -d --config webpack.dev.js",
+    "prod": "webpack --config webpack.prod.js",
     "start": "webpack-dev-server --open --content-base wwwroot/ --config webpack.dev.js",
     "test": "jest"
   },

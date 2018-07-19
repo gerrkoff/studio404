@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Dto.External;
 using Studio404.Services.Interface;
-using Studio404.Web.Controllers.Base;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication;
 using System.Web;
 using Microsoft.Extensions.Logging;
+using Studio404.Web.Common.Controllers;
 
 namespace Studio404.Web.Controllers
 {

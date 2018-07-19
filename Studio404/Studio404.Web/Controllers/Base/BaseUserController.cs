@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Claims;
 using Studio404.Dto.Account;
+using Studio404.Web.Common.Controllers;
 
 namespace Studio404.Web.Controllers.Base
 {

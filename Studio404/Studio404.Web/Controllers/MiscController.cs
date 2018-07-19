@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Dto.Misc;
-using Studio404.Web.Controllers.Base;
+using Studio404.Web.Common.Controllers;
 
 namespace Studio404.Web.Controllers
 {

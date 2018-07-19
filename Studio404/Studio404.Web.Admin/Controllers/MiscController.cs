@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Dto.Misc;
-using Studio404.Web.Controllers.Base;
 using System.Security.Claims;
+using Studio404.Web.Common.Controllers;
 
 namespace Studio404.Web.Admin.Controllers
 {

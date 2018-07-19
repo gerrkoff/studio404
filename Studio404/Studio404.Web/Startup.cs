@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Studio404.Web.Filters;
-using Studio404.Web.Middleware;
-using Studio404.Web.Extensions;
+using Studio404.Web.Common.Configuration;
+using Studio404.Web.Common.Filters;
+using Studio404.Web.Common.Middleware;
 
 namespace Studio404.Web
 {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 
-namespace Studio404.Web.Middleware
+namespace Studio404.Web.Common.Middleware
 {
     public class WhiteListMiddleware
     {

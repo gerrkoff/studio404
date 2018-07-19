@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Studio404.Common.Enums;
 using Studio404.Dto.Account;
 using Studio404.Services.Interface;
-using Studio404.Web.Controllers.Base;
 using Microsoft.AspNetCore.Authorization;
+using Studio404.Web.Common.Controllers;
 
 namespace Studio404.Web.Admin.Controllers
 {

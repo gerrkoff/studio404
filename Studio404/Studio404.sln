@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studio404.Automapper", "Stu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studio404.Services.Tests", "Studio404.Services.Tests\Studio404.Services.Tests.csproj", "{488E7045-111E-4D5B-A208-64A0BAF0FCFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studio404.Web.Admin", "Studio404.Web.Admin\Studio404.Web.Admin.csproj", "{BFF3DCE3-4C4C-43BD-AEB6-E662D959BC5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Studio404.Web.Admin", "Studio404.Web.Admin\Studio404.Web.Admin.csproj", "{BFF3DCE3-4C4C-43BD-AEB6-E662D959BC5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Studio404.Web.Common", "Studio404.Web.Common\Studio404.Web.Common.csproj", "{4A53EF28-787F-4575-BDDB-0999D49CB060}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{BFF3DCE3-4C4C-43BD-AEB6-E662D959BC5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFF3DCE3-4C4C-43BD-AEB6-E662D959BC5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFF3DCE3-4C4C-43BD-AEB6-E662D959BC5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A53EF28-787F-4575-BDDB-0999D49CB060}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A53EF28-787F-4575-BDDB-0999D49CB060}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A53EF28-787F-4575-BDDB-0999D49CB060}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A53EF28-787F-4575-BDDB-0999D49CB060}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

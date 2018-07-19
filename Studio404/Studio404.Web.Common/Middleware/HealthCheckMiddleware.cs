@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 
-namespace Studio404.Web.Middleware
+namespace Studio404.Web.Common.Middleware
 {
     public class HealthCheckMiddleware
     {

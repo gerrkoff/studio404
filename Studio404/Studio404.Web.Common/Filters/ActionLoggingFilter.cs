@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 
-namespace Studio404.Web.Filters
+namespace Studio404.Web.Common.Filters
 {
     public class ActionLoggingFilter : Attribute, IAsyncActionFilter
     {

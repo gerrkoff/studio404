@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Studio404.Services.Interface;
-using Studio404.Web.Controllers.Base;
 using Studio404.Dto.UserManager;
 using System.Collections.Generic;
 using Studio404.Common.Exceptions;
+using Studio404.Web.Common.Controllers;
 
 namespace Studio404.Web.Admin.Controllers
 {

@@ -7,12 +7,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Studio404.Dal.Context;
 using Studio404.Dal.Entity;
-using Studio404.Web.Extensions;
-using Studio404.Web.Filters;
-using Studio404.Web.Middleware;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Studio404.Dal;
+using Studio404.Web.Common.Configuration;
+using Studio404.Web.Common.Filters;
+using Studio404.Web.Common.Middleware;
 
 namespace Studio404.Web.Admin
 {

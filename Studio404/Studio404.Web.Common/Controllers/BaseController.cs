@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Studio404.Common.Exceptions;
 
-namespace Studio404.Web.Controllers.Base
+namespace Studio404.Web.Common.Controllers
 {
     public class BaseController : Controller
     {

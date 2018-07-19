@@ -18,7 +18,7 @@ using Studio404.Dal.Repository;
 using Studio404.Services.Implementation;
 using Studio404.Services.Interface;
 
-namespace Studio404.Web.Extensions
+namespace Studio404.Web.Common.Configuration
 {
     public static class StartupConfigExtensions
     {

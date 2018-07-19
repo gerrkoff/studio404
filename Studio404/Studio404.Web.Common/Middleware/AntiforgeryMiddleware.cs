@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Http;
 
-namespace Studio404.Web.Middleware
+namespace Studio404.Web.Common.Middleware
 {
     public class AntiforgeryMiddleware
     {

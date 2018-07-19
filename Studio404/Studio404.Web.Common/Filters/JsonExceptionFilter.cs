@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 
-namespace Studio404.Web.Filters
+namespace Studio404.Web.Common.Filters
 {
     public class JsonExceptionFilter : IExceptionFilter
     {

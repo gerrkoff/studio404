@@ -3,22 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.Vkontakte" Version="2.0.0" />
     <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Studio404.Automapper\Studio404.Automapper.csproj" />
     <ProjectReference Include="..\Studio404.Dal\Studio404.Dal.csproj" />
     <ProjectReference Include="..\Studio404.Services\Studio404.Services.csproj" />
   </ItemGroup>
-
 </Project>

@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Studio404.Dal.Migrations
 {
-    public partial class Add_HourCost_Entity : Migration
+	public partial class Add_HourCost_Entity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

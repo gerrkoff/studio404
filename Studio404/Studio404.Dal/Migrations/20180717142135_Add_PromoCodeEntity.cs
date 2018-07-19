@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using System;
-using System.Collections.Generic;
 
 namespace Studio404.Dal.Migrations
 {
-    public partial class Add_PromoCodeEntity : Migration
+	public partial class Add_PromoCodeEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

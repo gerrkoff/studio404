@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Studio404.Common.Enums;
 using Studio404.Common.Exceptions;
@@ -23,10 +24,11 @@ namespace Studio404.Services.Implementation
         private readonly ICostEvaluationService _costEvaluationService;
         private readonly IPayService _payService;
         private readonly IDateService _dateService;
+        private readonly ILogger<BookingService> _logger;
 
         public BookingService(IRepository<BookingEntity> bookingRepository, IOptions<StudioSettings> studioSettings,
             INotificationService notificationService, ICostEvaluationService costEvaluationService,
-            IPayService payService, IDateService dateService)
+            IPayService payService, IDateService dateService, ILogger<BookingService> logger = null)
         {
             _bookingRepository = bookingRepository;
             _notificationService = notificationService;
@@ -34,6 +36,7 @@ namespace Studio404.Services.Implementation
             _payService = payService;
             _dateService = dateService;
             _studioSettings = studioSettings.Value;
+            _logger = logger;
         }
 
         public IEnumerable<DayWorkloadDto> GetWeekWorkload(DateTime weekStartDate)
@@ -96,12 +99,22 @@ namespace Studio404.Services.Implementation
 
             if (!user.PhoneConfirmed)
                 throw new ServiceException("User does not have such permissions");
-            
+
             if (from < _dateService.NowUtc.Date)
+            {
+                _logger.LogWarning($"____ from less than date now. From='{from}' Date='{_dateService.NowUtc.Date}'");
                 throw new ServiceException("Booking is invalid for this action");
-            
+            }
+
+
             if (GetBookingsForPeriod(from, to).Any())
+            {
+                string bookingIds = GetBookingsForPeriod(from, to).Select(x => x.Id.ToString())
+                    .Aggregate((s1, s2) => s1 + "," + s2);
+                _logger.LogWarning($"____ has bookings for period. From='{from}' To='{to}' Ids='{bookingIds}'");
                 throw new ServiceException("Booking is invalid for this action");
+            }
+                
             
             _bookingRepository.Save(new BookingEntity
             {

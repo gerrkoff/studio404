@@ -102,7 +102,7 @@ namespace Studio404.Services.Implementation
 
             if (from < _dateService.NowUtc.Date)
             {
-                _logger.LogWarning($"____ from less than date now. From='{from}' Date='{_dateService.NowUtc.Date}'");
+                _logger?.LogWarning($"____ from less than date now. From='{from}' Date='{_dateService.NowUtc.Date}'");
                 throw new ServiceException("Booking is invalid for this action");
             }
 
@@ -111,7 +111,7 @@ namespace Studio404.Services.Implementation
             {
                 string bookingIds = GetBookingsForPeriod(from, to).Select(x => x.Id.ToString())
                     .Aggregate((s1, s2) => s1 + "," + s2);
-                _logger.LogWarning($"____ has bookings for period. From='{from}' To='{to}' Ids='{bookingIds}'");
+                _logger?.LogWarning($"____ has bookings for period. From='{from}' To='{to}' Ids='{bookingIds}'");
                 throw new ServiceException("Booking is invalid for this action");
             }
                 

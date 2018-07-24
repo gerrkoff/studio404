@@ -3,6 +3,7 @@ import { HourCost } from '../../models/hour-cost';
 import { TableEditableComponent } from '../../../common/components/table-editable/table-editable.component';
 import { HourCostsService } from '../../services/hour-costs.service';
 import { DiscountDayTypeEnum } from '../../models/discount-day-type-enum';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-hour-costs',
@@ -39,9 +40,9 @@ export class HourCostsComponent extends TableEditableComponent<HourCost> impleme
     }
   }
 
-  protected async loadItemsCore(): Promise<HourCost[]> {
-    const data = await this.hourCostsService.getHourCosts();
-    return this.sort(data, 'from', false);
+  protected loadItemsCore(): Observable<HourCost[]> {
+    return this.hourCostsService.getHourCosts();
+    //return this.sort(data, 'from', false);
   }
 
   protected createNewItem(): HourCost {

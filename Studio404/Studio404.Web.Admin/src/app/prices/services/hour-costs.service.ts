@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HourCost } from '../models/hour-cost';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class HourCostsService {
     private http: HttpClient
   ) {}
 
-  getHourCosts(): Promise<HourCost[]> {
-    return this.http.get<HourCost[]>(this.URL).toPromise();
+  getHourCosts(): Observable<HourCost[]> {
+    return this.http.get<HourCost[]>(this.URL);
   }
 
   saveHourCost(hourCost: HourCost): Promise<HourCost> {

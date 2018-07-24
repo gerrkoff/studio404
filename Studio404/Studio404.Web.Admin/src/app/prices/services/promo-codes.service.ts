@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PromoCode } from '../models/promo-code';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class PromoCodesService {
     private http: HttpClient
   ) {}
 
-  getPromoCodes(): Promise<PromoCode[]> {
-    return this.http.get<PromoCode[]>(this.URL).toPromise();
+  getPromoCodes(): Observable<PromoCode[]> {
+    return this.http.get<PromoCode[]>(this.URL);
   }
 
   savePromoCode(booking: PromoCode): Promise<PromoCode> {

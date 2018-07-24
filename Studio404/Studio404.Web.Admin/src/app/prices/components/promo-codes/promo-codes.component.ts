@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PromoCodesService } from '../../services/promo-codes.service';
 import { PromoCode } from '../../models/promo-code';
 import { TableEditableComponent } from '../../../common/components/table-editable/table-editable.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-promo-codes',
@@ -24,9 +25,9 @@ export class PromoCodesComponent extends TableEditableComponent<PromoCode> {
   formatterPercent = value => `${value}%`;
   parserPercent = value => value.replace('%', '');
 
-  protected async loadItemsCore(): Promise<PromoCode[]> {
-    const data = await this.promoCodesService.getPromoCodes();
-    return this.sort(data, 'from', false);
+  protected loadItemsCore(): Observable<PromoCode[]> {
+    return this.promoCodesService.getPromoCodes();
+    //return this.sort(data, 'from', false);
   }
 
   protected createNewItem(): PromoCode {

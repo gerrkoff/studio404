@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookingsService } from '../../services/bookings.service';
 import { BookingSimple } from '../../models/booking-simple';
 import { TableEditableComponent } from '../../../common/components/table-editable/table-editable.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-special-codes',
@@ -21,13 +22,15 @@ export class SpecialCodesComponent extends TableEditableComponent<BookingSimple>
     super();
   }
 
-  protected async loadItemsCore(): Promise<BookingSimple[]> {
-    const data = await this.bookingsService.getSpecialBookings();
+  protected loadItemsCore(): Observable<BookingSimple[]> {
+    return this.bookingsService.getSpecialBookings();
+    /*
     data.forEach(x => {
       x.from = new Date(x.from);
       x.to = new Date(x.to);
     });
     return this.sort(data, 'from', false);
+    */
   }
 
   protected createNewItem(): BookingSimple {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Table, FieldInvalid } from '../../models/table';
 import { IEntity } from '../../models/entity';
+import { Observable } from 'rxjs';
 
 export abstract class TableComponent<T extends IEntity> implements OnInit {
 
@@ -9,7 +10,7 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
     table: Table<T>;
 
     protected abstract itemSearchFieldName: string;
-    protected abstract async loadItemsCore(): Promise<T[]>;
+    protected abstract loadItemsCore(): Observable<T[]>;
 
     ngOnInit() {
         this.table = {
@@ -23,17 +24,18 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
         this.loadItems();
     }
 
-    protected async loadItems(): Promise<void> {
+    protected loadItems(): void {
         if (!this.table.isLoading) {
             this.table.isLoading = true;
-            try {
-                this.loadedItems = await this.loadItemsCore();
-                this.showedItems = [...this.loadedItems];
-                this.updateRows(true);
-            }
-            finally {
-                this.table.isLoading = false;
-            }
+            this.loadItemsCore().subscribe(
+                data => {
+                    this.loadedItems = data;
+                    this.showedItems = [...this.loadedItems];
+                    this.updateRows(true);
+                },
+                () => {},
+                () => this.table.isLoading = false
+            );
         }
     }
 

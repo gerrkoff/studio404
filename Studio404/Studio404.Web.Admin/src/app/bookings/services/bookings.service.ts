@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BookingUser } from '../models/booking-user';
 import { BookingSimple } from '../models/booking-simple';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,16 +16,16 @@ export class BookingsService {
     private http: HttpClient
   ) {}
 
-  getUserBookings(): Promise<BookingUser[]> {
-    return this.http.get<BookingUser[]>(this.URLUser).toPromise();
+  getUserBookings(): Observable<BookingUser[]> {
+    return this.http.get<BookingUser[]>(this.URLUser);
   }
 
   cancelBooking(id: number): Promise<void> {
     return this.http.delete<void>(`${this.URLUser}/${id}`).toPromise();
   }
 
-  getSpecialBookings(): Promise<BookingSimple[]> {
-    return this.http.get<BookingSimple[]>(this.URLSpecial).toPromise();
+  getSpecialBookings(): Observable<BookingSimple[]> {
+    return this.http.get<BookingSimple[]>(this.URLSpecial);
   }
 
   saveSpecialBooking(booking: BookingSimple): Promise<BookingSimple> {

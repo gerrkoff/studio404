@@ -4,6 +4,7 @@ import { TableComponent } from '../../../common/components/table/table.component
 import { BookingUser } from '../../models/booking-user';
 import { BookingsService } from '../../services/bookings.service';
 import { BookingStatusEnum } from '../../models/booking-status-enum';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-bookings',
@@ -25,9 +26,9 @@ export class UserBookingsComponent extends TableComponent<BookingUser> {
     super();
   }
 
-  protected async loadItemsCore(): Promise<BookingUser[]> {
-    const data = await this.bookingsService.getUserBookings();
-    return this.sort(data, 'from', false);
+  protected loadItemsCore(): Observable<BookingUser[]> {
+    return this.bookingsService.getUserBookings();
+    //return this.sort(data, 'from', false);
   }
 
   onCancelBooking(id: number): void {

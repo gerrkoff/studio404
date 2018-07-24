@@ -1,7 +1,8 @@
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { NzNotificationService } from 'ng-zorro-antd';
+import { catchError } from 'rxjs/operators';
 
 export interface IRequestOptions {
   headers?: HttpHeaders;
@@ -33,7 +34,9 @@ export class AppHttpClientService {
    * @returns {Observable<T>}
    */
   public get<T>(endPoint: string, options?: IRequestOptions): Observable<T> {
-    return this.http.get<T>(this.api + endPoint, options);
+    return this.handleError(
+      this.http.get<T>(this.api + endPoint, options)
+    );
   }
 
   /**
@@ -44,7 +47,9 @@ export class AppHttpClientService {
    * @returns {Observable<T>}
    */
   public post<T>(endPoint: string, params: Object, options?: IRequestOptions): Observable<T> {
-    return this.http.post<T>(this.api + endPoint, params, options);
+    return this.handleError(
+      this.http.post<T>(this.api + endPoint, params, options)
+    );
   }
 
   /**
@@ -55,7 +60,9 @@ export class AppHttpClientService {
    * @returns {Observable<T>}
    */
   public put<T>(endPoint: string, params: Object, options?: IRequestOptions): Observable<T> {
-    return this.http.put<T>(this.api + endPoint, params, options);
+    return this.handleError(
+      this.http.put<T>(this.api + endPoint, params, options)
+    );
   }
 
   /**
@@ -65,16 +72,16 @@ export class AppHttpClientService {
    * @returns {Observable<T>}
    */
   public delete<T>(endPoint: string, options?: IRequestOptions): Observable<T> {
-    return this.http.delete<T>(this.api + endPoint, options);
+    return this.handleError(
+      this.http.delete<T>(this.api + endPoint, options)
+    );
   }
 
-  /*
-  processError(response: any): (response: any) => Observable<any> {
-    return (response: any): Observable<any> => {
-        this.notificationService.create('error', `${response.status} - ${response.statusText}`, response.error.message || response.error.Message);
-      //throw new Error(response);
-      return null;
-    }
+  private handleError(obs: Observable<any>): Observable<any> {
+    return obs.pipe(catchError((response: HttpErrorResponse) => {
+      const msg = response.error.message || response.error.Message;
+      this.notificationService.create('error', `${response.status} - ${response.statusText}`, msg);
+      throw new Error(msg);
+    }))
   }
-  */
 }

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { HourCost } from '../../models/hour-cost';
 import { TableEditableComponent } from '../../../common/components/table-editable/table-editable.component';
 import { HourCostsService } from '../../services/hour-costs.service';
 import { DiscountDayTypeEnum } from '../../models/discount-day-type-enum';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-hour-costs',
@@ -21,9 +22,10 @@ export class HourCostsComponent extends TableEditableComponent<HourCost> impleme
   DiscountDayTypeEnum = DiscountDayTypeEnum;
 
   constructor(
-    private hourCostsService: HourCostsService
+    private hourCostsService: HourCostsService,
+    protected messageService: NzMessageService
   ) {
-    super();
+    super(messageService);
   }
 
   formatterMoney = value => `${value}₽`;

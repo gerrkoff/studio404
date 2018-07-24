@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { NzMessageService } from 'ng-zorro-antd';
 import { PromoCodesService } from '../../services/promo-codes.service';
 import { PromoCode } from '../../models/promo-code';
 import { TableEditableComponent } from '../../../common/components/table-editable/table-editable.component';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-promo-codes',
@@ -18,9 +19,10 @@ export class PromoCodesComponent extends TableEditableComponent<PromoCode> {
   protected itemSearchFieldName = 'code';
 
   constructor(
-    private promoCodesService: PromoCodesService
+    private promoCodesService: PromoCodesService,
+    protected messageService: NzMessageService
   ) {
-    super();
+    super(messageService);
   }
 
   formatterPercent = value => `${value}%`;

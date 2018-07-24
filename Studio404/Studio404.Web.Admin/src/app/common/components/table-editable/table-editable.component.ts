@@ -1,7 +1,8 @@
-import { IEntity } from '../../models/entity';
-import { TableComponent } from '../table/table.component';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { NzMessageService } from 'ng-zorro-antd';
+import { IEntity } from '../../models/entity';
+import { TableComponent } from '../table/table.component';
 
 export abstract class TableEditableComponent<T extends IEntity> extends TableComponent<T> implements OnInit {
 
@@ -11,6 +12,12 @@ export abstract class TableEditableComponent<T extends IEntity> extends TableCom
     protected abstract validate(id: number): boolean;
     protected abstract saveItem(id: number): Observable<T>;
     protected abstract deleteItem(id: number): Observable<void>;
+
+    constructor(
+        protected messageService: NzMessageService
+      ) {
+        super();
+      }
 
     ngOnInit() {
         super.ngOnInit();
@@ -52,6 +59,7 @@ export abstract class TableEditableComponent<T extends IEntity> extends TableCom
                     } else {
                         this.table.rows[id].isEditting = false;
                     }
+                    this.messageService.success(`Saved item [${newData.id}]`);
                 }
             });
         }
@@ -67,7 +75,10 @@ export abstract class TableEditableComponent<T extends IEntity> extends TableCom
 
         if (response) {
             response.subscribe({
-                next: () => this.deleteRow(id)
+                next: () => {
+                    this.deleteRow(id);
+                    this.messageService.success(`Deleted item [${id}]`);
+                }
             });
         }
     }

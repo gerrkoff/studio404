@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { BookingsService } from '../../services/bookings.service';
 import { BookingSimple } from '../../models/booking-simple';
 import { TableEditableComponent } from '../../../common/components/table-editable/table-editable.component';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-special-codes',
@@ -18,9 +19,10 @@ export class SpecialCodesComponent extends TableEditableComponent<BookingSimple>
   protected itemSearchFieldName = '';
 
   constructor(
-    private bookingsService: BookingsService
+    private bookingsService: BookingsService,
+    protected messageService: NzMessageService
   ) {
-    super();
+    super(messageService);
   }
 
   protected loadItemsCore(): Observable<BookingSimple[]> {

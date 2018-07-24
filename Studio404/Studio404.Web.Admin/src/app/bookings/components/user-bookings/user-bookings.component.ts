@@ -34,10 +34,12 @@ export class UserBookingsComponent extends TableComponent<BookingUser> {
   }
 
   onCancelBooking(id: number): void {
-    this.rowProcessingWrapper(id, async () => {
-      await this.bookingsService.cancelBooking(id);
-      this.loadedItems.find(x => x.id === id).status = BookingStatusEnum.Canceled;
-    });
+    const response = this.rowProcessingWrapper(id, () => this.bookingsService.cancelBooking(id));
+    if (response) {
+      response.subscribe({
+        next: () => this.loadedItems.find(x => x.id === id).status = BookingStatusEnum.Canceled
+      });
+    }
   }
 
   onCopy(text: string): void {

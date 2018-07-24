@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { BookingUser } from '../models/booking-user';
 import { BookingSimple } from '../models/booking-simple';
-import { Observable } from 'rxjs';
+import { HttpProcessorService } from '../../common/services/http-processor.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,26 +14,37 @@ export class BookingsService {
   private URLSpecial = '/api/bookings/special';
 
   constructor (
-    private http: HttpClient
+    private http: HttpClient,
+    private httpProcessor: HttpProcessorService
   ) {}
 
   getUserBookings(): Observable<BookingUser[]> {
-    return this.http.get<BookingUser[]>(this.URLUser);
+    return this.httpProcessor.process(
+      this.http.get<BookingUser[]>(this.URLUser)
+    );
   }
 
-  cancelBooking(id: number): Promise<void> {
-    return this.http.delete<void>(`${this.URLUser}/${id}`).toPromise();
+  cancelBooking(id: number): Observable<void> {
+    return this.httpProcessor.process(
+      this.http.delete<void>(`${this.URLUser}/${id}`)
+    );
   }
 
   getSpecialBookings(): Observable<BookingSimple[]> {
-    return this.http.get<BookingSimple[]>(this.URLSpecial);
+    return this.httpProcessor.process(
+      this.http.get<BookingSimple[]>(this.URLSpecial)
+    );
   }
 
-  saveSpecialBooking(booking: BookingSimple): Promise<BookingSimple> {
-    return this.http.post<BookingSimple>(this.URLSpecial, booking).toPromise();
+  saveSpecialBooking(booking: BookingSimple): Observable<BookingSimple> {
+    return this.httpProcessor.process(
+      this.http.post<BookingSimple>(this.URLSpecial, booking)
+    );
   }
 
-  deleteBooking(id: number): Promise<void> {
-    return this.http.delete<void>(`${this.URLSpecial}/${id}`).toPromise();
+  deleteBooking(id: number): Observable<void> {
+    return this.httpProcessor.process(
+      this.http.delete<void>(`${this.URLSpecial}/${id}`)
+    );
   }
 }

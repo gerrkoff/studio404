@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Table, FieldInvalid } from '../../models/table';
 import { IEntity } from '../../models/entity';
 import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 export abstract class TableComponent<T extends IEntity> implements OnInit {
 
@@ -25,10 +26,17 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
     }
 
     protected loadItems(searchAfterLoading: boolean = false): void {
-        if (!this.table.isLoading) {
-            this.table.isLoading = true;
-            this.loadItemsCore().subscribe(
-                data => {
+        if (this.table.isLoading) {
+            return;
+        }
+
+        this.table.isLoading = true;
+        this.loadItemsCore()
+            .pipe(
+                finalize(() => this.table.isLoading = false)
+            )
+            .subscribe({
+                next: data => {
                     this.loadedItems = data;
                     this.showedItems = [...this.loadedItems];
                     this.updateRows(true);
@@ -36,28 +44,23 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
                     if (searchAfterLoading) {
                         this.onSearch();
                     }
-                },
-                () => {},
-                () => this.table.isLoading = false
-            );
-        }
+                }
+            });
     }
 
-    protected async rowProcessingWrapper (
-        id: string | number,
-        rowProcessFunc: () => Promise<void>
-    ): Promise<void> {
-        if (!this.table.rows[id].isProcessing) {
-            this.table.rows[id].isProcessing = true;
-            try {
-                await rowProcessFunc();
-            }
-            finally {
+    protected rowProcessingWrapper<T> (id: string | number, rowProcessFunc: () => Observable<T>): Observable<T> {
+        if (this.table.rows[id].isProcessing) {
+            return null;
+        }
+        
+        this.table.rows[id].isProcessing = true;
+        return rowProcessFunc().pipe(
+            finalize(() => {
                 if (this.table.rows[id]) {
                     this.table.rows[id].isProcessing = false;
                 }
-            }
-        }
+            })
+        );
     }
 
     protected updateRows(hardUpdate: boolean = false): void {

@@ -30,10 +30,11 @@ export class UsersComponent extends TableComponent<User> {
   }
 
   onUpdateAdminRole(id: string, isAdmin: boolean): void {
-    this.rowProcessingWrapper(id, async () => {
-
-      await this.usersService.updateAdminRole(id, isAdmin);
-      this.loadedItems.find(x => x.id === id).isAdmin = isAdmin;
-    });
+    const response = this.rowProcessingWrapper<void>(id, () => this.usersService.updateAdminRole(id, isAdmin));
+    if (response) {
+      response.subscribe({
+        next: () => this.loadedItems.find(x => x.id === id).isAdmin = isAdmin
+      });
+    }
   }
 }

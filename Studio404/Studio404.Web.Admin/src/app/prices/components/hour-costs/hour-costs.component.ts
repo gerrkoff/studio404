@@ -95,10 +95,10 @@ export class HourCostsComponent extends TableEditableComponent<HourCost> impleme
 
     return !row.fieldInvalid['cost'] && !row.fieldInvalid['start'] && !row.fieldInvalid['end'];
   }
-  protected saveItem(id: number): Promise<HourCost> {
+  protected saveItem(id: number): Observable<HourCost> {
     return this.hourCostsService.saveHourCost(this.table.rows[id].data);
   }
-  protected deleteItem(id: number): Promise<void> {
+  protected deleteItem(id: number): Observable<void> {
     return this.hourCostsService.deleteHourCost(id);
   }
 }

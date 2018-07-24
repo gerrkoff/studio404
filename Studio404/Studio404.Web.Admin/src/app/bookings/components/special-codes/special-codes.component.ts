@@ -47,10 +47,10 @@ export class SpecialCodesComponent extends TableEditableComponent<BookingSimple>
     };
   }
 
-  protected saveItem(id: number): Promise<BookingSimple> {
+  protected saveItem(id: number): Observable<BookingSimple> {
     return this.bookingsService.saveSpecialBooking(this.table.rows[id].data);
   }
-  protected deleteItem(id: number): Promise<void> {
+  protected deleteItem(id: number): Observable<void> {
     return this.bookingsService.deleteBooking(id);
   }
 

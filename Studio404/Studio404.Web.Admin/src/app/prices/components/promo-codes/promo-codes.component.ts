@@ -45,11 +45,11 @@ export class PromoCodesComponent extends TableEditableComponent<PromoCode> {
     };
   }
 
-  protected saveItem(id: number): Promise<PromoCode> {
+  protected saveItem(id: number): Observable<PromoCode> {
     return this.promoCodesService.savePromoCode(this.table.rows[id].data);
   }
 
-  protected deleteItem(id: number): Promise<void> {
+  protected deleteItem(id: number): Observable<void> {
     return this.promoCodesService.deletePromoCode(id);
   }
 

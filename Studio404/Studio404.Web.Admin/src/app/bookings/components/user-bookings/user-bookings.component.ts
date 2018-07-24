@@ -5,6 +5,7 @@ import { BookingUser } from '../../models/booking-user';
 import { BookingsService } from '../../services/bookings.service';
 import { BookingStatusEnum } from '../../models/booking-status-enum';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-bookings',
@@ -27,8 +28,9 @@ export class UserBookingsComponent extends TableComponent<BookingUser> {
   }
 
   protected loadItemsCore(): Observable<BookingUser[]> {
-    return this.bookingsService.getUserBookings();
-    //return this.sort(data, 'from', false);
+    return this.bookingsService.getUserBookings().pipe(
+      map(x => this.sort(x, 'from', false))
+    );
   }
 
   onCancelBooking(id: number): void {

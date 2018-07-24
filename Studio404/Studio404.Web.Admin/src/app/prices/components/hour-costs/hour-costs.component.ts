@@ -4,6 +4,7 @@ import { TableEditableComponent } from '../../../common/components/table-editabl
 import { HourCostsService } from '../../services/hour-costs.service';
 import { DiscountDayTypeEnum } from '../../models/discount-day-type-enum';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-hour-costs',
@@ -41,8 +42,9 @@ export class HourCostsComponent extends TableEditableComponent<HourCost> impleme
   }
 
   protected loadItemsCore(): Observable<HourCost[]> {
-    return this.hourCostsService.getHourCosts();
-    //return this.sort(data, 'from', false);
+    return this.hourCostsService.getHourCosts().pipe(
+      map(x => this.sort(x, 'start', true))
+    );
   }
 
   protected createNewItem(): HourCost {

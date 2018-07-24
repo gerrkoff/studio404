@@ -3,6 +3,7 @@ import { PromoCodesService } from '../../services/promo-codes.service';
 import { PromoCode } from '../../models/promo-code';
 import { TableEditableComponent } from '../../../common/components/table-editable/table-editable.component';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-promo-codes',
@@ -26,8 +27,9 @@ export class PromoCodesComponent extends TableEditableComponent<PromoCode> {
   parserPercent = value => value.replace('%', '');
 
   protected loadItemsCore(): Observable<PromoCode[]> {
-    return this.promoCodesService.getPromoCodes();
-    //return this.sort(data, 'from', false);
+    return this.promoCodesService.getPromoCodes().pipe(
+      map(x => this.sort(x, 'from', false))
+    );
   }
 
   protected createNewItem(): PromoCode {

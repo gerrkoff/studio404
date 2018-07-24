@@ -24,7 +24,7 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
         this.loadItems();
     }
 
-    protected loadItems(): void {
+    protected loadItems(searchAfterLoading: boolean = false): void {
         if (!this.table.isLoading) {
             this.table.isLoading = true;
             this.loadItemsCore().subscribe(
@@ -32,6 +32,10 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
                     this.loadedItems = data;
                     this.showedItems = [...this.loadedItems];
                     this.updateRows(true);
+
+                    if (searchAfterLoading) {
+                        this.onSearch();
+                    }
                 },
                 () => {},
                 () => this.table.isLoading = false
@@ -102,8 +106,7 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
         }
     }
 
-    async onRefreshData(): Promise<void> {
-        await this.loadItems();
-        this.onSearch();
+    onRefreshData(): void {
+        this.loadItems(true);
     }
 }

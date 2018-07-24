@@ -3,6 +3,7 @@ import { BookingsService } from '../../services/bookings.service';
 import { BookingSimple } from '../../models/booking-simple';
 import { TableEditableComponent } from '../../../common/components/table-editable/table-editable.component';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-special-codes',
@@ -23,7 +24,9 @@ export class SpecialCodesComponent extends TableEditableComponent<BookingSimple>
   }
 
   protected loadItemsCore(): Observable<BookingSimple[]> {
-    return this.bookingsService.getSpecialBookings();
+    return this.bookingsService.getSpecialBookings().pipe(
+      map(x => this.sort(x, 'from', false))
+    );
     /*
     data.forEach(x => {
       x.from = new Date(x.from);

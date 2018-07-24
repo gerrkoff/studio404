@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { User } from '../../models/user';
 import { TableComponent } from '../../../common/components/table/table.component';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users',
@@ -23,8 +24,9 @@ export class UsersComponent extends TableComponent<User> {
   }
 
   protected loadItemsCore(): Observable<User[]> {
-    return this.usersService.getUsers();
-    //return this.sort(data, 'displayName', true);
+    return this.usersService.getUsers().pipe(
+      map(x => this.sort(x, 'displayName', true))
+    );
   }
 
   onUpdateAdminRole(id: string, isAdmin: boolean): void {

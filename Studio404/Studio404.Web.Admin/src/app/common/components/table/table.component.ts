@@ -48,7 +48,7 @@ export abstract class TableComponent<T extends IEntity> implements OnInit {
             });
     }
 
-    protected rowProcessingWrapper(id: string | number, rowProcessFunc: () => Observable<T>): Observable<T> {
+    protected rowProcessingWrapper<G>(id: string | number, rowProcessFunc: () => Observable<G>): Observable<G> {
         if (this.table.rows[id].isProcessing) {
             return null;
         }

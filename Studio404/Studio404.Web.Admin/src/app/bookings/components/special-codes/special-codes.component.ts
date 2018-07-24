@@ -27,13 +27,6 @@ export class SpecialCodesComponent extends TableEditableComponent<BookingSimple>
     return this.bookingsService.getSpecialBookings().pipe(
       map(x => this.sort(x, 'from', false))
     );
-    /*
-    data.forEach(x => {
-      x.from = new Date(x.from);
-      x.to = new Date(x.to);
-    });
-    return this.sort(data, 'from', false);
-    */
   }
 
   protected createNewItem(): BookingSimple {

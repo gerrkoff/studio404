@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { BookingUser } from '../models/booking-user';
 import { BookingSimple } from '../models/booking-simple';
 import { HttpProcessorService } from '../../common/services/http-processor.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class BookingsService {
 
   getUserBookings(): Observable<BookingUser[]> {
     return this.httpProcessor.process(
-      this.http.get<BookingUser[]>(this.URLUser)
+      this.http.get<BookingUser[]>(this.URLUser).pipe(map(this.fixDates))
     );
   }
 
@@ -32,8 +33,8 @@ export class BookingsService {
 
   getSpecialBookings(): Observable<BookingSimple[]> {
     return this.httpProcessor.process(
-      this.http.get<BookingSimple[]>(this.URLSpecial)
-    );
+      this.http.get<BookingSimple[]>(this.URLSpecial).pipe(map(this.fixDates))
+    )
   }
 
   saveSpecialBooking(booking: BookingSimple): Observable<BookingSimple> {
@@ -46,5 +47,13 @@ export class BookingsService {
     return this.httpProcessor.process(
       this.http.delete<void>(`${this.URLSpecial}/${id}`)
     );
+  }
+
+  private fixDates(bookings: BookingSimple[]): BookingSimple[] {
+    bookings.forEach(x => {
+      x.from = new Date(x.from);
+      x.to = new Date(x.to);
+    })
+    return bookings;
   }
 }

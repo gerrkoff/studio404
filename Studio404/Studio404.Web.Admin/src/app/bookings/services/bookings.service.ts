@@ -41,7 +41,7 @@ export class BookingsService {
     bookings.forEach(x => {
       x.from = new Date(x.from);
       x.to = new Date(x.to);
-    })
+    });
     return bookings;
   }
 }

@@ -82,6 +82,6 @@ export class AppHttpClientService {
       const msg = response.error.message || response.error.Message;
       this.notificationService.create('error', `${response.status} - ${response.statusText}`, msg);
       throw new Error(msg);
-    }))
+    }));
   }
 }

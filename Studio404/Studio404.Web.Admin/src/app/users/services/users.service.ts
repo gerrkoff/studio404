@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
-import { HttpProcessorService } from '../../common/services/http-processor.service';
+import { AppHttpClientService } from '../../common/services/app-http-client.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,19 +11,14 @@ export class UsersService {
   private URL = '/api/users';
 
   constructor (
-    private http: HttpClient,
-    private httpProcessor: HttpProcessorService
+    private http: AppHttpClientService
   ) {}
 
   getUsers(): Observable<User[]> {
-    return this.httpProcessor.process(
-      this.http.get<User[]>(this.URL)
-    );
+    return this.http.get<User[]>(this.URL);
   }
 
   updateAdminRole(userId: string, isAdmin: boolean): Observable<void> {
-    return this.httpProcessor.process(
-      this.http.post<void>(this.URL, {userId, isAdmin})
-    );
+    return this.http.post<void>(this.URL, {userId, isAdmin});
   }
 }

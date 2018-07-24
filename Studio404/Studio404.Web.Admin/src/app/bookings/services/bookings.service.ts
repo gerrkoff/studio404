@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BookingUser } from '../models/booking-user';
 import { BookingSimple } from '../models/booking-simple';
-import { HttpProcessorService } from '../../common/services/http-processor.service';
+import { AppHttpClientService } from '../../common/services/app-http-client.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -15,41 +14,30 @@ export class BookingsService {
   private URLSpecial = '/api/bookings/special';
 
   constructor (
-    private http: HttpClient,
-    private httpProcessor: HttpProcessorService
+    private http: AppHttpClientService
   ) {}
 
   getUserBookings(): Observable<BookingUser[]> {
-    return this.httpProcessor.process(
-      this.http.get<BookingUser[]>(this.URLUser).pipe(map(this.fixDates))
-    );
+    return this.http.get<BookingUser[]>(this.URLUser).pipe(map(this.fixDates));
   }
 
   cancelBooking(id: number): Observable<void> {
-    return this.httpProcessor.process(
-      this.http.delete<void>(`${this.URLUser}/${id}`)
-    );
+    return this.http.delete<void>(`${this.URLUser}/${id}`);
   }
 
   getSpecialBookings(): Observable<BookingSimple[]> {
-    return this.httpProcessor.process(
-      this.http.get<BookingSimple[]>(this.URLSpecial).pipe(map(this.fixDates))
-    )
+    return this.http.get<BookingSimple[]>(this.URLSpecial).pipe(map(this.fixDates));
   }
 
   saveSpecialBooking(booking: BookingSimple): Observable<BookingSimple> {
-    return this.httpProcessor.process(
-      this.http.post<BookingSimple>(this.URLSpecial, booking)
-    );
+    return this.http.post<BookingSimple>(this.URLSpecial, booking);
   }
 
   deleteBooking(id: number): Observable<void> {
-    return this.httpProcessor.process(
-      this.http.delete<void>(`${this.URLSpecial}/${id}`)
-    );
+    return this.http.delete<void>(`${this.URLSpecial}/${id}`);
   }
 
-  private fixDates(bookings: BookingSimple[]): BookingSimple[] {
+  private fixDates<T extends BookingSimple>(bookings: T[]): T[] {
     bookings.forEach(x => {
       x.from = new Date(x.from);
       x.to = new Date(x.to);

@@ -4,8 +4,6 @@ using Moq;
 using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using Studio404.Common.Enums;
-using AutoMapper;
-using Studio404.Automapper;
 using Studio404.Dto.UserManager;
 using Studio404.Common.Exceptions;
 
@@ -14,15 +12,6 @@ namespace Studio404.Services.Tests
 	[TestClass]
     public class HourCostManager_SaveHourCost_ServiceTest
 	{
-		[ClassInitialize]
-		public static void ClassInit(TestContext context)
-		{
-			Mapper.Initialize(cfg =>
-			{
-				cfg.AddProfile<MappingProfile>();
-			});
-		}
-
         [TestMethod]
         public void SaveHourCost_Insert()
         {

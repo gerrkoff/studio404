@@ -12,6 +12,7 @@ using Studio404.Dal.Repository;
 using Studio404.Dto.Account;
 using Studio404.Dto.Booking;
 using Studio404.Dto.Pay;
+using Studio404.Dto.Schedule;
 using Studio404.Services.Interface;
 
 namespace Studio404.Services.Implementation
@@ -19,14 +20,13 @@ namespace Studio404.Services.Implementation
     public class BookingService : IBookingService
     {
         private readonly IRepository<BookingEntity> _bookingRepository;
-        private readonly StudioSettings _studioSettings;
         private readonly INotificationService _notificationService;
         private readonly ICostEvaluationService _costEvaluationService;
         private readonly IPayService _payService;
         private readonly IDateService _dateService;
 
-        public BookingService(IRepository<BookingEntity> bookingRepository, IOptions<StudioSettings> studioSettings,
-            INotificationService notificationService, ICostEvaluationService costEvaluationService,
+        public BookingService(IRepository<BookingEntity> bookingRepository, INotificationService notificationService,
+            ICostEvaluationService costEvaluationService,
             IPayService payService, IDateService dateService)
         {
             _bookingRepository = bookingRepository;
@@ -34,13 +34,13 @@ namespace Studio404.Services.Implementation
             _costEvaluationService = costEvaluationService;
             _payService = payService;
             _dateService = dateService;
-            _studioSettings = studioSettings.Value;
         }
 
         public IEnumerable<DayWorkloadDto> GetWeekWorkload(DateTime weekStartDate)
         {
-            int scheduleStart = _studioSettings.ScheduleStart;
-            int scheduleEnd = _studioSettings.ScheduleEnd;
+            StudioSchedule schedule = _costEvaluationService.GetSchedule();
+            int scheduleStart = schedule.Start;
+            int scheduleEnd = schedule.End;
             weekStartDate = weekStartDate.Date;
             DateTime weekEndDate = weekStartDate.AddDays(7);
             
@@ -69,8 +69,9 @@ namespace Studio404.Services.Implementation
 
         public IEnumerable<DayHourDto> GetDayWorkload(DateTime date)
         {            
-            int scheduleStart = _studioSettings.ScheduleStart;
-            int scheduleEnd = _studioSettings.ScheduleEnd;
+            StudioSchedule schedule = _costEvaluationService.GetSchedule();
+            int scheduleStart = schedule.Start;
+            int scheduleEnd = schedule.End;
             var dateStart = date.Date;
             var dateEnd = dateStart.AddDays(1);
             

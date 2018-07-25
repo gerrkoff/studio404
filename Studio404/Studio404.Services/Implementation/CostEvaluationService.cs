@@ -90,6 +90,12 @@ namespace Studio404.Services.Implementation
             return intervalCosts;
         }
 
+        public StudioSchedule GetSchedule()
+        {
+            HourCostEntity general = _hourCostRepository.GetAll().Single(x => x.IsGeneral);
+            return Mapper.Map<StudioSchedule>(general);
+        }
+
         private IntervalCostDto CreateIntervalCost(DateTime from, DateTime to, double hourCost)
         {
             return

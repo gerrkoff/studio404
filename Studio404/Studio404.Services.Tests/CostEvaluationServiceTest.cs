@@ -1,32 +1,18 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Studio404.Services.Implementation;
 using Moq;
-using Studio404.Services.Interface;
 using System;
 using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
-using Microsoft.Extensions.Options;
-using Studio404.Automapper;
 using Studio404.Common.Enums;
-using Studio404.Common.Settings;
 
 namespace Studio404.Services.Tests
 {
     [TestClass]
     public class CostEvaluationServiceTest
-    {
-        [ClassInitialize]
-        public static void ClassInit(TestContext context)
-        {
-            Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfile<MappingProfile>();
-            });
-        }
-        
+    {   
         [TestMethod]
         public void EvaluateBookingCost()
         {

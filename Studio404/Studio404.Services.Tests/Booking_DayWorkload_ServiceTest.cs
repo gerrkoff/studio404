@@ -7,34 +7,33 @@ using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Extensions.Options;
-using Studio404.Common.Settings;
 using Studio404.Dto.Booking;
 using Studio404.Common.Enums;
+using Studio404.Dto.Schedule;
 
 namespace Studio404.Services.Tests
 {
     [TestClass]
     public class Booking_DayWorkload_ServiceTest
 	{
-        IOptions<StudioSettings> options;
+        ICostEvaluationService _costEvaluationService;
 
         [TestInitialize]
         public void Init()
         {
-            var optionsMock = new Mock<IOptions<StudioSettings>>();
-			optionsMock.Setup(x => x.Value).Returns(new StudioSettings
-			{
-				ScheduleStart = 0,
-				ScheduleEnd = 23
-            });
-            options = optionsMock.Object;
+	        var costMock = new Mock<ICostEvaluationService>();
+	        costMock.Setup(x => x.GetSchedule()).Returns(new StudioSchedule
+	        {
+		        Start = 0,
+		        End = 23
+	        });
+	        _costEvaluationService = costMock.Object;
         }
 
         [TestMethod]
         public void GetDayWorkload_NoBooking()
         {   
-            var bookingService = new BookingService(CreateRepo(), options, null, null, null, null);
+            var bookingService = new BookingService(CreateRepo(), null, _costEvaluationService, null, null);
 
             IList<DayHourDto> result = bookingService.GetDayWorkload(DateTime.Today).ToList();
 
@@ -48,7 +47,7 @@ namespace Studio404.Services.Tests
 			var repo = CreateRepo(
 				new BookingEntity { From = Dth(10), To = Dth(12) },
 				new BookingEntity { From = Dth(16), To = Dth(20) });
-			var bookingService = new BookingService(repo, options, null, null, null, null);
+			var bookingService = new BookingService(repo, null, _costEvaluationService, null, null);
 
 			IList<DayHourDto> result = bookingService.GetDayWorkload(DateTime.Today).ToList();
 
@@ -69,7 +68,7 @@ namespace Studio404.Services.Tests
 			var repo = CreateRepo(
 				new BookingEntity { From = Dth(10), To = Dth(12), Status = BookingStatusEnum.Canceled },
 				new BookingEntity { From = Dth(16), To = Dth(20), Status = BookingStatusEnum.Special });
-			var bookingService = new BookingService(repo, options, null, null, null, null);
+			var bookingService = new BookingService(repo, null, _costEvaluationService, null, null);
 
 			IList<DayHourDto> result = bookingService.GetDayWorkload(DateTime.Today).ToList();
 
@@ -83,7 +82,7 @@ namespace Studio404.Services.Tests
 			var repo = CreateRepo(
 				new BookingEntity { From = Dth(12, -1), To = Dth(1) },
 				new BookingEntity { From = Dth(23), To = Dth(12, 1) });
-			var bookingService = new BookingService(repo, options, null, null, null, null);
+			var bookingService = new BookingService(repo, null, _costEvaluationService, null, null);
 
 			IList<DayHourDto> result = bookingService.GetDayWorkload(DateTime.Today).ToList();
 
@@ -103,7 +102,7 @@ namespace Studio404.Services.Tests
 			var repo = CreateRepo(
 				new BookingEntity { From = Dth(12, -1), To = Dth(0) },
 				new BookingEntity { From = Dth(24), To = Dth(12, 1) });
-			var bookingService = new BookingService(repo, options, null, null, null, null);
+			var bookingService = new BookingService(repo, null, _costEvaluationService, null, null);
 
 			IList<DayHourDto> result = bookingService.GetDayWorkload(DateTime.Today).ToList();
 
@@ -115,7 +114,7 @@ namespace Studio404.Services.Tests
 		public void GetDayWorklo_AllDayBooking()
 		{
 			var repo = CreateRepo(new BookingEntity { From = Dth(0), To = Dth(24) });
-			var bookingService = new BookingService(repo, options, null, null, null, null);
+			var bookingService = new BookingService(repo, null, _costEvaluationService, null, null);
 
 			IList<DayHourDto> result = bookingService.GetDayWorkload(DateTime.Today).ToList();
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Studio404.Dto.Booking;
+using Studio404.Dto.Schedule;
 
 namespace Studio404.Services.Interface
 {
@@ -8,5 +9,6 @@ namespace Studio404.Services.Interface
     {
         double EvaluateBookingCost(DateTime from, DateTime to);
         IEnumerable<IntervalCostDto> EvaluateIntervalCosts(DateTime from, DateTime to);
+        StudioSchedule GetSchedule();
     }
 }

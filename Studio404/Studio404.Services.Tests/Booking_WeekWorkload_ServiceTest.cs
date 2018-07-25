@@ -7,34 +7,33 @@ using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Extensions.Options;
-using Studio404.Common.Settings;
 using Studio404.Dto.Booking;
 using Studio404.Common.Enums;
+using Studio404.Dto.Schedule;
 
 namespace Studio404.Services.Tests
 {
     [TestClass]
     public class Booking_WeekWorkload_ServiceTest
 	{
-        IOptions<StudioSettings> options;
+		ICostEvaluationService _costEvaluationService;
 
         [TestInitialize]
         public void Init()
         {
-            var optionsMock = new Mock<IOptions<StudioSettings>>();
-			optionsMock.Setup(x => x.Value).Returns(new StudioSettings
-			{
-				ScheduleStart = 0,
-				ScheduleEnd = 23
-            });
-            options = optionsMock.Object;
+	        var costMock = new Mock<ICostEvaluationService>();
+	        costMock.Setup(x => x.GetSchedule()).Returns(new StudioSchedule
+	        {
+		        Start = 0,
+		        End = 23
+	        });
+	        _costEvaluationService = costMock.Object;
         }
 
         [TestMethod]
         public void GetWeekWorkload_NoBooking()
         {   
-            var bookingService = new BookingService(CreateRepo(), options, null, null, null, null);
+            var bookingService = new BookingService(CreateRepo(), null, _costEvaluationService, null, null);
 
             IList<DayWorkloadDto> result = bookingService.GetWeekWorkload(DateTime.Today).ToList();
 
@@ -51,7 +50,7 @@ namespace Studio404.Services.Tests
 			var repo = CreateRepo(
 				new BookingEntity { From = Dth(10), To = Dth(12) },
 				new BookingEntity { From = Dth(16), To = Dth(20) });
-			var bookingService = new BookingService(repo, options, null, null, null, null);
+			var bookingService = new BookingService(repo, null, _costEvaluationService, null, null);
 
 			IList<DayWorkloadDto> result = bookingService.GetWeekWorkload(DateTime.Today).ToList();
 
@@ -74,7 +73,7 @@ namespace Studio404.Services.Tests
 			var repo = CreateRepo(
 				new BookingEntity { From = Dth(10, 6), To = Dth(12, 6) },
 				new BookingEntity { From = Dth(16, 6), To = Dth(20, 6) });
-			var bookingService = new BookingService(repo, options, null, null, null, null);
+			var bookingService = new BookingService(repo, null, _costEvaluationService, null, null);
 
 			IList<DayWorkloadDto> result = bookingService.GetWeekWorkload(DateTime.Today).ToList();
 
@@ -97,7 +96,7 @@ namespace Studio404.Services.Tests
 			var repo = CreateRepo(
 				new BookingEntity { From = Dth(10), To = Dth(12), Status = BookingStatusEnum.Canceled },
 				new BookingEntity { From = Dth(16), To = Dth(20), Status = BookingStatusEnum.Special });
-			var bookingService = new BookingService(repo, options, null, null, null, null);
+			var bookingService = new BookingService(repo, null, _costEvaluationService, null, null);
 
 			IList<DayWorkloadDto> result = bookingService.GetWeekWorkload(DateTime.Today).ToList();
 
@@ -114,7 +113,7 @@ namespace Studio404.Services.Tests
 			var repo = CreateRepo(
 				new BookingEntity { From = Dth(12, -1), To = Dth(1) },
 				new BookingEntity { From = Dth(23, 6), To = Dth(12, 7) });
-			var bookingService = new BookingService(repo, options, null, null, null, null);
+			var bookingService = new BookingService(repo, null, _costEvaluationService, null, null);
 
 			IList<DayWorkloadDto> result = bookingService.GetWeekWorkload(DateTime.Today).ToList();
 
@@ -135,7 +134,7 @@ namespace Studio404.Services.Tests
 			var repo = CreateRepo(
 				new BookingEntity { From = Dth(12, -1), To = Dth(0) },
 				new BookingEntity { From = Dth(24, 6), To = Dth(12, 7) });
-			var bookingService = new BookingService(repo, options, null, null, null, null);
+			var bookingService = new BookingService(repo, null, _costEvaluationService, null, null);
 
 			IList<DayWorkloadDto> result = bookingService.GetWeekWorkload(DateTime.Today).ToList();
 
@@ -152,7 +151,7 @@ namespace Studio404.Services.Tests
 			var repo = CreateRepo(
 				new BookingEntity { From = Dth(0), To = Dth(24) },
 				new BookingEntity { From = Dth(0, 1), To = Dth(0, 2) });
-			var bookingService = new BookingService(repo, options, null, null, null, null);
+			var bookingService = new BookingService(repo, null, _costEvaluationService, null, null);
 
 			IList<DayWorkloadDto> result = bookingService.GetWeekWorkload(DateTime.Today).ToList();
 

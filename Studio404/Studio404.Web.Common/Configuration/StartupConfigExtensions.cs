@@ -99,9 +99,6 @@ namespace Studio404.Web.Common.Configuration
 
 	    public static IServiceCollection ConfigConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<StudioSettings>(options =>
-	            configuration.GetSection("StudioSettings").Bind(options));
-
             services.Configure<SmsServiceSettings>(options =>
 	            configuration.GetSection("SmsServiceSettings").Bind(options));
 

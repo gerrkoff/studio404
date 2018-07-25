@@ -7,21 +7,19 @@ using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Extensions.Options;
-using Studio404.Common.Settings;
 using Studio404.Dto.Booking;
 using Studio404.Common.Enums;
 using Studio404.Dto.Account;
 using Studio404.Common.Exceptions;
+using Studio404.Dto.Schedule;
 
 namespace Studio404.Services.Tests
 {
     [TestClass]
     public class Booking_MakeBooking_ServiceTest
 	{
-		ICostEvaluationService costEvaluationService;
-		IOptions<StudioSettings> options;
-		IDateService dateService;
+		ICostEvaluationService _costEvaluationService;
+		IDateService _dateService;
 
 		[TestInitialize]
         public void Init()
@@ -29,22 +27,19 @@ namespace Studio404.Services.Tests
             var costEvaluationServiceMock = new Mock<ICostEvaluationService>();
 			costEvaluationServiceMock.Setup(x => x.EvaluateBookingCost(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
 				.Returns(100);
-			costEvaluationService = costEvaluationServiceMock.Object;
-
-			var optionsMock = new Mock<IOptions<StudioSettings>>();
-			optionsMock.Setup(x => x.Value).Returns(new StudioSettings());
-			options = optionsMock.Object;
+	        costEvaluationServiceMock.Setup(x => x.GetSchedule()).Returns(new StudioSchedule());
+			_costEvaluationService = costEvaluationServiceMock.Object;
 
 			var dateServiceMock = new Mock<IDateService>();
 			dateServiceMock.Setup(x => x.NowUtc).Returns(DateTime.UtcNow.Date);
-			dateService = dateServiceMock.Object;
+			_dateService = dateServiceMock.Object;
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(ServiceException))]
 		public void MakeBooking_PhoneNotConfirmed()
 		{
-			var bookingService = new BookingService(CreateRepo(), options, null, costEvaluationService, null, dateService);
+			var bookingService = new BookingService(CreateRepo(), null, _costEvaluationService, null, _dateService);
 
 			var bookingInfo = new MakeBookingInfoDto
 			{
@@ -61,9 +56,9 @@ namespace Studio404.Services.Tests
 		{
 			var dateServiceMock = new Mock<IDateService>();
 			dateServiceMock.Setup(x => x.NowUtc).Returns(DateTime.UtcNow.Date.AddDays(1));
-			dateService = dateServiceMock.Object;
+			_dateService = dateServiceMock.Object;
 
-			var bookingService = new BookingService(CreateRepo(), options, null, costEvaluationService, null, dateService);
+			var bookingService = new BookingService(CreateRepo(), null, _costEvaluationService, null, _dateService);
 
 			var bookingInfo = new MakeBookingInfoDto
 			{
@@ -121,10 +116,12 @@ namespace Studio404.Services.Tests
 		[TestMethod]
 		public void MakeBooking_Normal()
 		{
-			var bookingService = new BookingService(
-				CreateRepo(new BookingEntity { From = Dth(10), To = Dth(13) },
-						new BookingEntity { From = Dth(16), To = Dth(20) }),
-				options, null, costEvaluationService, null, dateService);
+			var bookingService =
+				new BookingService(
+					CreateRepo(
+						new BookingEntity {From = Dth(10), To = Dth(13)},
+						new BookingEntity {From = Dth(16), To = Dth(20)}),
+					null, _costEvaluationService, null, _dateService);
 
 			var bookingInfo = new MakeBookingInfoDto
 			{
@@ -144,7 +141,7 @@ namespace Studio404.Services.Tests
 			repo.Setup(x => x.GetAll()).Returns((new List<BookingEntity>()).AsQueryable());
 			repo.Setup(x => x.Save(It.IsAny<BookingEntity>())).Callback<BookingEntity>(x => saveOutput = x);
 
-			var bookingService = new BookingService(repo.Object, options, null, costEvaluationService, null, dateService);
+			var bookingService = new BookingService(repo.Object, null, _costEvaluationService, null, _dateService);
 
 			var bookingInfo = new MakeBookingInfoDto
 			{
@@ -164,7 +161,7 @@ namespace Studio404.Services.Tests
 
 		private void TestOccupation(params BookingEntity[] bookings)
 		{
-			var bookingService = new BookingService(CreateRepo(bookings), options, null, costEvaluationService, null, dateService);
+			var bookingService = new BookingService(CreateRepo(bookings), null, _costEvaluationService, null, _dateService);
 
 			var bookingInfo = new MakeBookingInfoDto
 			{

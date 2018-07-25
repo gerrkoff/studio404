@@ -11,7 +11,6 @@ using Microsoft.Extensions.Options;
 using Studio404.Common.Settings;
 using Studio404.Common.Enums;
 using System.Globalization;
-using Microsoft.Data.OData;
 using Microsoft.Extensions.Logging;
 using Studio404.Common.Exceptions;
 

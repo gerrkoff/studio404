@@ -38,7 +38,7 @@ namespace Studio404.Web.Controllers
             }
 
             var guid = new Guid(confirmBooking.Label);
-            _payService.ConfirmBooking(guid);
+            _payService.ConfirmBooking(guid, confirmBooking.Amount);
 
             _logger.LogInformation($"Payment Confirmation success. Guid: {guid}");
         }

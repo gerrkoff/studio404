@@ -8,6 +8,7 @@ using Studio404.Dal.Repository;
 using Studio404.Services.Interface;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Studio404.Common.Exceptions;
 using Studio404.Common.Settings;
 using Studio404.Dto.Pay;
 
@@ -31,13 +32,21 @@ namespace Studio404.Services.Implementation
             _dateService = dateService;
         }
 
-        public void ConfirmBooking(Guid guid)
+        public void ConfirmBooking(Guid guid, double amount)
         {
             BookingEntity booking = _bookingRepository.GetAll()
                 .Single(x => x.Guid == guid);
 
             if (booking.Status == BookingStatusEnum.Paid)
                 _logger.LogWarning($"Booking was already paid. GUID: {guid}");
+
+            if (Math.Abs(booking.Cost - amount) > 1)
+            {
+                string msg =
+                    $"Received amount doesn't equal to expected. Expected={booking.Cost} Received={amount} BookingId={booking.Id}"; 
+                _logger.LogError(msg);
+                throw new ServiceException(msg);
+            }
 
             booking.Code = GenerateBookingCode();
             booking.Status = BookingStatusEnum.Paid;

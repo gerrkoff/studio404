@@ -37,7 +37,10 @@ export class UserBookingsComponent extends TableComponent<BookingUser> {
     const response = this.rowProcessingWrapper(id, () => this.bookingsService.cancelBooking(id));
     if (response) {
       response.subscribe({
-        next: () => this.loadedItems.find(x => x.id === id).status = BookingStatusEnum.Canceled
+        next: () => {
+          this.loadedItems.find(x => x.id === id).status = BookingStatusEnum.Canceled;
+          this.messageService.success(`Canceled booking [${id}]`);
+        }
       });
     }
   }

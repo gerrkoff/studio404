@@ -7,7 +7,9 @@ using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Microsoft.Extensions.Options;
+using Studio404.Automapper;
 using Studio404.Common.Enums;
 using Studio404.Common.Settings;
 
@@ -16,13 +18,21 @@ namespace Studio404.Services.Tests
     [TestClass]
     public class CostEvaluationServiceTest
     {
+        [ClassInitialize]
+        public static void ClassInit(TestContext context)
+        {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile<MappingProfile>();
+            });
+        }
+        
         [TestMethod]
         public void EvaluateBookingCost()
         {
-            var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
-            {
-                HourCost = 100
-            }));
+            var costEvaluationService = new CostEvaluationService(HourCostsRepo(
+                new HourCostEntity {Cost = 100, IsGeneral = true}
+            ));
 
             double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(20));
 
@@ -32,10 +42,9 @@ namespace Studio404.Services.Tests
         [TestMethod]
         public void EvaluateBookingCost_24h()
         {
-            var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
-            {
-                HourCost = 100
-            }));
+            var costEvaluationService = new CostEvaluationService(HourCostsRepo(
+                new HourCostEntity {Cost = 100, IsGeneral = true}
+            ));
 
             double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(24));
 
@@ -45,10 +54,9 @@ namespace Studio404.Services.Tests
         [TestMethod]
         public void EvaluateBookingCost_36h()
         {
-            var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
-            {
-                HourCost = 100
-            }));
+            var costEvaluationService = new CostEvaluationService(HourCostsRepo(
+                new HourCostEntity {Cost = 100, IsGeneral = true}
+            ));
 
             double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(36));
 
@@ -58,10 +66,9 @@ namespace Studio404.Services.Tests
         [TestMethod]
         public void EvaluateBookingCost_1_5h()
         {
-            var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
-            {
-                HourCost = 100
-            }));
+            var costEvaluationService = new CostEvaluationService(HourCostsRepo(
+                new HourCostEntity {Cost = 100, IsGeneral = true}
+            ));
 
             double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(11).AddMinutes(30));
 
@@ -71,10 +78,9 @@ namespace Studio404.Services.Tests
         [TestMethod]
         public void EvaluateBookingCost_1_3h()
         {
-            var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
-            {
-                HourCost = 100
-            }));
+            var costEvaluationService = new CostEvaluationService(HourCostsRepo(
+                new HourCostEntity {Cost = 100, IsGeneral = true}
+            ));
 
             double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(11).AddMinutes(18));
 
@@ -84,20 +90,10 @@ namespace Studio404.Services.Tests
         [TestMethod]
         public void SpecialCosts_WorkdaySimple()
         {
-            var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
-            {
-                HourCost = 100,
-                SpecialCosts = new[]
-                {
-                    new StudioSettings.SpecialCost
-                    {
-                        HourStart = 10,
-                        HourEnd = 17,
-                        DayType = DiscountDayTypeEnum.Workday,
-                        HourCost = 50
-                    }
-                }
-            }));
+            var costEvaluationService = new CostEvaluationService(HourCostsRepo(
+                new HourCostEntity {Cost = 100, IsGeneral = true},
+                new HourCostEntity {Start = 10, End = 17, DayType = DiscountDayTypeEnum.Workday, Cost = 50}
+            ));
 
             var date = new DateTime(2018, 6, 4);
             double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(18));
@@ -108,34 +104,12 @@ namespace Studio404.Services.Tests
         [TestMethod]
         public void SpecialCosts_MixDays()
         {
-            var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
-            {
-                HourCost = 1000,
-                SpecialCosts = new[]
-                {
-                    new StudioSettings.SpecialCost
-                    {
-                        HourStart = 12,
-                        HourEnd = 14,
-                        DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday,
-                        HourCost = 250
-                    },
-                    new StudioSettings.SpecialCost
-                    {
-                        HourStart = 17,
-                        HourEnd = 20,
-                        DayType = DiscountDayTypeEnum.Workday,
-                        HourCost = 500
-                    },
-                    new StudioSettings.SpecialCost
-                    {
-                        HourStart = 15,
-                        HourEnd = 19,
-                        DayType = DiscountDayTypeEnum.Weekend,
-                        HourCost = 750
-                    }
-                }
-            }));
+            var costEvaluationService = new CostEvaluationService(HourCostsRepo(
+                new HourCostEntity {Cost = 1000, IsGeneral = true},
+                new HourCostEntity {Start = 12, End = 14, DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday, Cost = 250},
+                new HourCostEntity {Start = 17, End = 20, DayType = DiscountDayTypeEnum.Workday, Cost = 500},
+                new HourCostEntity {Start = 15, End = 19, DayType = DiscountDayTypeEnum.Weekend, Cost = 750}
+            ));
 
             var date = new DateTime(2018, 6, 8);
             double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(23).AddDays(1));
@@ -154,27 +128,11 @@ namespace Studio404.Services.Tests
         [TestMethod]
         public void SpecialCosts_StartBetweenIntervals()
         {
-            var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
-            {
-                HourCost = 1000,
-                SpecialCosts = new[]
-                {
-                    new StudioSettings.SpecialCost
-                    {
-                        HourStart = 12,
-                        HourEnd = 14,
-                        DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday,
-                        HourCost = 250
-                    },
-                    new StudioSettings.SpecialCost
-                    {
-                        HourStart = 17,
-                        HourEnd = 20,
-                        DayType = DiscountDayTypeEnum.Workday,
-                        HourCost = 500
-                    }
-                }
-            }));
+            var costEvaluationService = new CostEvaluationService(HourCostsRepo(
+                new HourCostEntity {Cost = 1000, IsGeneral = true},
+                new HourCostEntity {Start = 12, End = 14, DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday, Cost = 250},
+                new HourCostEntity {Start = 17, End = 20, DayType = DiscountDayTypeEnum.Workday, Cost = 500}
+            ));
 
             var date = new DateTime(2018, 6, 8);
             double result = costEvaluationService.EvaluateBookingCost(date.AddHours(16), date.AddHours(20));
@@ -187,27 +145,11 @@ namespace Studio404.Services.Tests
         [TestMethod]
         public void SpecialCosts_StartEndBetweenIntervals()
         {
-            var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
-            {
-                HourCost = 1000,
-                SpecialCosts = new[]
-                {
-                    new StudioSettings.SpecialCost
-                    {
-                        HourStart = 12,
-                        HourEnd = 14,
-                        DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday,
-                        HourCost = 250
-                    },
-                    new StudioSettings.SpecialCost
-                    {
-                        HourStart = 17,
-                        HourEnd = 20,
-                        DayType = DiscountDayTypeEnum.Workday,
-                        HourCost = 500
-                    }
-                }
-            }));
+            var costEvaluationService = new CostEvaluationService(HourCostsRepo(
+                new HourCostEntity {Cost = 1000, IsGeneral = true},
+                new HourCostEntity {Start = 12, End = 14, DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday, Cost = 250},
+                new HourCostEntity {Start = 17, End = 20, DayType = DiscountDayTypeEnum.Workday, Cost = 500}
+            ));
 
             var date = new DateTime(2018, 6, 8);
             double result = costEvaluationService.EvaluateBookingCost(date.AddHours(16), date.AddHours(17));
@@ -218,27 +160,11 @@ namespace Studio404.Services.Tests
         [TestMethod]
         public void SpecialCosts_TwoIntervalsSameTime()
         {
-            var costEvaluationService = new CostEvaluationService(StudioSettingsOptions(new StudioSettings
-            {
-                HourCost = 1000,
-                SpecialCosts = new[]
-                {
-                    new StudioSettings.SpecialCost
-                    {
-                        HourStart = 12,
-                        HourEnd = 16,
-                        DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday,
-                        HourCost = 500
-                    },
-                    new StudioSettings.SpecialCost
-                    {
-                        HourStart = 13,
-                        HourEnd = 18,
-                        DayType = DiscountDayTypeEnum.Workday,
-                        HourCost = 250
-                    }
-                }
-            }));
+            var costEvaluationService = new CostEvaluationService(HourCostsRepo(
+                new HourCostEntity {Cost = 1000, IsGeneral = true},
+                new HourCostEntity {Start = 12, End = 16, DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday, Cost = 500},
+                new HourCostEntity {Start = 13, End = 18, DayType = DiscountDayTypeEnum.Workday, Cost = 250}
+            ));
 
             var date = new DateTime(2018, 6, 8);
             double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(20));
@@ -250,11 +176,11 @@ namespace Studio404.Services.Tests
             Assert.AreEqual(6000, result);
         }
 
-        private IOptions<StudioSettings> StudioSettingsOptions(StudioSettings settings)
+        private IRepository<HourCostEntity> HourCostsRepo(params HourCostEntity[] hourCosts)
         {
-            var optionsMock = new Mock<IOptions<StudioSettings>>();
-            optionsMock.Setup(x => x.Value).Returns(settings);
-            return optionsMock.Object;
+            var repo = new Mock<IRepository<HourCostEntity>>();
+            repo.Setup(x => x.GetAll()).Returns((new List<HourCostEntity>(hourCosts)).AsQueryable());
+            return repo.Object;
         }
     }
 }

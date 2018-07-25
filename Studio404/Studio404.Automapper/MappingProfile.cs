@@ -5,6 +5,7 @@ using Studio404.Dto.Account;
 using Studio404.Dto.Booking;
 using Studio404.Dto.BookingManager;
 using Studio404.Dto.PromoCodeManager;
+using Studio404.Dto.Schedule;
 using Studio404.Dto.UserManager;
 
 namespace Studio404.Automapper
@@ -35,6 +36,9 @@ namespace Studio404.Automapper
 			CreateMap<BookingSpecialSaveDto, BookingEntity>();
 			CreateMap<PromoCodeEntity, PromoCodeDto>();
 			CreateMap<PromoCodeSaveDto, PromoCodeEntity>();
-		}
+
+	        CreateMap<HourCostEntity, StudioSchedule>();
+	        CreateMap<HourCostEntity, StudioSchedule.SpecialCost>();
+        }
     }
 }

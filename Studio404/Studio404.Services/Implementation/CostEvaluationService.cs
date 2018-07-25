@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using AutoMapper;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using Studio404.Common.Enums;
 using Studio404.Common.Settings;
+using Studio404.Dal.Entity;
+using Studio404.Dal.Repository;
 using Studio404.Dto.Booking;
+using Studio404.Dto.Schedule;
 using Studio404.Services.Interface;
 
 namespace Studio404.Services.Implementation
 {
     public class CostEvaluationService : ICostEvaluationService
     {
-        private readonly StudioSettings _studioSettings;
+        private readonly IRepository<HourCostEntity> _hourCostRepository;
 
-        public CostEvaluationService(IOptions<StudioSettings> studioSettings)
+        public CostEvaluationService(IRepository<HourCostEntity> hourCostRepository)
         {
-            _studioSettings = studioSettings.Value;
+            _hourCostRepository = hourCostRepository;
         }
         
         public double EvaluateBookingCost(DateTime from, DateTime to)
@@ -28,20 +32,22 @@ namespace Studio404.Services.Implementation
 
         public IEnumerable<IntervalCostDto> EvaluateIntervalCosts(DateTime from, DateTime to)
         {
-            if (_studioSettings.SpecialCosts == null || _studioSettings.SpecialCosts.Length == 0)
-                return new[] {CreateIntervalCost(from, to, _studioSettings.HourCost)};
+            StudioSchedule schedule = EvaluateStudioSchedule();
+            
+            if (schedule.SpecialCosts == null || schedule.SpecialCosts.Length == 0)
+                return new[] {CreateIntervalCost(from, to, schedule.Cost)};
 
             ICollection<IntervalCostDto> intervalCosts = new Collection<IntervalCostDto>();
             ICollection<Interval> intervals = ParseToIntervals(from, to);
             foreach (var interval in intervals)
             {
-                var specialCosts = _studioSettings.SpecialCosts
+                var specialCosts = schedule.SpecialCosts
                     .Where(x => x.DayType.HasFlag(interval.DayType))
                     .Select(x => new
                     {
-                        From = interval.From.Date.AddHours(x.HourStart),
-                        To = interval.From.Date.AddHours(x.HourEnd + 1),
-                        x.HourCost
+                        From = interval.From.Date.AddHours(x.Start),
+                        To = interval.From.Date.AddHours(x.End + 1),
+                        x.Cost
                     })
                     .OrderBy(x => x.From);
 
@@ -53,33 +59,32 @@ namespace Studio404.Services.Implementation
 
                     if (interval.To <= specialCost.From)
                     {
-                        intervalCosts.Add(CreateIntervalCost(intervalStart, interval.To, _studioSettings.HourCost));
+                        intervalCosts.Add(CreateIntervalCost(intervalStart, interval.To, schedule.Cost));
                         intervalStart = interval.To;
                         break;
                     }
                     
                     if (intervalStart < specialCost.From)
                     {
-                        intervalCosts.Add(CreateIntervalCost(intervalStart, specialCost.From,
-                            _studioSettings.HourCost));
+                        intervalCosts.Add(CreateIntervalCost(intervalStart, specialCost.From, schedule.Cost));
                         intervalStart = specialCost.From;
                     }
 
                     if (interval.To <= specialCost.To)
                     {
-                        intervalCosts.Add(CreateIntervalCost(intervalStart, interval.To, specialCost.HourCost));
+                        intervalCosts.Add(CreateIntervalCost(intervalStart, interval.To, specialCost.Cost));
                         intervalStart = interval.To;
                         break;
                     }
                     else
                     {
-                        intervalCosts.Add(CreateIntervalCost(intervalStart, specialCost.To, specialCost.HourCost));
+                        intervalCosts.Add(CreateIntervalCost(intervalStart, specialCost.To, specialCost.Cost));
                         intervalStart = specialCost.To;
                     }
                 }
 
                 if (intervalStart < interval.To)
-                    intervalCosts.Add(CreateIntervalCost(intervalStart, interval.To, _studioSettings.HourCost));
+                    intervalCosts.Add(CreateIntervalCost(intervalStart, interval.To, schedule.Cost));
             }
 
             return intervalCosts;
@@ -87,7 +92,6 @@ namespace Studio404.Services.Implementation
 
         private IntervalCostDto CreateIntervalCost(DateTime from, DateTime to, double hourCost)
         {
-            TimeSpan diff = to - from;
             return
                 new IntervalCostDto
                 {
@@ -124,6 +128,20 @@ namespace Studio404.Services.Implementation
                 return DiscountDayTypeEnum.Weekend;
             else
                 return DiscountDayTypeEnum.Workday;
+        }
+
+        private StudioSchedule EvaluateStudioSchedule()
+        {
+            List<HourCostEntity> hourCosts = _hourCostRepository.GetAll().ToList();
+            HourCostEntity general = hourCosts.Single(x => x.IsGeneral);
+
+            var schedule = Mapper.Map<StudioSchedule>(general);
+            schedule.SpecialCosts = hourCosts
+                .Where(x => !x.IsGeneral)
+                .Select(Mapper.Map<StudioSchedule.SpecialCost>)
+                .ToArray();
+
+            return schedule;
         }
 
         class Interval

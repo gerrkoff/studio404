@@ -111,7 +111,8 @@ namespace Studio404.Services.Implementation
                     .Aggregate((s1, s2) => s1 + "," + s2);
                 throw new ServiceException($"Booking is invalid for this action \r\n ____ has bookings for period. From='{from}' To='{to}' Ids='{bookingIds}'");
             }
-                
+            
+            // TODO: Implement checking schedule
             
             _bookingRepository.Save(new BookingEntity
             {

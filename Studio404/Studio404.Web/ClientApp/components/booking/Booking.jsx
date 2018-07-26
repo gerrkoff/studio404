@@ -35,8 +35,8 @@ class Booking extends Component {
         return weekLabel
     }
 
-    saveBooking (date, hours) {
-        this.props.saveBooking(date, hours, this.props.weekStartDate)
+    saveBooking (date, hours, promoCode) {
+        this.props.saveBooking(date, hours, promoCode, this.props.weekStartDate)
     }
 
     componentDidUpdate (prevProps, prevState) {
@@ -85,7 +85,7 @@ class Booking extends Component {
                         bookingHoursError={this.props.bookingHoursError}
                         bookingIsValid={this.props.bookingIsValid}
                         loadDayHours={this.props.loadDayHours}
-                        updateHours={(hours) => this.props.updateHours(this.props.chosenDate, hours)}
+                        updateHours={(hours) => this.props.updateHours(this.props.chosenDate, hours, this.props.promoCode)}
                         saveBooking={this.saveBooking}
                         userLoggedIn={this.props.userLoggedIn}
                         phoneConfirmed={this.props.phoneConfirmed}
@@ -93,6 +93,9 @@ class Booking extends Component {
                         hoursCost={this.props.hoursCost}
                         hoursCostIntervals={this.props.hoursCostIntervals}
                         hoursCostError={this.props.hoursCostError}
+                        promoCode={this.props.promoCode}
+                        promoCodeInfo={this.props.promoCodeInfo}
+                        inputPromoCode={this.props.inputPromoCode}
                     />
                 </Paper>
             </div>

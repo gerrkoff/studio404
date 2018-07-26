@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'reactstrap'
 import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
 import DateService from '../../modules/DateService'
 import HourSelector from '../../components/booking/HourSelector'
 import Loader from '../../components/common/Loader'
@@ -51,7 +52,7 @@ class TimeBooking extends Component {
                             <RaisedButton
                                 label={Labels.booking_book}
                                 primary={true}
-                                onClick={() => this.props.saveBooking(this.props.chosenDate, this.props.bookingHours)}
+                                onClick={() => this.props.saveBooking(this.props.chosenDate, this.props.bookingHours, this.props.promoCode)}
                                 disabled={!this.props.bookingIsValid || !this.props.userLoggedIn || !this.props.phoneConfirmed} />
                         </div>
                     </Col>
@@ -91,6 +92,13 @@ class TimeBooking extends Component {
             <div>
                 <p className={css.timeFormInfo}>{Labels.booking_choiceInfo(this.props.bookingHours[0], this.props.bookingHours[this.props.bookingHours.length - 1])}</p>
                 {this.renderCostInfo()}
+                <div>
+                    <TextField
+                        hintText="Enter promo code"
+                        value={this.props.promoCode}
+                        onChange={e => this.props.inputPromoCode(e.target.value)}
+                    />
+                </div>
             </div>
         )
     }

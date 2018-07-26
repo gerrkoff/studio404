@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Booking from '../components/booking/Booking'
-import { changeWeekStartDate, loadWeekWorkload, chooseDay, loadDayHours, updateHours, saveBooking, toggleHelp } from '../actions/BookingActions'
+import { changeWeekStartDate, loadWeekWorkload, chooseDay, loadDayHours, updateHours, saveBooking, toggleHelp, inputPromoCode } from '../actions/BookingActions'
 
 const mapStateToProps = (state) => {
     return {
@@ -16,9 +16,10 @@ const mapDispatchToProps = (dispatch) => {
         loadWeekWorkload: (date) => dispatch(loadWeekWorkload(date)),
         chooseDay: (date) => dispatch(chooseDay(date)),
         loadDayHours: (date) => dispatch(loadDayHours(date)),
-        updateHours: (date, hours) => dispatch(updateHours(date, hours)),
-        saveBooking: (date, hours, weekStartDate) => dispatch(saveBooking(date, hours, weekStartDate)),
-        toggleHelp: (showHelp) => dispatch(toggleHelp(showHelp))
+        updateHours: (date, hours, promoCode) => dispatch(updateHours(date, hours, promoCode)),
+        saveBooking: (date, hours, promoCode, weekStartDate) => dispatch(saveBooking(date, hours, promoCode, weekStartDate)),
+        toggleHelp: (showHelp) => dispatch(toggleHelp(showHelp)),
+        inputPromoCode: (promoCode) => dispatch(inputPromoCode(promoCode))
     }
 }
 

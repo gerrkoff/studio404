@@ -98,6 +98,13 @@ const Booking = {
         return {
             type: 'HOURS_COST_LOADED_ERROR'
         }
+    },
+
+    promoCodeInput: (promoCode) => {
+        return {
+            type: 'PROMOCODE_INPUT',
+            promoCode
+        }
     }
 }
 
@@ -146,13 +153,12 @@ export const loadDayHours = (date) => {
     }
 }
 
-export const saveBooking = (date, hours, weekStartDate) => {
+export const saveBooking = (date, hours, promoCode, weekStartDate) => {
     return (dispatch) => {
         hours.sortNumbers()
-        Http.Post('/api/booking/make', createBookingInfo(date, hours))
+        Http.Post('/api/booking/make', createBookingInfo(date, hours, promoCode))
             .fail(data => dispatch(errorHandler(data)))
             .done(bookingId => {
-                console.log(bookingId)
                 dispatch(Booking.bookingSaved())
                 dispatch(showAction(Labels.bookingSaved, Labels.pay, () => dispatch(payBooking(bookingId))))
                 dispatch(loadWeekWorkload(weekStartDate))
@@ -160,10 +166,10 @@ export const saveBooking = (date, hours, weekStartDate) => {
     }
 }
 
-export const loadHoursCost = (date, hours) => {
+export const loadHoursCost = (date, hours, promoCode) => {
     return (dispatch) => {
         dispatch(Booking.hoursCostLoading())
-        Http.Post('api/booking/cost', createBookingInfo(date, hours))
+        Http.Post('api/booking/cost', createBookingInfo(date, hours, promoCode))
             .fail((data) => {
                 dispatch(Booking.hoursCostLoadedError())
                 dispatch(errorHandler(data))
@@ -189,13 +195,13 @@ export const chooseDay = (date) => {
     }
 }
 
-export const updateHours = (date, hours) => {
+export const updateHours = (date, hours, promoCode) => {
     return (dispatch) => {
         let validateResult = validateHours(hours)
         dispatch(Booking.updateHours(hours, validateResult.isValid, validateResult.error))
 
         if (validateResult.isValid) {
-            dispatch(loadHoursCost(date, hours))
+            dispatch(loadHoursCost(date, hours, promoCode))
         }
     }
 }
@@ -205,11 +211,14 @@ export const toggleHelp = (showHelp) => {
     return Booking.toggleHelp(showHelp)
 }
 
-function createBookingInfo (date, hours) {
+export const inputPromoCode = (promoCode) => Booking.promoCodeInput(promoCode)
+
+function createBookingInfo (date, hours, promoCode) {
     return {
         date: date.toISOString(),
         from: hours[0],
-        to: hours[hours.length - 1]
+        to: hours[hours.length - 1],
+        promoCode
     }
 }
 

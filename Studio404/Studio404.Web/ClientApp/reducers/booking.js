@@ -115,6 +115,12 @@ const booking = (state = initialState, action) => {
                 hoursCostError: true
             }
 
+        case 'PROMOCODE_INPUT':
+            return {
+                ...state,
+                promoCode: action.promoCode
+            }
+
         default:
             return state
     }

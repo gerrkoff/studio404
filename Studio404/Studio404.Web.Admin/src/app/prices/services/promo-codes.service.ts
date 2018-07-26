@@ -30,7 +30,13 @@ export class PromoCodesService {
   }
 
   private convertToUTC(date: Date) {
-    return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
+    return new Date(Date.UTC(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(), date.getHours(),
+      date.getMinutes(),
+      date.getSeconds(),
+      date.getMilliseconds()));
   }
 
   private fixDates(codes: PromoCode[]): PromoCode[] {

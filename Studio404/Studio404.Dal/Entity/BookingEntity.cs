@@ -18,6 +18,9 @@ namespace Studio404.Dal.Entity
         public string UserId { get; set; }
         public int StudioId { get; set; }
         
+        public int? PromoCodeId { get; set; }
+        
         public UserEntity User { get; set; }
+        public PromoCodeEntity PromoCode { get; set; }
     }
 }

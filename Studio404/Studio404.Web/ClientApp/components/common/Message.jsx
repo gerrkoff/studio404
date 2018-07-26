@@ -8,7 +8,9 @@ class Message extends Component {
                 open={this.props.open}
                 message={this.props.text}
                 autoHideDuration={4000}
-                onRequestClose={this.props.hide} />
+                onRequestClose={this.props.hide}
+                action={this.props.actionText}
+                onActionClick={this.props.actionClick} />
         )
     }
 }

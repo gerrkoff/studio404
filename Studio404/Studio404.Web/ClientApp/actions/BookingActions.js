@@ -1,5 +1,5 @@
 import { Http, errorHandler } from '../modules/Http'
-import { show } from './MessageActions'
+import { showAction } from './MessageActions'
 import DateService from '../modules/DateService'
 import Labels from '../modules/Labels'
 import { ShowBookingHelp } from '../modules/Storage'
@@ -152,7 +152,7 @@ export const saveBooking = (date, hours, weekStartDate) => {
             .fail((data) => dispatch(errorHandler(data)))
             .done(() => {
                 dispatch(Booking.bookingSaved())
-                dispatch(show(Labels.bookingSaved))
+                dispatch(showAction(Labels.bookingSaved, Labels.pay, () => alert(123)))
                 dispatch(loadWeekWorkload(weekStartDate))
             })
     }

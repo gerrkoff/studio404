@@ -101,7 +101,8 @@ const Labels = {
     booking_book: 'Забронировать',
     booking_hoursCost: 'Стоимость',
     close: 'Закрыть',
-    about: 'Контакты'
+    about: 'Контакты',
+    pay: 'Оплатить'
 }
 
 export default Labels

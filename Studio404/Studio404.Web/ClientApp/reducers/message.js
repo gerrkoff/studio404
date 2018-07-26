@@ -1,6 +1,8 @@
 const initialState = {
     open: false,
-    text: ''
+    text: '',
+    actionText: '',
+    actionClick: null
 }
 
 const message = (state = initialState, action) => {
@@ -8,13 +10,25 @@ const message = (state = initialState, action) => {
         case 'MESSAGE_SHOW':
             return {...state,
                 open: true,
-                text: action.text
+                text: action.text,
+                actionText: '',
+                actionClick: null
             }
 
         case 'MESSAGE_HIDE':
             return {...state,
                 open: false,
-                text: ''
+                text: '',
+                actionText: '',
+                actionClick: null
+            }
+
+        case 'MESSAGE_SHOW_ACTION':
+            return {...state,
+                open: true,
+                text: action.text,
+                actionText: action.actionText,
+                actionClick: action.actionClick
             }
 
         default:

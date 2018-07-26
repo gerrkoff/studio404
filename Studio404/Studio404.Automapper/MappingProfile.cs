@@ -42,7 +42,7 @@ namespace Studio404.Automapper
 
 	        CreateMap<PromoCodeEntity, PromoCodeInfoDto>()
 		        .ForMember(x => x.CostModifier, e => e.MapFrom(x => (double) (100 - x.Discount) / 100))
-		        .ForMember(x => x.Info, e => e.MapFrom(x => $"{x.Discount}%"));
+		        .ForMember(x => x.Info, e => e.MapFrom(x => $"Скидка {x.Discount}%"));
         }
     }
 }

@@ -102,7 +102,9 @@ const Labels = {
     booking_hoursCost: 'Стоимость',
     close: 'Закрыть',
     about: 'Контакты',
-    pay: 'Оплатить'
+    pay: 'Оплатить',
+    promoCode_label: 'Промокод',
+    promoCode_enter: 'Введите промокод'
 }
 
 export default Labels

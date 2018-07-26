@@ -96,6 +96,7 @@ class Booking extends Component {
                         promoCode={this.props.promoCode}
                         promoCodeInfo={this.props.promoCodeInfo}
                         inputPromoCode={this.props.inputPromoCode}
+                        refreshBookingCost={() => this.props.loadHoursCost(this.props.chosenDate, this.props.bookingHours, this.props.promoCode)}
                     />
                 </Paper>
             </div>

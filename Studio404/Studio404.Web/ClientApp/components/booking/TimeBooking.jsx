@@ -92,11 +92,16 @@ class TimeBooking extends Component {
             <div>
                 <p className={css.timeFormInfo}>{Labels.booking_choiceInfo(this.props.bookingHours[0], this.props.bookingHours[this.props.bookingHours.length - 1])}</p>
                 {this.renderCostInfo()}
-                <div>
+                <div className={css.promocode}>
                     <TextField
-                        hintText="Enter promo code"
+                        hintText={Labels.promoCode_enter}
+                        floatingLabelText={Labels.promoCode_label}
                         value={this.props.promoCode}
                         onChange={e => this.props.inputPromoCode(e.target.value)}
+                        onBlur={this.props.refreshBookingCost}
+                        errorText={this.props.promoCodeInfo}
+                        errorStyle={{color: muiTheme.palette.primary1Color}}
+                        floatingLabelFocusStyle={{color: muiTheme.palette.primary1Color}}
                     />
                 </div>
             </div>

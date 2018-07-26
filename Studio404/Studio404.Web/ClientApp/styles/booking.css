@@ -109,3 +109,9 @@
 	font-size: 13px;
 	list-style-type: none;
 }
+
+.promocode {
+	top: -15px;
+	height: 60px;
+	position: relative;
+}

@@ -11,6 +11,7 @@ using Studio404.Dto.Booking;
 using Studio404.Common.Enums;
 using Studio404.Dto.Account;
 using Studio404.Common.Exceptions;
+using Studio404.Dto.CostInfo;
 using Studio404.Dto.Schedule;
 
 namespace Studio404.Services.Tests
@@ -27,7 +28,7 @@ namespace Studio404.Services.Tests
             var costEvaluationServiceMock = new Mock<ICostEvaluationService>();
 	        costEvaluationServiceMock.Setup(x =>
 			        x.EvaluateBookingCost(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>()))
-		        .Returns(100);
+		        .Returns(new BookingCostDto {TotalCost = 100});
 	        costEvaluationServiceMock.Setup(x => x.GetSchedule()).Returns(new StudioSchedule());
 			_costEvaluationService = costEvaluationServiceMock.Object;
 
@@ -158,6 +159,34 @@ namespace Studio404.Services.Tests
 			Assert.IsNotNull(saveOutput.Guid);
 			Assert.AreEqual(100, saveOutput.Cost);
 			Assert.AreEqual("SomeUser", saveOutput.UserId);
+			Assert.AreEqual(null, saveOutput.PromoCodeId);
+		}
+		
+		[TestMethod]
+		public void MakeBooking_CheckSavingPromoCode()
+		{
+			BookingEntity saveOutput = null;
+
+			var repo = new Mock<IRepository<BookingEntity>>();
+			repo.Setup(x => x.GetAll()).Returns((new List<BookingEntity>()).AsQueryable());
+			repo.Setup(x => x.Save(It.IsAny<BookingEntity>())).Callback<BookingEntity>(x => saveOutput = x);
+
+			var costEvaluationServiceMock = new Mock<ICostEvaluationService>();
+			costEvaluationServiceMock.Setup(x =>
+					x.EvaluateBookingCost(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>()))
+				.Returns(new BookingCostDto {TotalCost = 100, PromoCode = new PromoCodeInfoDto {Id = 100500}});
+			
+			var bookingService = new BookingService(repo.Object, null, costEvaluationServiceMock.Object, null, _dateService);
+
+			var bookingInfo = new MakeBookingInfoDto
+			{
+				Date = DateTime.UtcNow.Date,
+				From = 13,
+				To = 15
+			};
+			bookingService.MakeBooking(bookingInfo, new CurrentUser { Phone = "1" });
+
+			Assert.AreEqual(100500, saveOutput.PromoCodeId);
 		}
 
 		private void TestOccupation(params BookingEntity[] bookings)

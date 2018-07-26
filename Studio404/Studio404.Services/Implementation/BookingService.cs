@@ -11,6 +11,7 @@ using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using Studio404.Dto.Account;
 using Studio404.Dto.Booking;
+using Studio404.Dto.CostInfo;
 using Studio404.Dto.Pay;
 using Studio404.Dto.Schedule;
 using Studio404.Services.Interface;
@@ -114,13 +115,16 @@ namespace Studio404.Services.Implementation
             
             // TODO: Implement checking schedule
 
+            BookingCostDto bookingCost =
+                _costEvaluationService.EvaluateBookingCost(from, to, makeBookingInfo.PromoCode);
             var booking = new BookingEntity
             {
                 From = from,
                 To = to,
                 Status = BookingStatusEnum.Unpaid,
                 Guid = Guid.NewGuid(),
-                Cost = _costEvaluationService.EvaluateBookingCost(from, to, makeBookingInfo.PromoCode),
+                Cost = bookingCost.TotalCost,
+                PromoCodeId = bookingCost.PromoCode?.Id,
                 UserId = user.UserId
             };
             

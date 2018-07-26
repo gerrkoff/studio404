@@ -31,24 +31,24 @@ namespace Studio404.Services.Implementation
             _dateService = dateService;
         }
 
-        public double EvaluateBookingCost(DateTime from, DateTime to, string promoCode)
-        {
-            return EvaluateIntervalCosts(from, to, promoCode).Select(x => x.Cost).Sum();
-        }
-
-        public IEnumerable<IntervalCostDto> EvaluateIntervalCosts(DateTime from, DateTime to, string promoCode)
+        public BookingCostDto EvaluateBookingCost(DateTime from, DateTime to, string promoCode)
         {
             StudioSchedule schedule = EvaluateStudioSchedule();
-            PromoCodeInfo promoCodeInfo = EvaluatePromoCodeInfo(promoCode);
+            PromoCodeInfoDto promoCodeInfo = EvaluatePromoCodeInfo(promoCode);
+
+            var result = new BookingCostDto
+            {
+                PromoCode = promoCodeInfo
+            };
 
             schedule.Cost *= promoCodeInfo.CostModifier;
             foreach (var scheduleSpecialCost in schedule.SpecialCosts)
             {
                 scheduleSpecialCost.Cost *= promoCodeInfo.CostModifier;
             }
-            
+
             if (schedule.SpecialCosts == null || schedule.SpecialCosts.Length == 0)
-                return new[] {CreateIntervalCost(from, to, schedule.Cost)};
+                return SetupIntervals(result, new[] {CreateIntervalCost(from, to, schedule.Cost)});
 
             ICollection<IntervalCostDto> intervalCosts = new Collection<IntervalCostDto>();
             ICollection<Interval> intervals = ParseToIntervals(from, to);
@@ -100,7 +100,7 @@ namespace Studio404.Services.Implementation
                     intervalCosts.Add(CreateIntervalCost(intervalStart, interval.To, schedule.Cost));
             }
 
-            return intervalCosts;
+            return SetupIntervals(result, intervalCosts);
         }
 
         public StudioSchedule GetSchedule()
@@ -163,7 +163,7 @@ namespace Studio404.Services.Implementation
             return schedule;
         }
 
-        private PromoCodeInfo EvaluatePromoCodeInfo(string promoCode)
+        private PromoCodeInfoDto EvaluatePromoCodeInfo(string promoCode)
         {
             if (string.IsNullOrWhiteSpace(promoCode))
                 return CreateDefaultPromoCodeInfo(promoCode);
@@ -178,18 +178,25 @@ namespace Studio404.Services.Implementation
             if (promoCodeEntity == null)
                 return CreateDefaultPromoCodeInfo(promoCode);
 
-            return Mapper.Map<PromoCodeInfo>(promoCodeEntity);
+            return Mapper.Map<PromoCodeInfoDto>(promoCodeEntity);
         }
 
-        private PromoCodeInfo CreateDefaultPromoCodeInfo(string promoCode)
+        private PromoCodeInfoDto CreateDefaultPromoCodeInfo(string promoCode)
         {
-            return new PromoCodeInfo
+            return new PromoCodeInfoDto
             {
-                Id = 0,
+                Id = null,
                 Code = promoCode,
                 CostModifier = 1,
                 Info = "-"
             };
+        }
+
+        private BookingCostDto SetupIntervals(BookingCostDto bookingCost, ICollection<IntervalCostDto> intervals)
+        {
+            bookingCost.IntervalCosts = intervals;
+            bookingCost.TotalCost = intervals.Select(x => x.Cost).Sum();
+            return bookingCost;
         }
 
         class Interval

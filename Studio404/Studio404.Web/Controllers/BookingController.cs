@@ -9,6 +9,7 @@ using Studio404.Dto.Booking;
 using Studio404.Services.Interface;
 using Studio404.Web.Controllers.Base;
 using Microsoft.Extensions.Logging;
+using Studio404.Dto.CostInfo;
 using Studio404.Dto.Pay;
 
 namespace Studio404.Web.Controllers
@@ -85,7 +86,8 @@ namespace Studio404.Web.Controllers
 			Validate();
 		    DateTime from = makeBookingInfo.GetFromDateTime();
 		    DateTime to = makeBookingInfo.GetToDateTime();
-            return _costEvaluationService.EvaluateIntervalCosts(from, to, makeBookingInfo.PromoCode);
+            BookingCostDto costInfo = _costEvaluationService.EvaluateBookingCost(from, to, makeBookingInfo.PromoCode);
+		    return costInfo.IntervalCosts;
 		}
 	}
 }

@@ -32,7 +32,7 @@ namespace Studio404.Services.Tests
                 new HourCostEntity {Cost = 100, IsGeneral = true}
             ), PromoCodeRepo(), _dateService);
 
-            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(20), string.Empty);
+            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(20), string.Empty).TotalCost;
 
             Assert.AreEqual(1000, result);
         }
@@ -44,7 +44,7 @@ namespace Studio404.Services.Tests
                 new HourCostEntity {Cost = 100, IsGeneral = true}
             ), PromoCodeRepo(), _dateService);
 
-            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(24), string.Empty);
+            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(24), string.Empty).TotalCost;
 
             Assert.AreEqual(1400, result);
         }
@@ -56,7 +56,7 @@ namespace Studio404.Services.Tests
                 new HourCostEntity {Cost = 100, IsGeneral = true}
             ), PromoCodeRepo(), _dateService);
 
-            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(36), string.Empty);
+            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(36), string.Empty).TotalCost;
 
             Assert.AreEqual(2600, result);
         }
@@ -68,7 +68,7 @@ namespace Studio404.Services.Tests
                 new HourCostEntity {Cost = 100, IsGeneral = true}
             ), PromoCodeRepo(), _dateService);
 
-            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(11).AddMinutes(30), string.Empty);
+            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(11).AddMinutes(30), string.Empty).TotalCost;
 
             Assert.AreEqual(150, result);
         }
@@ -80,7 +80,7 @@ namespace Studio404.Services.Tests
                 new HourCostEntity {Cost = 100, IsGeneral = true}
             ), PromoCodeRepo(), _dateService);
 
-            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(11).AddMinutes(18), string.Empty);
+            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(11).AddMinutes(18), string.Empty).TotalCost;
 
             Assert.AreEqual(130, result);
         }
@@ -94,7 +94,7 @@ namespace Studio404.Services.Tests
             ), PromoCodeRepo(), _dateService);
 
             var date = new DateTime(2018, 6, 4);
-            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(18), string.Empty);
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(18), string.Empty).TotalCost;
 
             Assert.AreEqual(400, result);
         }
@@ -110,7 +110,7 @@ namespace Studio404.Services.Tests
             ), PromoCodeRepo(), _dateService);
 
             var date = new DateTime(2018, 6, 8);
-            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(23).AddDays(1), string.Empty);
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(23).AddDays(1), string.Empty).TotalCost;
 
             // 2000
             // 750
@@ -133,7 +133,7 @@ namespace Studio404.Services.Tests
             ), PromoCodeRepo(), _dateService);
 
             var date = new DateTime(2018, 6, 8);
-            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(16), date.AddHours(20), string.Empty);
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(16), date.AddHours(20), string.Empty).TotalCost;
 
             // 1000
             // 1500
@@ -150,7 +150,7 @@ namespace Studio404.Services.Tests
             ), PromoCodeRepo(), _dateService);
 
             var date = new DateTime(2018, 6, 8);
-            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(16), date.AddHours(17), string.Empty);
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(16), date.AddHours(17), string.Empty).TotalCost;
 
             Assert.AreEqual(1000, result);
         }
@@ -165,7 +165,7 @@ namespace Studio404.Services.Tests
             ), PromoCodeRepo(), _dateService);
 
             var date = new DateTime(2018, 6, 8);
-            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(20), string.Empty);
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(20), string.Empty).TotalCost;
 
             // 2000
             // 2500
@@ -184,7 +184,7 @@ namespace Studio404.Services.Tests
                 _dateService);
 
             var date = new DateTime(2018, 6, 4);
-            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(8), date.AddHours(20), "promo");
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(8), date.AddHours(20), "promo").TotalCost;
 
             Assert.AreEqual(584, result);
         }
@@ -198,7 +198,7 @@ namespace Studio404.Services.Tests
                 _dateService);
 
             var date = new DateTime(2018, 6, 4);
-            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(12), "promo");
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(12), "promo").TotalCost;
 
             Assert.AreEqual(200, result);
         }
@@ -213,7 +213,7 @@ namespace Studio404.Services.Tests
                 _dateService);
 
             var date = new DateTime(2018, 6, 4);
-            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(12), "promo");
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(12), "promo").TotalCost;
 
             Assert.AreEqual(180, result);
         }

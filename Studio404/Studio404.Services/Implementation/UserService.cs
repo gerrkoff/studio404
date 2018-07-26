@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper.QueryableExtensions;
 using Studio404.Dal.Entity;
@@ -12,16 +13,20 @@ namespace Studio404.Services.Implementation
     public class UserService : IUserService
     {
         private readonly IRepositoryNonDeletable<BookingEntity> _bookingRepository;
+        private readonly IDateService _dateService;
 
-        public UserService(IRepositoryNonDeletable<BookingEntity> bookingRepository)
+        public UserService(IRepositoryNonDeletable<BookingEntity> bookingRepository, IDateService dateService)
         {
             _bookingRepository = bookingRepository;
+            _dateService = dateService;
         }
 
         public IEnumerable<BookingSimpleDto> GetUserBookings(CurrentUser user)
         {
+            DateTime yesterday = _dateService.NowUtc.Date.AddDays(-1);
             return _bookingRepository.GetAll()
-                .Where(x => x.UserId == user.UserId)
+                .Where(x => x.UserId == user.UserId &&
+                            x.To > yesterday)
                 .OrderBy(x => x.From)
                 .ProjectTo<BookingSimpleDto>()
                 .ToList();

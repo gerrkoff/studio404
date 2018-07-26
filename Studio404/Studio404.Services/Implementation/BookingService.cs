@@ -120,7 +120,7 @@ namespace Studio404.Services.Implementation
                 To = to,
                 Status = BookingStatusEnum.Unpaid,
                 Guid = Guid.NewGuid(),
-                Cost = _costEvaluationService.EvaluateBookingCost(from, to),
+                Cost = _costEvaluationService.EvaluateBookingCost(from, to, makeBookingInfo.PromoCode),
                 UserId = user.UserId
             };
             

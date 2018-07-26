@@ -4,6 +4,7 @@ using Studio404.Dal.Entity;
 using Studio404.Dto.Account;
 using Studio404.Dto.Booking;
 using Studio404.Dto.BookingManager;
+using Studio404.Dto.CostInfo;
 using Studio404.Dto.PromoCodeManager;
 using Studio404.Dto.Schedule;
 using Studio404.Dto.UserManager;
@@ -39,6 +40,10 @@ namespace Studio404.Automapper
 
 	        CreateMap<HourCostEntity, StudioSchedule>();
 	        CreateMap<HourCostEntity, StudioSchedule.SpecialCost>();
+
+	        CreateMap<PromoCodeEntity, PromoCodeInfo>()
+		        .ForMember(x => x.CostModifier, e => e.MapFrom(x => (double) (100 - x.Discount) / 100))
+		        .ForMember(x => x.Info, e => e.MapFrom(x => $"{x.Discount}%"));
         }
     }
 }

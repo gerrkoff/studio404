@@ -13,6 +13,8 @@ namespace Studio404.Dto.Booking
         
         [Required]
         public DateTime? Date { get; set; }
+        
+        public string PromoCode { get; set; }
 
         // ReSharper disable PossibleInvalidOperationException
         public DateTime GetFromDateTime() =>

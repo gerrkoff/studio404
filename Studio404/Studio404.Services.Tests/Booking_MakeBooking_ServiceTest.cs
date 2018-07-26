@@ -25,8 +25,9 @@ namespace Studio404.Services.Tests
         public void Init()
         {
             var costEvaluationServiceMock = new Mock<ICostEvaluationService>();
-			costEvaluationServiceMock.Setup(x => x.EvaluateBookingCost(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-				.Returns(100);
+	        costEvaluationServiceMock.Setup(x =>
+			        x.EvaluateBookingCost(It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<string>()))
+		        .Returns(100);
 	        costEvaluationServiceMock.Setup(x => x.GetSchedule()).Returns(new StudioSchedule());
 			_costEvaluationService = costEvaluationServiceMock.Object;
 

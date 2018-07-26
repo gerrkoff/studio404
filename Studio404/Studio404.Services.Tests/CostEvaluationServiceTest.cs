@@ -7,20 +7,32 @@ using Studio404.Dal.Repository;
 using System.Collections.Generic;
 using System.Linq;
 using Studio404.Common.Enums;
+using Studio404.Services.Interface;
 
 namespace Studio404.Services.Tests
 {
     [TestClass]
     public class CostEvaluationServiceTest
     {   
+        private readonly DateTime _anchor = DateTime.Today;
+        private IDateService _dateService;
+        
+        [TestInitialize]
+        public void Init()
+        {
+            var dateMock = new Mock<IDateService>();
+            dateMock.Setup(x => x.NowUtc).Returns(_anchor);
+            _dateService = dateMock.Object;
+        }
+        
         [TestMethod]
         public void EvaluateBookingCost()
         {
             var costEvaluationService = new CostEvaluationService(HourCostsRepo(
                 new HourCostEntity {Cost = 100, IsGeneral = true}
-            ));
+            ), PromoCodeRepo(), _dateService);
 
-            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(20));
+            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(20), string.Empty);
 
             Assert.AreEqual(1000, result);
         }
@@ -30,9 +42,9 @@ namespace Studio404.Services.Tests
         {
             var costEvaluationService = new CostEvaluationService(HourCostsRepo(
                 new HourCostEntity {Cost = 100, IsGeneral = true}
-            ));
+            ), PromoCodeRepo(), _dateService);
 
-            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(24));
+            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(24), string.Empty);
 
             Assert.AreEqual(1400, result);
         }
@@ -42,9 +54,9 @@ namespace Studio404.Services.Tests
         {
             var costEvaluationService = new CostEvaluationService(HourCostsRepo(
                 new HourCostEntity {Cost = 100, IsGeneral = true}
-            ));
+            ), PromoCodeRepo(), _dateService);
 
-            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(36));
+            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(36), string.Empty);
 
             Assert.AreEqual(2600, result);
         }
@@ -54,9 +66,9 @@ namespace Studio404.Services.Tests
         {
             var costEvaluationService = new CostEvaluationService(HourCostsRepo(
                 new HourCostEntity {Cost = 100, IsGeneral = true}
-            ));
+            ), PromoCodeRepo(), _dateService);
 
-            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(11).AddMinutes(30));
+            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(11).AddMinutes(30), string.Empty);
 
             Assert.AreEqual(150, result);
         }
@@ -66,9 +78,9 @@ namespace Studio404.Services.Tests
         {
             var costEvaluationService = new CostEvaluationService(HourCostsRepo(
                 new HourCostEntity {Cost = 100, IsGeneral = true}
-            ));
+            ), PromoCodeRepo(), _dateService);
 
-            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(11).AddMinutes(18));
+            double result = costEvaluationService.EvaluateBookingCost(DateTime.Today.AddHours(10), DateTime.Today.AddHours(11).AddMinutes(18), string.Empty);
 
             Assert.AreEqual(130, result);
         }
@@ -79,10 +91,10 @@ namespace Studio404.Services.Tests
             var costEvaluationService = new CostEvaluationService(HourCostsRepo(
                 new HourCostEntity {Cost = 100, IsGeneral = true},
                 new HourCostEntity {Start = 10, End = 17, DayType = DiscountDayTypeEnum.Workday, Cost = 50}
-            ));
+            ), PromoCodeRepo(), _dateService);
 
             var date = new DateTime(2018, 6, 4);
-            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(18));
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(18), string.Empty);
 
             Assert.AreEqual(400, result);
         }
@@ -95,10 +107,10 @@ namespace Studio404.Services.Tests
                 new HourCostEntity {Start = 12, End = 14, DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday, Cost = 250},
                 new HourCostEntity {Start = 17, End = 20, DayType = DiscountDayTypeEnum.Workday, Cost = 500},
                 new HourCostEntity {Start = 15, End = 19, DayType = DiscountDayTypeEnum.Weekend, Cost = 750}
-            ));
+            ), PromoCodeRepo(), _dateService);
 
             var date = new DateTime(2018, 6, 8);
-            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(23).AddDays(1));
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(23).AddDays(1), string.Empty);
 
             // 2000
             // 750
@@ -118,10 +130,10 @@ namespace Studio404.Services.Tests
                 new HourCostEntity {Cost = 1000, IsGeneral = true},
                 new HourCostEntity {Start = 12, End = 14, DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday, Cost = 250},
                 new HourCostEntity {Start = 17, End = 20, DayType = DiscountDayTypeEnum.Workday, Cost = 500}
-            ));
+            ), PromoCodeRepo(), _dateService);
 
             var date = new DateTime(2018, 6, 8);
-            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(16), date.AddHours(20));
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(16), date.AddHours(20), string.Empty);
 
             // 1000
             // 1500
@@ -135,10 +147,10 @@ namespace Studio404.Services.Tests
                 new HourCostEntity {Cost = 1000, IsGeneral = true},
                 new HourCostEntity {Start = 12, End = 14, DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday, Cost = 250},
                 new HourCostEntity {Start = 17, End = 20, DayType = DiscountDayTypeEnum.Workday, Cost = 500}
-            ));
+            ), PromoCodeRepo(), _dateService);
 
             var date = new DateTime(2018, 6, 8);
-            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(16), date.AddHours(17));
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(16), date.AddHours(17), string.Empty);
 
             Assert.AreEqual(1000, result);
         }
@@ -150,10 +162,10 @@ namespace Studio404.Services.Tests
                 new HourCostEntity {Cost = 1000, IsGeneral = true},
                 new HourCostEntity {Start = 12, End = 16, DayType = DiscountDayTypeEnum.Weekend | DiscountDayTypeEnum.Workday, Cost = 500},
                 new HourCostEntity {Start = 13, End = 18, DayType = DiscountDayTypeEnum.Workday, Cost = 250}
-            ));
+            ), PromoCodeRepo(), _dateService);
 
             var date = new DateTime(2018, 6, 8);
-            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(20));
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(20), string.Empty);
 
             // 2000
             // 2500
@@ -161,11 +173,62 @@ namespace Studio404.Services.Tests
             // 1000
             Assert.AreEqual(6000, result);
         }
+        
+        [TestMethod]
+        public void PromoCode_WithSpecialCosts()
+        {
+            var costEvaluationService = new CostEvaluationService(HourCostsRepo(
+                new HourCostEntity {Cost = 100, IsGeneral = true},
+                new HourCostEntity {Start = 10, End = 17, DayType = DiscountDayTypeEnum.Workday, Cost = 50}
+            ), PromoCodeRepo(new PromoCodeEntity{Code = "promo", Discount = 27, From = _anchor, To = _anchor}),
+                _dateService);
+
+            var date = new DateTime(2018, 6, 4);
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(8), date.AddHours(20), "promo");
+
+            Assert.AreEqual(584, result);
+        }
+        
+        [TestMethod]
+        public void PromoCode_IgnoreIfExpired()
+        {
+            var costEvaluationService = new CostEvaluationService(
+                HourCostsRepo(new HourCostEntity {Cost = 100, IsGeneral = true}),
+                PromoCodeRepo(new PromoCodeEntity {Code = "promo", Discount = 27, From = _anchor.AddDays(-1), To = _anchor.AddDays(-1)}),
+                _dateService);
+
+            var date = new DateTime(2018, 6, 4);
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(12), "promo");
+
+            Assert.AreEqual(200, result);
+        }
+        
+        [TestMethod]
+        public void PromoCode_IgnoreExpiredAndUseNext()
+        {
+            var costEvaluationService = new CostEvaluationService(
+                HourCostsRepo(new HourCostEntity {Cost = 100, IsGeneral = true}),
+                PromoCodeRepo(new PromoCodeEntity {Code = "promo", Discount = 27, From = _anchor.AddDays(-1), To = _anchor.AddDays(-1)},
+                              new PromoCodeEntity {Code = "promo", Discount = 10, From = _anchor, To = _anchor}),
+                _dateService);
+
+            var date = new DateTime(2018, 6, 4);
+            double result = costEvaluationService.EvaluateBookingCost(date.AddHours(10), date.AddHours(12), "promo");
+
+            Assert.AreEqual(180, result);
+        }
 
         private IRepository<HourCostEntity> HourCostsRepo(params HourCostEntity[] hourCosts)
         {
             var repo = new Mock<IRepository<HourCostEntity>>();
             repo.Setup(x => x.GetAll()).Returns((new List<HourCostEntity>(hourCosts)).AsQueryable());
+            return repo.Object;
+        }
+        
+        private IRepository<PromoCodeEntity> PromoCodeRepo(params PromoCodeEntity[] promoCodes)
+        {
+            var repo = new Mock<IRepository<PromoCodeEntity>>();
+            repo.Setup(x => x.GetAll()).Returns((new List<PromoCodeEntity>(promoCodes)).AsQueryable());
             return repo.Object;
         }
     }

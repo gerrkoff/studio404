@@ -85,7 +85,7 @@ namespace Studio404.Web.Controllers
 			Validate();
 		    DateTime from = makeBookingInfo.GetFromDateTime();
 		    DateTime to = makeBookingInfo.GetToDateTime();
-            return _costEvaluationService.EvaluateIntervalCosts(from, to);
+            return _costEvaluationService.EvaluateIntervalCosts(from, to, makeBookingInfo.PromoCode);
 		}
 	}
 }

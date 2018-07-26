@@ -11,6 +11,7 @@ using Studio404.Common.Settings;
 using Studio404.Dal.Entity;
 using Studio404.Dal.Repository;
 using Studio404.Dto.Booking;
+using Studio404.Dto.CostInfo;
 using Studio404.Dto.Schedule;
 using Studio404.Services.Interface;
 
@@ -19,20 +20,32 @@ namespace Studio404.Services.Implementation
     public class CostEvaluationService : ICostEvaluationService
     {
         private readonly IRepository<HourCostEntity> _hourCostRepository;
+        private readonly IRepository<PromoCodeEntity> _promoCodeRepository;
+        private readonly IDateService _dateService;
 
-        public CostEvaluationService(IRepository<HourCostEntity> hourCostRepository)
+        public CostEvaluationService(IRepository<HourCostEntity> hourCostRepository,
+            IRepository<PromoCodeEntity> promoCodeRepository, IDateService dateService)
         {
             _hourCostRepository = hourCostRepository;
-        }
-        
-        public double EvaluateBookingCost(DateTime from, DateTime to)
-        {
-            return EvaluateIntervalCosts(from, to).Select(x => x.Cost).Sum();
+            _promoCodeRepository = promoCodeRepository;
+            _dateService = dateService;
         }
 
-        public IEnumerable<IntervalCostDto> EvaluateIntervalCosts(DateTime from, DateTime to)
+        public double EvaluateBookingCost(DateTime from, DateTime to, string promoCode)
+        {
+            return EvaluateIntervalCosts(from, to, promoCode).Select(x => x.Cost).Sum();
+        }
+
+        public IEnumerable<IntervalCostDto> EvaluateIntervalCosts(DateTime from, DateTime to, string promoCode)
         {
             StudioSchedule schedule = EvaluateStudioSchedule();
+            PromoCodeInfo promoCodeInfo = EvaluatePromoCodeInfo(promoCode);
+
+            schedule.Cost *= promoCodeInfo.CostModifier;
+            foreach (var scheduleSpecialCost in schedule.SpecialCosts)
+            {
+                scheduleSpecialCost.Cost *= promoCodeInfo.CostModifier;
+            }
             
             if (schedule.SpecialCosts == null || schedule.SpecialCosts.Length == 0)
                 return new[] {CreateIntervalCost(from, to, schedule.Cost)};
@@ -148,6 +161,35 @@ namespace Studio404.Services.Implementation
                 .ToArray();
 
             return schedule;
+        }
+
+        private PromoCodeInfo EvaluatePromoCodeInfo(string promoCode)
+        {
+            if (string.IsNullOrWhiteSpace(promoCode))
+                return CreateDefaultPromoCodeInfo(promoCode);
+            
+            DateTime current = _dateService.NowUtc;
+            promoCode = promoCode?.ToLower();
+            var promoCodeEntity = _promoCodeRepository.GetAll()
+                .FirstOrDefault(x => x.From <= current &&
+                                     x.To >= current &&
+                                     x.Code == promoCode);
+
+            if (promoCodeEntity == null)
+                return CreateDefaultPromoCodeInfo(promoCode);
+
+            return Mapper.Map<PromoCodeInfo>(promoCodeEntity);
+        }
+
+        private PromoCodeInfo CreateDefaultPromoCodeInfo(string promoCode)
+        {
+            return new PromoCodeInfo
+            {
+                Id = 0,
+                Code = promoCode,
+                CostModifier = 1,
+                Info = "-"
+            };
         }
 
         class Interval

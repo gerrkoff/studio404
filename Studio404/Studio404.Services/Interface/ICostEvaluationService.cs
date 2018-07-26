@@ -7,8 +7,8 @@ namespace Studio404.Services.Interface
 {
     public interface ICostEvaluationService
     {
-        double EvaluateBookingCost(DateTime from, DateTime to);
-        IEnumerable<IntervalCostDto> EvaluateIntervalCosts(DateTime from, DateTime to);
+        double EvaluateBookingCost(DateTime from, DateTime to, string promoCode);
+        IEnumerable<IntervalCostDto> EvaluateIntervalCosts(DateTime from, DateTime to, string promoCode);
         StudioSchedule GetSchedule();
     }
 }

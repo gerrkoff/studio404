@@ -87,10 +87,10 @@ const Booking = {
         }
     },
 
-    hoursCostLoadedSuccess: (hoursCostIntervals) => {
+    hoursCostLoadedSuccess: (bookingCostInfo) => {
         return {
             type: 'HOURS_COST_LOADED_SUCCESS',
-            hoursCostIntervals: HourCostService.adjustHourCostIntervals(hoursCostIntervals)
+            bookingCostInfo: HourCostService.adjustHourCostIntervals(bookingCostInfo)
         }
     },
 

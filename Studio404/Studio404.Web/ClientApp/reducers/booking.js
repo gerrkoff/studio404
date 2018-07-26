@@ -19,7 +19,9 @@ const initialState = {
     hoursCostIsLoading: false,
     hoursCost: '',
     hoursCostIntervals: [],
-    hoursCostError: false
+    hoursCostError: false,
+    promoCode: '',
+    promoCodeInfo: ''
 }
 
 const booking = (state = initialState, action) => {
@@ -101,8 +103,9 @@ const booking = (state = initialState, action) => {
             return {
                 ...state,
                 hoursCostIsLoading: false,
-                hoursCost: action.hoursCostIntervals.totalCost,
-                hoursCostIntervals: action.hoursCostIntervals.intervalCosts
+                hoursCost: action.bookingCostInfo.totalCost,
+                hoursCostIntervals: action.bookingCostInfo.intervalCosts,
+                promoCodeInfo: action.bookingCostInfo.promoCodeInfo
             }
 
         case 'HOURS_COST_LOADED_ERROR':

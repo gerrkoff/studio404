@@ -1,8 +1,8 @@
 import DateService from './DateService'
 
 const HourCostService = {
-    adjustHourCostIntervals (hourCostIntervals) {
-        hourCostIntervals = hourCostIntervals.map(x => ({
+    adjustHourCostIntervals (bookingCostInfo) {
+        let hourCostIntervals = bookingCostInfo.intervalCosts.map(x => ({
             from: new Date(x.from),
             to: new Date(x.to),
             cost: x.cost
@@ -11,16 +11,14 @@ const HourCostService = {
         const withinOneDay = hourCostIntervals
             .every(x => x.from.getDate() === hourCostIntervals[0].from.getDate())
 
-        let intervalCosts = []
-        let totalCost = 0
-        hourCostIntervals.forEach(x => {
+        let intervalCosts = hourCostIntervals.map(x => {
             let datePrefix = withinOneDay ? '' : DateService.toDateString(x.from) + ' '
-            intervalCosts.push(`${datePrefix}${DateService.toTimeString(x.from)} - ${DateService.toTimeString(x.to, true)} = ${x.cost}₽`)
-            totalCost += x.cost
+            return `${datePrefix}${DateService.toTimeString(x.from)} - ${DateService.toTimeString(x.to, true)} = ${x.cost}₽`
         })
 
         return {
-            totalCost: `${totalCost}₽`,
+            totalCost: `${bookingCostInfo.totalCost}₽`,
+            promoCodeInfo: bookingCostInfo.promoCode.info,
             intervalCosts
         }
     }

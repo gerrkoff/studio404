@@ -188,7 +188,7 @@ namespace Studio404.Services.Implementation
                 Id = null,
                 Code = promoCode,
                 CostModifier = 1,
-                Info = "-"
+                Info = string.Empty
             };
         }
 

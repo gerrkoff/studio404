@@ -114,4 +114,10 @@
 	top: -15px;
 	height: 60px;
 	position: relative;
+	z-index: 1;
+}
+
+.costInfo {
+	position: relative;
+	z-index: 2;
 }

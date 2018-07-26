@@ -130,7 +130,7 @@ class TimeBooking extends Component {
         }
 
         return (
-            <div>
+            <div className={css.costInfo}>
                 <span>{Labels.booking_hoursCost}: </span>
                 {cost}
             </div>

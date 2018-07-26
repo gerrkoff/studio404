@@ -7,6 +7,29 @@ namespace Studio404.Services.Tests
     [TestClass]
     public class DateServiceTest
     {
+        private readonly DateTime _dateTime = new DateTime(2018, 7, 1, 17, 23, 40);
+        
+        [TestMethod]
+        public void ToShortDate()
+        {
+            var dateService = new DateService();
+            Assert.AreEqual("01 июля 2018", dateService.ToShortDate(_dateTime));
+        }
+        
+        [TestMethod]
+        public void ToShortTime()
+        {
+            var dateService = new DateService();
+            Assert.AreEqual("17:23", dateService.ToShortTime(_dateTime));
+        }
+
+        [TestMethod]
+        public void ToShortDateTime()
+        {
+            var dateService = new DateService();
+            Assert.AreEqual("01 июля 2018 17:23", dateService.ToShortDateTime(_dateTime));
+        }
+        
         [TestMethod]
         public void CreateUnspecifiedDateTime()
         {

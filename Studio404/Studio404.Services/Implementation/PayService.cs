@@ -58,7 +58,7 @@ namespace Studio404.Services.Implementation
         public PrepareBookingPaymentDto PrepareBookingPaymnent(BookingEntity booking)
         {
             string paymentInfo =
-                $"Rehearsal from {_dateService.ToShortDateTime(booking.From)} to {_dateService.ToShortDateTime(booking.To)}";
+                $"Репетиция с {_dateService.ToShortDateTime(booking.From)} до {_dateService.ToShortDateTime(booking.To)}";
             
             var data = new PrepareBookingPaymentDto
             {

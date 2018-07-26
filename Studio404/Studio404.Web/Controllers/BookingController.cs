@@ -41,12 +41,15 @@ namespace Studio404.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public void Make(MakeBookingInfoDto makeBookingInfo)
+        public int Make(MakeBookingInfoDto makeBookingInfo)
         {
             Validate();
-            _bookingService.MakeBooking(makeBookingInfo, GetUser());
+            
+            int bookingId = _bookingService.MakeBooking(makeBookingInfo, GetUser());
 
             _logger.LogInformation($"Date: {makeBookingInfo.Date}; From: {makeBookingInfo.From}; To: {makeBookingInfo.To}");
+
+            return bookingId;
         }
 
         [Authorize]

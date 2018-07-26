@@ -11,7 +11,7 @@ namespace Studio404.Services.Interface
     {
         IEnumerable<DayWorkloadDto> GetWeekWorkload(DateTime weekStartDate);
         IEnumerable<DayHourDto> GetDayWorkload(DateTime date);
-        void MakeBooking(MakeBookingInfoDto makeBookingInfo, CurrentUser user);
+        int MakeBooking(MakeBookingInfoDto makeBookingInfo, CurrentUser user);
         void CancelBooking(int id, CurrentUser user);
         Task<bool> ResendBookingCode(int id, CurrentUser user);
         PrepareBookingPaymentDto PrepareBookingPayment(int id, CurrentUser user);

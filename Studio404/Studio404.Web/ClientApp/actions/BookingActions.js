@@ -4,6 +4,7 @@ import DateService from '../modules/DateService'
 import Labels from '../modules/Labels'
 import { ShowBookingHelp } from '../modules/Storage'
 import HourCostService from '../modules/HourCostService'
+import { payBooking } from './UserBookingsActions'
 
 const Booking = {
     changeWeekStartDate: (date) => {
@@ -149,10 +150,11 @@ export const saveBooking = (date, hours, weekStartDate) => {
     return (dispatch) => {
         hours.sortNumbers()
         Http.Post('/api/booking/make', createBookingInfo(date, hours))
-            .fail((data) => dispatch(errorHandler(data)))
-            .done(() => {
+            .fail(data => dispatch(errorHandler(data)))
+            .done(bookingId => {
+                console.log(bookingId)
                 dispatch(Booking.bookingSaved())
-                dispatch(showAction(Labels.bookingSaved, Labels.pay, () => alert(123)))
+                dispatch(showAction(Labels.bookingSaved, Labels.pay, () => dispatch(payBooking(bookingId))))
                 dispatch(loadWeekWorkload(weekStartDate))
             })
     }

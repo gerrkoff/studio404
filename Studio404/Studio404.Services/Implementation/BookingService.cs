@@ -91,7 +91,7 @@ namespace Studio404.Services.Implementation
             return list;
         }
 
-        public void MakeBooking(MakeBookingInfoDto makeBookingInfo, CurrentUser user)
+        public int MakeBooking(MakeBookingInfoDto makeBookingInfo, CurrentUser user)
         {
             DateTime from = makeBookingInfo.GetFromDateTime();
             DateTime to = makeBookingInfo.GetToDateTime();
@@ -113,8 +113,8 @@ namespace Studio404.Services.Implementation
             }
             
             // TODO: Implement checking schedule
-            
-            _bookingRepository.Save(new BookingEntity
+
+            var booking = new BookingEntity
             {
                 From = from,
                 To = to,
@@ -122,7 +122,11 @@ namespace Studio404.Services.Implementation
                 Guid = Guid.NewGuid(),
                 Cost = _costEvaluationService.EvaluateBookingCost(from, to),
                 UserId = user.UserId
-            });
+            };
+            
+            _bookingRepository.Save(booking);
+
+            return booking.Id;
         }
 
         public void CancelBooking(int id, CurrentUser user)

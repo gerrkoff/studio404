@@ -80,6 +80,6 @@ export class PromoCodesComponent extends TableEditableComponent<PromoCode> {
       row.fieldInvalid['to'] = true;
     }
 
-    return !row.fieldInvalid['code'] && !row.fieldInvalid['discount'];
+    return !row.fieldInvalid['code'] && !row.fieldInvalid['discount'] && !row.fieldInvalid['from'] && !row.fieldInvalid['to'];
   }
 }

@@ -65,5 +65,18 @@ namespace Studio404.Web.Controllers
             Validate();
             return await _accountService.ChangePassword(GetUser(), changePassInfo);
         }
-    }
+
+		[HttpPost]
+		public SendPassResetConfirmationResultEnum SendPassResetConfirmation(string userId)
+		{
+			return SendPassResetConfirmationResultEnum.Success;
+		}
+
+		[HttpPost]
+		public ResetPassResultEnum ResetPassword(ResetPassInfoDto resetPassInfo)
+		{
+			Validate();
+			return ResetPassResultEnum.Success;
+		}
+	}
 }

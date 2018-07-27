@@ -1,7 +1,7 @@
 import Labels from '../modules/Labels'
 
 const initialState = {
-    step: 1,
+    step: 0,
     step1: {
         username: '',
         usernameError: '',
@@ -27,7 +27,7 @@ const resetPassword = (state = initialState, action) => {
         case 'RESET_PASS_STEP_BACK':
             newState = {
                 ...state,
-                step: 1,
+                step: 0,
                 step2: {
                     token: '',
                     newPassword: '',
@@ -64,7 +64,7 @@ const resetPassword = (state = initialState, action) => {
                     ...state.step1,
                     processing: false
                 },
-                step: 2
+                step: 1
             }
 
         case 'RESET_PASS_STEP1_ERROR':
@@ -105,7 +105,7 @@ const resetPassword = (state = initialState, action) => {
                     ...state.step2,
                     processing: false
                 },
-                step: 3
+                step: 2
             }
 
         case 'RESET_PASS_STEP2_ERROR':

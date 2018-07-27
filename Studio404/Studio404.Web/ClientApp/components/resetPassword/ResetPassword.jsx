@@ -1,40 +1,30 @@
 import React, { Component } from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
-import { Step, Stepper, StepLabel } from 'material-ui/Stepper'
+import FlatButton from 'material-ui/FlatButton'
+import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper'
 import Labels from '../../modules/Labels'
 
 class ResetPassword extends Component {
     render () {
         return (
             <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
-                <Stepper activeStep={this.props.step}>
+                <Stepper activeStep={this.props.step} orientation="vertical">
                     <Step>
-                        <StepLabel>Select campaign settings</StepLabel>
+                        <StepLabel>{Labels.resetPass_step1}</StepLabel>
+                        <StepContent>{this.renderStep1()}</StepContent>
                     </Step>
                     <Step>
-                        <StepLabel>Create an ad group</StepLabel>
+                        <StepLabel>{Labels.resetPass_step2}</StepLabel>
+                        <StepContent>{this.renderStep2()}</StepContent>
                     </Step>
                     <Step>
-                        <StepLabel>Create an ad</StepLabel>
+                        <StepLabel>{Labels.resetPass_step3}</StepLabel>
+                        <StepContent>{this.renderStep3()}</StepContent>
                     </Step>
                 </Stepper>
-                {this.getStepContent(this.props.step)}
             </div>
         )
-    }
-
-    getStepContent (stepIndex) {
-        switch (stepIndex) {
-            case 1:
-                return this.renderStep1()
-            case 2:
-                return this.renderStep2()
-            case 3:
-                return this.renderStep3()
-            default:
-                return ''
-        }
     }
 
     renderStep1 () {
@@ -48,8 +38,8 @@ class ResetPassword extends Component {
                     errorText={this.props.step1.usernameError} />
                 <br />
                 <RaisedButton
-                    label='Send code'
-                    secondary={true}
+                    label={Labels.resetPass_sendToken}
+                    primary={true}
                     onClick={() => this.props.sendResetPassToken(this.props.username)}
                     disabled={!this.props.step1.valid || this.props.step1.processing} />
             </div>
@@ -59,14 +49,9 @@ class ResetPassword extends Component {
     renderStep2 () {
         return (
             <div>
-                <RaisedButton
-                    label='Back'
-                    primary={true}
-                    onClick={() => this.props.stepBack()} />
-                <br />
                 <TextField
-                    hintText='Enter token'
-                    floatingLabelText='Token'
+                    hintText={Labels.resetPass_tokenEnter}
+                    floatingLabelText={Labels.resetPass_token}
                     value={this.props.step2.token}
                     onChange={e => this.props.updateStep2Info('token', e.target.value)}
                     errorText={this.props.step2.tokenError} />
@@ -88,7 +73,7 @@ class ResetPassword extends Component {
                     errorText={this.props.step2.newPasswordConfirmError} />
                 <br />
                 <RaisedButton
-                    label='Reset Password'
+                    label={Labels.resetPassword}
                     primary={true}
                     onClick={() => this.props.resetPass({
                         userId: this.props.username,
@@ -96,15 +81,16 @@ class ResetPassword extends Component {
                         newPassword: this.props.newPassword
                     })}
                     disabled={!this.props.step2.valid || this.props.step2.processing} />
+                <FlatButton
+                    label={Labels.back}
+                    onClick={() => this.props.stepBack()} />
             </div>
         )
     }
 
     renderStep3 () {
         return (
-            <div>
-                Finish
-            </div>
+            <div>{Labels.resetPass_finish}</div>
         )
     }
 }

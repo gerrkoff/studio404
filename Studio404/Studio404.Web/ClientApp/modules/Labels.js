@@ -104,7 +104,17 @@ const Labels = {
     about: 'Контакты',
     pay: 'Оплатить',
     promoCode_label: 'Промокод',
-    promoCode_enter: 'Введите промокод'
+    promoCode_enter: 'Введите промокод',
+    back: 'Назад',
+
+    resetPass_sendToken: 'Послать код',
+    resetPass_tokenEnter: 'Введите код',
+    resetPass_token: 'Код',
+    resetPassword: 'Сбросить пароль',
+    resetPass_step1: 'Введите имя пользователя',
+    resetPass_step2: 'Введите новый пароль',
+    resetPass_step3: 'Пароль сохранен',
+    resetPass_finish: '... и теперь вы снова можете зайти под своим аккаунтом'
 }
 
 export default Labels

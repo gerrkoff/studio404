@@ -2,6 +2,6 @@
 {
     public enum ResetPassResultEnum
 	{
-        Unknown, Success, InvalidToken
+        Unknown, Success, InvalidTokenOrUsername
     }
 }

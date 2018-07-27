@@ -14,5 +14,8 @@ namespace Studio404.Services.Interface
         
         Task<LoginResultEnum> LoginCookie(LoginInfoDto loginInfo);
         Task LogoutCookie();
-    }
+
+		Task<SendPassResetTokenResultEnum> SendPassResetToken(string userId);
+		Task<ResetPassResultEnum> ResetPassword(ResetPassInfoDto resetPassInfo);
+	}
 }

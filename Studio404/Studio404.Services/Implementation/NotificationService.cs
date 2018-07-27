@@ -68,5 +68,19 @@ namespace Studio404.Services.Implementation
                 throw;
             }
         }
-    }
+
+		public async Task<bool> SendPassResetTokenAsync(string phone, string token)
+		{
+			string text = $"Код сброса пароля: {token}";
+			try
+			{
+				return await _smsService.SendAsync(phone, text);
+			}
+			catch (Exception e)
+			{
+				_logger.LogError(e, $"Send pass reset token error. Phone: {phone}; Token: {token}");
+				throw;
+			}
+		}
+	}
 }

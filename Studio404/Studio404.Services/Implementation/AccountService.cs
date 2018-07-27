@@ -139,5 +139,37 @@ namespace Studio404.Services.Implementation
         {
             return _signInManager.SignOutAsync();
         }
-    }
+
+		public async Task<SendPassResetTokenResultEnum> SendPassResetToken(string userId)
+		{
+			UserEntity userEntity = await _userManager.FindByNameAsync(userId);
+
+			if (userEntity == null || !userEntity.PhoneNumberConfirmed)
+				return SendPassResetTokenResultEnum.UnknownUserOrPhoneNotConfirmed;
+
+			string token = await _userManager.GeneratePasswordResetTokenAsync(userEntity);
+			bool succeed = await _notificationService.SendPassResetTokenAsync(userEntity.PhoneNumber, token);
+
+			return succeed
+				? SendPassResetTokenResultEnum.Success
+				: SendPassResetTokenResultEnum.Unknown;
+		}
+
+		public async Task<ResetPassResultEnum> ResetPassword(ResetPassInfoDto resetPassInfo)
+		{
+			UserEntity userEntity = await _userManager.FindByNameAsync(resetPassInfo.UserId);
+
+			if (userEntity == null)
+				return ResetPassResultEnum.InvalidTokenOrUsername;
+
+			IdentityResult result = await _userManager.ResetPasswordAsync(userEntity, resetPassInfo.Token, resetPassInfo.NewPassword);
+
+			if (result.Succeeded)
+				return ResetPassResultEnum.Success;
+			else if (result.Errors.Any(x => string.Equals(x.Code, "InvalidToken")))
+				return ResetPassResultEnum.InvalidTokenOrUsername;
+			else
+				return ResetPassResultEnum.Unknown;
+		}
+	}
 }

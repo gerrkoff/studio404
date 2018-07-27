@@ -1,6 +1,6 @@
 ﻿namespace Studio404.Common.Enums
 {
-    public enum SendPassResetConfirmationResultEnum
+    public enum SendPassResetTokenResultEnum
 	{
         Unknown, Success, UnknownUserOrPhoneNotConfirmed
     }

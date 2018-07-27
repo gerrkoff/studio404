@@ -7,5 +7,6 @@ namespace Studio404.Services.Interface
     {
         Task<bool> SendPhoneConfirmationAsync(string phone, string code);
         Task<bool> SendBookingCodeAsync(BookingEntity booking);
-    }
+		Task<bool> SendPassResetTokenAsync(string phone, string token);
+	}
 }

@@ -67,16 +67,16 @@ namespace Studio404.Web.Controllers
         }
 
 		[HttpPost]
-		public SendPassResetConfirmationResultEnum SendPassResetConfirmation(string userId)
+		public async Task<SendPassResetTokenResultEnum> SendPassResetToken(string userId)
 		{
-			return SendPassResetConfirmationResultEnum.Success;
+			return await _accountService.SendPassResetToken(userId);
 		}
 
 		[HttpPost]
-		public ResetPassResultEnum ResetPassword(ResetPassInfoDto resetPassInfo)
+		public async Task<ResetPassResultEnum> ResetPassword(ResetPassInfoDto resetPassInfo)
 		{
 			Validate();
-			return ResetPassResultEnum.Success;
+			return await _accountService.ResetPassword(resetPassInfo);
 		}
 	}
 }

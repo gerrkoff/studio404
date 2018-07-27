@@ -16,6 +16,7 @@ import Home from './containers/HomeContainer'
 import Booking from './containers/BookingContainer'
 import User from './containers/UserContainer'
 import ExternalLogin from './containers/ExternalLoginContainer'
+import ResetPassword from './containers/ResetPasswordContainer'
 import rootReducer from './reducers'
 
 let store = createStore(rootReducer, applyMiddleware(thunk))
@@ -29,6 +30,7 @@ ReactDOM.render(
                     <Route path="/about" component={Home} />
                     <Route path="/my" component={User} />
                     <Route path="/extlogin" component={ExternalLogin} />
+                    <Route path="/resetpass" component={ResetPassword} />
                     <Route path="*" component={NotFound} />
                 </Switch>
             </AppMaterial>

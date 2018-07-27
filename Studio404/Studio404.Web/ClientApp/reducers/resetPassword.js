@@ -10,11 +10,11 @@ const initialState = {
     },
     step2: {
         token: '',
-        tokenError: '',
+        tokenError: Labels.fieldIsRequired,
         newPassword: '',
-        newPasswordError: '',
+        newPasswordError: Labels.fieldIsRequired,
         newPasswordConfirm: '',
-        newPasswordConfirmError: '',
+        newPasswordConfirmError: Labels.fieldIsRequired,
         valid: false,
         processing: false
     }
@@ -25,10 +25,17 @@ const resetPassword = (state = initialState, action) => {
     let newState = {}
     switch (action.type) {
         case 'RESET_PASS_STEP_BACK':
-            return {
+            newState = {
                 ...state,
-                step: state.step - 1
+                step: 1,
+                step2: {
+                    token: '',
+                    newPassword: '',
+                    newPasswordConfirm: ''
+                }
             }
+            validateStep2(newState.step2)
+            return newState
 
         case 'RESET_PASS_STEP1_UPDATE':
             newState = {
@@ -144,6 +151,14 @@ function validateStep2 (info) {
     }
     else {
         info.newPasswordConfirmError = ''
+    }
+
+    if (info.token === '') {
+        isValid = false
+        info.tokenError = Labels.fieldIsRequired
+    }
+    else {
+        info.tokenError = ''
     }
 
     info.valid = isValid

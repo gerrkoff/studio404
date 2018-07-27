@@ -45,7 +45,7 @@ class ResetPassword extends Component {
                     floatingLabelText={Labels.loginForm_user}
                     value={this.props.step1.username}
                     onChange={e => this.props.updateStep1Info('username', e.target.value)}
-                    errorText={this.props.usernameError} />
+                    errorText={this.props.step1.usernameError} />
                 <br />
                 <RaisedButton
                     label='Send code'

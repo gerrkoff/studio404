@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import ResetPassword from '../components/resetPassword/ResetPassword'
-import { updateResetPassInfo, sendResetPassToken, resetPass } from '../actions/ResetPasswordActions'
+import { updateStep1Info, updateStep2Info, sendResetPassToken, resetPass, stepBack } from '../actions/ResetPasswordActions'
 
 const mapStateToProps = (state) => {
     return {
@@ -10,9 +10,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateResetPassInfo: (fieldName, fieldValue) => dispatch(updateResetPassInfo(fieldName, fieldValue)),
+        updateStep1Info: (fieldName, fieldValue) => dispatch(updateStep1Info(fieldName, fieldValue)),
+        updateStep2Info: (fieldName, fieldValue) => dispatch(updateStep2Info(fieldName, fieldValue)),
         sendResetPassToken: (userId) => dispatch(sendResetPassToken(userId)),
-        resetPass: (info) => dispatch(resetPass(info))
+        resetPass: (info) => dispatch(resetPass(info)),
+        stepBack: () => dispatch(stepBack())
     }
 }
 

@@ -2,56 +2,69 @@
 // import { show, showDefaultError } from './MessageActions'
 
 const ResetPassword = {
-    updateResetPassInfo: (fieldName, fieldValue) => {
+    stepBack: () => {
         return {
-            type: 'RESET_PASS_UPDATE',
+            type: 'RESET_PASS_STEP_BACK'
+        }
+    },
+
+    updateStep1Info: (fieldName, fieldValue) => {
+        return {
+            type: 'RESET_PASS_STEP1_UPDATE',
             fieldName,
             fieldValue
         }
     },
 
-    tokenSendProcessing: () => {
+    updateStep2Info: (fieldName, fieldValue) => {
         return {
-            type: 'RESET_PASS_SEND_TOKEN_PROCESSING'
+            type: 'RESET_PASS_STEP2_UPDATE',
+            fieldName,
+            fieldValue
         }
     },
 
-    tokenSendProcessSuccess: () => {
+    step1Processing: () => {
         return {
-            type: 'RESET_PASS_SEND_TOKEN_PROCESS_SUCCESS'
+            type: 'RESET_PASS_STEP1_PROCESSING'
         }
     },
 
-    tokenSendProcessError: (usernameError) => {
+    step1Success: () => {
         return {
-            type: 'RESET_PASS_SEND_TOKEN_PROCESS_ERROR',
+            type: 'RESET_PASS_STEP1_SUCCESS'
+        }
+    },
+
+    step1Error: (usernameError) => {
+        return {
+            type: 'RESET_PASS_STEP1_ERROR',
             usernameError
         }
     },
 
-    resetPassProcessing: () => {
+    step2Processing: () => {
         return {
-            type: 'RESET_PASS_PROCESSING'
+            type: 'RESET_PASS_STEP2_PROCESSING'
         }
     },
 
-    resetPassProcessSuccess: () => {
+    step2Success: () => {
         return {
-            type: 'RESET_PASS_SUCCESS'
+            type: 'RESET_PASS_STEP2_SUCCESS'
         }
     },
 
-    resetPassProcessError: (usernameError, tokenError) => {
+    step2Error: (tokenError) => {
         return {
-            type: 'RESET_PASS_ERROR',
-            usernameError,
+            type: 'RESET_PASS_STEP2_ERROR',
             tokenError
         }
     }
 }
 
 export const sendResetPassToken = (userId) => {
-    return ResetPassword.tokenSendProcessing()
+    return ResetPassword.step1Success()
     /*
     return (dispatch) => {
         dispatch(ResetPassword.tokenSendProcessing())
@@ -78,7 +91,7 @@ export const sendResetPassToken = (userId) => {
 }
 
 export const resetPass = (info) => {
-    return ResetPassword.resetPassProcessing()
+    return ResetPassword.step2Success()
     /*
     return (dispatch) => {
         dispatch(ResetPassword.tokenSendProcessing())
@@ -104,4 +117,6 @@ export const resetPass = (info) => {
     */
 }
 
-export const updateResetPassInfo = (fieldName, fieldValue) => ResetPassword.updateResetPassInfo(fieldName, fieldValue)
+export const updateStep1Info = (fieldName, fieldValue) => ResetPassword.updateStep1Info(fieldName, fieldValue)
+export const updateStep2Info = (fieldName, fieldValue) => ResetPassword.updateStep2Info(fieldName, fieldValue)
+export const stepBack = () => ResetPassword.stepBack()

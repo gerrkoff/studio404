@@ -9,7 +9,8 @@ namespace Studio404.Dal.Migrations
         
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.InsertData(TABLE_HOUR_COSTS,
+			migrationBuilder.DeleteData(TABLE_HOUR_COSTS, "IsGeneral", true);
+			migrationBuilder.InsertData(TABLE_HOUR_COSTS,
                 new[] { "Start", "End", "DayType", "Cost", "IsGeneral", "IsDeleted" },
                 new object[] { 5, 23, 3, 100d, true, false });
         }

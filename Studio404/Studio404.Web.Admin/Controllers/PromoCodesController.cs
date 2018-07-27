@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Studio404.Dto.PromoCodeManager;
 using Studio404.Common.Exceptions;
 using Studio404.Web.Common.Controllers;
+using System;
 
 namespace Studio404.Web.Admin.Controllers
 {
@@ -30,6 +31,9 @@ namespace Studio404.Web.Admin.Controllers
 
 			if (promoCodeDto.From > promoCodeDto.To)
 				throw new ModelValidationException("From should be less than To");
+
+			promoCodeDto.From = DateTime.SpecifyKind(promoCodeDto.From.Value, DateTimeKind.Unspecified);
+			promoCodeDto.To = DateTime.SpecifyKind(promoCodeDto.To.Value, DateTimeKind.Unspecified);
 
 			return _promoCodeManagerService.SavePromoCode(promoCodeDto);
 		}

@@ -1,5 +1,5 @@
 import { Http, errorHandler } from '../modules/Http'
-import { show, showDefaultError } from './MessageActions'
+import { showDefaultError } from './MessageActions'
 import Labels from '../modules/Labels'
 
 const ResetPassword = {
@@ -76,7 +76,6 @@ export const sendResetPassToken = (userId) => {
                 switch (result) {
                     case 1:
                         dispatch(ResetPassword.step1Success())
-                        dispatch(show(Labels.resetPass_codeWasSent))
                         break
 
                     case 2:
@@ -93,30 +92,30 @@ export const sendResetPassToken = (userId) => {
 }
 
 export const resetPass = (info) => {
-    return ResetPassword.step2Success()
-    /*
     return (dispatch) => {
-        dispatch(ResetPassword.tokenSendProcessing())
-        Http.Post('api/account/sendpassresettoken', userId)
-            .fail(data => dispatch(errorHandler(data)))
+        dispatch(ResetPassword.step2Processing())
+        Http.Post('api/account/resetpassword', info)
+            .fail(data => {
+                dispatch(errorHandler(data))
+                dispatch(ResetPassword.step2Error(''))
+            })
             .done(result => {
                 switch (result) {
                     case 1:
-                        dispatch(closeChangePassPopup())
-                        dispatch(show(Labels.changePassword_success))
+                        dispatch(ResetPassword.step2Success())
                         break
 
                     case 2:
-                        dispatch(ChangePassPopup.changePassErrorWrongPassword())
+                        dispatch(ResetPassword.step2Error(Labels.resetPass_invalidToken))
                         break
 
                     default:
                         dispatch(showDefaultError())
+                        dispatch(ResetPassword.step2Error(''))
                         break
                 }
             })
     }
-    */
 }
 
 export const updateStep1Info = (fieldName, fieldValue) => ResetPassword.updateStep1Info(fieldName, fieldValue)

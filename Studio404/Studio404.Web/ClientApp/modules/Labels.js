@@ -106,7 +106,6 @@ const Labels = {
     promoCode_label: 'Промокод',
     promoCode_enter: 'Введите промокод',
     back: 'Назад',
-
     resetPass_sendToken: 'Послать код',
     resetPass_tokenEnter: 'Введите код',
     resetPass_token: 'Код',
@@ -115,8 +114,9 @@ const Labels = {
     resetPass_step2: 'Введите новый пароль',
     resetPass_step3: 'Пароль сохранен',
     resetPass_finish: '... и теперь вы снова можете зайти под своим аккаунтом',
-    resetPass_codeWasSent: 'Код выслан по номеру телефона пользователя',
-    resetPass_invalidUser: 'Невозможно сбросить пароль для этого пользователя'
+    resetPass_codeWasSent: 'Мы выслали код по номеру телефона, указанного пользователем',
+    resetPass_invalidUser: 'Невозможно сбросить пароль для этого пользователя',
+    resetPass_invalidToken: 'Неверный код'
 }
 
 export default Labels

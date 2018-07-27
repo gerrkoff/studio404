@@ -49,6 +49,7 @@ class ResetPassword extends Component {
     renderStep2 () {
         return (
             <div>
+                <p>{Labels.resetPass_codeWasSent}</p>
                 <TextField
                     hintText={Labels.resetPass_tokenEnter}
                     floatingLabelText={Labels.resetPass_token}
@@ -76,9 +77,9 @@ class ResetPassword extends Component {
                     label={Labels.resetPassword}
                     primary={true}
                     onClick={() => this.props.resetPass({
-                        userId: this.props.username,
-                        token: this.props.token,
-                        newPassword: this.props.newPassword
+                        userId: this.props.step1.username,
+                        token: this.props.step2.token,
+                        newPassword: this.props.step2.newPassword
                     })}
                     disabled={!this.props.step2.valid || this.props.step2.processing} />
                 <FlatButton

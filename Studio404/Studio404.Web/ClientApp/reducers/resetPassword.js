@@ -21,7 +21,6 @@ const initialState = {
 }
 
 const resetPassword = (state = initialState, action) => {
-    console.log(action)
     let newState = {}
     switch (action.type) {
         case 'RESET_PASS_STEP_BACK':

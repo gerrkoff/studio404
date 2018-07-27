@@ -40,7 +40,7 @@ class ResetPassword extends Component {
                 <RaisedButton
                     label={Labels.resetPass_sendToken}
                     primary={true}
-                    onClick={() => this.props.sendResetPassToken(this.props.username)}
+                    onClick={() => this.props.sendResetPassToken(this.props.step1.username)}
                     disabled={!this.props.step1.valid || this.props.step1.processing} />
             </div>
         )

@@ -1,5 +1,6 @@
-// import { Http, errorHandler } from '../modules/Http'
-// import { show, showDefaultError } from './MessageActions'
+import { Http, errorHandler } from '../modules/Http'
+import { show, showDefaultError } from './MessageActions'
+import Labels from '../modules/Labels'
 
 const ResetPassword = {
     stepBack: () => {
@@ -64,30 +65,31 @@ const ResetPassword = {
 }
 
 export const sendResetPassToken = (userId) => {
-    return ResetPassword.step1Success()
-    /*
     return (dispatch) => {
-        dispatch(ResetPassword.tokenSendProcessing())
-        Http.Post('api/account/sendpassresettoken', userId)
-            .fail(data => dispatch(errorHandler(data)))
+        dispatch(ResetPassword.step1Processing())
+        Http.Post('api/account/sendpassresettoken', {userId})
+            .fail(data => {
+                dispatch(errorHandler(data))
+                dispatch(ResetPassword.step1Error(''))
+            })
             .done(result => {
                 switch (result) {
                     case 1:
-                        dispatch(closeChangePassPopup())
-                        dispatch(show(Labels.changePassword_success))
+                        dispatch(ResetPassword.step1Success())
+                        dispatch(show(Labels.resetPass_codeWasSent))
                         break
 
                     case 2:
-                        dispatch(ChangePassPopup.changePassErrorWrongPassword())
+                        dispatch(ResetPassword.step1Error(Labels.resetPass_invalidUser))
                         break
 
                     default:
                         dispatch(showDefaultError())
+                        dispatch(ResetPassword.step1Error(''))
                         break
                 }
             })
     }
-    */
 }
 
 export const resetPass = (info) => {

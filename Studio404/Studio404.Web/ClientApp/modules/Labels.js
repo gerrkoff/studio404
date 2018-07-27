@@ -114,7 +114,9 @@ const Labels = {
     resetPass_step1: 'Введите имя пользователя',
     resetPass_step2: 'Введите новый пароль',
     resetPass_step3: 'Пароль сохранен',
-    resetPass_finish: '... и теперь вы снова можете зайти под своим аккаунтом'
+    resetPass_finish: '... и теперь вы снова можете зайти под своим аккаунтом',
+    resetPass_codeWasSent: 'Код выслан по номеру телефона пользователя',
+    resetPass_invalidUser: 'Невозможно сбросить пароль для этого пользователя'
 }
 
 export default Labels

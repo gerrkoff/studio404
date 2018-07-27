@@ -14,6 +14,7 @@ class LoginPopup extends Component {
     constructor (props) {
         super(props)
         this.externalLogin = this.externalLogin.bind(this)
+        this.resetPassword = this.resetPassword.bind(this)
     }
 
     render () {
@@ -69,6 +70,8 @@ class LoginPopup extends Component {
                                 labelPosition="right"
                                 toggled={this.props.registration}
                                 onToggle={(event, isChecked) => this.props.toggleRegistration(isChecked)} />
+                            <br />
+                            <FlatButton label={Labels.resetPassword} secondary={true} onClick={this.resetPassword} />
                         </Col>
                         <Col md="4" sm="4">
                             <br /><FlatButton label="VKontakte" secondary={true} onClick={() => this.externalLogin('Vkontakte')} />
@@ -86,6 +89,11 @@ class LoginPopup extends Component {
         let returnUrl = encodeURI(this.props.history.location.pathname)
         let redirectUrl = `/externallogin/${provider}?returnUrl=${returnUrl}`
         location.replace(redirectUrl)
+    }
+
+    resetPassword () {
+        this.props.history.push('/resetpass')
+        this.props.closePopup()
     }
 }
 

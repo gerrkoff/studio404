@@ -61,6 +61,12 @@ const ResetPassword = {
             type: 'RESET_PASS_STEP2_ERROR',
             tokenError
         }
+    },
+
+    discard: () => {
+        return {
+            type: 'RESET_PASS_DISCARD'
+        }
     }
 }
 
@@ -121,3 +127,4 @@ export const resetPass = (info) => {
 export const updateStep1Info = (fieldName, fieldValue) => ResetPassword.updateStep1Info(fieldName, fieldValue)
 export const updateStep2Info = (fieldName, fieldValue) => ResetPassword.updateStep2Info(fieldName, fieldValue)
 export const stepBack = () => ResetPassword.stepBack()
+export const discard = () => ResetPassword.discard()

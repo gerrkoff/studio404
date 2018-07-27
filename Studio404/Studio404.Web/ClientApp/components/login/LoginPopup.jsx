@@ -94,6 +94,7 @@ class LoginPopup extends Component {
     resetPassword () {
         this.props.history.push('/resetpass')
         this.props.closePopup()
+        this.props.resetPasswordDiscard()
     }
 }
 

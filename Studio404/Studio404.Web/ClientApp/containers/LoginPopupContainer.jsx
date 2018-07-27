@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import LoginPopup from '../components/login/LoginPopup'
 import { login, openLoginPopup, closeLoginPopup, register, toggleRegistration, updateLoginInfo, updateRegisterInfo } from '../actions/LoginPopupActions'
+import { discard } from '../actions/ResetPasswordActions'
 
 const mapStateToProps = (state) => {
     return {
@@ -16,7 +17,8 @@ const mapDispatchToProps = (dispatch) => {
         closePopup: () => dispatch(closeLoginPopup()),
         toggleRegistration: (registration) => dispatch(toggleRegistration(registration)),
         updateLoginInfo: (fieldName, fieldValue) => dispatch(updateLoginInfo(fieldName, fieldValue)),
-        updateRegisterInfo: (fieldName, fieldValue) => dispatch(updateRegisterInfo(fieldName, fieldValue))
+        updateRegisterInfo: (fieldName, fieldValue) => dispatch(updateRegisterInfo(fieldName, fieldValue)),
+        resetPasswordDiscard: () => dispatch(discard())
     }
 }
 

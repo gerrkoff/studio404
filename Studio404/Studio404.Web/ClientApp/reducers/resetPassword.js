@@ -23,6 +23,9 @@ const initialState = {
 const resetPassword = (state = initialState, action) => {
     let newState = {}
     switch (action.type) {
+        case 'RESET_PASS_DISCARD':
+            return initialState
+
         case 'RESET_PASS_STEP_BACK':
             newState = {
                 ...state,

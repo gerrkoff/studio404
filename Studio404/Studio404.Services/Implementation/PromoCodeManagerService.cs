@@ -43,7 +43,7 @@ namespace Studio404.Services.Implementation
 			entity.From = promoCodeDto.From.Value;
 			entity.To = promoCodeDto.To.Value;
 			entity.Discount = promoCodeDto.Discount.Value;
-			entity.Code = promoCodeDto.Code;
+			entity.Code = promoCodeDto.Code.ToLowerInvariant();
 			entity.Description = promoCodeDto.Description;
 
 			return entity;

@@ -35,7 +35,8 @@ namespace Studio404.Automapper
 			CreateMap<BookingEntity, BookingSpecialDto>();
 			CreateMap<BookingSpecialSaveDto, BookingEntity>();
 			CreateMap<PromoCodeEntity, PromoCodeDto>();
-			CreateMap<PromoCodeSaveDto, PromoCodeEntity>();
+			CreateMap<PromoCodeSaveDto, PromoCodeEntity>()
+		        .ForMember(x => x.Code, e => e.MapFrom(x => x.Code.ToLowerInvariant()));
 
 	        CreateMap<HourCostEntity, StudioSchedule>();
 	        CreateMap<HourCostEntity, StudioSchedule.SpecialCost>();

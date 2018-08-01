@@ -33,7 +33,8 @@ namespace Studio404.Web.Admin
             services
                 .ConfigDiServices(Configuration)
                 .ConfigDb(Configuration)
-				.ConfigAutoMapper();
+				.ConfigAutoMapper()
+                .ConfigCompression();
 
 			services.AddIdentity<UserEntity, IdentityRole>()
 				.AddEntityFrameworkStores<ApplicationContext>()
@@ -80,6 +81,7 @@ namespace Studio404.Web.Admin
                 PolicyName = AuthorizedUsersPolicyName
             });
             app.UseMiddleware<AntiforgeryMiddleware>("XSRF-TOKEN");
+            app.UseResponseCompression();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();

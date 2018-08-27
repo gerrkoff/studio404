@@ -33,7 +33,6 @@ Two Single Page Applications consuming REST service:
 https://studio404.devstage.ru/
 #### Admin
 https://admin.studio404.devstage.ru/
-``` 
-Username: q
-Password: qqqqq
+```
+You need to ask for a username/password
 ```

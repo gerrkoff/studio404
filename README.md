@@ -13,6 +13,8 @@ Web Application for booking time
 
 https://studio404.devstage.ru/
 
+https://admin.studio404.devstage.ru/
+
 ### Run locally
 
 Firstly, build front-end via commands:

@@ -5,21 +5,34 @@
 [![GitHub top language](https://img.shields.io/github/languages/top/gerrkoff/studio404.svg)](https://github.com/gerrkoff/studio404/)
 [![GitHub language count](https://img.shields.io/github/languages/count/gerrkoff/studio404.svg)](https://github.com/gerrkoff/studio404/)
 
-### Info
+## About
+Web Application for autonomous managing access to the rented space
+#### Workflow
+- Book the time
+- Pay for it
+- Receive message with the code
+- Now you have access to the rented space via the code during booked time
 
-Web Application for booking time
+## Under the hood
+Two Single Page Applications consuming REST service:
+- Client – for Users to book time and pay for it
+- Admin – for Admins to handle settings and check bookings
 
-### Staging
+#### Technologies
+- Client – ReactJS, Redux, MaterialUI, Bootstrap
+- Admin – Angular 2+, Ant Design
+- Backend – ASP.NET Core, Entity Framework Core, MS SQL, PostgreSQL
 
+#### Integrations
+- Yandex.Money – to process payments
+- Sms.Ru & Twillio – to send user an SMS with the code
+- Arduino – to check if the entered code is valid and open door to the rented space
+
+## Demo
+#### Client
 https://studio404.devstage.ru/
-
-### Run locally
-
-Firstly, build front-end via commands:
-
+#### Admin
+https://admin.studio404.devstage.ru/
 ```
-npm install
-npm run build_d
+You need to ask for a username/password
 ```
-
-Secondly, open solution in your favourite IDE and run it.

@@ -27,9 +27,9 @@ Two Single Page Applications consuming REST service:
 
 ## Demo
 #### Client
-https://studio404.devstage.ru/
+https://studio404.grkf.ru/
 #### Admin
-https://admin.studio404.devstage.ru/
+https://admin.studio404.grkf.ru/
 ```
 You need to ask for a username/password
 ```

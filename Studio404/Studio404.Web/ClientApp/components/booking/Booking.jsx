@@ -5,7 +5,7 @@ import DateService from '../../modules/DateService'
 import TimeBooking from './TimeBooking'
 import BookingDayChooser from '../../components/booking/BookingDayChooser'
 import css from '../../styles/booking.css'
-import $ from 'jQuery'
+import $ from 'jquery'
 
 class Booking extends Component {
     constructor (props) {

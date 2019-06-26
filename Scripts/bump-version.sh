@@ -11,7 +11,7 @@ echo "Enter ADMIN version (PATCH) ('-' for skip): "
 read versionAdmin
 
 echo "WEB"
-if [ ! -z "$versionWeb" && $versionWeb == '-' ]
+if [ ! -z "$versionWeb" ] && [ $versionWeb == '-' ]
     then
         echo "Skip version"
     else
@@ -19,7 +19,7 @@ if [ ! -z "$versionWeb" && $versionWeb == '-' ]
 fi
 
 echo "ADMIN"
-if [ ! -z "$versionAdmin" && $versionAdmin == '-' ]
+if [ ! -z "$versionAdmin" ] && [ $versionAdmin == '-' ]
     then
         echo "Skip version"
     else

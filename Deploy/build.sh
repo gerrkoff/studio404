@@ -32,7 +32,9 @@ print 'FE ADMIN: LINT'
 npm run lint || exit $?
 
 print 'FE ADMIN: BUILD'
-node --max_old_space_size=8000 $(which npm) run prod || exit $?
+node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build --prod
+node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build login-app --prod
+# node --max_old_space_size=8000 $(which npm) run prod || exit $?
 # npm run prod || exit $?
 
 # test & build BE

@@ -1,4 +1,4 @@
-import $ from 'jQuery'
+import $ from 'jquery'
 import NProgress from 'react-nprogress'
 import { show } from '../actions/MessageActions'
 import Labels from './Labels'

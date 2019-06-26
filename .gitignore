@@ -80,8 +80,6 @@ Studio404/Studio404.Services.Tests/bin/
 *.userprefs
 app.js.map
 Publish
-Deploy/src/
-Deploy/TestResults/
 Studio404/Studio404.Services.Tests/TestResults/Anton_ANTONPC_2017-12-24_13_50_38.trx
 Studio404/Studio404.Services.Tests/TestsQqq/results.trx
 Studio404/Studio404.Web/appsettings.Development.json
@@ -98,3 +96,5 @@ Studio404/Studio404.Web.Admin/wwwroot
 Studio404/Studio404.Web.Admin/src/dist/
 Studio404/Studio404.Web.Common/obj/
 Studio404/Studio404.Web.Common/bin/
+artifacts
+appsettings.Production*

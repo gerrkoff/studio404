@@ -22,7 +22,7 @@ namespace Studio404.Web.Admin.Controllers
         [HttpGet]
         public FileResult Get()
         {
-            return File("~/Login/index-login.html", "text/html");
+            return File("~/login/index-login.html", "text/html");
         }
 
         [HttpPost]

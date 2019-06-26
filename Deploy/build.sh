@@ -32,7 +32,8 @@ print 'FE ADMIN: LINT'
 npm run lint || exit $?
 
 print 'FE ADMIN: BUILD'
-npm run prod || exit $?
+node --max_old_space_size=8000 $(which npm) run prod || exit $?
+# npm run prod || exit $?
 
 # test & build BE
 print 'BE: TEST'

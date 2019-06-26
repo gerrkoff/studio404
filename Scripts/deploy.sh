@@ -14,6 +14,7 @@ git pull
 git merge master
 
 sh bump-version.sh
+git add -u
 git commit -m 'bump version'
 
 # git push

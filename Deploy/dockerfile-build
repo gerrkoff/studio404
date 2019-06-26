@@ -3,7 +3,6 @@ FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install -g npm
-RUN npm install -g increase-memory-limit
 
 COPY Studio404 /app/Studio404
 COPY Deploy /app/Deploy

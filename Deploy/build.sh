@@ -26,9 +26,6 @@ npm run prod || exit $?
 # test & build FE ADMIN
 print 'FE ADMIN: GET DEPS'
 cd "$DIR"/Studio404/Studio404.Web.Admin/ || exit $?
-print 'increase memory limit'
-increase-memory-limit
-print 'move on'
 npm install || exit $?
 
 print 'FE ADMIN: LINT'

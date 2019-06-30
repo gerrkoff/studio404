@@ -172,7 +172,7 @@ namespace Studio404.Web.Common.Configuration
         }
 
 	    public static IServiceCollection ConfigDiServices(this IServiceCollection services, IConfiguration configuration)
-        {
+	    {   
             services.AddScoped(typeof(IRepositoryNonDeletable<>), typeof(RepositoryNonDeletable<>));
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			services.AddScoped<IBookingService, BookingService>();
@@ -185,10 +185,14 @@ namespace Studio404.Web.Common.Configuration
             services.AddScoped<ICostEvaluationService, CostEvaluationService>();
             services.AddScoped<ITokenService, TokenService>();
 			services.AddScoped<IExternalService, ExternalService>();
-			services.AddScoped<IUserManagerService, UserManagerService>();
 			services.AddScoped<IHourCostManagerService, HourCostManagerService>();
-	        services.AddScoped<IBookingManagerService, BookingManagerService>();
 			services.AddScoped<IPromoCodeManagerService, PromoCodeManagerService>();
+			services.AddScoped<IBookingManagerService>(provider => new BookingManagerService(
+					provider.GetService<IRepository<BookingEntity>>(),
+					bool.Parse(configuration["DemoStaging"])));
+			services.AddScoped<IUserManagerService>(provider => new UserManagerService(
+					provider.GetService<UserManager<UserEntity>>(),
+					bool.Parse(configuration["DemoStaging"])));
 
 			#region SmsService
 

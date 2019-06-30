@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Studio404.Services.Interface;
 using Studio404.Dto.UserManager;
 using System.Collections.Generic;
-using Studio404.Web.Common.Controllers;
+using Studio404.Web.Admin.Controllers.Base;
 
 namespace Studio404.Web.Admin.Controllers
 {
     [Route("api/[controller]")]
-    public class UsersController : BaseController
+    public class UsersController : BaseUserController
     {
         private readonly IUserManagerService _userManagerService;
 
@@ -20,7 +20,7 @@ namespace Studio404.Web.Admin.Controllers
         [HttpGet]
         public Task<IEnumerable<UserDto>> Get()
         {
-			return _userManagerService.GetUsersAsync();
+			return _userManagerService.GetUsersAsync(GetUser().UserId);
         }
 
 		[HttpPost]

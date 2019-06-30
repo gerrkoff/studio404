@@ -8,24 +8,34 @@ using Studio404.Dal.Repository;
 using Studio404.Dto.BookingManager;
 using Studio404.Services.Interface;
 using AutoMapper;
+using Studio404.Services.Extensions;
 
 namespace Studio404.Services.Implementation
 {
     public class BookingManagerService : IBookingManagerService
     {
         private readonly IRepository<BookingEntity> _bookingRepository;
+        private readonly bool _demoStaging;
 
-        public BookingManagerService(IRepository<BookingEntity> bookingRepository)
+        public BookingManagerService(IRepository<BookingEntity> bookingRepository, bool demoStaging)
         {
-            _bookingRepository = bookingRepository;
+	        _bookingRepository = bookingRepository;
+	        _demoStaging = demoStaging;
         }
 
-        public IEnumerable<BookingUserDto> GetUserBookings()
+        public IEnumerable<BookingUserDto> GetUserBookings(string userId)
         {
-            return _bookingRepository.GetAll()
-				.Where(x => x.Status != BookingStatusEnum.Special)
-				.ProjectTo<BookingUserDto>()
-				.ToList();
+	        IList<BookingUserDto> bookings = _bookingRepository.GetAll()
+		        .Where(x => x.Status != BookingStatusEnum.Special)
+		        .ProjectTo<BookingUserDto>()
+		        .ToList();
+	        
+	        if (_demoStaging)
+	        {
+		        bookings = bookings.HideSensitiveData(userId);
+	        }
+	        
+            return bookings;
         }
 
         public void CancelUserBooking(int id)

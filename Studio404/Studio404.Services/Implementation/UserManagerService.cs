@@ -12,19 +12,22 @@ using AutoMapper.QueryableExtensions;
 using Studio404.Common.Exceptions;
 using System;
 using Studio404.Dal;
+using Studio404.Services.Extensions;
 
 namespace Studio404.Services.Implementation
 {
     public class UserManagerService : IUserManagerService
     {
 		private readonly UserManager<UserEntity> _userManager;
+		private readonly bool _demoStaging;
 
-        public UserManagerService(UserManager<UserEntity> userManager)
+        public UserManagerService(UserManager<UserEntity> userManager, bool demoStaging)
         {
-            _userManager = userManager;
+	        _userManager = userManager;
+	        _demoStaging = demoStaging;
         }
 
-		public async Task<IEnumerable<UserDto>> GetUsersAsync()
+		public async Task<IEnumerable<UserDto>> GetUsersAsync(string userId)
 		{
 			IList<UserDto> users = _userManager.Users.ProjectTo<UserDto>().ToList();
 			IList<string> admins = (await _userManager.GetUsersInRoleAsync(Roles.ADMINISTRATOR_ROLE_NAME))
@@ -33,6 +36,11 @@ namespace Studio404.Services.Implementation
 			foreach (UserDto user in users)
 			{
 				user.IsAdmin = admins.Contains(user.Id);
+			}
+
+			if (_demoStaging)
+			{
+				users = users.HideSensitiveData(userId);
 			}
 			
 			return users;

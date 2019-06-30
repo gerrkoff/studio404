@@ -5,7 +5,7 @@ namespace Studio404.Services.Interface
 {
     public interface IBookingManagerService
 	{
-		IEnumerable<BookingUserDto> GetUserBookings();
+		IEnumerable<BookingUserDto> GetUserBookings(string userId);
 		void CancelUserBooking(int id);
 
 		IEnumerable<BookingSpecialDto> GetSpecialBookings();

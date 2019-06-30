@@ -3,12 +3,12 @@ using Studio404.Services.Interface;
 using System.Collections.Generic;
 using Studio404.Dto.BookingManager;
 using Studio404.Common.Exceptions;
-using Studio404.Web.Common.Controllers;
+using Studio404.Web.Admin.Controllers.Base;
 
 namespace Studio404.Web.Admin.Controllers
 {
 	[Route("api/[controller]")]
-    public class BookingsController : BaseController
+    public class BookingsController : BaseUserController
 	{
 		private readonly IBookingManagerService _bookingManagerService;
 
@@ -18,13 +18,13 @@ namespace Studio404.Web.Admin.Controllers
         }
 
         [HttpGet("user")]
-        public IEnumerable<BookingUserDto> GetUser()
+        public IEnumerable<BookingUserDto> GetUserBookings()
         {
-	        return _bookingManagerService.GetUserBookings();
+	        return _bookingManagerService.GetUserBookings(GetUser().UserId);
         }
 		
 		[HttpDelete("user/{id}")]
-		public void DeleteUser(int id)
+		public void DeleteUserBooking(int id)
 		{
 			_bookingManagerService.CancelUserBooking(id);
 		}

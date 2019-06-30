@@ -15,7 +15,7 @@ namespace Studio404.Web.Common.Configuration
 		{
 		}
 
-		public async override Task<ClaimsPrincipal> CreateAsync(UserEntity user)
+		public override async Task<ClaimsPrincipal> CreateAsync(UserEntity user)
 		{
 			ClaimsPrincipal principal = await base.CreateAsync(user);
 

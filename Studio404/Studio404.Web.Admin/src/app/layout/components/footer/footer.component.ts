@@ -9,6 +9,7 @@ import { MiscService } from '../../../common/services/misc.service';
 export class FooterComponent implements OnInit {
 
   version: string;
+  demoStaging: boolean;
 
   constructor(
     private miscService: MiscService
@@ -21,5 +22,6 @@ export class FooterComponent implements OnInit {
   private async getInfo(): Promise<void> {
     const data = await this.miscService.getMiscInfo();
     this.version = data.version;
+    this.demoStaging = data.demoStaging;
   }
 }

@@ -1,6 +1,11 @@
 <div class="info">
-  <span>
-    version: {{version}}
+  <span *ngIf="demoStaging">
+      WARNING! This is a demo environment, all sensitive data is hidden under ***
   </span>
+  <div class="right">
+      <span>
+        version: {{version}}
+      </span>
+  </div>
 </div>
 

@@ -228,9 +228,9 @@ namespace Studio404.Web.Common.Configuration
 	    public static IServiceCollection ConfigReverseProxy(this IServiceCollection services)
 	    {
 		    services.Configure<ForwardedHeadersOptions>(options =>
-		    {
-			    options.ForwardedHeaders = ForwardedHeaders.All;
-		    });
+			    {
+				    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+			    });
 		    
 		    return services;
 	    }

@@ -40,9 +40,26 @@ namespace Studio404.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            
+            app.Use(async (context, next) =>
+            {
+                logger.Info($"!!! Remote {context.Connection.RemoteIpAddress}");
+                logger.Info($"!!! Scheme {context.Request.Scheme}");
+                logger.Info($"!!! Host   {context.Request.Host}");
+                await next();
+            });
+            
             app.UseForwardedHeaders();
             
-            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            app.Use(async (context, next) =>
+            {
+                logger.Info($"!!! Remote {context.Connection.RemoteIpAddress}");
+                logger.Info($"!!! Scheme {context.Request.Scheme}");
+                logger.Info($"!!! Host   {context.Request.Host}");
+                await next();
+            });
+            
             
             app.Use(async (context, next) =>
             {

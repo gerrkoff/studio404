@@ -27,7 +27,8 @@ namespace Studio404.Web
                 .ConfigDiServices(Configuration)
                 .ConfigAutoMapper()
                 .ConfigConfiguration(Configuration)
-                .ConfigCompression();
+                .ConfigCompression()
+                .ConfigReverseProxy();
 
             services.AddMvc(options =>
             {
@@ -38,6 +39,8 @@ namespace Studio404.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseForwardedHeaders();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

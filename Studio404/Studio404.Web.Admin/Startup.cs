@@ -34,7 +34,8 @@ namespace Studio404.Web.Admin
                 .ConfigDiServices(Configuration)
                 .ConfigDb(Configuration)
 				.ConfigAutoMapper()
-                .ConfigCompression();
+                .ConfigCompression()
+                .ConfigReverseProxy();
 
 			services.AddIdentity<UserEntity, IdentityRole>()
 				.AddEntityFrameworkStores<ApplicationContext>()
@@ -68,6 +69,8 @@ namespace Studio404.Web.Admin
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseForwardedHeaders();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

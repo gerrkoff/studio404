@@ -4,6 +4,7 @@ using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
@@ -223,5 +224,15 @@ namespace Studio404.Web.Common.Configuration
 
 	        return services;
         }
+	    
+	    public static IServiceCollection ConfigReverseProxy(this IServiceCollection services)
+	    {
+		    services.Configure<ForwardedHeadersOptions>(options =>
+		    {
+			    options.ForwardedHeaders = ForwardedHeaders.All;
+		    });
+		    
+		    return services;
+	    }
     }
 }

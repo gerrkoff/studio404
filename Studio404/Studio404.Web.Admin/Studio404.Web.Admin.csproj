@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
-    <VersionPrefix>0.7.3</VersionPrefix>
+    <VersionPrefix>0.7.4</VersionPrefix>
     <VersionSuffix>0</VersionSuffix>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>

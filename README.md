@@ -29,7 +29,8 @@ Two Single Page Applications consuming REST service:
 #### Client
 https://studio404.grkf.ru/
 #### Admin
-https://admin.studio404.grkf.ru/
+https://studio404admin.grkf.ru/
 ```
-You need to ask for a username/password
+Username: sandbox
+Password: S@ndb0x
 ```

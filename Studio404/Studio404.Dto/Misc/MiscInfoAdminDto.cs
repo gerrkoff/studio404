@@ -3,5 +3,6 @@
     public class MiscInfoAdminDto : MiscInfoDto
 	{
         public string UserDisplayName { get; set; }
+        public bool DemoStaging { get; set; }
     }
 }

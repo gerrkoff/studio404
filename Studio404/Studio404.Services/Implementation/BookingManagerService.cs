@@ -15,12 +15,12 @@ namespace Studio404.Services.Implementation
     public class BookingManagerService : IBookingManagerService
     {
         private readonly IRepository<BookingEntity> _bookingRepository;
-        private readonly bool _demoStaging;
+        private readonly IAdminConfiguration _configuration;
 
-        public BookingManagerService(IRepository<BookingEntity> bookingRepository, bool demoStaging)
+        public BookingManagerService(IRepository<BookingEntity> bookingRepository, IAdminConfiguration configuration)
         {
 	        _bookingRepository = bookingRepository;
-	        _demoStaging = demoStaging;
+	        _configuration = configuration;
         }
 
         public IEnumerable<BookingUserDto> GetUserBookings(string userId)
@@ -30,7 +30,7 @@ namespace Studio404.Services.Implementation
 		        .ProjectTo<BookingUserDto>()
 		        .ToList();
 	        
-	        if (_demoStaging)
+	        if (_configuration.DemoStaging)
 	        {
 		        bookings = bookings.HideSensitiveData(userId);
 	        }

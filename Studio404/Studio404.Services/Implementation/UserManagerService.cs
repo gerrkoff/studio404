@@ -19,12 +19,12 @@ namespace Studio404.Services.Implementation
     public class UserManagerService : IUserManagerService
     {
 		private readonly UserManager<UserEntity> _userManager;
-		private readonly bool _demoStaging;
+		private readonly IAdminConfiguration _configuration;
 
-        public UserManagerService(UserManager<UserEntity> userManager, bool demoStaging)
+        public UserManagerService(UserManager<UserEntity> userManager, IAdminConfiguration configuration)
         {
 	        _userManager = userManager;
-	        _demoStaging = demoStaging;
+	        _configuration = configuration;
         }
 
 		public async Task<IEnumerable<UserDto>> GetUsersAsync(string userId)
@@ -38,7 +38,7 @@ namespace Studio404.Services.Implementation
 				user.IsAdmin = admins.Contains(user.Id);
 			}
 
-			if (_demoStaging)
+			if (_configuration.DemoStaging)
 			{
 				users = users.HideSensitiveData(userId);
 			}

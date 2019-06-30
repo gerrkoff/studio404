@@ -187,12 +187,10 @@ namespace Studio404.Web.Common.Configuration
 			services.AddScoped<IExternalService, ExternalService>();
 			services.AddScoped<IHourCostManagerService, HourCostManagerService>();
 			services.AddScoped<IPromoCodeManagerService, PromoCodeManagerService>();
-			services.AddScoped<IBookingManagerService>(provider => new BookingManagerService(
-					provider.GetService<IRepository<BookingEntity>>(),
-					bool.Parse(configuration["DemoStaging"])));
-			services.AddScoped<IUserManagerService>(provider => new UserManagerService(
-					provider.GetService<UserManager<UserEntity>>(),
-					bool.Parse(configuration["DemoStaging"])));
+			services.AddScoped<IBookingManagerService, BookingManagerService>();
+			services.AddScoped<IUserManagerService, UserManagerService>();
+			services.AddScoped<IAdminConfiguration, AdminConfiguration>();
+			services.AddSingleton(configuration);
 
 			#region SmsService
 

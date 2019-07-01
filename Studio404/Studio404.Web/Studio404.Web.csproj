@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
-    <VersionPrefix>0.13.11</VersionPrefix>
+    <VersionPrefix>0.13.12</VersionPrefix>
     <VersionSuffix>0</VersionSuffix>
   </PropertyGroup>
   <ItemGroup>

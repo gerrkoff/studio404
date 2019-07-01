@@ -230,6 +230,8 @@ namespace Studio404.Web.Common.Configuration
 		    services.Configure<ForwardedHeadersOptions>(options =>
 			    {
 				    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+				    options.KnownProxies.Clear();
+				    options.KnownNetworks.Clear();
 			    });
 		    
 		    return services;

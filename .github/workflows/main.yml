@@ -1,0 +1,52 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build-fe-web:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Build FE Web
+      run: |
+        cd Studio404/Studio404.Web/
+        npm install
+        npm run test
+        npm run prod
+        
+  build-fe-admin:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Build FE Admin
+      run: |
+        cd Studio404/Studio404.Web.Admin/
+        npm install
+        npm run lint
+        node node_modules/@angular/cli/bin/ng build --prod
+        node node_modules/@angular/cli/bin/ng build login-app --prod
+
+  build-be:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.2.108
+    - name: Build BE Web and Admin
+      run: |
+        cd Studio404/Studio404.Services.Tests/
+        dotnet test
+        cd ../Studio404.Web/
+        dotnet publish -c Release
+        cd ../Studio404.Web.Admin/
+        dotnet publish -c Release

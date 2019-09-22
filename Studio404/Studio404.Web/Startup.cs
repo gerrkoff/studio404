@@ -39,47 +39,8 @@ namespace Studio404.Web
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
-            
-            app.Use(async (context, next) =>
-            {
-                logger.Info($"!!! Remote {context.Connection.RemoteIpAddress}");
-                logger.Info($"!!! Scheme {context.Request.Scheme}");
-                logger.Info($"!!! Host   {context.Request.Host}");
-                await next();
-            });
-            
+        {   
             app.UseForwardedHeaders();
-            
-            app.Use(async (context, next) =>
-            {
-                logger.Info($"!!! Remote {context.Connection.RemoteIpAddress}");
-                logger.Info($"!!! Scheme {context.Request.Scheme}");
-                logger.Info($"!!! Host   {context.Request.Host}");
-                await next();
-            });
-            
-            
-            app.Use(async (context, next) =>
-            {
-                // Request method, scheme, and path
-                logger.Info("Request Method: {METHOD}", context.Request.Method);
-                logger.Info("Request Scheme: {SCHEME}", context.Request.Scheme);
-                logger.Info("Request Path: {PATH}", context.Request.Path);
-
-                // Headers
-                foreach (var header in context.Request.Headers)
-                {
-                    logger.Info("Header: {KEY}: {VALUE}", header.Key, header.Value);
-                }
-
-                // Connection: RemoteIp
-                logger.Info("Request RemoteIp: {REMOTE_IP_ADDRESS}", 
-                    context.Connection.RemoteIpAddress);
-
-                await next();
-            });
 
             if (env.IsDevelopment())
             {

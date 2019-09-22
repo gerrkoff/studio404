@@ -63,8 +63,6 @@ dotnet publish -c Release -o "$DIR"/Deploy/artifacts/src/studio404admin || exit 
 # misc
 print 'COPY ADDITIONAL FILES'
 cd "$DIR" || exit $?
-mv appsettings.Production.web.json Deploy/artifacts/src/studio404/appsettings.Production.json || exit $?
-mv appsettings.Production.admin.json Deploy/artifacts/src/studio404admin/appsettings.Production.json || exit $?
 cp Deploy/dockerfile-run-web Deploy/artifacts/ || exit $?
 cp Deploy/dockerfile-run-admin Deploy/artifacts/ || exit $?
 echo copied

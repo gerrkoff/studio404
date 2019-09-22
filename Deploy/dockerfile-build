@@ -6,8 +6,6 @@ RUN npm install -g npm
 
 COPY Studio404 /app/Studio404
 COPY Deploy /app/Deploy
-COPY appsettings.Production.web.json /app/
-COPY appsettings.Production.admin.json /app/
 WORKDIR /app
 
 ENTRYPOINT ["/bin/sh", "-c", "cd Deploy && ./build.sh"]

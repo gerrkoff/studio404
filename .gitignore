@@ -97,4 +97,5 @@ Studio404/Studio404.Web.Admin/src/dist/
 Studio404/Studio404.Web.Common/obj/
 Studio404/Studio404.Web.Common/bin/
 artifacts
-appsettings.Production*
+appsettings.Production.json
+appsettings.Development.json

@@ -32,6 +32,15 @@ namespace Studio404.Web.Admin
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.Sources.Clear();
+                    var env = hostingContext.HostingEnvironment.EnvironmentName;
+                    config
+                        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
+                        .AddJsonFile($"settings/appsettings.{env}.json", optional: true, reloadOnChange: false)
+                        .AddEnvironmentVariables();
+                })
                 .UseStartup<Startup>()
                 .UseNLog()
                 .Build();

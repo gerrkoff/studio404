@@ -33,9 +33,9 @@ npm run lint || exit $?
 
 print 'FE ADMIN: BUILD'
 echo 'build main-app...'
-node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build --prod || exit $?
+node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build || exit $?
 echo 'build login-app...'
-node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build login-app --prod || exit $?
+node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build login-app || exit $?
 
 # test & build BE
 print 'BE: TEST'

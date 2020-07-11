@@ -42,18 +42,6 @@ print 'BE: TEST'
 cd "$DIR"/Studio404/Studio404.Services.Tests/ || exit $?
 dotnet test "--logger:trx;LogFileName=results.trx" --results-directory "$DIR"/Deploy/artifacts/test-results || exit $?
 
-print 'BE: SET BUILD VERSION'
-if [ -z "$1" ]
-    then
-        echo "No BUILD_VERSION provided, skip"
-    else
-        cd "$DIR"/Studio404/Studio404.Web/ || exit $?
-        dotnet "$DIR"/Deploy/dotnet-setversion/dotnet-setversion.dll vs $1
-
-        cd "$DIR"/Studio404/Studio404.Web.Admin/ || exit $?
-        dotnet "$DIR"/Deploy/dotnet-setversion/dotnet-setversion.dll vs $1
-fi
-
 print 'BE WEB: BUILD'
 cd "$DIR"/Studio404/Studio404.Web/ || exit $?
 dotnet publish -c Release -o "$DIR"/Deploy/artifacts/src/studio404 || exit $?

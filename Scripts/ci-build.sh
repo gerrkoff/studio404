@@ -23,13 +23,13 @@ docker build \
     -t gerrkoff/studio404-web:$VERSION_WEB \
     -t gerrkoff/studio404-web:latest \
     . || exit $?
-docker push gerrkoff/studio404-web:$VERSION_WEB
-docker push gerrkoff/studio404-web:latest
+# docker push gerrkoff/studio404-web:$VERSION_WEB
+# docker push gerrkoff/studio404-web:latest
 
 docker build \
     -f dockerfile-run-admin.dockerfile \
     -t gerrkoff/studio404-admin:$VERSION_ADMIN \
     -t gerrkoff/studio404-admin:latest \
     . || exit $?
-docker push gerrkoff/studio404-admin:$VERSION_ADMIN
-docker push gerrkoff/studio404-admin:latest
+# docker push gerrkoff/studio404-admin:$VERSION_ADMIN
+# docker push gerrkoff/studio404-admin:latest

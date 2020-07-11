@@ -6,6 +6,6 @@ cp Studio404/Studio404.Web.Admin/settings/appsettings.Development.json Studio404
 docker rm -f studio404-admin
 docker run -t \
     -p 5000:80 \
-    -v "$(pwd)"/Studio404/DarkDeeds.Web.Admin/settings:/app/settings \
+    -v "$(pwd)"/Studio404/Studio404.Web.Admin/settings:/app/settings \
     --name studio404-admin \
     gerrkoff/studio404-admin:latest

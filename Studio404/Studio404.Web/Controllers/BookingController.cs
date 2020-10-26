@@ -35,9 +35,9 @@ namespace Studio404.Web.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<DayHourDto> Hours(DateTime date)
+        public IEnumerable<DayHourDto> Hours(DateTime chosenDate)
         {
-            return _bookingService.GetDayWorkload(date);
+            return _bookingService.GetDayWorkload(chosenDate);
         }
 
         [Authorize]
